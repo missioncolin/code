@@ -1,0 +1,66 @@
+/*
+ * jsTree quipp theme 1.0
+ * Supported features: dots/no-dots, icons/no-icons, focused, loading
+ * Supported plugins: ui (hovered, clicked), checkbox, contextmenu, search
+ */
+
+
+.jstree-quipp > ul { background:none; }
+/* .jstree-quipp > ul { background:url("bg.jpg") left top repeat; } */
+
+.jstree-quipp li.hidden { display:none; } /* 'hidden' is a custom class created by Brendan to hide items not avail without destroying the defaults set in jstree.js */
+.jstree-quipp li, 
+.jstree-quipp ins { background-image:url("d.png"); background-repeat:no-repeat; background-color:none; }
+.jstree-quipp li { background-position:-90px 0; background-repeat:repeat-y; font-family:Helvetica, Arial, sans-serif; font-size: 11px; }
+.jstree-quipp li.jstree-last { background:transparent; }
+.jstree-quipp .jstree-open > ins { background-position:-72px 0; }
+.jstree-quipp .jstree-closed > ins { background-position:-54px 0; }
+.jstree-quipp .jstree-leaf > ins { background-position:-36px 0; }
+
+.jstree-quipp a { border-radius:4px; -moz-border-radius:4px; -webkit-border-radius:4px; text-shadow:1px 1px 1px white; }
+.jstree-quipp .jstree-hovered { background:#e7f4f9; border:1px solid #d8f0fa; padding:0 3px 0 1px; text-shadow:1px 1px 1px silver; }
+.jstree-quipp .jstree-clicked { background:#beebff; border:1px solid #99defd; padding:0 3px 0 1px; }
+.jstree-quipp a .jstree-icon { background-position:-56px -20px; }
+.jstree-quipp a.jstree-loading .jstree-icon { background:url("throbber.gif") center center no-repeat !important; }
+
+.jstree-quipp.jstree-focused { background:none; }
+/* .jstree-quipp.jstree-focused { background:white; } */
+
+.jstree-quipp .jstree-no-dots li, 
+.jstree-quipp .jstree-no-dots .jstree-leaf > ins { background:transparent; }
+.jstree-quipp .jstree-no-dots .jstree-open > ins { background-position:-18px 0; }
+.jstree-quipp .jstree-no-dots .jstree-closed > ins { background-position:0 0; }
+
+.jstree-quipp .jstree-no-icons a .jstree-icon { display:none; }
+
+.jstree-quipp .jstree-search { font-style:italic; }
+
+.jstree-quipp .jstree-no-icons .jstree-checkbox { display:inline-block; }
+.jstree-quipp .jstree-no-checkboxes .jstree-checkbox { display:none !important; }
+.jstree-quipp .jstree-checked > a > .jstree-checkbox { background-position:-38px -19px; }
+.jstree-quipp .jstree-unchecked > a > .jstree-checkbox { background-position:-2px -19px; }
+.jstree-quipp .jstree-undetermined > a > .jstree-checkbox { background-position:-20px -19px; }
+.jstree-quipp .jstree-checked > a > .checkbox:hover { background-position:-38px -37px; }
+.jstree-quipp .jstree-unchecked > a > .jstree-checkbox:hover { background-position:-2px -37px; }
+.jstree-quipp .jstree-undetermined > a > .jstree-checkbox:hover { background-position:-20px -37px; }
+
+#vakata-dragged.jstree-quipp ins { background:transparent !important; }
+#vakata-dragged.jstree-quipp .jstree-ok { background:url("d.png") -2px -53px no-repeat !important; }
+#vakata-dragged.jstree-quipp .jstree-invalid { background:url("d.png") -18px -53px no-repeat !important; }
+#jstree-marker.jstree-quipp { background:url("d.png") -41px -57px no-repeat !important; }
+
+.jstree-quipp a.jstree-search { color:aqua; }
+
+#vakata-contextmenu.jstree-quipp-context, 
+#vakata-contextmenu.jstree-quipp-context li ul { background:#f0f0f0; border:1px solid #979797; -moz-box-shadow: 1px 1px 2px #999; -webkit-box-shadow: 1px 1px 2px #999; box-shadow: 1px 1px 2px #999; }
+#vakata-contextmenu.jstree-quipp-context li { }
+#vakata-contextmenu.jstree-quipp-context a { color:black; font-family:Helvetica, Arial, sans-serif; font-size: 11px;  }
+#vakata-contextmenu.jstree-quipp-context a:hover, 
+#vakata-contextmenu.jstree-quipp-context .vakata-hover > a { padding:0 5px; background:#e8eff7; border:1px solid #aecff7; color:black; -moz-border-radius:2px; -webkit-border-radius:2px; border-radius:2px; }
+#vakata-contextmenu.jstree-quipp-context li.jstree-contextmenu-disabled a, 
+#vakata-contextmenu.jstree-quipp-context li.jstree-contextmenu-disabled a:hover { color:silver; background:transparent; border:0; padding:1px 4px; }
+#vakata-contextmenu.jstree-quipp-context li.vakata-separator { background:white; border-top:1px solid #e0e0e0; margin:0; }
+#vakata-contextmenu.jstree-quipp-context li ul { margin-left:-4px; }
+
+
+/* TODO: IE6 support - the `>` selectors */

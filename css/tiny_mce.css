@@ -1,0 +1,36 @@
+body { 
+	font: normal 12px Georgia, Times, Times New Roman, serif;
+}
+h1 { font-size:22px; font-weight:bold; }
+
+h2 { 
+	color:#56004E; 
+	font-size:31px; 
+	text-transform:lowercase; 
+	font-weight:normal;
+	line-height:18px;
+}
+h3 {
+	color:#58595B; 
+	font-size:15px; 
+	text-transform:uppercase; 
+	font-family: "Trebuchet MS", Arial, sans-serif; 
+	font-weight:normal;
+}
+
+h4 {
+	color:#56004E; /*burgundy */
+	font-size:12px; 
+	text-transform:uppercase; 
+	font-family: "Trebuchet MS", Arial, sans-serif; 
+	font-weight:normal;
+}
+h4.subTitleBl,h4.subTitleGr,h4.subTitleBu{
+	text-transform:uppercase;
+	line-height:16px;
+	margin:0px;
+}
+
+h4.subTitleBl{color:#849FAE; /*blue winter */}
+h4.subTitleGr{color:#58595B;/*gray */}
+h4.subTitleBu{color:#56004E;}/*purple for winter new class b/c of spacing*/

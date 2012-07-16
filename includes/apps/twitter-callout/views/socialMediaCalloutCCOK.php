@@ -1,0 +1,3 @@
+<div id="socialMediaWidget">
+    <a href="https://twitter.com/#!/kindersmiles" target="_blank"><img style="padding-right: 5px;" src="../../../../images/layout/twitterButton.png" alt="twitterButton" width="154" height="41" /></a><a href="http://www.facebook.com/kindersmiles" target="_blank"><img src="../../../../images/layout/facebookButton.png" alt="facebookButton" width="177" height="47" /></a>
+</div>

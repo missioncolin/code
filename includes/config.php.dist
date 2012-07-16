@@ -1,0 +1,14 @@
+<?php
+
+    $check = __DIR__ . DIRECTORY_SEPARATOR . 'config.php';
+    $local = (is_file($check) ? require $check : array());
+
+    return $local + array(
+        'db' => array(
+            'host'  => 'localhost'
+          , 'user'  => 'webuser'
+          , 'pass'  => '32webuser32'
+          , 'name'  => '140-001_intervue'
+          , 'class' => 'DB_MySQL'
+        )
+    );
