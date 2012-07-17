@@ -545,6 +545,11 @@ header {
     width: 100%;
     border-top: 3px solid @accent;
     border-bottom: 1px solid #CCC;
+    padding-bottom: 60px;
+}
+
+#home header {
+    padding-bottom: 0;
 }
 
 header > div {
@@ -968,6 +973,85 @@ footer h3 span {
 #footerNav a:hover {
     color: darken(#FFF, 40%);
 }
+
+/* =============================================================================
+   Default Login Page (Dark and Light Theme)
+   ========================================================================== */
+   
+#container.login  {
+    max-width: 450px;
+    margin-top: 80px;
+    margin-bottom: 80px;
+    text-align: center;
+    line-height: 16px;
+}
+
+#loginBox {
+   float: left;
+   width: 100%;
+   padding: 0;
+   text-align: left;
+   margin: 40px 0 0;
+}
+
+#loginBox h2 {
+    font-weight: bold;
+    margin: 0 0 20px;
+    font-size: 20px;
+    padding: 10px 15px;
+    line-height: 26px;
+}
+
+#loginBox div {
+    padding: 10px 15px;
+    float: left;
+    width: 100%;
+    -moz-box-sizing: border-box; 
+    -webkit-box-sizing: border-box; 
+    box-sizing: border-box;
+}
+
+#loginBox .inputs label {
+    float: left;
+    clear: left;
+    padding: 7px 0;
+}
+
+#loginBox .inputs input {
+    float: right;
+    clear: right;
+    width: 75%;
+}
+
+#loginBox .btnStyle {
+    float: right;
+    position: relative;
+    top: -6px;
+    margin-left: 10px;
+}
+
+#loginBox div div {
+    padding: 20px 0 0 0;
+    float: right;
+    width: 57%;
+    text-align: right;
+}
+
+#loginBox div div a { float: right; }
+
+#loginBox div div:first-child { float: left; width: 40%; text-align: left; }
+
+/*Dark Theme----------------------------------------------------------------- */ 
+
+body#login.dark { background: #333; }
+body#login.dark #loginBox { background: #FFF; border: 1px solid #000; }
+body#login.dark #loginBox h2 { background: #EFEFEF; border-bottom: 1px solid #CCC; }
+
+/*Light Theme----------------------------------------------------------------- */ 
+
+body#login.light { background: #EFEFEF; }
+body#login.light #loginBox { background: #FFF; border: 1px solid #CCC; }
+body#login.light #loginBox h2 { background: #333; border-bottom: 1px solid #000; color: #FFF; }
 
 
 /* ==|== media queries ======================================================

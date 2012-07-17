@@ -71,9 +71,9 @@ $DRAGGIN['auth']['directory']['ad_password'] = "";
 */
 
 $meta = array(
-	'title' 	   => 'Kinder Smiles',
+	'title' 	   => 'Intervue',
 	'title_append' => ' &bull; Home',
-	'description'  => '',
+	'description'  => 'Intervue',
 	'keywords'	   => '',
 	'lang'		   => 'en',
 	'robots'	   => 'noindex,nofollow',
