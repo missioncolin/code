@@ -7,5 +7,14 @@ $(document).ready(function () {
         timeout: 8000, 
         pager:  '#testimonialNav' 
     });
+    
+    $(window).scroll(function() {
+        var a=$(window).scrollTop();
+        if(a > 280) {
+            $('#card').addClass('fixed');
+        } else {
+            $('#card').removeClass('fixed');
+        }
+    });
     	  
 });
