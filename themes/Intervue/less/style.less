@@ -476,6 +476,13 @@ td {
     box-sizing: border-box;
 }
 
+.rotate (@amount: 90deg) {
+    -moz-transform: rotate(@arguments);
+    -webkit-transform: rotate(@arguments);
+    -ms-transform: rotate(@arguments);
+    transform: rotate(@arguments);
+}
+
 @base: #828282;
 @base2: #212123;
 
@@ -495,13 +502,13 @@ body {
     line-height: 26px;
     font-family: "freight-sans-pro",sans-serif;
     font-style: normal;
-    font-weight: 500;
+    font-weight: 400;
 }
 
 h1, h2, h3, h4, h5 { 
     margin: 10px 0; 
     font-style: normal;
-    font-weight: 700; 
+    font-weight: 600; 
     text-transform: uppercase;
     color: @base2;
 }
@@ -545,7 +552,7 @@ header {
     width: 100%;
     border-top: 3px solid @accent;
     border-bottom: 1px solid #CCC;
-    padding-bottom: 60px;
+    padding-bottom: 120px;
 }
 
 #home header {
@@ -619,7 +626,7 @@ nav li {
 nav a {
     color: @base2;
     font-size: 20px;
-    font-weight: 700;
+    font-weight: 600;
     text-transform: uppercase;
     text-decoration: none;
 }
@@ -661,7 +668,7 @@ nav a:hover {
 #banner li > span {
     display: block;
     color: #FFF;
-    font-weight: 700;
+    font-weight: 600;
     font-size: 21px;
     line-height: 25px;
     text-align: center;
@@ -686,7 +693,7 @@ nav a:hover {
 }
 
 #banner h2 {
-    font-weight: 500;
+    font-weight: 400;
     text-transform: capitalize;
     font-size: 34px;
     line-height: 40px;
@@ -695,7 +702,7 @@ nav a:hover {
 }
 
 #banner h2 strong {
-    font-weight: 700;
+    font-weight: 600;
     font-size: 44px;
 }
 
@@ -775,9 +782,9 @@ a.btn, input.btn {
     text-align: center;
     color: #FFF;
     font-size: 14px;
-    font-weight: 700;
+    font-weight: 600;
     text-transform: uppercase;
-    padding: 6px 40px;
+    padding: 6px 30px;
     .border-radius(3px);
     display: inline-block;
     text-decoration: none;
@@ -795,6 +802,14 @@ a.btn.green, input.btn.green {
 
 a:hover.btn.green, input:hover.btn.green {
     background: darken(@accent2, 10%);
+}
+
+a.btn.black, input.btn.black {
+    background: @base2;
+}
+
+a:hover.btn.black, input:hover.btn.black {
+    background: lighten(@base2, 10%);
 }
 
 /*Box-------------------------------------------------------------------------- */
@@ -821,7 +836,7 @@ a:hover.btn.green, input:hover.btn.green {
 }
 
 #priceCallout span {
-    font-weight: 500;
+    font-weight: 400;
     margin-left: 10px;
 }
 
@@ -905,7 +920,7 @@ a:hover.btn.green, input:hover.btn.green {
 }
 
 #testimonials h4 span {
-    font-weight: 500;
+    font-weight: 400;
     color: @accent;
     float: left;
     margin-top: 4px;
@@ -934,6 +949,195 @@ a:hover.btn.green, input:hover.btn.green {
     background: @accent;
 }
 
+/*Applicant Profile------------------------------------------------------------ */
+
+#applicantProfile {
+    float: left;
+    width: 100%;
+}
+
+#applicantProfile #card {
+    float: left;    
+    width: 40.62%;
+    padding: 0;
+    margin: -50px 0 0;
+    position: relative;
+    border: 1px solid #b7b7b7;
+    .border-radius(3px 3px 0 0);
+}
+
+#card .heading {
+    background: @base2;
+    float: left;
+    width: 100%;
+}
+
+#card .cutout {
+    position: absolute;
+    left: -68px;
+    top: 140px;
+    background: url(img/bg.jpg) repeat;
+    padding: 5px;
+    .border-radius(100px);
+    border-right: 1px solid #b7b7b7;
+    border-top: 1px solid #b7b7b7;
+    .rotate(50deg);
+}
+
+#card .profilePic {
+    width: 126px;
+    height: 126px;
+    .border-radius(68px);
+    background: #FFF;
+    padding: 5px;
+    .box-shadow(0, 1px, 5px, rgba(0,0,0,0.3));
+    .rotate(-50deg);
+}
+
+#card .profilePic img {
+    .border-radius(68px);
+    width: 126px;
+}
+
+.heading h2 {
+    float: left;
+    color: #FFF;
+    font-size: 44px;
+    font-family: "proxima-nova",sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    text-align: center;
+    margin: 30px 0 20px 20px;
+    line-height: 26px;
+}
+
+.heading h2 a {
+    font-size: 14px;
+}
+
+.heading .btn {
+    float: right;
+    margin: 35px 20px 20px 0;
+}
+
+#applicantProfile dl {
+    float: left;
+    width: 74%;
+    margin: 30px 0 30px 100px;
+}
+
+#applicantProfile dt {
+    float: left;
+    width: 85px;
+    color: lighten(@base, 30%);
+}
+
+#applicantProfile #grade {
+    float: left;
+    clear: both;
+    width: 100%;
+    background: #f4f4f4;
+    text-align: center;
+    .border-radius(0 0 3px 3px);
+    border-top: 1px solid #b7b7b7;
+}
+
+#grade h3 {
+    text-align: center;
+    margin: 25px 0;
+}
+
+#grade .btn {
+    margin: 0 0px 15px 5px;
+}
+
+#grade h3 + .btn {
+    margin-left: 0;
+}
+
+#applicantProfile #submissions {
+    float: right;
+    width: 52.08%;
+    margin: 60px 0 0;
+}
+
+#submissions #toolbar {
+    float: left;
+    width: 100%;
+    text-align: center;
+    border-bottom: 1px solid @borders;   
+    margin: 0 0 30px;
+    padding: 0 0 20px;
+}
+
+#toolbar .left {
+    float: left;
+}
+
+#toolbar h4 {
+    display: inline;
+    text-transform: capitalize;
+    color: @base;
+    font-weight: 400;
+    margin: 0;
+}
+
+#toolbar h4 span {
+    color: lighten(@base, 30%);
+}
+
+#toolbar .right {
+    float: right;
+}
+
+#applicantProfile ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+#applicantProfile li {
+    display: inline-block;
+    width: 150px;
+    margin: 10px 0 10px 20px;
+    position: relative;
+}
+
+#applicantProfile li:first-child, #applicantProfile li:nth-child(4) {
+    margin-left: 0;
+}
+
+#applicantProfile ul .imgWrap {
+    border: 1px solid #848484;
+    background: #FFF;
+    .border-radius(3px);
+    .box-shadow(1px, 1px, 5px, rgba(0,0,0,0.2));
+    position: relative;
+    overflow: hidden;
+}
+
+#applicantProfile .imgWrap img {
+    width: 100%;
+    .border-radius(3px);
+}
+
+#applicantProfile .imgWrap .video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -15px 0 0 -15px;
+}
+
+#applicantProfile ul h4 {
+    text-transform: capitalize;
+    font-weight: 400;
+    color: @base;
+}
+
+#videoResponses h3, #resumeCoverLetter h3 {
+    margin: 20px 0;
+}
+
 /* =============================================================================
    Footer
    ========================================================================== */
@@ -954,7 +1158,7 @@ footer h3 {
 }
 
 footer h3 span {
-    font-weight: 500;
+    font-weight: 400;
 }
 
 #footerNav {

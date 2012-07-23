@@ -1,9 +1,13 @@
 <section id="applicantProfile">
 
-    <div id="card">
-        <h2>670<br /><a href="#">Rating Details</a></h2>
-        <a href="#" class="btn">Contact Applicant</a>
-        <img class="profilePic" src="" alt="" />
+    <div id="card" class="box">
+        <div class="heading">
+            <h2>670<br /><a href="#">Rating Details</a></h2>
+            <a href="#" class="btn">Contact Applicant</a>
+        </div>
+        <div class="cutout">
+            <div class="profilePic"><img src="/themes/Intervue/img/profilePicExample.jpg" alt="" /></div>
+        </div>
         <dl>
             <dt>Name</dt>
             <dd>Jon Rundle</dd>
@@ -31,8 +35,8 @@
     <div id="submissions">
         <div id="toolbar">
             <a class="left" href="#">Back to List</a>
-            <h5><span>Reviewing:</span> Jon Rundle</h5>
-            <span clas="right">
+            <h4><span>Reviewing:</span> Jon Rundle</h4>
+            <span class="right">
                 <a href="#">Prev</a> // <a href="#">Next</a>
             </span>
         </div>
@@ -40,24 +44,39 @@
             <h3>Video Responses</h3>
             <ul>
                 <li>
-                    <img src="" alt="" />
-                    <h5>Name of Question</h5>    
+                    <div class="imgWrap">
+                        <a href="#" class="icon video">Video</a>
+                        <img src="/themes/Intervue/img/vidSubmissionExample.jpg" alt="" />
+                    </div>
+                    <h4>Name of Question</h4>    
                 </li>
                 <li>
-                    <img src="" alt="" />
-                    <h5>Name of Question</h5>    
+                    <div class="imgWrap">
+                        <a href="#" class="icon video">Video</a>
+                        <img src="/themes/Intervue/img/vidSubmissionExample.jpg" alt="" />
+                    </div>
+                    <h4>Name of Question</h4>    
                 </li>
                 <li>
-                    <img src="" alt="" />
-                    <h5>Name of Question</h5>    
+                    <div class="imgWrap">
+                        <a href="#" class="icon video">Video</a>
+                        <img src="/themes/Intervue/img/vidSubmissionExample.jpg" alt="" />
+                    </div>
+                    <h4>Name of Question</h4>    
                 </li>
                 <li>
-                    <img src="" alt="" />
-                    <h5>Name of Question</h5>    
+                    <div class="imgWrap">
+                        <a href="#" class="icon video">Video</a>
+                        <img src="/themes/Intervue/img/vidSubmissionExample.jpg" alt="" />
+                    </div>
+                    <h4>Name of Question</h4>    
                 </li>
                 <li>
-                    <img src="" alt="" />
-                    <h5>Name of Question</h5>    
+                    <div class="imgWrap">
+                        <a href="#" class="icon video">Video</a>
+                        <img src="/themes/Intervue/img/vidSubmissionExample.jpg" alt="" />
+                    </div>
+                    <h4>Name of Question</h4>    
                 </li>
             </ul>
         </div>
@@ -65,12 +84,16 @@
             <h3>Resume/Cover Letter</h3>
             <ul>
                 <li>
-                    <img src="" alt="" />
-                    <h5>Resume</h5>    
+                    <div class="imgWrap">
+                        <img src="/themes/Intervue/img/resumeExample.jpg" alt="" />
+                    </div>
+                    <h4>Resume</h4>    
                 </li>
                 <li>
-                    <img src="" alt="" />
-                    <h5>Cover Letter</h5>    
+                    <div class="imgWrap">
+                        <img src="/themes/Intervue/img/resumeExample.jpg" alt="" />
+                    </div>
+                    <h4>Cover Letter</h4>    
                 </li>
             </ul>
         </div>

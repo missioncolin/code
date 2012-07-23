@@ -49,4 +49,4 @@
         </div>
     </header>
     
-    <section id="container" class="home">
+    <section id="container" <?php if ($meta['body_id'] == 'home') { print 'class="home"'; } ?>>
