@@ -16,5 +16,7 @@ $(document).ready(function () {
             $('#card').removeClass('fixed');
         }
     });
+    
+    $('#companyLogo').customFileInput();
     	  
 });
