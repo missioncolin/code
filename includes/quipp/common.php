@@ -1,23 +1,5 @@
 <?php
 
-function human_str($str){
-	$array = array(
-		'redTableWines'	  => 'Red Table Wines',
-		'whiteTableWines' => 'White Table Wines',
-		'sparklingWine'	  => 'Sparkling Wine',
-		'icewineDesert'	  => 'Icewine/Dessert Wine',
-		'fruitWine'		  => 'Fruit Wine',
-		
-		'fourMileCreek'	   => 'Four Mile Creek',
-		'niagaraLakeshore' => 'Niagara Lakeshore',
-		'niagaraRiver'	   => 'Niagara River',
-		'stDavidsBench'	   => 'St. David’s Bench'
-		);
-	if(isset($array[$str])){
-		return $array[$str];
-	}
-	return false;
-}
 
 /**
  * returns a string with a formatted query string with some values removed

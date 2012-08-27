@@ -1,1 +1,13 @@
 /* THIS STYLESHEET IS FOR DEVELOPERS TO MAKE CHANGES TO THE CSS */
+input.small{
+	width:100px;
+}
+input.small-med{
+	width:150px;
+}
+input.med{
+	width:200px;
+}
+input.large{
+	width:350px;
+}
