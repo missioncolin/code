@@ -116,7 +116,7 @@ function alert_box($message, $alertType, $otherIcon = "")
 /**
  * sanitizes a string based on several paramaters
  */
-function clean($string, $cleanHTML = false, $runHTMLentities = false)
+function clean($string, $cleanHTML = false, $runHTMLentities = false, $runHTMLSpecialChars = false)
 {
 
 	if(!is_string($string)) {
@@ -158,6 +158,9 @@ function clean($string, $cleanHTML = false, $runHTMLentities = false)
 		if($runHTMLentities) {
 			$string = htmlentities($string);
 		}
+		if($runHTMLSpecialChars) {
+			$string = htmlspecialchars($string);
+		}
 
 		$string = str_replace($badwordchars, $fixedwordchars, $string);
 
@@ -165,6 +168,7 @@ function clean($string, $cleanHTML = false, $runHTMLentities = false)
 
 		if($runHTMLentities) {
 			$string = htmlentities($string);
+			
 		}
 		$string = str_replace($badwordchars, $fixedwordchars, $string);
 	}

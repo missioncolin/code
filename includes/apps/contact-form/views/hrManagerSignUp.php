@@ -110,7 +110,7 @@ if (!empty($_POST) && isset($_POST["hr-sign-up"]) ) {
 	?>
 	<form action="<?php print $_SERVER['REQUEST_URI']; ?>" method="post">
 		<table>
-			<tr><th>Personal Information</th><th></th></tr>
+			<tr><th colspan="2">Personal Information</th><!-- <th></th> --></tr>
 			<tr>
 				<td><label for="RQvalALPHFirst_Name" class="req">First Name</label></td>
 				<td><input class="med" type="text" name="RQvalALPHFirst_Name" id="RQvalALPHFirst_Name"  value = "<?php echo $_REQUEST["RQvalALPHFirst_Name"];?>" /></td>
@@ -149,7 +149,7 @@ if (!empty($_POST) && isset($_POST["hr-sign-up"]) ) {
 				<td><input class="large" type="text" name="OPvalWEBSWebsite" id="OPvalWEBSWebsite" value = "<?php echo $_REQUEST["OPvalWEBSWebsite"];?>"/></td>
 			</tr>
 			
-			<tr><th>Company Information</th><th></th></tr>
+			<tr><th colspan="2">Company Information</th><!-- <th></th> --></tr>
 			
 			<tr>
 				<td><label for="RQvalALPHCompany_Name" class="req">Company Name</label></td>
