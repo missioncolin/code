@@ -48,7 +48,7 @@ if (isset($_POST['pb']) && $_POST['pb'] == sha1("UpdateContent")) {
 				
 	 			<div style="float:right; margin-top: -10px;">
 		 			<table>
-		 				<tr><td>Box Style</td><td><select name="boxStyle" class="uniform" id="boxStyle"><option value="blank">Blank</option><option value="expandable">Expand/Collapse</option><option value="Boxy">Boxy</option></select></td><td><img id="loader" src="/images/admin/ajax-loader.gif" style="display:none;" /><input type="button" value="Save" id="saveBtn" name="saveBtn" class="btnStyle green"/></td></tr>
+		 				<tr><td>Box Style</td><td><select name="boxStyle" id="boxStyle"><option value="blank">Blank</option><option value="expandable">Expand/Collapse</option><option value="Boxy">Boxy</option></select></td><td><img id="loader" src="/images/admin/ajax-loader.gif" style="display:none;" /><input type="button" value="Save" id="saveBtn" name="saveBtn" class="btnStyle green"/></td></tr>
 		 			</table>
 				</div>
 				

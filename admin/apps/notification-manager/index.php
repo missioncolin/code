@@ -32,7 +32,7 @@ $fields[] = array(
 	'dbColName'  => "application",
 	'tooltip'   => "A short name for the application using this value (used to identify on the backend)",
 	'writeOnce'  => true,
-	'widgetHTML' => "<input style=\"width:300px;\" type=\"text\" class=\"uniform\" id=\"FIELD_ID\" name=\"FIELD_ID\" value=\"FIELD_VALUE\" DISABLED />",
+	'widgetHTML' => "<input style=\"width:300px;\" type=\"text\" id=\"FIELD_ID\" name=\"FIELD_ID\" value=\"FIELD_VALUE\" DISABLED />",
 	'valCode'   => "RQvalALPH",
 	'dbValue'   => false,
 	'stripTags'  => true
@@ -43,7 +43,7 @@ $fields[] = array(
 	'dbColName'  => "value",
 	'tooltip'   => "Email address or value to be used in the application above",
 	'writeOnce'  => false,
-	'widgetHTML' => "<input style=\"width:300px;\" type=\"text\" class=\"uniform\" id=\"FIELD_ID\" name=\"FIELD_ID\" value=\"FIELD_VALUE\"  />",
+	'widgetHTML' => "<input style=\"width:300px;\" type=\"text\" id=\"FIELD_ID\" name=\"FIELD_ID\" value=\"FIELD_VALUE\"  />",
 	'valCode'   => "RQvalALPH",
 	'dbValue'   => false,
 	'stripTags'  => true
