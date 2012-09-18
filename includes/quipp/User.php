@@ -269,6 +269,9 @@ class User
 					case "COUN":
 						$fieldBuffer = get_country_list('meta[' . $newFormID . ']', $udRS['value']);
 						break;
+				   case "TEXT":
+						$fieldBuffer = '<textarea id="meta[' . $newFormID . ']" name="meta[' . $newFormID . ']">' . $udRS['value'] . '</textarea>';
+						break;
 					default:
 						$fieldBuffer = '<input type="text" id="meta[' . $newFormID . ']" name="meta[' . $newFormID . ']" value="' . $udRS['value'] . '" />';
 						break;
