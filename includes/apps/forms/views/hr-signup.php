@@ -1,3 +1,8 @@
+
+<?php
+$provs  = array();
+$states = array();
+?>
 <section id="hrSignup">
     
     <div id="card" class="box">
@@ -43,17 +48,32 @@
             </div>
             <fieldset>
                 <legend>Hiring Manager</legend>
-                <label for="name">Name</label>
-                <input type="text" id="name" name="name" class="full bottom" placeholder="Name" />
+                <label for="firstName">First Name</label>
+                <input type="text" id="firstName" name="firstName" class="full bottom" placeholder="First Name" />
+                <label for="lastName">Last Name</label>
+                <input type="text" id="lastName" name="lastName" class="full bottom" placeholder="Last Name" />
+                <label for="name">Email Address</label>
+                <input type="text" id="emailAddress" name="emailAddress" class="full bottom" placeholder="Email Address" />
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" class="full bottom" placeholder="Password" />
+                <label for="confirmPassword">Re-Type Password</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" class="full bottom" placeholder="Re-Type Password" />
             </fieldset>
             <fieldset>
                 <legend>Company Name &amp; Location</legend>
                 <label for="companyName">Company Name</label>
                 <input type="text" id="companyName" name="companyName" class="full" placeholder="Company Name" />
-                <label for="street">Street</label>
-                <input type="text" id="street" name="street" class="half left bottom" placeholder="Street" />
-                <label for="cityProv">City/Prov</label>
-                <input type="text" id="cityProv" name="cityProv" class="half bottom" placeholder="City/Prov" />
+                <label for="address">Address</label>
+                <input type="text" id="address" name="address" class="half left bottom" placeholder="Address" />
+                <label for="city">City</label>
+                <input type="text" id="city" name="city" class="half bottom" placeholder="City" />
+                <label for="postal">Postal Code/Zip Code</label>
+                <input type="text" id="postal" name="postal" class="half bottom" placeholder="Postal Code" />
+                <label for="country">Country</label>
+                <select name="country" id="country" class="half bottom">
+                <option value="38">Canada</option>
+                <option value="213">United States</option>
+                </select>
             </fieldset>
             <fieldset>
                 <legend>Website &amp; Social Links</legend>
@@ -66,7 +86,7 @@
                 <label for="linkedIn">LinkedIn</label>
                 <input type="text" id="linkedIn" name="linkedIn" class="half bottom" placeholder="LinkedIn" />
             </fieldset>
-            <fieldset>
+<!--            <fieldset>
                 <legend>Company Information &amp; Size</legend>
                 <label for="businessType">Business Type</label>
                 <input type="text" id="businessType" name="businessType" class="half left" placeholder="Business Type" />
@@ -77,6 +97,7 @@
                 <label for="industry">Industry</label>
                 <input type="text" id="industry" name="industry" class="half bottom" placeholder="Industry" />
             </fieldset>
+-->
             <fieldset>
                 <legend>About The Company</legend>
                 <label for="aboutCompany">About The Company</label>
