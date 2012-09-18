@@ -1,23 +1,5 @@
 <?php
 
-function human_str($str){
-	$array = array(
-		'redTableWines'	  => 'Red Table Wines',
-		'whiteTableWines' => 'White Table Wines',
-		'sparklingWine'	  => 'Sparkling Wine',
-		'icewineDesert'	  => 'Icewine/Dessert Wine',
-		'fruitWine'		  => 'Fruit Wine',
-		
-		'fourMileCreek'	   => 'Four Mile Creek',
-		'niagaraLakeshore' => 'Niagara Lakeshore',
-		'niagaraRiver'	   => 'Niagara River',
-		'stDavidsBench'	   => 'St. David’s Bench'
-		);
-	if(isset($array[$str])){
-		return $array[$str];
-	}
-	return false;
-}
 
 /**
  * returns a string with a formatted query string with some values removed
@@ -134,7 +116,7 @@ function alert_box($message, $alertType, $otherIcon = "")
 /**
  * sanitizes a string based on several paramaters
  */
-function clean($string, $cleanHTML = false, $runHTMLentities = false)
+function clean($string, $cleanHTML = false, $runHTMLentities = false, $runHTMLSpecialChars = false)
 {
 
 	if(!is_string($string)) {
@@ -176,6 +158,9 @@ function clean($string, $cleanHTML = false, $runHTMLentities = false)
 		if($runHTMLentities) {
 			$string = htmlentities($string);
 		}
+		if($runHTMLSpecialChars) {
+			$string = htmlspecialchars($string);
+		}
 
 		$string = str_replace($badwordchars, $fixedwordchars, $string);
 
@@ -183,6 +168,7 @@ function clean($string, $cleanHTML = false, $runHTMLentities = false)
 
 		if($runHTMLentities) {
 			$string = htmlentities($string);
+			
 		}
 		$string = str_replace($badwordchars, $fixedwordchars, $string);
 	}
