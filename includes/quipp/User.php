@@ -261,7 +261,7 @@ class User
 
 					case "CHCK":
 						$checkMe = (!empty($udRS['value'])) ? ' checked="checked"' : '';						
-						$fieldBuffer = '<input type="checkbox" class="uniform" id="meta[' . $newFormID . ']" name="meta[' . $newFormID . ']" value="1"' . $checkMe . ' />';
+						$fieldBuffer = '<input type="checkbox" id="meta[' . $newFormID . ']" name="meta[' . $newFormID . ']" value="1"' . $checkMe . ' />';
 						break;
 					case "PROV":
 						$fieldBuffer = get_prov_list('meta[' . $newFormID . ']', $udRS['value']);
@@ -270,7 +270,7 @@ class User
 						$fieldBuffer = get_country_list('meta[' . $newFormID . ']', $udRS['value']);
 						break;
 					default:
-						$fieldBuffer = '<input type="text" class="uniform" id="meta[' . $newFormID . ']" name="meta[' . $newFormID . ']" value="' . $udRS['value'] . '" />';
+						$fieldBuffer = '<input type="text" id="meta[' . $newFormID . ']" name="meta[' . $newFormID . ']" value="' . $udRS['value'] . '" />';
 						break;
 				}
 								
