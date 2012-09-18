@@ -7,35 +7,7 @@ $applications = array(
 	"banners" => array(
 		"label" => "Banner Manager",
 		"permissions" => "modifyBanner",
-	),
-	"blog" => array(
-		"label" => "Blog Manager: Public",
-		"permissions" => "modifyBlog",
-	),
-    "doctors-only" => array(
-		"label" => "Blog Manager: Doctors Only",
-		"permissions" => "editorCCOK"
-	),
-	"doctors-subscriptions" => array(
-		"label" => "Subscription Manager: Doctors Only",
-		"permissions" => "editorCCOK"
-	),
-	"testimonials" => array(
-		"label" => "Testimonials",
-		"permissions" => "modifyTestimonials",
-	),
-	"twitter" => array(
-		"label" => "Twitter Accounts",
-		"permissions" => "modifyTwitter"
-	),
-	"http://disqus.com/admin/login/" => array(
-	   "label" => "&#8594; Disqus Comment Admin",
-	   "permissions" => "modifyBlog"
-    ),
-    "https://login.mailchimp.com" => array(
-        "label" => "&#8594; MailChimp",
-        "permissions" => "modifySubscriptions"
-    )
+	)
 );
 
 
