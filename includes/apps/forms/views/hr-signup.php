@@ -1,7 +1,42 @@
-
 <?php
 if ($this INSTANCEOF Quipp){
-    $provs  = $this->db->query("SELECT `itemID`, `provName` FROM `sysProvince` WHERE countryID IN (38, 213) ORDER BY `countryID`, `provName`");
+
+    $submitted = false;
+    require_once(dirname(__DIR__)."/Forms.php");
+    $frms = new Forms($db);
+    $provs  = $db->query("SELECT `itemID`, `provName` FROM `sysProvince` WHERE countryID IN (38, 213) ORDER BY `countryID`, `provName`");
+    
+    $meta   = $frms->getMetaFieldsByGroup('hr-managers');
+    $post   = array();
+    foreach($meta as $fields){
+        $post[str_replace(" ","_",$fields["fieldLabel"])] = array("code" => $fields["validationCode"], "value" => "", "label" => $fields["fieldLabel"]);
+    }
+    if (isset($_POST["sbmt-hr-signup"])){
+        
+        $submitted = true;
+        $valid = false;
+        
+        $validate = array();
+        foreach($post as $field => $nfo){
+            $validate[$nfo["code"].$field] = "";
+            if (isset($_POST[str_replace(" ","_", $fields["fieldLabel"])])){
+                $validate[$nfo["code"].$field] = $_POST[str_replace(" ","_", $fields["fieldLabel"])];
+                $post[str_replace(" ","_",$fields["fieldLabel"])]["value"] = $_POST[str_replace(" ","_", $fields["fieldLabel"])];
+            }
+        }
+        global $message;
+        
+        if (validate_form($validate)){
+            $valid = true;
+        }
+        if (empty($_POST["password"]) || empty($_POST["confirmPassword"]) || ($db->escape($_POST["password"], true) !== $db->escape($_POST["confirmPassword"], true))){            
+            $message = "<li>Password is required and must match the Password Confirmation</li>";
+            $valid = false;
+        }
+        
+        print_r($post);
+        print_r($validate);
+    }
 ?>
 <section id="hrSignup">
     
@@ -34,10 +69,10 @@ if ($this INSTANCEOF Quipp){
     
     <div id="form">
         <h3>Company Information</h3>
-        <form>
+        <form method="post" enctype="multipart/form-data" action="<?php echo $_SERVER["REQUEST_URI"];?>">
             <div>
                 <label for="companyLogo">Upload your <strong>Company Logo</strong></label>
-                <input type="file" id="companyLogo" />
+                <input type="file" id="companyLogo" name="Company_Logo" />
             </div>
             <div>
                 The following file types/extensions are accepted: 
@@ -48,64 +83,72 @@ if ($this INSTANCEOF Quipp){
             </div>
             <fieldset>
                 <legend>Hiring Manager</legend>
-                <label for="firstName">First Name</label>
-                <input type="text" id="firstName" name="firstName" class="full bottom" placeholder="First Name" />
-                <label for="lastName">Last Name</label>
-                <input type="text" id="lastName" name="lastName" class="full bottom" placeholder="Last Name" />
-                <label for="name">Email Address</label>
-                <input type="text" id="emailAddress" name="emailAddress" class="full bottom" placeholder="Email Address" />
+                <label for="First_Name">First Name</label>
+                <input type="text" id="First_Name" name="First_Name" class="full bottom" placeholder="First Name" value="<?php echo $post["First_Name"]["value"];?>" required="required"/>
+                <label for="Last_Name">Last Name</label>
+                <input type="text" id="Last_Name" name="Last_Name" class="full bottom" placeholder="Last Name" value="<?php echo $post["Last_Name"]["value"];?>" required="required"/>
+                <label for="Email">Email Address</label>
+                <input type="text" id="Email" name="Email" class="full bottom" placeholder="Email Address" value="<?php echo $post["Email"]["value"];?>" required="required"/>
                 <label for="password">Password</label>
-                <input type="password" id="password" name="password" class="full bottom" placeholder="Password" />
+                <input type="password" id="password" name="password" class="full bottom" placeholder="Password"  required="required"/>
                 <label for="confirmPassword">Re-Type Password</label>
-                <input type="password" id="confirmPassword" name="confirmPassword" class="full bottom" placeholder="Re-Type Password" />
+                <input type="password" id="confirmPassword" name="confirmPassword" class="full bottom" placeholder="Re-Type Password" required="required"/>
             </fieldset>
             <fieldset>
                 <legend>Company Name &amp; Location</legend>
-                <label for="companyName">Company Name</label>
-                <input type="text" id="companyName" name="companyName" class="full" placeholder="Company Name" />
-                <label for="address">Address</label>
-                <input type="text" id="address" name="address" class="half left bottom" placeholder="Address" />
-                <label for="city">City</label>
-                <input type="text" id="city" name="city" class="half bottom" placeholder="City" />
-                <label for="postal">Postal Code/Zip Code</label>
-                <input type="text" id="postal" name="postal" class="half bottom" placeholder="Postal Code" />
-                <label for="province">Province/State</label>
-                <input type="text" id="postal" name="postal" class="half bottom" placeholder="Postal Code" />
-                <label for="country">Country</label>
-                <select name="country" id="country" class="half bottom">
+                <label for="Company_Name">Company Name</label>
+                <input type="text" id="Company_Name" name="Company_Name" class="full" placeholder="Company Name" value="<?php echo $post["Company_Name"]["value"];?>" required="required"/>
+                <label for="Company_Address">Address</label>
+                <input type="text" id="Company_Address" name="Company_Address" class="half left bottom" placeholder="Address" value="<?php echo $post["Company_Address"]["value"];?>" required="required"/>
+                <label for="Company_City">City</label>
+                <input type="text" id="Company_City" name="Company_City" class="half bottom" placeholder="City" value="<?php echo $post["Company_City"]["value"];?>" required="required"/>
+                <label for="Company_Postal_Code">Postal Code/Zip Code</label>
+                <input type="text" id="Company_Postal_Code" name="Company_Postal_Code" class="half bottom" placeholder="Postal Code" value="<?php echo $post["Company_Postal_Code"]["value"];?>" required="required"/>
+                <label for="Company_Province">Province/State</label>
+                <select id="Company_Province" name="Company_Province" class="half bottom" required="required">
+ <?php
+                if ($db->valid($provs)){
+                    while ($row = $db->fetch_assoc($provs)){
+                        echo '<option value="'.$row["itemID"].'">'.$row["provName"].'</option>';
+                    }
+                }
+ ?>               
+                </select>
+                <label for="Company_Country">Country</label>
+                <select name="Company_Country" id="Company_Country" class="half bottom" required="required">
                 <option value="38">Canada</option>
                 <option value="213">United States</option>
                 </select>
             </fieldset>
             <fieldset>
                 <legend>Website &amp; Social Links</legend>
-                <label for="website">Website</label>
-                <input type="text" id="website" name="website" class="half left" placeholder="Website" />
-                <label for="facebook">Facebook</label>
-                <input type="text" id="facebook" name="facebook" class="half" placeholder="Facebook" />
-                <label for="twitter">Twitter</label>
-                <input type="text" id="twitter" name="twitter" class="half left bottom" placeholder="Twitter" />
-                <label for="linkedIn">LinkedIn</label>
-                <input type="text" id="linkedIn" name="linkedIn" class="half bottom" placeholder="LinkedIn" />
+                <label for="Website_or_Blog_URL">Website</label>
+                <input type="text" id="Website_or_Blog_URL" name="Website_or_Blog_URL" class="half left" placeholder="Website" value="<?php echo $post["Website_or_Blog_URL"]["value"];?>"/>
+                <label for="Facebook_Username">Facebook</label>
+                <input type="text" id="Facebook_Username" name="Facebook_Username" class="half" placeholder="Facebook" value="<?php echo $post["Facebook_Username"]["value"];?>"/>
+                <label for="Twitter_Username">Twitter</label>
+                <input type="text" id="Twitter_Username" name="Twitter_Username" class="half left bottom" placeholder="Twitter" value="<?php echo $post["Twitter_Username"]["value"];?>"/>
+                <label for="LinkedIn_Username">LinkedIn</label>
+                <input type="text" id="LinkedIn_Username" name="LinkedIn_Username" class="half bottom" placeholder="LinkedIn" value="<?php echo $post["LinkedIn_Username"]["value"];?>"/>
             </fieldset>
-<!--            <fieldset>
+            <fieldset>
                 <legend>Company Information &amp; Size</legend>
-                <label for="businessType">Business Type</label>
-                <input type="text" id="businessType" name="businessType" class="half left" placeholder="Business Type" />
-                <label for="founded">Founded</label>
-                <input type="text" id="founded" name="founded" class="half" placeholder="Founded" />
-                <label for="size">Size</label>
-                <input type="text" id="size" name="size" class="half left bottom" placeholder="Size" />
-                <label for="industry">Industry</label>
-                <input type="text" id="industry" name="industry" class="half bottom" placeholder="Industry" />
+                <label for="Business_Type">Business Type</label>
+                <input type="text" id="Business_Type" name="Business_Type" class="half left" placeholder="Business Type" value="<?php echo $post["Business_Type"]["value"];?>"/>
+                <label for="Year_Founded">Founded</label>
+                <input type="text" id="Year_Founded" name="Year_Founded" class="half" placeholder="Founded" value="<?php echo $post["Year_Founded"]["value"];?>"/>
+                <label for="Business_Size">Size</label>
+                <input type="text" id="Business_Size" name="Business_Size" class="half left bottom" placeholder="Size" value="<?php echo $post["Business_Size"]["value"];?>"/>
+                <label for="Industry">Industry</label>
+                <input type="text" id="Industry" name="Industry" class="half bottom" placeholder="Industry" value="<?php echo $post["Industry"]["value"];?>" />
             </fieldset>
--->
+
             <fieldset>
                 <legend>About The Company</legend>
-                <label for="aboutCompany">About The Company</label>
-                <textarea id="aboutCompany" name="aboutCompany" class="bottom" rows="5"></textarea>
+                <label for="Company_Bio">About The Company</label>
+                <textarea id="Company_Bio" name="Company_Bio" class="bottom" rows="5"><?php echo $post["Company_Bio"]["value"];?></textarea>
             </fieldset>
-            <input type="submit" value="Submit" class="btn" />
+            <input type="submit" value="Submit" class="btn" name="sbmt-hr-signup" />
         </form>
     </div>
     
