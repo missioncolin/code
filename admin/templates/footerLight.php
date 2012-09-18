@@ -1,6 +1,5 @@
 
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
-  <script type="text/javascript" src="/js/uniform_js/jquery.uniform.min.js"></script>
   <script>!window.jQuery && document.write(unescape('%3Cscript src="/js/jquery-1.4.4.min.js"%3E%3C/script%3E'))</script>
  
   <script src="/min/?f=js/plugins.js,js/script.js"></script> 
@@ -36,7 +35,6 @@ if(isset($quipp->js['footer'])) {
 		
 	
 		<?php if(isset($quipp->js['footer'])) { print $quipp->js['onload']; } ?>
-		$("#metaFields select.uniform, #metaFields input:checkbox.uniform, #metaFields input:radio.uniform, #metaFields input:file.uniform, .uniform").uniform();
 		
 		$("#saveBtn").click(function(){
 

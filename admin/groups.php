@@ -23,7 +23,7 @@ $fields[] = array(
 	'dbColName'  => "nameFull",
 	'tooltip'   => "The human readable name for the group. eg. Summer Interns",
 	'writeOnce'  => false,
-	'widgetHTML' => "<input style=\"width:300px;\" type=\"text\" class=\"uniform\" id=\"FIELD_ID\" name=\"FIELD_ID\" value=\"FIELD_VALUE\" />",
+	'widgetHTML' => "<input style=\"width:300px;\" type=\"text\" id=\"FIELD_ID\" name=\"FIELD_ID\" value=\"FIELD_VALUE\" />",
 	'valCode'   => "RQvalALPH",
 	'dbValue'   => false,
 	'stripTags' => true
@@ -35,7 +35,7 @@ $fields[] = array(
 	'dbColName'  => "nameSystem",
 	'tooltip'   => "A short name that will be used by the system. Automatically created.",
 	'writeOnce'  => false,
-	'widgetHTML' => "<input style=\"width:300px;\" readonly=\"readonly\" type=\"text\" class=\"uniform\" id=\"FIELD_ID\" name=\"FIELD_ID\" value=\"FIELD_VALUE\" />",
+	'widgetHTML' => "<input style=\"width:300px;\" readonly=\"readonly\" type=\"text\" id=\"FIELD_ID\" name=\"FIELD_ID\" value=\"FIELD_VALUE\" />",
 	'valCode'   => "RQvalALPH",
 	'dbValue'   => false,
 	'stripTags' => true
@@ -93,7 +93,7 @@ if ($_GET['id'] != 1) {
 					$checkMe = "checked=\"checked\"";
 				}
 
-				$privBuffer .= "<input type=\"checkbox\" class=\"uniform\" name=\"privs_list[".$privRS['itemID']."]\" id=\"privs_list[" . $privRS['itemID']. "]\" value=\"" . $privRS['itemID'] . "\" $checkMe /> <label class=\"checkbox\" for=\"privs_list[" . $privRS['itemID']. "]\">" .  $privRS['label'] . "</label>";
+				$privBuffer .= "<input type=\"checkbox\" name=\"privs_list[".$privRS['itemID']."]\" id=\"privs_list[" . $privRS['itemID']. "]\" value=\"" . $privRS['itemID'] . "\" $checkMe /> <label class=\"checkbox\" for=\"privs_list[" . $privRS['itemID']. "]\">" .  $privRS['label'] . "</label>";
 			}
 			$privBuffer .= "</dd>";
 		}
@@ -133,7 +133,7 @@ while ($myGrpRS = $db->fetch_assoc($getMyFieldsResult)) {
 	} else {
 		$checkMe = "";
 	}
-	$addFieldsBuffer .= "<dd><input type=\"checkbox\" class=\"uniform\" name=\"my_fields_list[" . $myGrpRS['itemID'] . "]\" id=\"my_fields_list[" . $myGrpRS['itemID'] . "]\" value=\"" . $myGrpRS['itemID'] . "\"" . $checkMe . " /> <label for=\"my_fields_list[" . $myGrpRS['itemID'] . "]\" class=\"checkbox\">" . $myGrpRS['fieldLabel'] . "</label></dd>"; }
+	$addFieldsBuffer .= "<dd><input type=\"checkbox\" name=\"my_fields_list[" . $myGrpRS['itemID'] . "]\" id=\"my_fields_list[" . $myGrpRS['itemID'] . "]\" value=\"" . $myGrpRS['itemID'] . "\"" . $checkMe . " /> <label for=\"my_fields_list[" . $myGrpRS['itemID'] . "]\" class=\"checkbox\">" . $myGrpRS['fieldLabel'] . "</label></dd>"; }
 
 $addFieldsBuffer .= "</dl>";
 /******************************End Of User Fields ****************************************/

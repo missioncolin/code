@@ -842,7 +842,6 @@ body.gecko .adminTableList { font-family: droidSans, Sans-Serif; }
 #tableEditorForm table { width:100%; background-color:#f2f2f2; border:1px solid #c1c1c1; }
 #tableEditorForm table tr td { border-bottom:1px solid #c1c1c1; padding:10px; vertical-align:middle; }
 
-#tableEditorForm table input.uniform { margin-bottom:0px; }
 
 #tableEditorForm table tr.striped { background-color:#eaeaea; }
 
@@ -864,7 +863,7 @@ body.gecko .adminTableList { font-family: droidSans, Sans-Serif; }
  
 /* FORMS */
  
-input.uniform {
+input[type="text"] {
 	-moz-border-radius: 4px 4px 4px 4px;
 	-webkit-border-radius: 4px 4px 4px 4px;
 	border-radius: 4px 4px 4px 4px; 

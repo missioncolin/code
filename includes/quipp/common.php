@@ -409,7 +409,7 @@ function get_list($selectName, $whatTable, $whatItem, $whereClause = "WHERE sysO
 	if(empty($selectID)) {
 		$selectID = $selectName; 
 	}
-	$whatToReturn = " <select  class='uniform' " . $extraSelectParam . " id=\"$selectID\" name=\"$selectName\"> ";
+	$whatToReturn = " <select " . $extraSelectParam . " id=\"$selectID\" name=\"$selectName\"> ";
 	
 	if($allOption) { 
 		 $whatToReturn .= "<option value=\"0\">" . $allOption . "</option>"; 

@@ -109,7 +109,7 @@ include "../../templates/header.php";
 								}
 							}
 							print "<tr>";
-							print "<td><input type=\"checkbox\" class=\"uniform\" name=\"bannerArray[".$pRS['itemID']."]\" id=\"banner".$pRS['itemID']."\" value=\"".$pRS['itemID']."\"".$isItChecked."></td>";
+							print "<td><input type=\"checkbox\" name=\"bannerArray[".$pRS['itemID']."]\" id=\"banner".$pRS['itemID']."\" value=\"".$pRS['itemID']."\"".$isItChecked."></td>";
 							print "<td style='vertical-align:top;'>".$pRS['title']."</td>";
 							print "<td style='padding:0 0 0 10px'><img src=\"/bin/banners/".$pRS['photo']."\" alt=\"\" width=\"120px\" height=\"70px\" /></td>";
 							print "</tr>"; 

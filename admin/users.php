@@ -27,7 +27,7 @@ $fields[] = array(
 	'dbColName'  => "userIDField",
 	'tooltip'   => "eg. hi@example.com",
 	'writeOnce'  => false,
-	'widgetHTML' => "<input style=\"width:300px;\" type=\"text\" class=\"uniform\" id=\"FIELD_ID\" name=\"FIELD_ID\" value=\"FIELD_VALUE\" />",
+	'widgetHTML' => "<input style=\"width:300px;\" type=\"text\" id=\"FIELD_ID\" name=\"FIELD_ID\" value=\"FIELD_VALUE\" />",
 	'valCode'   => "RQvalALPH",
 	'dbValue'   => false,
 	'stripTags' => true
@@ -39,7 +39,7 @@ $fields[] = array(
 	'dbColName'  => 'userIDPassword',
 	'tooltip'   => "If you don't enter/confirm a new password, your password will not be changed.",
 	'writeOnce'  => false,
-	'widgetHTML' => "<input style=\"width:300px;\" type=\"text\" class=\"uniform\" id=\"RQvalALPHPassword\" name=\"RQvalALPHPassword\" value=\"\" />",
+	'widgetHTML' => "<input style=\"width:300px;\" type=\"text\" id=\"RQvalALPHPassword\" name=\"RQvalALPHPassword\" value=\"\" />",
 	'valCode'   => "RQvalALPH",
 	'dbValue'   => false,
 	'stripTags' => true
@@ -283,7 +283,7 @@ $gRes = $db->query($gQry);
 while ($gRS = $db->fetch_assoc($gRes)) {
 	$checkMe = (!empty($gRS['hasGLink']) || !empty($_POST['my_groups_list'][$gRS['itemID']])) ? ' checked="checked"' : '';
 
-	$addFieldsBuffer .= '<dd><input type="checkbox" onchange="updateFields(\'' . $_GET['id'] . '\');"  class="uniform groupForm" name="my_groups_list[' . $gRS['itemID'] . ']" id="my_groups_list[' . $gRS['itemID'] . ']" value="' . $gRS['itemID'] . '"' . $checkMe . ' /> <label for="my_groups_list[' . $gRS['itemID'] . ']" class="checkbox">' . $gRS['nameFull'] . '</label></dd>'; }
+	$addFieldsBuffer .= '<dd><input type="checkbox" onchange="updateFields(\'' . $_GET['id'] . '\');"  class="groupForm" name="my_groups_list[' . $gRS['itemID'] . ']" id="my_groups_list[' . $gRS['itemID'] . ']" value="' . $gRS['itemID'] . '"' . $checkMe . ' /> <label for="my_groups_list[' . $gRS['itemID'] . ']" class="checkbox">' . $gRS['nameFull'] . '</label></dd>'; }
 
 $addFieldsBuffer .= "</dl>";
 
