@@ -1,7 +1,7 @@
 
 <?php
-$provs  = array();
-$states = array();
+if ($this INSTANCEOF Quipp){
+    $provs  = $this->db->query("SELECT `itemID`, `provName` FROM `sysProvince` WHERE countryID IN (38, 213) ORDER BY `countryID`, `provName`");
 ?>
 <section id="hrSignup">
     
@@ -69,6 +69,8 @@ $states = array();
                 <input type="text" id="city" name="city" class="half bottom" placeholder="City" />
                 <label for="postal">Postal Code/Zip Code</label>
                 <input type="text" id="postal" name="postal" class="half bottom" placeholder="Postal Code" />
+                <label for="province">Province/State</label>
+                <input type="text" id="postal" name="postal" class="half bottom" placeholder="Postal Code" />
                 <label for="country">Country</label>
                 <select name="country" id="country" class="half bottom">
                 <option value="38">Canada</option>
@@ -108,3 +110,5 @@ $states = array();
     </div>
     
 </section>
+<?php
+}
