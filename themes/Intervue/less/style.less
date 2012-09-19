@@ -1019,6 +1019,132 @@ fieldset + input[type="submit"] {
     background: @accent;
 }
 
+/*Applicant List & Tables------------------------------------------------------ */
+
+#applicantList {
+    float: left;
+    width: 100%;
+    border-bottom: 1px solid #b7b7b7;
+}
+
+table {
+    float: left;
+    width: 100%;
+    background: #FFF;
+    margin: -50px 0 0;
+    background: #FFF;
+    .border-radius(3px);
+    .box-shadow(1px, 1px, 5px, rgba(0,0,0,0.2));
+    list-style: none;
+    border-collapse: separate;
+}
+
+tr {
+    .transition(all, 0.3s, linear);
+}
+
+tr:hover {
+    background: lighten(@accent, 41%);
+}
+
+th:first-child {
+    .border-radius(3px 0 0 0);
+}
+
+th:last-child {
+    .border-radius(0 3px 0 0);
+}
+
+tr:last-child td:first-child {
+    .border-radius(0 0 0 3px);
+}
+
+tr:last-child td:last-child {
+    .border-radius(0 0 3px 0);  
+}
+
+td {
+    text-align: center;
+    padding: 40px 0;
+    font-size: 18px;
+    line-height: 24px;
+    border-right: 1px solid #848484;
+    border-bottom: 1px solid #848484;
+    position: relative;
+}
+
+td:first-child { 
+    border-left: 1px solid #848484;
+}
+
+#applicantList td:first-child {
+    text-align: left;
+    padding: 40px 0 40px 90px;  
+    width: 35%;
+}
+
+th {
+    padding: 25px 0;
+    background: @base2;
+    color: #FFF;
+}
+
+#applicantList th:first-child {
+    text-align: left;
+    padding: 25px 0 25px 90px;  
+    width: 35%;
+}
+
+table .imgWrap {
+    position: absolute;
+    left: -50px;
+    top: 22px;
+    width: 83px;
+    height: 83px;
+    overflow: hidden;
+    border: 3px solid #FFF;
+    .box-shadow(1px, 0, 5px, rgba(0,0,0,0.3));
+    .border-radius(42px);
+}
+
+table .imgWrap img {
+    .border-radius(42px);
+    width: 83px;
+}
+
+table h2 {
+    margin: 0 20px;
+    font-size: 44px;
+    font-family: "proxima-nova",sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    text-align: center;
+    line-height: 22px;
+    position: relative;
+    top: 5px;
+    color: @base;
+}
+
+table h2 a {
+    font-size: 14px;
+}
+
+table .btn {
+    position: relative;
+    top: 4px;
+}
+
+.pagination {
+    float: left;
+    width: 100%;
+    margin: 30px 0;
+    text-align: center;
+}
+
+.pagination a {
+    margin: 0 3px;
+}
+
 /*Applicant Profile------------------------------------------------------------ */
 
 #applicantProfile {
