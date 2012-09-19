@@ -488,6 +488,7 @@ td {
 
 @accent: #34b0e4;
 @accent2: #8cc63e;
+@accent3: #ca2626;
 
 @borders: #d8d8d8;
 
@@ -814,6 +815,22 @@ a.btn.black, input.btn.black {
 
 a:hover.btn.black, input:hover.btn.black {
     background: lighten(@base2, 10%);
+}
+
+a.btn.grey, input.btn.grey {
+    background: lighten(@base, 10%);
+}
+
+a:hover.btn.grey, input:hover.btn.grey {
+    background: @base;
+}
+
+a.btn.red, input.btn.red {
+    background: @accent3;
+}
+
+a:hover.btn.red, input:hover.btn.red {
+    background: darken(@accent3, 10%);
 }
 
 /*Box-------------------------------------------------------------------------- */
