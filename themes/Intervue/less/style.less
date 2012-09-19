@@ -874,7 +874,7 @@ fieldset label {
     display: none;
 }
 
-fieldset input, fieldset textarea {
+fieldset input, fieldset textarea, fieldset .select {
     background: #FFF;
     border: none;
     border-bottom: 1px solid @borders;
@@ -889,16 +889,22 @@ fieldset input, fieldset textarea {
     width: 100%;
 }
 
+#form fieldset .select {
+    display: inline-block;
+    margin: 0;
+    width: auto;
+}
+
 fieldset input:focus, fieldset textarea:focus {
     outline: none;
 }
 
-fieldset input.half {
+fieldset input.half, fieldset div.select.half {
     width: 50%;
     border-left: 1px solid @borders;
 }
 
-fieldset input.bottom, fieldset textarea.bottom {
+fieldset input.bottom, fieldset textarea.bottom, fieldset div.select.bottom {
     border-bottom: none;
     .border-radius(0 0 3px 3px);
 }

@@ -46,12 +46,10 @@
             <nav>
                 <?php 
                 if (isset($user->groups['hr-managers'])) {
-                
                 	print $nav->build_nav($nav->get_nav_items_under_bucket('managerHeader', 0));
                 } else {
                     print $nav->build_nav($nav->get_nav_items_under_bucket('primary'), true, true);
                 }
-                
                 ?>
             </nav>
             <?php  if ($meta['body_id'] == 'home') { include 'includes/apps/banners/views/banners.php'; } ?>

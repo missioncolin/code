@@ -49,13 +49,13 @@ $states = array();
             <fieldset>
                 <legend>Hiring Manager</legend>
                 <label for="firstName">First Name</label>
-                <input type="text" id="firstName" name="firstName" class="full bottom" placeholder="First Name" />
+                <input type="text" id="firstName" name="firstName" class="full" placeholder="First Name" />
                 <label for="lastName">Last Name</label>
-                <input type="text" id="lastName" name="lastName" class="full bottom" placeholder="Last Name" />
+                <input type="text" id="lastName" name="lastName" class="full" placeholder="Last Name" />
                 <label for="name">Email Address</label>
-                <input type="text" id="emailAddress" name="emailAddress" class="full bottom" placeholder="Email Address" />
+                <input type="text" id="emailAddress" name="emailAddress" class="full" placeholder="Email Address" />
                 <label for="password">Password</label>
-                <input type="password" id="password" name="password" class="full bottom" placeholder="Password" />
+                <input type="password" id="password" name="password" class="full" placeholder="Password" />
                 <label for="confirmPassword">Re-Type Password</label>
                 <input type="password" id="confirmPassword" name="confirmPassword" class="full bottom" placeholder="Re-Type Password" />
             </fieldset>
@@ -64,16 +64,18 @@ $states = array();
                 <label for="companyName">Company Name</label>
                 <input type="text" id="companyName" name="companyName" class="full" placeholder="Company Name" />
                 <label for="address">Address</label>
-                <input type="text" id="address" name="address" class="half left bottom" placeholder="Address" />
+                <input type="text" id="address" name="address" class="half left" placeholder="Address" />
                 <label for="city">City</label>
-                <input type="text" id="city" name="city" class="half bottom" placeholder="City" />
+                <input type="text" id="city" name="city" class="half" placeholder="City" />
                 <label for="postal">Postal Code/Zip Code</label>
-                <input type="text" id="postal" name="postal" class="half bottom" placeholder="Postal Code" />
+                <input type="text" id="postal" name="postal" class="half left bottom" placeholder="Postal Code" />
                 <label for="country">Country</label>
-                <select name="country" id="country" class="half bottom">
-                <option value="38">Canada</option>
-                <option value="213">United States</option>
-                </select>
+                <div class="select half bottom">
+                    <select name="country" id="country">
+                        <option value="38">Canada</option>
+                        <option value="213">United States</option>
+                    </select>
+                </div>
             </fieldset>
             <fieldset>
                 <legend>Website &amp; Social Links</legend>
