@@ -22,6 +22,8 @@
     <meta name="viewport" content="width=device-width">
     
     <link rel="stylesheet" href="/themes/Intervue/style.css">
+    <link rel="stylesheet" href="/css/plugins/jquery-ui-1.8.6.css">
+
 
     <script src="/themes/Intervue/js/vendor/modernizr-2.5.3.min.js"></script>
     <script type="text/javascript" src="http://use.typekit.com/gux8ztq.js"></script>
@@ -42,7 +44,15 @@
                 <a class="btn" href="#">Login</a>
             </div>
             <nav>
-                <?php print $nav->build_nav($nav->get_nav_items_under_bucket('primary'), true, true); ?>
+                <?php 
+                if (isset($user->groups['hr-managers'])) {
+                
+                	print $nav->build_nav($nav->get_nav_items_under_bucket('managerHeader', 0));
+                } else {
+                    print $nav->build_nav($nav->get_nav_items_under_bucket('primary'), true, true);
+                }
+                
+                ?>
             </nav>
             <?php  if ($meta['body_id'] == 'home') { include 'includes/apps/banners/views/banners.php'; } ?>
         <div class="clearfix"></div>

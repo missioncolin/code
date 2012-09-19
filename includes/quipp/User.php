@@ -28,6 +28,18 @@ class User
 				$this->isAD    = ($tmp['sysIsADUser'] == '1') ? true : false;
 
 			}
+			
+			// get groups the user is a member of
+			$this->groups = array();
+			$gQry = sprintf("SELECT itemID, nameSystem FROM sysUGroups WHERE itemID IN (SELECT groupID FROM sysUGLinks WHERE userID = '%d')", $id);
+			$gRes = $this->db->query($gQry);
+			if($this->db->valid($gRes)) {
+    			while($g = $this->db->fetch_assoc($gRes)) {
+        			$this->groups[$g['nameSystem']] = $g['itemID'];
+    			}
+			}
+    		
+			
 		}
 
 
