@@ -588,6 +588,15 @@ header > div {
     padding: 0;
 }
 
+#tools #loggedInButtons {
+    float: left;
+    margin: 5px 15px 0 0;
+}
+
+#tools #loggedInButtons a {
+    margin: 0 3px;
+}
+
 #social li {
     display: inline-block;
     margin: 0 1px;
@@ -1042,19 +1051,11 @@ fieldset + input[type="submit"] {
     background: @accent;
 }
 
-/*Applicant List & Tables------------------------------------------------------ */
-
-#applicantList {
-    float: left;
-    width: 100%;
-    border-bottom: 1px solid #b7b7b7;
-}
+/*Tables----------------------------------------------------------------- */
 
 table {
     float: left;
     width: 100%;
-    background: #FFF;
-    margin: -50px 0 0;
     background: #FFF;
     .border-radius(3px);
     .box-shadow(1px, 1px, 5px, rgba(0,0,0,0.2));
@@ -1100,22 +1101,10 @@ td:first-child {
     border-left: 1px solid #848484;
 }
 
-#applicantList td:first-child {
-    text-align: left;
-    padding: 40px 0 40px 90px;  
-    width: 35%;
-}
-
 th {
     padding: 25px 0;
     background: @base2;
     color: #FFF;
-}
-
-#applicantList th:first-child {
-    text-align: left;
-    padding: 25px 0 25px 90px;  
-    width: 35%;
 }
 
 table .imgWrap {
@@ -1166,6 +1155,59 @@ table .btn {
 
 .pagination a {
     margin: 0 3px;
+}
+
+/*Applicant List -------------------------------------------------------------- */
+
+#applicantList {
+    float: left;
+    width: 100%;
+    border-bottom: 1px solid #b7b7b7;
+    margin: -50px 0 0;
+}
+
+#applicantList td:first-child {
+    text-align: left;
+    padding: 40px 0 40px 90px;  
+    width: 35%;
+}
+
+#applicantList th:first-child {
+    text-align: left;
+    padding: 25px 0 25px 90px;  
+    width: 35%;
+}
+
+/*HR Applications List ---------------------------------------------------------- */
+
+#hrListJobs {
+    float: left;
+    width: 100%;
+    border-bottom: 1px solid #b7b7b7;
+    margin: -50px 0 0;
+    position: relative;
+}
+
+#hrListJobs .newJob {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+}
+
+#hrListJobs td:first-child {
+    text-align: left;
+    padding: 40px 0 40px 30px;  
+    width: 45%;
+}
+
+#hrListJobs th:first-child {
+    text-align: left;
+    padding: 25px 0 25px 30px;  
+    width: 45%;
+}
+
+#hrListJobs th:last-child {
+    .border-radius(3px 3px 0 0);
 }
 
 /*Applicant Profile------------------------------------------------------------ */

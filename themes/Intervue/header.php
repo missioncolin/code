@@ -36,12 +36,24 @@
         <div>
             <a class="logo" href="/"><img src="/themes/Intervue/img/logo.png" alt="Intervue" /></a>
             <div id="tools">
-                <ul id="social">
-                    <li><a class="icon linkedIn" href="#">LinkedIn</a></li>
-                    <li><a class="icon facebook" href="#">Facebook</a></li>
-                    <li><a class="icon twitter" href="#">Twitter</a></li>
-                </ul>
-                <a class="btn" href="#">Login</a>
+                <?php if (isset($user->groups['hr-managers'])) { ?>
+                    <div id="loggedInButtons">
+                        <a href="#">8 Credits</a> //
+                        <a href="#">Profile</a>
+                    </div>
+                <?php } else { ?>
+                    <ul id="social">
+                        <li><a class="icon linkedIn" href="#">LinkedIn</a></li>
+                        <li><a class="icon facebook" href="#">Facebook</a></li>
+                        <li><a class="icon twitter" href="#">Twitter</a></li>
+                    </ul>
+                <?php } ?>
+                
+                <?php if (isset($user->groups['hr-managers'])) { ?>
+                    <a class="btn" href="#">Logout</a>
+                <?php } else { ?>
+                    <a class="btn" href="#">Login</a>
+                <?php } ?>
             </div>
             <nav>
                 <?php 
