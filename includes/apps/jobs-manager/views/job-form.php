@@ -1,5 +1,7 @@
 <?php
 
+global $message;
+
 require dirname(__DIR__) . '/JobManager.php';
 
 $j = new JobManager($db, $_SESSION['userID']);
@@ -8,16 +10,20 @@ $error = '';
 $success = false;
 
 if (!empty($_POST) && !empty($questionnaires)) {
-    if (isset($_POST['title'], $_POST['link'], $_POST['datePosted'], $_POST['dateExpires'], $_POST['questionnaire'])) {
+    if (isset($_POST['RQvalALPHTitle'], $_POST['RQvalWEBSLink'], $_POST['RQvalDATEDate_Posted'], $_POST['RQvalDATEDate_Expires'], $_POST['RQvalNUMBQuestionnaire'])) {
         
-        if (isset($_POST['id']) && (int)$_POST['id'] > 0 && $j->canEdit($_POST['id'])) {
-            // edit
-            $j->editJob($_POST);
-        } else if (isset($_POST['id']) && (int)$_POST['id'] > 0) {
-            $error = 'No access';
+        if (!validate_form($_POST)) {
+            $error = $message;        
         } else {
-            // insert
-            $success = $j->addJob($_POST);
+            if (isset($_POST['id']) && (int)$_POST['id'] > 0 && $j->canEdit($_POST['id'])) {
+                // edit
+                $j->editJob($_POST);
+            } else if (isset($_POST['id']) && (int)$_POST['id'] > 0) {
+                $error = 'No access';
+            } else {
+                // insert
+                $success = $j->addJob($_POST);
+            }
         }
     } else {
         $error = 'Missing fields';
@@ -31,11 +37,11 @@ if ($this->info['systemName'] == 'edit-job') {
 
 
 if ($edit == true && !isset($_GET['id'])) {
-    echo 'No job found';
+    echo alert_box('<strong>Warning</strong>, no job found', 3);
 } else if ($edit == true && !$j->canEdit($_GET['id'])) {
-    echo 'No access to job';
+    echo alert_box('<strong>Access denied</strong. You do not have access to this job', 2);
 } else if ($edit == false && $error == '' && $success === true) {
-    echo 'Nice new job';
+    echo alert_box('<strong>Success</strong>, your job has been posted successfully', 1);
 } else {
 
     if ($success != '') {
@@ -43,7 +49,7 @@ if ($edit == true && !isset($_GET['id'])) {
     }
 
     if ($error != '') {
-        print alert_box($error, '2');
+        echo alert_box($error, '2');
     }
 
     
@@ -60,11 +66,11 @@ if ($edit == true && !isset($_GET['id'])) {
     
     if (!empty($_POST)) {
         
-        $title           = (isset($_POST['title'])) ? $_POST['title'] : $title;
-        $link            = (isset($_POST['link'])) ? $_POST['link'] : $link;
-        $datePosted      = (isset($_POST['datePosted'])) ? $_POST['datePosted'] : $datePosted;
-        $dateExpires     = (isset($_POST['dateExpires'])) ? $_POST['dateExpires'] : $dateExpires;
-        $questionnaireID = (isset($_POST['questionnaire'])) ? $_POST['questionnaire'] : $questionnaireID;
+        $title           = (isset($_POST['RQvalALPHTitle'])) ? $_POST['RQvalALPHTitle'] : $title;
+        $link            = (isset($_POST['RQvalWEBSLink'])) ? $_POST['RQvalWEBSLink'] : $link;
+        $datePosted      = (isset($_POST['RQvalDATEDate_Posted'])) ? $_POST['RQvalDATEDate_Posted'] : $datePosted;
+        $dateExpires     = (isset($_POST['RQvalDATEDate_Expires'])) ? $_POST['RQvalDATEDate_Expires'] : $dateExpires;
+        $questionnaireID = (isset($_POST['RQvalNUMBQuestionnaire'])) ? $_POST['RQvalNUMBQuestionnaire'] : $questionnaireID;
         $status          = (isset($_POST['active'])) ? 'active' : $status;
     
     }
@@ -89,7 +95,7 @@ if ($edit == true && !isset($_GET['id'])) {
         <table>
             <thead>
                 <tr>
-                    <th>Job Title</th>
+                    <th><label for="title">Job Title</label></th>
                     <th>Date Posted</th>
                     <th>Date Expires</th>
                     <th><label for="questionnaire">Questionnaire</label></th>
@@ -98,17 +104,17 @@ if ($edit == true && !isset($_GET['id'])) {
             </thead>
             <tbody>
                 <tr>
-                    <td><input type="text" name="title" id="title" placeholder="Job Title" value="<?php echo $title; ?>" />
+                    <td><input type="text" name="RQvalALPHTitle" id="title" placeholder="Job Title" value="<?php echo $title; ?>"  required/>
                     <br />
-                    <input type="url" name="link" id="link" placeholder="http://monster.com/jobid" value="<?php echo $link; ?>" /></td>
-                    <td><input type="text" class="datepicker" name="datePosted" id="datePosted" value="<?php echo $datePosted; ?>"/></td>
-                    <td><input type="text" class="datepicker" name="dateExpires" id="dateExpires" value="<?php echo $dateExpires; ?>"/></td>
+                    <input type="url" name="RQvalWEBSLink" id="link" placeholder="http://monster.com/jobid" value="<?php echo $link; ?>"  required/></td>
+                    <td><input type="text" class="datepicker" name="RQvalDATEDate_Posted" id="datePosted" value="<?php echo $datePosted; ?>"/></td>
+                    <td><input type="text" class="datepicker" name="RQvalDATEDate_Expires" id="dateExpires" value="<?php echo $dateExpires; ?>"/></td>
                     <td>
                         <?php
                         
                         if (is_array($questionnaires) && !empty($questionnaires)) {
-                            echo '<select name="questionnaire" id="questionnaire">';
-                            echo '<option value="0">Select a questionnaire</option>';
+                            echo '<select name="RQvalNUMBQuestionnaire" id="questionnaire" required>';
+                            echo '<option>Select a questionnaire</option>';
                             foreach ($questionnaires as $qID => $qLabel) {
                                 $selected = ($qID == $questionnaireID) ? ' selected="selected"' : '';
                                 echo '<option value="' . $qID . '"' . $selected . '>' . $qLabel . '</option>';
@@ -127,7 +133,7 @@ if ($edit == true && !isset($_GET['id'])) {
             </tbody>
         </table>
         <input type="hidden" name="id" value="<?php echo (isset($_GET['id']) && $edit == true) ? (int)$_GET['id'] : 0; ?>" />
-        <input type="submit" value="Create" />
+        <input type="submit" value="Create" class="btnStyle" />
     </form>
     <?php
     }
