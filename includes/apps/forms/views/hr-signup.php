@@ -141,13 +141,13 @@ if ($this INSTANCEOF Quipp){
                 <legend>Hiring Manager</legend>
 
                 <label for="First_Name">First Name</label>
-                <input type="text" id="First_Name" name="First_Name" class="full bottom" placeholder="First Name" value="<?php echo $post["First_Name"]["value"];?>" required="required"/>
+                <input type="text" id="First_Name" name="First_Name" class="full" placeholder="First Name" value="<?php echo $post["First_Name"]["value"];?>" required="required"/>
                 <label for="Last_Name">Last Name</label>
-                <input type="text" id="Last_Name" name="Last_Name" class="full bottom" placeholder="Last Name" value="<?php echo $post["Last_Name"]["value"];?>" required="required"/>
+                <input type="text" id="Last_Name" name="Last_Name" class="full" placeholder="Last Name" value="<?php echo $post["Last_Name"]["value"];?>" required="required"/>
                 <label for="Email">Email Address</label>
-                <input type="text" id="Email" name="Email" class="full bottom" placeholder="Email Address" value="<?php echo $post["Email"]["value"];?>" required="required"/>
+                <input type="text" id="Email" name="Email" class="full" placeholder="Email Address" value="<?php echo $post["Email"]["value"];?>" required="required"/>
                 <label for="password">Password</label>
-                <input type="password" id="password" name="password" class="full bottom" placeholder="Password"  required="required"/>
+                <input type="password" id="password" name="password" class="full" placeholder="Password"  required="required"/>
 
                 <label for="confirmPassword">Re-Type Password</label>
                 <input type="password" id="confirmPassword" name="confirmPassword" class="full bottom" placeholder="Re-Type Password" required="required"/>
@@ -157,13 +157,14 @@ if ($this INSTANCEOF Quipp){
                 <label for="Company_Name">Company Name</label>
                 <input type="text" id="Company_Name" name="Company_Name" class="full" placeholder="Company Name" value="<?php echo $post["Company_Name"]["value"];?>" required="required"/>
                 <label for="Company_Address">Address</label>
-                <input type="text" id="Company_Address" name="Company_Address" class="half left bottom" placeholder="Address" value="<?php echo $post["Company_Address"]["value"];?>" required="required"/>
+                <input type="text" id="Company_Address" name="Company_Address" class="half left" placeholder="Address" value="<?php echo $post["Company_Address"]["value"];?>" required="required"/>
                 <label for="Company_City">City</label>
-                <input type="text" id="Company_City" name="Company_City" class="half bottom" placeholder="City" value="<?php echo $post["Company_City"]["value"];?>" required="required"/>
+                <input type="text" id="Company_City" name="Company_City" class="half" placeholder="City" value="<?php echo $post["Company_City"]["value"];?>" required="required"/>
                 <label for="Company_Postal_Code">Postal Code/Zip Code</label>
-                <input type="text" id="Company_Postal_Code" name="Company_Postal_Code" class="half bottom" placeholder="Postal Code" value="<?php echo $post["Company_Postal_Code"]["value"];?>" required="required"/>
+                <input type="text" id="Company_Postal_Code" name="Company_Postal_Code" class="half" placeholder="Postal Code" value="<?php echo $post["Company_Postal_Code"]["value"];?>" required="required"/>
                 <label for="Company_Province">Province/State</label>
-                <select id="Company_Province" name="Company_Province" class="half bottom" required="required">
+                <div class="select half">
+                <select id="Company_Province" name="Company_Province" required="required">
  <?php
                 if ($db->valid($provs)){
                     while ($row = $db->fetch_assoc($provs)){
@@ -172,11 +173,14 @@ if ($this INSTANCEOF Quipp){
                 }
  ?>               
                 </select>
+                </div>
                 <label for="Company_Country">Country</label>
+                <div class="half bottom left select">
                 <select name="Company_Country" id="Company_Country" class="half bottom" required="required">
                 <option value="38"<?php ($post["Company_Country"]["value"] == 38 || empty($post["Company_Country"]["value"]) ? ' selected="selected"':'')?>>Canada</option>
                 <option value="213"<?php ($post["Company_Country"]["value"] == 213 ? ' selected="selected"':'')?>>United States</option>
                 </select>
+                </div>
             </fieldset>
             <fieldset>
                 <legend>Website &amp; Social Links</legend>
