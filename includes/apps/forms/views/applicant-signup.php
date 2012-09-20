@@ -5,25 +5,14 @@ if ($this INSTANCEOF Quipp){
     $submitted = false;
     require_once(dirname(__DIR__)."/Forms.php");
     $frms = new Forms($db);
-    $provs  = $db->query("SELECT `itemID`, `provName` FROM `sysProvince` WHERE countryID IN (38, 213) ORDER BY `countryID`, `provName`");
     
-    $meta   = $frms->getMetaFieldsByGroup('hr-managers');
+    $meta   = $frms->getMetaFieldsByGroup('applicants');
     $post   = array();
     foreach($meta as $fields){
         $post[str_replace(" ","_",$fields["fieldLabel"])] = array("code" => $fields["validationCode"], "value" => "", "label" => $fields["fieldLabel"]);
     }
-    if (isset($_POST["sbmt-hr-signup"])){
+    if (isset($_POST["sbmt-ap-signup"])){
     
-    
-        $uploadErrors = array(
-            0 => "There is no error, the file uploaded with success",
-            1 => "The uploaded file exceeds the maximum file size", //php.ini
-            2 => "The uploaded file exceeds the maximum file size", //web form
-            3 => "The uploaded file was only partially uploaded",
-            4 => "No file was uploaded",
-            6 => "Missing a temporary folder"
-        
-        );
         
         $submitted = true;
         $valid = false;
@@ -36,9 +25,6 @@ if ($this INSTANCEOF Quipp){
                 $validate[$nfo["code"].$field] = $_POST[$field];
                 $post[$field]["value"] = $_POST[$field];
             }
-            else if ($field == "Job_Credits"){
-                $post[$field]["value"] = "2";
-            }
         }
         
         
@@ -49,10 +35,10 @@ if ($this INSTANCEOF Quipp){
             $message = (empty($message)) ?"<li>Password is required and must match the Password Confirmation</li>" : $message . "<li>Password is required and must match the Password Confirmation</li>";
             $valid = false;
         }
-        if (isset($_FILES["Company_Logo"]) && ($_FILES["Company_Logo"]["error"] != 0 && $_FILES["Company_Logo"]["error"] != 4)){
+        if (isset($_FILES["Video_Profile"]) && ($_FILES["Video_Profile"]["error"] != 0 && $_FILES["Video_Profile"]["error"] != 4)){
             
            $valid = false;
-           $message = (empty($message)) ?"<li>".$uploadErrors[$_FILES["Company_Logo"]["error"]]."</li>" : $message . "<li>".$uploadErrors[$_FILES["Company_Logo"]["error"]]."</li>";
+           $message = (empty($message)) ?"<li>".$uploadErrors[$_FILES["Video_Profile"]["error"]]."</li>" : $message . "<li>".$uploadErrors[$_FILES["Video_Profile"]["error"]]."</li>";
         }
         if ($valid == true){
             $message = "";
@@ -61,14 +47,16 @@ if ($this INSTANCEOF Quipp){
             if (0 !== ($userID = $frms->createUserAccount($post, $_POST["password"]))){
                 $root = dirname(dirname(dirname(dirname(__DIR__))))."/uploads/profiles";
                 mkdir($root."/".$userID);
-                mkdir($root."/".$userID."/med");
-                mkdir($root."/".$userID."/small");
-                if (isset($_FILES["Company_Logo"]) && ($_FILES["Company_Logo"]["error"] !== 4)){
-                    $post["Company_Logo"]["value"] = upload_file("Company_Logo", $root."/".$userID."/", $frms->mimeTypes, $frms->thumbnails, true);
-                    if (strstr($post["Company_Logo"]["value"],'<strong>') === false){
-                        $frms->set_meta($post["Company_Logo"]["label"], $post["Company_Logo"]["value"]);
+              /*  
+              ========== INSERT VIDEO CAPTURE HERE. Video will be stored in uploads/profiles/{userID} ==========
+              
+                if (isset($_FILES["Video_Profile"]) && ($_FILES["Video_Profile"]["error"] !== 4)){
+                    $post["Video_Profile"]["value"] = upload_file("Video_Profile", $root."/".$userID."/", $frms->vMimeTypes, false, true);
+                    if (strstr($post["Video_Profile"]["value"],'<strong>') === false){
+                        $frms->set_meta($post["Video_Profile"]["label"], $post["Video_Profile"]["value"]);
                     }
-                }
+                }*/
+
             }
             else{
                 $valid = false;
@@ -82,7 +70,7 @@ if ($this INSTANCEOF Quipp){
     <div id="card" class="box">
         <div class="heading">
             <h2>
-                HR Signup<br />
+                Applicant Signup<br />
                 <span>Frequently Asked Questions</span>
             </h2>
         </div>
@@ -110,14 +98,15 @@ if ($this INSTANCEOF Quipp){
 ?>
     <div id="form">
     <h3>Thank you! Your account has been created. Please continue to login using your <strong>Email Address</strong> and the password you provided</h3>
-    <a class="btn" href="/create-job" >Continue</a>
+    <a class="btn" href="/apply" >Continue</a>
     </div>
 <?php        
     }
     else{
-?>
 
+?>
     <div id="form">
+
 <?php
         if (!empty($message)){
             echo '<div class="error">';
@@ -125,21 +114,20 @@ if ($this INSTANCEOF Quipp){
             echo '</div>';
         }
 ?>
-        <h3>Company Information</h3>
+        <h3>Applicant Information</h3>
         <form method="post" enctype="multipart/form-data" action="<?php echo $_SERVER["REQUEST_URI"];?>">
             <div>
-                <label for="companyLogo">Upload your <strong>Company Logo</strong></label>
-                <input type="file" id="companyLogo" name="Company_Logo" />
+                <label for="videoProfile">Upload your <strong>Video</strong></label>
+                <input type="file" id="companyLogo" name="Video_Profile" />
             </div>
             <div>
                 The following file types/extensions are accepted: 
                 <ul>
-                    <li>Image/JPEG (.jpg)</li>
-                    <li>Image/PNG (.png)</li>
+                    <li>video/mp4 (.mp4)</li>
                 </ul>
             </div>
             <fieldset>
-                <legend>Hiring Manager</legend>
+                <legend>Account Details</legend>
 
                 <label for="First_Name">First Name</label>
                 <input type="text" id="First_Name" name="First_Name" class="full" placeholder="First Name" value="<?php echo $post["First_Name"]["value"];?>" required="required"/>
@@ -153,36 +141,7 @@ if ($this INSTANCEOF Quipp){
                 <label for="confirmPassword">Re-Type Password</label>
                 <input type="password" id="confirmPassword" name="confirmPassword" class="full bottom" placeholder="Re-Type Password" required="required"/>
             </fieldset>
-            <fieldset>
-                <legend>Company Name &amp; Location</legend>
-                <label for="Company_Name">Company Name</label>
-                <input type="text" id="Company_Name" name="Company_Name" class="full" placeholder="Company Name" value="<?php echo $post["Company_Name"]["value"];?>" required="required"/>
-                <label for="Company_Address">Address</label>
-                <input type="text" id="Company_Address" name="Company_Address" class="half left" placeholder="Address" value="<?php echo $post["Company_Address"]["value"];?>" required="required"/>
-                <label for="Company_City">City</label>
-                <input type="text" id="Company_City" name="Company_City" class="half" placeholder="City" value="<?php echo $post["Company_City"]["value"];?>" required="required"/>
-                <label for="Company_Postal_Code">Postal Code/Zip Code</label>
-                <input type="text" id="Company_Postal_Code" name="Company_Postal_Code" class="half" placeholder="Postal Code" value="<?php echo $post["Company_Postal_Code"]["value"];?>" required="required"/>
-                <label for="Company_Province">Province/State</label>
-                <div class="select half">
-                <select id="Company_Province" name="Company_Province" required="required">
- <?php
-                if ($db->valid($provs)){
-                    while ($row = $db->fetch_assoc($provs)){
-                        echo '<option value="'.$row["itemID"].'"'.($post["Company_Province"]["value"] == $row["itemID"] ? ' selected="selected"':'').'>'.$row["provName"].'</option>';
-                    }
-                }
- ?>               
-                </select>
-                </div>
-                <label for="Company_Country">Country</label>
-                <div class="half bottom left select">
-                <select name="Company_Country" id="Company_Country" class="half bottom" required="required">
-                <option value="38"<?php ($post["Company_Country"]["value"] == 38 || empty($post["Company_Country"]["value"]) ? ' selected="selected"':'')?>>Canada</option>
-                <option value="213"<?php ($post["Company_Country"]["value"] == 213 ? ' selected="selected"':'')?>>United States</option>
-                </select>
-                </div>
-            </fieldset>
+
             <fieldset>
                 <legend>Website &amp; Social Links</legend>
                 <label for="Website_or_Blog_URL">Website</label>
@@ -194,24 +153,8 @@ if ($this INSTANCEOF Quipp){
                 <label for="LinkedIn_Username">LinkedIn</label>
                 <input type="text" id="LinkedIn_Username" name="LinkedIn_Username" class="half bottom" placeholder="LinkedIn" value="<?php echo $post["LinkedIn_Username"]["value"];?>"/>
             </fieldset>
-            <fieldset>
-                <legend>Company Information &amp; Size</legend>
-                <label for="Business_Type">Business Type</label>
-                <input type="text" id="Business_Type" name="Business_Type" class="half left" placeholder="Business Type" value="<?php echo $post["Business_Type"]["value"];?>"/>
-                <label for="Year_Founded">Founded</label>
-                <input type="text" id="Year_Founded" name="Year_Founded" class="half" placeholder="Founded" value="<?php echo $post["Year_Founded"]["value"];?>"/>
-                <label for="Business_Size">Size</label>
-                <input type="text" id="Business_Size" name="Business_Size" class="half left bottom" placeholder="Size" value="<?php echo $post["Business_Size"]["value"];?>"/>
-                <label for="Industry">Industry</label>
-                <input type="text" id="Industry" name="Industry" class="half bottom" placeholder="Industry" value="<?php echo $post["Industry"]["value"];?>" />
-            </fieldset>
 
-            <fieldset>
-                <legend>About The Company</legend>
-                <label for="Company_Bio">About The Company</label>
-                <textarea id="Company_Bio" name="Company_Bio" class="bottom" rows="5"><?php echo $post["Company_Bio"]["value"];?></textarea>
-            </fieldset>
-            <input type="submit" value="Submit" class="btn" name="sbmt-hr-signup" />
+            <input type="submit" value="Submit" class="btn" name="sbmt-ap-signup" />
         </form>
     </div>
 <?php

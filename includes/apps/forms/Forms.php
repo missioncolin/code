@@ -9,6 +9,9 @@ class Forms extends User{
         'image/png'   => 'png'
     );
 
+    public $vMimeTypes = array(
+        'video/mp4'   => 'mp4'
+    );
 
     public $thumbnails = array(
         'med'     => array(
