@@ -13,7 +13,7 @@ if (isset($_GET['page'])) {
     $offset = ($page - 1) * $display;
 }
 
-$jobs = $j->getJobs($offset, $page, $display);
+$jobs  = $j->getJobs($offset, $page, $display);
 $total = $j->totalJobs();
 
 
@@ -37,8 +37,8 @@ $total = $j->totalJobs();
                 ?>
         <tr>
             <td><strong><?php echo $job['title']; ?></strong><br /><?php echo $job['link']; ?></td>
-            <td><a href="#" class="btn <?php echo ($job['sysStatus'] == 'active') ? 'black' : 'grey'; ?>"><?php echo ucfirst($job['sysStatus']); ?></a></td>
-            <td><a href="#" class="btn red">Delete</a></td>
+            <td><a href="#" data-job="<?php echo $jobID; ?>" class="activate btn <?php echo ($job['sysStatus'] == 'active') ? 'black' : 'grey'; ?>"><?php echo ucfirst($job['sysStatus']); ?></a></td>
+            <td><a href="#" data-job="<?php echo $jobID; ?>" class="btn red delete">Delete</a></td>
             <td><a href="/edit-job?id=<?php echo $jobID; ?>" class="btn">Edit</a></td>
         </tr>
                 <?php

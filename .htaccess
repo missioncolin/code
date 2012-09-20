@@ -279,9 +279,10 @@ FileETag None
   
   RewriteRule ^logout$ /auth.php?mode=logout [NC,L]
   RewriteRule ^login$ /auth.php?mode=login [QSA,NC,L]
-  RewriteRule ^blog/(.*)$ /index.php?p=blog&slug=$1 [QSA,NC,L]
-  RewriteRule ^ccok-blog/(.*)$ /index.php?p=ccok-blog&slug=$1 [QSA,NC,L]
-  RewriteRule ^feed/news.xml$ /rss/newsFeed.php [NC,L]
+
+  RewriteRule ^toggle-job$ /includes/apps/jobs-manager/ajax/toggle.php [NC,L]
+  RewriteRule ^delete-job$ /includes/apps/jobs-manager/ajax/delete.php [NC,L]
+  
   
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d

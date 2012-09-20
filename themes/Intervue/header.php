@@ -15,7 +15,6 @@
 <html class="no-js" lang="en">
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
     <title><?php echo $meta['title'] . $meta['title_append']; ?></title>
     <meta name="description" content="<?php echo $meta['description']; ?>">
@@ -36,10 +35,11 @@
         <div>
             <a class="logo" href="/"><img src="/themes/Intervue/img/logo.png" alt="Intervue" /></a>
             <div id="tools">
+            
                 <?php if (isset($user->groups['hr-managers'])) { ?>
                     <div id="loggedInButtons">
-                        <a href="#">8 Credits</a> //
-                        <a href="#">Profile</a>
+                        <a href="/create-job"><?php echo $user->info['Job Credits']; ?> Credits</a> //
+                        <a href="/hr-profile">Profile</a>
                     </div>
                 <?php } else { ?>
                     <ul id="social">

@@ -145,5 +145,47 @@ class JobManager {
         return 0;
         
     }
-
+    
+    
+    /**
+     * Toggles the status of a job
+     * @param int jobID
+     * @return bool
+     */
+    public function toggle($jobID) {
+        
+        $qry = sprintf("UPDATE tblJobs SET `sysStatus` = IF(`sysStatus` = 'active', 'inactive', 'active') WHERE itemID='%d' AND userID='%d'",
+            (int)$jobID,
+            (int)$this->userID);
+        $res = $this->db->query($qry);
+       
+        
+        if ($this->db->valid($res)) {
+            return true;
+        }
+        return false;
+        
+    }    
+    
+    
+    
+    /**
+     * Deletes a job
+     * @param int jobID
+     * @return bool
+     */
+    public function delete($jobID) {
+        
+        $qry = sprintf("UPDATE tblJobs SET `sysOpen` = '0' WHERE itemID='%d' AND userID='%d'",
+            (int)$jobID,
+            (int)$this->userID);
+        $res = $this->db->query($qry);
+       
+        
+        if ($this->db->valid($res)) {
+            return true;
+        }
+        return false;
+        
+    }  
 }
