@@ -1,5 +1,7 @@
 <?php
-    
+
+global $quipp;
+
 require dirname(__DIR__) . '/JobManager.php';
 
 $j = new JobManager($db, $_SESSION['userID']);
@@ -15,6 +17,9 @@ if (isset($_GET['page'])) {
 
 $jobs  = $j->getJobs($offset, $page, $display);
 $total = $j->totalJobs();
+
+$quipp->js['footer'][] = "/includes/apps/jobs-manager/js/jobs-manager.js";
+
 
 
 ?>
