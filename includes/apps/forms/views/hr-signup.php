@@ -12,30 +12,70 @@ if ($this INSTANCEOF Quipp){
         $post[str_replace(" ","_",$fields["fieldLabel"])] = array("code" => $fields["validationCode"], "value" => "", "label" => $fields["fieldLabel"]);
     }
     if (isset($_POST["sbmt-hr-signup"])){
+    
+    
+        $uploadErrors = array(
+            0 => "There is no error, the file uploaded with success",
+            1 => "The uploaded file exceeds the maximum file size", //php.ini
+            2 => "The uploaded file exceeds the maximum file size", //web form
+            3 => "The uploaded file was only partially uploaded",
+            4 => "No file was uploaded",
+            6 => "Missing a temporary folder"
+        
+        );
         
         $submitted = true;
         $valid = false;
         
         $validate = array();
         foreach($post as $field => $nfo){
+            
             $validate[$nfo["code"].$field] = "";
-            if (isset($_POST[str_replace(" ","_", $fields["fieldLabel"])])){
-                $validate[$nfo["code"].$field] = $_POST[str_replace(" ","_", $fields["fieldLabel"])];
-                $post[str_replace(" ","_",$fields["fieldLabel"])]["value"] = $_POST[str_replace(" ","_", $fields["fieldLabel"])];
+            if (isset($_POST[$field])){
+                $validate[$nfo["code"].$field] = $_POST[$field];
+                $post[$field]["value"] = $_POST[$field];
+            }
+            else if ($field == "Job_Credits"){
+                $post[$field]["value"] = "2";
             }
         }
+        
         global $message;
         
         if (validate_form($validate)){
             $valid = true;
         }
         if (empty($_POST["password"]) || empty($_POST["confirmPassword"]) || ($db->escape($_POST["password"], true) !== $db->escape($_POST["confirmPassword"], true))){            
-            $message = "<li>Password is required and must match the Password Confirmation</li>";
+            $message = (empty($message)) ?"<li>Password is required and must match the Password Confirmation</li>" : $message . "<li>Password is required and must match the Password Confirmation</li>";
             $valid = false;
         }
+        if (isset($_FILES["Company_Logo"]) && ($_FILES["Company_Logo"]["error"] != 0 && $_FILES["Company_Logo"]["error"] != 4)){
+            
+           $valid = false;
+           $message = (empty($message)) ?"<li>".$uploadErrors[$_FILES["Company_Logo"]["error"]]."</li>" : $message . "<li>".$uploadErrors[$_FILES["Company_Logo"]["error"]]."</li>";
+        }
+        else{
+            $message = "";
+            //create user account
+            //get ID and create 1) folder - check for images and upload
+            if (0 !== ($userID = $frms->createUserAccount($post, $_POST["password"]))){
+                $root = dirname(dirname(dirname(dirname(__DIR__))))."/uploads/profiles";
+                echo $root;
+                mkdir($root."/".$userID);
+                mkdir($root."/".$userID."/med");
+                mkdir($root."/".$userID."/small");
+                if (isset($_FILES["Company_Logo"]) && ($_FILES["Company_Logo"]["error"] !== 4)){
+                    $post["Company_Logo"]["value"] = upload_file("Company_Logo", $root."/".$userID."/", $frms->mimeTypes, $frms->thumbnails, true);
+                    if (strstr($post["Company_Logo"]["value"],'<strong>') === false){
+                        $frms->set_meta($post["Company_Logo"]["label"], $post["Company_Logo"]["value"]);
+                    }
+                }
+            }
+            else{
+                $valid = false;
+            }
+        }
         
-        print_r($post);
-        print_r($validate);
     }
 ?>
 <section id="hrSignup">
@@ -66,7 +106,23 @@ if ($this INSTANCEOF Quipp){
             </li>
         </ul>
     </div>
-    
+<?php
+    if ($submitted == true && $valid == true){
+?>
+    <div id="form">
+    <h3>Thank you! Your account has been created. Please continue to login using your <strong>Email Address</strong> and the password you provided</h3>
+    <a class="btn" href="/create-job" >Continue</a>
+    </div>
+<?php        
+    }
+    else{
+        if (!empty($message)){
+            echo '<div class="error">';
+            echo "The following must be completed in order to create your account: <ul>".$message."</ul>";
+            echo '</div>';
+        }
+?>
+
     <div id="form">
         <h3>Company Information</h3>
         <form method="post" enctype="multipart/form-data" action="<?php echo $_SERVER["REQUEST_URI"];?>">
@@ -151,7 +207,9 @@ if ($this INSTANCEOF Quipp){
             <input type="submit" value="Submit" class="btn" name="sbmt-hr-signup" />
         </form>
     </div>
-    
+<?php
+    }
+?>
 </section>
 <?php
 }

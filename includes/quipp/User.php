@@ -71,16 +71,16 @@ class User
 				//field exists for this user, lets update it
 				$qry = sprintf("UPDATE sysUGFValues SET value='%s' WHERE userID='%d' AND fieldID='%d';",
 					$this->db->escape($value),
-					(int) $this->id,
-					(int) $fieldID);
+					(int)$this->id,
+					(int)$fieldID);
 				$this->db->query($qry);
 
 			} else {
 				//user does not have this value, insert the link first
 
 				$qry = sprintf("INSERT INTO sysUGFValues (userID, fieldID, value, sysStatus, sysOpen) VALUES ('%d', '%d', '%s', 'active', '1');",
-					(int) $userID,
-					(int) $fieldID,
+					(int)$this->id,
+					(int)$fieldID,
 					$this->db->escape($value));
 				$this->db->query($qry);
 
@@ -306,18 +306,7 @@ class User
 	
 		return $formBuffer;
 	}
-	public function get_assigned_winery_editor_ids($excludeID = false){
-		$where = (intval($excludeID,10) > 0)?"AND adminID <> ".intval($excludeID,10):"";
-		$qry = "SELECT adminID FROM tblWineries WHERE adminID > 0 ".$where;
-		$res = $this->db->query($qry);
-		if ($this->db->valid($res) != false){
-			while ($row = $this->db->fetch_assoc($res)){
-				$ids[] = $row["adminID"];
-			}
-			return $ids;
-		}
-		return false;
-	}
+
 
 }
 
