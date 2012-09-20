@@ -167,15 +167,15 @@ if ($this INSTANCEOF Quipp){
  <?php
                 if ($db->valid($provs)){
                     while ($row = $db->fetch_assoc($provs)){
-                        echo '<option value="'.$row["itemID"].'">'.$row["provName"].'</option>';
+                        echo '<option value="'.$row["itemID"].'"'.($post["Company_Province"]["value"] == $row["itemID"] ? ' selected="selected"':'').'>'.$row["provName"].'</option>';
                     }
                 }
  ?>               
                 </select>
                 <label for="Company_Country">Country</label>
                 <select name="Company_Country" id="Company_Country" class="half bottom" required="required">
-                <option value="38">Canada</option>
-                <option value="213">United States</option>
+                <option value="38"<?php ($post["Company_Country"]["value"] == 38 || empty($post["Company_Country"]["value"]) ? ' selected="selected"':'')?>>Canada</option>
+                <option value="213"<?php ($post["Company_Country"]["value"] == 213 ? ' selected="selected"':'')?>>United States</option>
                 </select>
             </fieldset>
             <fieldset>
