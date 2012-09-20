@@ -71,25 +71,29 @@ if ($this INSTANCEOF Quipp){
         <div class="heading">
             <h2>
                 Applicant Signup<br />
-                <span>Frequently Asked Questions</span>
+                <span>Sample Interview Questions</span>
             </h2>
         </div>
         <ul>
             <li>
-                <h4>This is a frequently asked question</h4>
-                <p>Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Nullam quis risus eget urna mollis ornare vel eu leo. Donec id elit non mi porta gravida at</p>
+                <h4>Question 1</h4>
+                <p>--Video Capture &amp; Playback--</p>
             </li>
             <li>
-                <h4>This is a frequently asked question</h4>
-                <p>Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Nullam quis risus eget urna mollis ornare vel eu leo. Donec id elit non mi porta gravida at</p>
+                <h4>Question 2</h4>
+                <p>--Video Capture &amp; Playback--</p>
             </li>
             <li>
-                <h4>This is a frequently asked question</h4>
-                <p>Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Nullam quis risus eget urna mollis ornare vel eu leo. Donec id elit non mi porta gravida at</p>
+                <h4>Question 3</h4>
+                <p>--Video Capture &amp; Playback--</p>
             </li>
             <li>
-                <h4>This is a frequently asked question</h4>
-                <p>Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Nullam quis risus eget urna mollis ornare vel eu leo. Donec id elit non mi porta gravida at</p>
+                <h4>Question 4</h4>
+                <p>--Video Capture &amp; Playback--</p>
+            </li>
+            <li>
+                <h4>Question 5</h4>
+                <p>--Video Capture &amp; Playback--</p>
             </li>
         </ul>
     </div>
