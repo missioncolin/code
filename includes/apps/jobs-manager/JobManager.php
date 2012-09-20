@@ -176,7 +176,7 @@ class JobManager {
      */
     public function delete($jobID) {
         
-        $qry = sprintf("UPDATE tblJobs SET `sysOpen` = '0' WHERE itemID='%d' AND userID='%d'",
+        $qry = sprintf("UPDATE tblJobs SET `sysStatus`='inactive', `sysOpen` = '0' WHERE itemID='%d' AND userID='%d'",
             (int)$jobID,
             (int)$this->userID);
         $res = $this->db->query($qry);

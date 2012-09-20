@@ -34,7 +34,7 @@
     
     <div id="submissions">
         <div id="toolbar">
-            <a class="left" href="#">Back to List</a>
+            <a class="left" href="applicant-list?job=<?php echo $_GET['job']; ?>">Back to List</a>
             <h4><span>Reviewing:</span> Jon Rundle</h4>
             <span class="right">
                 <a href="#">Prev</a> // <a href="#">Next</a>

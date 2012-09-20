@@ -13,7 +13,7 @@
         </tr>
         <tr>
             <td><div class="imgWrap"><img src="/themes/Intervue/img/profilePicExample.jpg" alt="Applicant's Name" /></div><strong>Andrew Procter</strong><br />Toronto, Ontario</td>
-            <td><h2>580<br /><a href="#">Rating Details</a></h2></td>
+            <td><h2>580<br /><a href="/applications-detail?job=<?php echo $_GET['job']; ?>&amp;applicant=<?php echo 1; ?>">Rating Details</a></h2></td>
             <td><a href="#" class="btn green">Recommend</a></td>
         </tr>
         <tr>

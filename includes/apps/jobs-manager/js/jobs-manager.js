@@ -22,7 +22,7 @@ $(function () {
         $.post('/delete-job', {
             job: $jobID
         }, function () {
-            $this.parent().parent().hide().remove();
+            $this.parent().parent().remove();
         });
     });    
 });
