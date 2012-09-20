@@ -139,6 +139,7 @@ if ($this INSTANCEOF Quipp){
             </div>
             <fieldset>
                 <legend>Hiring Manager</legend>
+
                 <label for="First_Name">First Name</label>
                 <input type="text" id="First_Name" name="First_Name" class="full bottom" placeholder="First Name" value="<?php echo $post["First_Name"]["value"];?>" required="required"/>
                 <label for="Last_Name">Last Name</label>
@@ -147,6 +148,7 @@ if ($this INSTANCEOF Quipp){
                 <input type="text" id="Email" name="Email" class="full bottom" placeholder="Email Address" value="<?php echo $post["Email"]["value"];?>" required="required"/>
                 <label for="password">Password</label>
                 <input type="password" id="password" name="password" class="full bottom" placeholder="Password"  required="required"/>
+
                 <label for="confirmPassword">Re-Type Password</label>
                 <input type="password" id="confirmPassword" name="confirmPassword" class="full bottom" placeholder="Re-Type Password" required="required"/>
             </fieldset>

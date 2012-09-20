@@ -488,6 +488,7 @@ td {
 
 @accent: #34b0e4;
 @accent2: #8cc63e;
+@accent3: #ca2626;
 
 @borders: #d8d8d8;
 
@@ -543,6 +544,46 @@ header > div, #container, footer > div {
     max-width: 1020px;
 }
 
+
+/* =============================================================================
+   Alert Boxes
+   ========================================================================== */
+
+.alertBoxFunctionGood, .alertBoxFunctionBad, .alertBoxFunctionWarn, .alertBoxFunctionEmpty {
+    width:100%;
+	padding:10px;
+	margin:5px 5px 10px;
+	color:#000000;
+	float:left;
+}
+
+.alertBoxFunctionGood {
+	background-color:#D3FFD4;
+	border: 1px solid #55FF49;
+}
+
+.alertBoxFunctionBad {
+	background-color:#FFD4D4;
+	border: 1px solid #FF4A4B;
+}
+
+.alertBoxFunctionWarn {
+	background-color:#FFFDD5;
+	border: 1px solid #FDCA52;
+}
+
+.alertBoxFunctionEmpty {
+	background-color:#F5F5F5;
+	border: 1px solid #E5E5E5;
+	color:#666666;
+}
+
+.alertBoxFunctionGood a, .alertBoxFunctionBad a, .alertBoxFunctionWarn a, .alertBoxFunctionEmpty a { color:#0000FF; }
+.alertBoxFunctionGood a:hover, .alertBoxFunctionBad a:hover, .alertBoxFunctionWarn a:hover, .alertBoxFunctionEmpty a:hover { color:#0000FF; }
+.alertBoxFunctionGood div, .alertBoxFunctionBad div, .alertBoxFunctionWarn div, .alertBoxFunctionEmpty div { width: 100% !important; }
+
+
+
 /* =============================================================================
    Header
    ========================================================================== */
@@ -585,6 +626,15 @@ header > div {
     margin: 10px 15px 0 0;
     list-style: none;
     padding: 0;
+}
+
+#tools #loggedInButtons {
+    float: left;
+    margin: 5px 15px 0 0;
+}
+
+#tools #loggedInButtons a {
+    margin: 0 3px;
 }
 
 #social li {
@@ -816,6 +866,22 @@ a:hover.btn.black, input:hover.btn.black {
     background: lighten(@base2, 10%);
 }
 
+a.btn.grey, input.btn.grey {
+    background: lighten(@base, 10%);
+}
+
+a:hover.btn.grey, input:hover.btn.grey {
+    background: @base;
+}
+
+a.btn.red, input.btn.red {
+    background: @accent3;
+}
+
+a:hover.btn.red, input:hover.btn.red {
+    background: darken(@accent3, 10%);
+}
+
 /*Box-------------------------------------------------------------------------- */
 
 .box {
@@ -857,7 +923,7 @@ fieldset label {
     display: none;
 }
 
-fieldset input, fieldset textarea {
+fieldset input, fieldset textarea, fieldset .select {
     background: #FFF;
     border: none;
     border-bottom: 1px solid @borders;
@@ -872,16 +938,22 @@ fieldset input, fieldset textarea {
     width: 100%;
 }
 
+#form fieldset .select {
+    display: inline-block;
+    margin: 0;
+    width: auto;
+}
+
 fieldset input:focus, fieldset textarea:focus {
     outline: none;
 }
 
-fieldset input.half {
+fieldset input.half, fieldset div.select.half {
     width: 50%;
     border-left: 1px solid @borders;
 }
 
-fieldset input.bottom, fieldset textarea.bottom {
+fieldset input.bottom, fieldset textarea.bottom, fieldset div.select.bottom {
     border-bottom: none;
     .border-radius(0 0 3px 3px);
 }
@@ -1017,6 +1089,165 @@ fieldset + input[type="submit"] {
 
 #testimonialNav a.activeSlide, #testimonialNav a:hover {
     background: @accent;
+}
+
+/*Tables----------------------------------------------------------------- */
+
+table {
+    float: left;
+    width: 100%;
+    background: #FFF;
+    .border-radius(3px);
+    .box-shadow(1px, 1px, 5px, rgba(0,0,0,0.2));
+    list-style: none;
+    border-collapse: separate;
+}
+
+tr {
+    .transition(all, 0.3s, linear);
+}
+
+tr:hover {
+    background: lighten(@accent, 41%);
+}
+
+th:first-child {
+    .border-radius(3px 0 0 0);
+}
+
+th:last-child {
+    .border-radius(0 3px 0 0);
+}
+
+tr:last-child td:first-child {
+    .border-radius(0 0 0 3px);
+}
+
+tr:last-child td:last-child {
+    .border-radius(0 0 3px 0);  
+}
+
+td {
+    text-align: center;
+    padding: 40px 0;
+    font-size: 18px;
+    line-height: 24px;
+    border-right: 1px solid #848484;
+    border-bottom: 1px solid #848484;
+    position: relative;
+}
+
+td:first-child { 
+    border-left: 1px solid #848484;
+}
+
+th {
+    padding: 25px 0;
+    background: @base2;
+    color: #FFF;
+}
+
+table .imgWrap {
+    position: absolute;
+    left: -50px;
+    top: 22px;
+    width: 83px;
+    height: 83px;
+    overflow: hidden;
+    border: 3px solid #FFF;
+    .box-shadow(1px, 0, 5px, rgba(0,0,0,0.3));
+    .border-radius(42px);
+}
+
+table .imgWrap img {
+    .border-radius(42px);
+    width: 83px;
+}
+
+table h2 {
+    margin: 0 20px;
+    font-size: 44px;
+    font-family: "proxima-nova",sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    text-align: center;
+    line-height: 22px;
+    position: relative;
+    top: 5px;
+    color: @base;
+}
+
+table h2 a {
+    font-size: 14px;
+}
+
+table .btn {
+    position: relative;
+    top: 4px;
+}
+
+.pagination {
+    float: left;
+    width: 100%;
+    margin: 30px 0;
+    text-align: center;
+}
+
+.pagination a {
+    margin: 0 3px;
+}
+
+/*Applicant List -------------------------------------------------------------- */
+
+#applicantList {
+    float: left;
+    width: 100%;
+    border-bottom: 1px solid #b7b7b7;
+    margin: -50px 0 0;
+}
+
+#applicantList td:first-child {
+    text-align: left;
+    padding: 40px 0 40px 90px;  
+    width: 35%;
+}
+
+#applicantList th:first-child {
+    text-align: left;
+    padding: 25px 0 25px 90px;  
+    width: 35%;
+}
+
+/*HR Applications List ---------------------------------------------------------- */
+
+#hrListJobs {
+    float: left;
+    width: 100%;
+    border-bottom: 1px solid #b7b7b7;
+    margin: -50px 0 0;
+    position: relative;
+}
+
+#hrListJobs .newJob {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+}
+
+#hrListJobs td:first-child {
+    text-align: left;
+    padding: 40px 0 40px 30px;  
+    width: 45%;
+}
+
+#hrListJobs th:first-child {
+    text-align: left;
+    padding: 25px 0 25px 30px;  
+    width: 45%;
+}
+
+#hrListJobs th:last-child {
+    .border-radius(3px 3px 0 0);
 }
 
 /*Applicant Profile------------------------------------------------------------ */

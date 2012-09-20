@@ -255,7 +255,7 @@ if ((isset($navRS) && isset($_GET['new']) && $_GET['new'] == 'link')  || $editTy
 				<td>
 				<!-- Specify as Home Page -->
 				Make This Page The Home Page <br />
-					<input id="makeHomepageCheck" type="checkbox" <?php if($pageRS['isHomepage'] == 1) { print "checked=\"checked\""; } elseif($_REQUEST['OPSet_Homepage']) { print "checked=\"checked\""; } ?>/>
+					<input id="makeHomepageCheck" type="checkbox" <?php if($pageRS['isHomepage'] == 1) { print "checked=\"checked\""; } elseif(isset($_REQUEST['OPSet_Homepage'])) { print "checked=\"checked\""; } ?>/>
 				
 					<label for="makeHomepageCheck">This Is The Homepage</label>
 				</td>
