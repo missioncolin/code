@@ -979,6 +979,7 @@ form fieldset .select {
     .box-sizing();
     float: left;
     width: 100%;
+    .border-radius(0);
 }
 
 #form fieldset .select {
@@ -995,17 +996,17 @@ fieldset input:focus, fieldset textarea:focus {
     outline: none;
 }
 
-fieldset input.half, fieldset div.select.half {
+form fieldset input.half, form fieldset div.select.half {
     width: 50%;
     border-left: 1px solid @borders;
 }
 
-fieldset input.bottom, fieldset textarea.bottom, fieldset div.select.bottom {
+form fieldset input.bottom, form fieldset textarea.bottom, form fieldset div.select.bottom {
     border-bottom: none;
     .border-radius(0 0 3px 3px);
 }
 
-fieldset input.left { 
+form fieldset input.left { 
     border-left: none;
 }
 
@@ -1028,6 +1029,16 @@ form textarea {
     font-weight: 400;
     padding: 8px;
     .border-radius(3px);
+    .transition(all, 0.3s, linear);
+}
+
+form input[type="text"]:focus,
+form input[type="email"]:focus,
+form input[type="password"]:focus,
+form input[type="url"]:focus,
+form textarea:focus {
+    outline: none;
+    border-color: darken(@borders, 20%);
 }
 
 /*Templates------------------------------------------------------------------- */
@@ -1356,6 +1367,10 @@ form table textarea:focus {
     outline: none;
 }
 
+form table input + input {
+    margin-top: 10px;
+}
+
 /*Applicant List -------------------------------------------------------------- */
 
 #applicantList {
@@ -1471,17 +1486,24 @@ form table textarea:focus {
     font-style: normal;
     font-weight: 700;
     text-align: center;
-    margin: 30px 0 20px 20px;
-    line-height: 26px;
+    margin: 25px 0 10px 20px;
+    line-height: 44px;
 }
 
 .heading h2 a {
     font-size: 14px;
+    position: relative;
+    top: -20px;
+    line-height: 14px;
 }
 
 .heading .btn {
     float: right;
     margin: 35px 20px 20px 0;
+}
+
+#applicantProfile .heading h2 {
+    margin-bottom: 0;
 }
 
 #applicantProfile dl {
@@ -1616,6 +1638,9 @@ form table textarea:focus {
 .heading h2 span {
     color: @accent;
     font-size: 18px;
+    line-height: 18px;
+    position: relative;
+    top: -15px;
 }
 
 #hrSignup #card {

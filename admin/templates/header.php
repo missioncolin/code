@@ -1,12 +1,16 @@
 <?php
 $applications = array(
+	/*"banners" => array(
+		"label" => "Banner Manager",
+		"permissions" => "modifyBanner",
+	),	*/
+	"job-credits" => array(
+		"label" => "Job Credit Pricing",
+		"permissions" => "modifyPricing",
+	),
 	"notification-manager" => array(
 		"label" => "Notification Manager",
 		"permissions" => "modifyNotifications",
-	),
-	"banners" => array(
-		"label" => "Banner Manager",
-		"permissions" => "modifyBanner",
 	)
 );
 

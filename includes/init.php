@@ -19,6 +19,7 @@ function __autoload($class) {
 }
 require 'includes.php'; 
 require 'quipp/common.php'; 
+require 'apps/Auth/customAuth.php'; //just for Intervue
 
 $config = require __DIR__ . '/config.php.dist';
 $dbc    = $config['db'];
@@ -44,7 +45,8 @@ $quipp->google = array(
 
 
 
-$auth  = new Auth($db,$quipp);
+//$auth  = new Auth($db,$quipp);
+$auth  = new customAuth($db,$quipp);
 $nav   = new Nav();
 
 if (isset($_SESSION['userID'])) {

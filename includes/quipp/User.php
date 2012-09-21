@@ -50,9 +50,8 @@ class User
 	}
 
 
-	function get_group_memberships($userID = false)
+	public function get_group_memberships($userID = false)
 	{
-
 
 
 	}
@@ -127,6 +126,7 @@ class User
 			AND v.userID='%d'",
 			$this->db->escape($fieldLabel),
 			(int) $userID);
+			
 		$res = $this->db->query($qry);
 
 		if($this->db->valid($res)) {
