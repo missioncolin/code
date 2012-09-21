@@ -34,7 +34,7 @@ if ($_GET['mode'] == 'logout') {
     <link rel="stylesheet" href="/min/?f=themes/Intervue/style.css"> 
     <script src="/js/modernizr.custom.js"></script>
 </head>
-<body data-controller="<?php echo str_replace('-', '_', $meta['body_id']); ?>" class="<?php print Page::body_class($meta['body_classes']); ?> light" id="<?php if (!empty($meta['body_id'])) print $meta['body_id']; ?>">
+<body data-controller="<?php echo str_replace('-', '_', $meta['body_id']); ?>" class="<?php print Page::body_class($meta['body_classes']); ?> light" id="login">
 
 <div id="container" class="login">
     
