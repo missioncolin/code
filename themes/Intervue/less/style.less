@@ -1319,7 +1319,7 @@ table.simpleTable {
 table.simpleTable td, table.simpleTable th {
     border: none;
     border-bottom: 1px solid #D8D8D8;
-    padding: 10px;
+    padding: 15px;
     font-size: 16px;
     text-align: left;
 }
@@ -1338,6 +1338,8 @@ form table input[type="password"],
 form table input[type="url"],
 form table textarea {
     background: lighten(@borders, 11%);
+    width: 100%;
+    .box-sizing();
 }
 
 form table input[type="text"]:focus,
