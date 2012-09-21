@@ -105,7 +105,6 @@ if ($edit == true && !isset($_GET['id'])) {
             <tbody>
                 <tr>
                     <td><input type="text" name="RQvalALPHTitle" id="title" placeholder="Job Title" value="<?php echo $title; ?>"  required/>
-                    <br />
                     <input type="url" name="RQvalWEBSLink" id="link" placeholder="http://monster.com/jobid" value="<?php echo $link; ?>"  required/></td>
                     <td><input type="text" class="datepicker" name="RQvalDATEDate_Posted" id="datePosted" value="<?php echo $datePosted; ?>"/></td>
                     <td><input type="text" class="datepicker" name="RQvalDATEDate_Expires" id="dateExpires" value="<?php echo $dateExpires; ?>"/></td>

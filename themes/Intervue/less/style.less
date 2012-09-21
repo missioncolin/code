@@ -1029,6 +1029,16 @@ form textarea {
     font-weight: 400;
     padding: 8px;
     .border-radius(3px);
+    .transition(all, 0.3s, linear);
+}
+
+form input[type="text"]:focus,
+form input[type="email"]:focus,
+form input[type="password"]:focus,
+form input[type="url"]:focus,
+form textarea:focus {
+    outline: none;
+    border-color: darken(@borders, 20%);
 }
 
 /*Templates------------------------------------------------------------------- */
@@ -1355,6 +1365,10 @@ form table input[type="url"]:focus,
 form table textarea:focus {
     background: #FFF;
     outline: none;
+}
+
+form table input + input {
+    margin-top: 10px;
 }
 
 /*Applicant List -------------------------------------------------------------- */
