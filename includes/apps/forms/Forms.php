@@ -17,23 +17,22 @@ class Forms extends User{
         'med'     => array(
             'l'        => 80,
             'w'        => 80,
-            'adaptive' => true
+            'adaptive' => false
         ),
         'small' => array(
             'l'        => 48,
             'w'        => 48,
-            'adaptive' => true
+            'adaptive' => false
         )
     );
     
-    public function __construct($db){
+    public function __construct($db, $userID = false){
         if ($db INSTANCEOF DB_MySQL){
-            $this->db = $db;
+            parent::__construct($db, $userID);
         }
         else{
             throw new Exception("You are not connected to a database");
         }
-
     }
     
     
@@ -58,8 +57,37 @@ class Forms extends User{
 		
 		return $meta;
     }
+
+    protected function setUserGroup($groupName){
+        $groupID = $this->db->return_specific_item(false, 'sysUGroups', 'itemID',0, "`nameSystem` = '".$this->db->escape($groupName,true)."'");
+        if ($groupID > 0 && $this->id > 0){
+            $this->db->query(sprintf("INSERT INTO `sysUGLinks` SET `userID` = '%d', `groupID` = '%d', `sysStatus` = 'active', `sysOpen` = '1'",
+                (int)$this->id,
+                (int)$groupID
+            ));
+        }
+    }
     
-    public function createUserAccount($post, $password){
+    public function getUserGroups(){
+        $group = array();
+        if ((int)$this->id > 0){
+            $res = $this->db->query(sprintf("SELECT g.`nameFull`, g.`nameSystem`, g.`itemID` 
+            FROM `sysUGroups` AS g 
+            INNER JOIN `sysUGLinks` AS ug ON g.`itemID` = ug.`groupID` 
+            WHERE ug.`userID` = %d",
+                $this->id
+            ));
+            if ($this->db->num_rows($res) > 0){
+                while ($row = $this->db->fetch_assoc($res)){
+                    $group[] = $row;
+                }
+                
+            }
+        }
+        return $group;
+    }
+    
+    public function createUserAccount($post, $password, $groupName){
     
         $insID = 0;
         
@@ -73,6 +101,7 @@ class Forms extends User{
         if ($this->db->affected_rows($res) == 1){
             $insID = $this->db->insert_id();
             $this->id = $insID;
+            $this->setUserGroup($groupName);
             foreach($post as $key => $data){
                 $this->set_meta($data["label"], $data["value"]);
             }
@@ -82,5 +111,28 @@ class Forms extends User{
             $message = '<li>'.$this->db->error().'</li>';
         }
         return $insID;
+    }
+    public function updateUserAccount($post, $password){
+        global $message;
+        $updated = true;
+        if ((int)$this->id > 0){
+            foreach($post as $key => $data){
+                if (!$this->set_meta($data["label"], $data["value"])){
+                    $message = (empty($message))? '<li><strong>'.$data["label"].'</strong> was not updated</li>' : $message . '<li><strong>'.$data["label"].'</strong> was not updated</li>';
+                    $updated = false;
+                }
+            }
+        }
+        if (!empty($password)){
+            $res = $this->db->query(sprintf("UPDATE `sysUsers` SET `userIDPassword` = '%s' WHERE `itemID` = '%d'",
+                MD5($this->db->escape($password, true)),
+                $this->db->escape((int)$this->id, true)
+            ));
+            if ($this->db->affected_rows($res) == 0){
+                $message = (empty($message))? '<li><strong>Password</strong> was not updated</li>' : $message . '<li><strong>Password</strong> was not updated</li>';
+                $updated = false;
+            }
+        }
+        return $updated;
     }
 }

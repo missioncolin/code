@@ -49,7 +49,7 @@
                     </ul>
                 <?php } ?>
                 
-                <?php if (isset($user->groups['hr-managers'])) { ?>
+                <?php if (isset($user->groups['hr-managers']) || isset($user->groups['applicants'])) { ?>
                     <a class="btn" href="/logout">Logout</a>
                 <?php } else { ?>
                     <a class="btn" href="/login">Login</a>
