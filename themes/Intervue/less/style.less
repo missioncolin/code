@@ -934,7 +934,7 @@ a:hover.btn.red, input:hover.btn.red {
 
 /*Forms------------------------------------------------------------------------ */
 
-fieldset {
+form fieldset {
     float: left;
     width: 100%;
     background: #FFF;
@@ -944,7 +944,7 @@ fieldset {
     margin: 10px 0;
 }
 
-fieldset legend {
+form fieldset legend {
     font-size: 16px;
     color: #000;
     font-weight: bold;
@@ -957,11 +957,16 @@ fieldset legend {
     border-bottom: 1px solid #848484;
 }
 
-fieldset label {
+form fieldset label {
     display: none;
 }
 
-fieldset input, fieldset textarea, fieldset .select {
+form fieldset input[type="text"],
+form fieldset input[type="email"],
+form fieldset input[type="password"],
+form fieldset input[type="url"],
+form fieldset textarea,
+form fieldset .select {
     background: #FFF;
     border: none;
     border-bottom: 1px solid @borders;
@@ -974,6 +979,7 @@ fieldset input, fieldset textarea, fieldset .select {
     .box-sizing();
     float: left;
     width: 100%;
+    .border-radius(0);
 }
 
 #form fieldset .select {
@@ -990,17 +996,17 @@ fieldset input:focus, fieldset textarea:focus {
     outline: none;
 }
 
-fieldset input.half, fieldset div.select.half {
+form fieldset input.half, form fieldset div.select.half {
     width: 50%;
     border-left: 1px solid @borders;
 }
 
-fieldset input.bottom, fieldset textarea.bottom, fieldset div.select.bottom {
+form fieldset input.bottom, form fieldset textarea.bottom, form fieldset div.select.bottom {
     border-bottom: none;
     .border-radius(0 0 3px 3px);
 }
 
-fieldset input.left { 
+form fieldset input.left { 
     border-left: none;
 }
 
@@ -1071,7 +1077,7 @@ form textarea {
     .box-sizing();
     list-style: none;
     padding: 0;
-    margin: 0;
+    margin: 50px 0 0 0;
     line-height: 32px;
     border: 1px solid @borders;
     .border-radius(3px);
@@ -1319,7 +1325,7 @@ table.simpleTable {
 table.simpleTable td, table.simpleTable th {
     border: none;
     border-bottom: 1px solid #D8D8D8;
-    padding: 10px;
+    padding: 15px;
     font-size: 16px;
     text-align: left;
 }
@@ -1338,6 +1344,8 @@ form table input[type="password"],
 form table input[type="url"],
 form table textarea {
     background: lighten(@borders, 11%);
+    width: 100%;
+    .box-sizing();
 }
 
 form table input[type="text"]:focus,
@@ -1718,6 +1726,31 @@ form table textarea:focus {
 
 .customfile-disabled { opacity: .5; filter:progid:DXImageTransform.Microsoft.Alpha(opacity=0); cursor: default;  }
 
+/*Contact Form-------------------------------------------------------------------- */
+
+#contactUs #card {
+    float: left;    
+    width: 40.62%;
+    padding: 0;
+    position: relative;
+    border: 1px solid #b7b7b7;
+    .border-radius(3px);
+}
+
+#contactUs #card h4 {
+    margin: 5px 0 0;
+}
+
+#contactUs #form {
+    float: right;
+    width: 52.08%;
+    margin: 100px 0 0;
+}
+
+#contactUs .heading h2 { 
+    text-align: left;
+}
+
 /*Questionaires------------------------------------------------------------------ */
 
 #questionairesForm input[type="text"] {
@@ -1837,15 +1870,14 @@ footer h3 span {
 }
 
 #loginBox div div {
-    padding: 20px 0 0 0;
+    padding: 0;
     float: right;
-    width: 57%;
+    width: 100%;
     text-align: right;
 }
 
-#loginBox div div a { float: right; }
-
-#loginBox div div:first-child { float: left; width: 40%; text-align: left; }
+#loginBox div div a { float: left; margin: 15px 0 0; }
+#loginBox div div a.btn { float: right; }
 
 /*Dark Theme----------------------------------------------------------------- */ 
 
