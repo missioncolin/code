@@ -20,13 +20,88 @@ if (time() < strtotime($datePosted) || $status == 'inactive') {
 } else {
     $q = new Questionnaire($db, $questionnaireID);
     $quipp->js['footer'][] = "/includes/apps/questionnaires/js/questionnaires.js";
+
+    $MIME_TYPES = array(
+    	'image/jpeg'                    => 'jpg',
+    	'image/pjpeg'                   => 'jpg',
+    	'image/gif'                     => 'gif',
+    	'image/tiff'                    => 'tif',
+    	'image/x-tiff'                  => 'tif',
+    	'image/png'                     => 'png',
+    	'image/x-png'                   => 'png',
+    	'application/x-shockwave-flash' => 'swf',
+        "application/pdf"            => "PDF",
+        "application/ms-word"        => "Microsoft Word",
+        "application/msword"         => "Microsoft Word",
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document" => "Microsoft Word"
     
-    
-    var_dump($_POST);
+    );
+
+    if (!empty($_POST)) {
+        if (is_array($q->questions) && !empty($q->questions)) {
+            foreach($q->questions as $questionID => $question) {
+                
+
+                $qry = sprintf("INSERT INTO tblAnswers (jobID, userID, questionID, optionID, value, sysDateInserted) VALUES ('%d', '%d', '%d', '%d', '%s', '%s') ON DUPLICATE KEY UPDATE value='%s', sysDateInserted='%s'",
+                    (int)$_GET['job'],
+                    (int)$_SESSION['userID'],
+                    (int)$questionID,
+                    '',
+                    $db->escape((isset($_POST[$questionID]) && !is_array($_POST[$questionID])) ? $_POST[$questionID] : ''),
+                    date('Y-m-d H:i:s'),
+                    $db->escape((isset($_POST[$questionID]) && !is_array($_POST[$questionID])) ? $_POST[$questionID] : ''),
+                    date('Y-m-d H:i:s'));
+                $db->query($qry);
+                
+                    
+                    
+                // checkboxes
+                if ($question['type'] == '2') {
+                    
+                    
+                    $qry = sprintf("DELETE FROM tblAnswerOptionsLinks WHERE jobID='%d' AND applicantID='%d' AND questionID='%d'",
+                        (int)$_GET['job'],
+                        (int)$_SESSION['userID'],
+                        (int)$questionID);
+                    $db->query($qry);
+                    
+                    foreach($_POST[$questionID] as $opt) {
+                        // insert option answers
+                        $qry = sprintf("INSERT INTO `tblAnswerOptionsLinks` (`jobID`, `applicantID`, `questionID`, `optionID`) VALUES ('%d', '%d', '%d', '%d')",
+                            (int)$_GET['job'],
+                            (int)$_SESSION['userID'],
+                            (int)$questionID,
+                            (int)$opt);
+                        $db->query($qry);
+                    }
+           
+                    
+                // file upload
+                } else if ($question['type'] == '5') {
+                    if (!is_dir(dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications/' . (int)$_GET['job'])) {
+                        mkdir(dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications/' . (int)$_GET['job']);
+                        mkdir(dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications/' . (int)$_GET['job'] . '/' . (int)$_SESSION['userID']);
+                    }
+                    
+                    $file = upload_file($questionID, dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications/' . (int)$_GET['job'] . '/' . (int)$_SESSION['userID'] . '/', $MIME_TYPES, false, false, false, $questionID);
+                    if (substr($file, 0, 8) == '<strong>') {
+                        $error = $file;
+                    } else {
+                        $qry = sprintf("UPDATE tblAnswers SET value='%s' WHERE itemID='%d'",
+                            $file,
+                            $db->insert_id());
+                        $db->query($qry);
+                    }
+                }
+                
+            }
+        }
+
+    }
 
 ?>
 
-<form id="job-form" method="post" action="<?php echo $_SERVER['REQUEST_URI']; ?>">
+<form id="job-form" method="post" action="<?php echo $_SERVER['REQUEST_URI']; ?>" enctype="multipart/form-data">
 	<table class="simpleTable">
 	<tr><th><?php echo $title; ?></th></tr>
 	<?php
@@ -38,26 +113,28 @@ if (time() < strtotime($datePosted) || $status == 'inactive') {
             echo $question['label'];
             echo "</td>";
             echo "</tr>";
-            
-            
+
+
             echo "<tr>";
             echo "<td>";
             switch($question['type']){
-                case 1://radio
-                case 2://checkbox
+                case 1: //radio
+                case 2: //checkbox
 
                     if (isset($question['options']) && !empty($question['options'])) {
                         echo '<ul>';
                         foreach ($question['options'] as $optionID => $opt) {
-    
+
                             $id   = $questionID . '_' . $optionID;
-                            $name = $question['itemID'];
-                            
+                            $name = $questionID;
+
                             echo '<li>';
                             if ($question['type'] == '1') {
-                                echo '<input type="radio" id="' . $id . '"  name="' . $name . '"  value="' . $opt['itemID'] . '" />';
+                                $checked = (isset($_POST[$name]) && $_POST[$name] == $opt['itemID']) ? ' checked="checked"' : '';
+                                echo '<input type="radio" id="' . $id . '"  name="' . $name . '"  value="' . $opt['itemID'] . '"' . $checked . '/>';
                             } else {
-                                echo '<input type="checkbox" id="' . $id . '"  name="' . $name . '[]"  value="' . $opt['itemID'] . '" />';
+                                $checked = (isset($_POST[$name]) && in_array($opt['itemID'], $_POST[$name])) ? ' checked="checked"' : '';
+                                echo '<input type="checkbox" id="' . $id . '"  name="' . $name . '[]"  value="' . $opt['itemID'] . '"' . $checked . ' />';
                             }
                             echo '<label for="' . $id . '">' . $opt['label'] . '</label>';
                             echo '</li>';
@@ -66,28 +143,65 @@ if (time() < strtotime($datePosted) || $status == 'inactive') {
                     } else {
                         echo "No options available currently.";
                     }
-                
+
                 break;
 
-                case 3://slider
-                    $name = $question['itemID'];
-                    $id = $name;
-                    $val = 0;
+                case 3: //slider
+                    $name = $id = $questionID;
+                    $val = (isset($_POST[$name])) ? $_POST[$name] : 0;
                     echo "<div class=\"slider\" rel=\"$name\" alt='".$val."'></div><input type=\"hidden\" name=\"$name\" id=\"$id\" value=\"".$val."\" /><div class='sliderValueHolder' rel='$id'>".$val."/20</div>";
 
                 break;
-                
-                case 4://video
 
-                case 5://file
+                case 4: //video
 
+                    $video   = $db->return_specific_item('', 'tblVideos', 'filename', 0, "jobID='" . (int)$_GET['job'] . "' AND questionID='" . $questionID . "' AND userID='" . (int)$_SESSION['userID'] . "' AND sysOpen='1' AND sysActive='1'") ;
+                    $videoID = $db->return_specific_item('', 'tblVideos', 'itemID', 0, "jobID='" . (int)$_GET['job'] . "' AND questionID='" . $questionID . "' AND userID='" . (int)$_SESSION['userID'] . "' AND sysOpen='1'") ;
+
+                    if ($video !== 0) {
+                    
+                    ?>
+                        <div id="mediaplayer">This site requires flashplayer. Please upgrade your plugins and install the latest flashplayer.</div>
+	
+                    	<script type="text/javascript" src="/includes/apps/ams-media/views/jwplayer.js"></script>
+                    	<script type="text/javascript">
+                    		jwplayer("mediaplayer").setup({
+                    			flashplayer: "/includes/apps/ams-media/views/player.swf",
+                    			streamer: "rtmp://media.intervue.ca/intervue/",
+                    			file: "<?php echo $video; ?>",
+                    			image: "/includes/apps/ams-media/views/preview.jpg"
+                    		});
+                    	</script>
+                    <?php
+                    } else {
+                    
+                        if ($videoID == 0) {
+                            $qry = sprintf("INSERT INTO tblVideos (userID, jobID, questionID, filename, sysDateInserted, sysDateLastMod) VALUES ('%d', '%d', '%d', '', NOW(), NOW())",
+                                (int)$_SESSION['userID'],
+                                (int)$_GET['job'],
+                                $questionID);
+                            $db->query($qry);
+                            $videoID = $db->insert_id();
+                        }
+                        echo '<embed src="/includes/apps/ams-media/flx/captureModule.swf" quality="high" bgcolor="#000000" width="550" height="400" name="captureModule" FlashVars="itemID=' . $videoID . '&securityKey=' . md5("iLikeSalt" . $videoID) . '" align="middle" allowScriptAccess="sameDomain" allowFullScreen="false" type="application/x-shockwave-flash" pluginspage="http://www.adobe.com/go/getflash" />';
+
+                    }
+                    
+                    echo '<input type="hidden" name="' . $questionID . '" value="' . $videoID . '" />';
+                    
+                    
+                    
+                break;
+                case 5: //file
+                    
+                    echo '<input type="file" name="' . $questionID . '" id="' . $questionID . '" />';
                 break;
 
             }
             echo "</td>";
             echo "</tr>";
-            
-            
+
+
         }
     } else {
         $feedback = "This questionnaire has no questions.";

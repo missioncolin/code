@@ -97,7 +97,7 @@ class JobManager {
        
         
         if (!$this->db->valid($res)) {
-            return array();
+            return array('No job found', '', date('Y-m-d'), date('Y-m-d'), 0, 'inactive');
         }
         return $this->db->fetch_array($res);
     }

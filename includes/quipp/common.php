@@ -712,7 +712,7 @@ function _empty($string)
 
 
 
-function upload_file($file, $location, $allowed_mime_types, $thumbnails = false, $randomizeName = false, $overwrite = false)
+function upload_file($file, $location, $allowed_mime_types, $thumbnails = false, $randomizeName = false, $overwrite = false, $rename = false)
 {
 
 	$uploadErrors = array(
@@ -751,7 +751,10 @@ function upload_file($file, $location, $allowed_mime_types, $thumbnails = false,
 	$fileName  = slug($fileName);
 	if($randomizeName === true) {
 		$fileName = substr(md5($fileName . time()), 0, 10);
+	} else if ($rename !== false) {
+    	$fileName = $rename;
 	}
+	
 	if(file_exists($location . $fileName . '.' . $extension) && $overwrite === false) {
 		$i = 1;
 		while (file_exists($location . $fileName . $i . '.' . $extension)) {
