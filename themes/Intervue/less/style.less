@@ -934,7 +934,7 @@ a:hover.btn.red, input:hover.btn.red {
 
 /*Forms------------------------------------------------------------------------ */
 
-fieldset {
+form fieldset {
     float: left;
     width: 100%;
     background: #FFF;
@@ -944,7 +944,7 @@ fieldset {
     margin: 10px 0;
 }
 
-fieldset legend {
+form fieldset legend {
     font-size: 16px;
     color: #000;
     font-weight: bold;
@@ -957,11 +957,16 @@ fieldset legend {
     border-bottom: 1px solid #848484;
 }
 
-fieldset label {
+form fieldset label {
     display: none;
 }
 
-fieldset input, fieldset textarea, fieldset .select {
+form fieldset input[type="text"],
+form fieldset input[type="email"],
+form fieldset input[type="password"],
+form fieldset input[type="url"],
+form fieldset textarea,
+form fieldset .select {
     background: #FFF;
     border: none;
     border-bottom: 1px solid @borders;
@@ -1719,6 +1724,27 @@ form table textarea:focus {
 }
 
 .customfile-disabled { opacity: .5; filter:progid:DXImageTransform.Microsoft.Alpha(opacity=0); cursor: default;  }
+
+/*Contact Form-------------------------------------------------------------------- */
+
+#contactUs #card {
+    float: left;    
+    width: 40.62%;
+    padding: 0;
+    position: relative;
+    border: 1px solid #b7b7b7;
+    .border-radius(3px);
+}
+
+#contactUs #card h4 {
+    margin: 5px 0 0;
+}
+
+#contactUs #form {
+    float: right;
+    width: 52.08%;
+    margin: 100px 0 0;
+}
 
 /*Questionaires------------------------------------------------------------------ */
 
