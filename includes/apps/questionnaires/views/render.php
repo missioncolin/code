@@ -1,100 +1,103 @@
-<?php 
-ini_set('display_errors', 'off');
-if ($this INSTANCEOF Quipp){
-?>
-<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
-<h3>Job Application</h3>
-<form id="job-form" method="post" action="<?php print $_SERVER['REQUEST_URI']; ?>">
-	<table>
-	<?php 
-		$getQuestionsQS = sprintf("SELECT * FROM tblQuestions WHERE questionnaireID = '%d' AND sysOpen = '1'" , $_REQUEST['qnrID']);
-//		yell('print', $getQuestionsQS);
-		$getQuestionsQry = $db->query($getQuestionsQS);
-		if($db->valid($getQuestionsQry)){
-			if($db->num_rows($getQuestionsQry) > 0){
-				while($qsn = $db->fetch_array($getQuestionsQry)){
-					print "<tr>";
-					print "<td>";
-					print $qsn['label'];
-					print "</td>";
-					print "</tr>";
-					print "<tr>";
-					print "<td>";
-					switch($qsn['type']){
-						case 1://radio
-						
-							$getOptionsQS = sprintf("SELECT * FROM tblOptions WHERE questionID = '%d' AND sysOpen = '1'", $qsn['itemID']);
-							$getOptionsQry = $db->query($getOptionsQS);
-							if($db->valid($getOptionsQry)){
-								if($db->num_rows($getOptionsQry) > 0){
-									print "<ul>";
-									while($opt = $db->fetch_array($getOptionsQry)){
-										$id = $qsn['itemID'] ."_". $opt['itemID'];
-										$name = $qsn['itemID'];
-										print "<li>";
-										print "<input type='radio' id='".$id."'  name='".$name."'  value='".$opt['itemID']."' /><label for='".$id."'>".$opt['label']."</label>";
-										print "</li>";
-									}
-									print "</ul>";
-								}else{
-									print "No options available currently.";
-								}
-							}else{
-								print "Error retrieving options.";
-							}
-						break;
-						case 2://checkbox
-							
-							$getOptionsQS = sprintf("SELECT * FROM tblOptions WHERE questionID = '%d' AND sysOpen = '1'", $qsn['itemID']);
-							$getOptionsQry = $db->query($getOptionsQS);
-							if($db->valid($getOptionsQry)){
-								if($db->num_rows($getOptionsQry) > 0){
-									print "<ul>";
-									while($opt = $db->fetch_array($getOptionsQry)){
-										$id = $qsn['itemID'] ."_". $opt['itemID'];
-										$name = $qsn['itemID'];
-										print "<li>";
-										print "<input type='checkbox' id='".$id."'  name='".$name."[]'  value='".$opt['itemID']."' /><label for='".$id."'>".$opt['label']."</label>";
-										print "</li>";
-									}
-									print "</ul>";
-								}else{
-									print "No options available currently.";
-								}
-							}else{
-								print "Error retrieving options.";
-							}
-						
-						break;
-						case 3://slider
-							$name = $qsn['itemID'];
-							$id = $name;
-							$val = 0;
-							print "<div class=\"slider\" rel=\"$name\" alt='".$val."'></div><input type=\"hidden\" name=\"$name\" id=\"$id\" value=\"".$val."\" /><div class='sliderValueHolder' rel='$id'>".$val."/20</div>";
-						
-						break;
-						case 4://video
-						
-						case 5://file
-						
-						break;
-						
-					}
-					print "</td>";
-					print "</tr>";
-				}
-			}else{
-				$feedback = "This questionnaire has no questions.";
-			}
-		}else{
-			$feedback = "This questionnaire is not valid.";
-		}
-		
-	?>
-	</table>
-</form>
-<?php 
+<?php
+
 global $quipp;
-	$quipp->js['footer'][] = "/js/jquery-ui-1.8.6.min.js";
-	$quipp->js['footer'][] = "/includes/apps/questionnaires/js/questionnaires.js";
+
+require dirname(dirname(__DIR__)) . '/jobs-manager/JobManager.php';
+require dirname(__DIR__) . '/Questionnaire.php';
+
+
+$j = new JobManager($db, $_SESSION['userID']);
+
+list($title, $link, $dateExpires, $datePosted, $questionnaireID, $status) = $j->getJob($_GET['job']);
+
+
+if (time() < strtotime($datePosted) || $status == 'inactive') {
+    echo alert_box('<strong>Error</strong>. No job found', 2);
+
+} else if (time() > strtotime($dateExpires)) {
+    echo alert_box('<strong>Warning</strong>. We\'re sorry, this job posting has expred.', 3);
+
+} else {
+    $q = new Questionnaire($db, $questionnaireID);
+    $quipp->js['footer'][] = "/includes/apps/questionnaires/js/questionnaires.js";
+    
+    
+    var_dump($_POST);
+
+?>
+
+<h3><?php echo $title; ?></h3>
+<form id="job-form" method="post" action="<?php echo $_SERVER['REQUEST_URI']; ?>">
+	<table class="simpleTable">
+	<?php
+
+    if (is_array($q->questions) && !empty($q->questions)) {
+        foreach($q->questions as $questionID => $question) {
+            echo "<tr>";
+            echo "<td>";
+            echo $question['label'];
+            echo "</td>";
+            echo "</tr>";
+            
+            
+            echo "<tr>";
+            echo "<td>";
+            switch($question['type']){
+                case 1://radio
+                case 2://checkbox
+
+                    if (isset($question['options']) && !empty($question['options'])) {
+                        echo '<ul>';
+                        foreach ($question['options'] as $optionID => $opt) {
+    
+                            $id   = $questionID . '_' . $optionID;
+                            $name = $question['itemID'];
+                            
+                            echo '<li>';
+                            if ($question['type'] == '1') {
+                                echo '<input type="radio" id="' . $id . '"  name="' . $name . '"  value="' . $opt['itemID'] . '" />';
+                            } else {
+                                echo '<input type="checkbox" id="' . $id . '"  name="' . $name . '[]"  value="' . $opt['itemID'] . '" />';
+                            }
+                            echo '<label for="' . $id . '">' . $opt['label'] . '</label>';
+                            echo '</li>';
+                        }
+                        echo '</ul>';
+                    } else {
+                        echo "No options available currently.";
+                    }
+                
+                break;
+
+                case 3://slider
+                    $name = $question['itemID'];
+                    $id = $name;
+                    $val = 0;
+                    echo "<div class=\"slider\" rel=\"$name\" alt='".$val."'></div><input type=\"hidden\" name=\"$name\" id=\"$id\" value=\"".$val."\" /><div class='sliderValueHolder' rel='$id'>".$val."/20</div>";
+
+                break;
+                
+                case 4://video
+
+                case 5://file
+
+                break;
+
+            }
+            echo "</td>";
+            echo "</tr>";
+            
+            
+        }
+    } else {
+        $feedback = "This questionnaire has no questions.";
+    }
+
+
+?>
+	</table>
+	<input type="submit" value="Submit" />
+</form>
+<?php
 }
+?>
