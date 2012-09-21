@@ -44,7 +44,7 @@ if ($this INSTANCEOF Quipp){
             $message = "";
             //create user account
             //get ID and create 1) folder - check for images and upload
-            if (0 !== ($userID = $frms->createUserAccount($post, $_POST["password"]))){
+            if (0 !== ($userID = $frms->createUserAccount($post, $_POST["password"], 'applicants'))){
                 $root = dirname(dirname(dirname(dirname(__DIR__))))."/uploads/profiles";
                 mkdir($root."/".$userID);
               /*  
@@ -117,49 +117,9 @@ if ($this INSTANCEOF Quipp){
             echo "The following must be completed in order to create your account: <ul>".$message."</ul>";
             echo '</div>';
         }
+        include_once(__DIR__."/applicant-form-fields.php");
 ?>
-        <h3>Applicant Information</h3>
-        <form method="post" enctype="multipart/form-data" action="<?php echo $_SERVER["REQUEST_URI"];?>">
-            <div>
-                <label for="videoProfile">Upload your <strong>Video</strong></label>
-                <input type="file" id="companyLogo" name="Video_Profile" />
-            </div>
-            <div>
-                The following file types/extensions are accepted: 
-                <ul>
-                    <li>video/mp4 (.mp4)</li>
-                </ul>
-            </div>
-            <fieldset>
-                <legend>Account Details</legend>
-
-                <label for="First_Name">First Name</label>
-                <input type="text" id="First_Name" name="First_Name" class="full" placeholder="First Name" value="<?php echo $post["First_Name"]["value"];?>" required="required"/>
-                <label for="Last_Name">Last Name</label>
-                <input type="text" id="Last_Name" name="Last_Name" class="full" placeholder="Last Name" value="<?php echo $post["Last_Name"]["value"];?>" required="required"/>
-                <label for="Email">Email Address</label>
-                <input type="text" id="Email" name="Email" class="full" placeholder="Email Address" value="<?php echo $post["Email"]["value"];?>" required="required"/>
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" class="full" placeholder="Password"  required="required"/>
-
-                <label for="confirmPassword">Re-Type Password</label>
-                <input type="password" id="confirmPassword" name="confirmPassword" class="full bottom" placeholder="Re-Type Password" required="required"/>
-            </fieldset>
-
-            <fieldset>
-                <legend>Website &amp; Social Links</legend>
-                <label for="Website_or_Blog_URL">Website</label>
-                <input type="text" id="Website_or_Blog_URL" name="Website_or_Blog_URL" class="half left" placeholder="Website" value="<?php echo $post["Website_or_Blog_URL"]["value"];?>"/>
-                <label for="Facebook_Username">Facebook</label>
-                <input type="text" id="Facebook_Username" name="Facebook_Username" class="half" placeholder="Facebook" value="<?php echo $post["Facebook_Username"]["value"];?>"/>
-                <label for="Twitter_Username">Twitter</label>
-                <input type="text" id="Twitter_Username" name="Twitter_Username" class="half left bottom" placeholder="Twitter" value="<?php echo $post["Twitter_Username"]["value"];?>"/>
-                <label for="LinkedIn_Username">LinkedIn</label>
-                <input type="text" id="LinkedIn_Username" name="LinkedIn_Username" class="half bottom" placeholder="LinkedIn" value="<?php echo $post["LinkedIn_Username"]["value"];?>"/>
-            </fieldset>
-
-            <input type="submit" value="Submit" class="btn" name="sbmt-ap-signup" />
-        </form>
+        
     </div>
 <?php
     }
