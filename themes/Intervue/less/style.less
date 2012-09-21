@@ -1210,6 +1210,10 @@ tr:last-child td:last-child {
     .border-radius(0 0 3px 0);  
 }
 
+#job-form th:last-child {
+    .border-radius(3px 3px 0 0);
+}
+
 td {
     text-align: center;
     padding: 40px 0;
@@ -1274,6 +1278,25 @@ table ~ .btn {
     margin: 20px 0 0;
 }
 
+table ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+table li {
+    margin: 5px 0;
+    padding: 0;
+}
+
+table input[type="checkbox"] + label, table input[type="radio"] + label {
+    margin-left: 5px;
+}
+
+table .slider {
+    margin: 10px;
+}
+
 .pagination {
     float: left;
     width: 100%;
@@ -1296,7 +1319,7 @@ table.simpleTable {
 table.simpleTable td, table.simpleTable th {
     border: none;
     border-bottom: 1px solid #D8D8D8;
-    padding: 8px;
+    padding: 10px;
     font-size: 16px;
     text-align: left;
 }
