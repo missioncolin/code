@@ -1,4 +1,7 @@
-<h4>My Questionnaires</h4>
+<div id="card" class="box smallHeader">
+    <div class="heading">
+        <h2>My Questionnaires</h2>
+    </div>
 
 <?php 
 //fini_set('display_errors', 'off');
@@ -18,5 +21,5 @@ if ($this INSTANCEOF Quipp){
 		}
 	}
 	
-	print "<a href=\"/questionnaires&action=new\" class='btnStyle'>Create New</a>";
+	print "</div><a href=\"/questionnaires&action=new\" class='btn green'>Create New</a>";
 }

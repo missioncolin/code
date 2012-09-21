@@ -53,12 +53,11 @@ if($success == 1){
 }
 	
 ?>	
-
-	<h4><?php print $qnr['label']; ?></h4>
-	<form action="<?php print $_SERVER['REQUEST_URI']; ?>" method="post">
+	<h4 id="toolbar"><?php if($qnr != NULL) { print $qnr['label']; } else { print "Create New"; } ?></h4>
+	<form id="questionairesForm" action="<?php print $_SERVER['REQUEST_URI']; ?>" method="post">
 		<input type="text" id="RQvalALPHQuestionnaire_Title" name="RQvalALPHQuestionnaire_Title" value="<?php print $_REQUEST['RQvalALPHQuestionnaire_Title']; ?>" />
 		<input type="hidden" name="qnrID" id="qnrID" value="<?php print $_REQUEST['qnrID']; ?>" />
-		<input type="submit" value="<?php print $buttonLabel; ?>" name="<?php print $buttonFormName; ?>" class="btnStyle" />
+		<input type="submit" class="btn" value="<?php print $buttonLabel; ?>" name="<?php print $buttonFormName; ?>" class="btnStyle" />
 	<form>
 	
 <?php
@@ -69,7 +68,7 @@ if($success == 1){
 		$getQuestionsQS = sprintf("SELECT * FROM tblQuestions WHERE sysOpen = '1' AND sysActive = '1' AND questionnaireID = '%d' ",  $_REQUEST['qnrID']);
 		$getQuestionsQry = $db->query($getQuestionsQS);
 		if($db->valid($getQuestionsQry)){
-			$questionTable .= "<table>";
+			$questionTable .= "<table class=\"simpleTable\">";
 				$questionTable .= "<tr><th>Question Label</th><th>Type</th><th></th><th></th></tr>";
 				while($question = $db->fetch_assoc($getQuestionsQry)){
 					$questionTable .= "<tr>";
@@ -86,7 +85,7 @@ if($success == 1){
 			print "This questionnaire currently has no questions.";
 		}
 		
-		print "<a class='btnStyle' href='/configure-question?qnrID=".$_REQUEST['qnrID']."'>Add A Question</a>";
+		print "<a class='btn green' href='/configure-question?qnrID=".$_REQUEST['qnrID']."'>Add A Question</a>";
 	}
 }
 

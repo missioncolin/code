@@ -135,8 +135,8 @@ if($success == 1){
 	?>
 	<h4>Questionnaire: <?php print $qnr['label']; ?></h4>
 	<form action="<?php print $_SERVER['REQUEST_URI']; ?>" method="post">
-		<table>
-			<tr><th colspan="2">Configure Question</th><!-- <th></th> --></tr>
+		<table id="configure" class="simpleTable">
+			<tr><th colspan="2">Configure Question</th><th>Points</th></tr>
 			<tr>
 				<td><label>Question</label></td>
 				<td colspan="2"><input size="80" type="text" name="RQvalALPHQuestion" id="RQvalALPHQuestion" value="<?php print $_REQUEST['RQvalALPHQuestion']; ?>" /></td>
@@ -206,7 +206,7 @@ if($success == 1){
 			</tr>
 
 			<tr>
-				<td></td><td colspan="2"><div class="submitWrap"><input type="submit" value="Save" name="configure-question" class="btnStyle" /><a name="configure-question" class="btnStyle" href="/configure-question?qnrID=<?php print $_REQUEST['qnrID']; ?>" >Add Another Questions</a></div></td>
+				<td></td><td colspan="2"><div class="submitWrap"><input type="submit" value="Save" name="configure-question" class="btn" /><a name="configure-question" class="btn green" href="/configure-question?qnrID=<?php print $_REQUEST['qnrID']; ?>" >Add More Questions</a></div></td>
 			</tr>
 		</table>
 		

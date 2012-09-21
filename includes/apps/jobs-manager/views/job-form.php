@@ -133,7 +133,7 @@ if ($edit == true && !isset($_GET['id'])) {
             </tbody>
         </table>
         <input type="hidden" name="id" value="<?php echo (isset($_GET['id']) && $edit == true) ? (int)$_GET['id'] : 0; ?>" />
-        <input type="submit" value="Create" class="btnStyle" />
+        <input type="submit" value="Create" class="btn green" />
     </form>
     <?php
     }

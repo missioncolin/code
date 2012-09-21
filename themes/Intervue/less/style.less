@@ -882,15 +882,53 @@ a:hover.btn.red, input:hover.btn.red {
     background: darken(@accent3, 10%);
 }
 
+.btn + .btn {
+    margin-left: 10px;
+}
+
 /*Box-------------------------------------------------------------------------- */
 
 .box {
-    border: 1px solid #848484;
+    border: 1px solid #B7B7B7;
     background: #FFF;
     .border-radius(3px);
     .box-shadow(1px, 1px, 5px, rgba(0,0,0,0.2));
     padding: 20px 30px;
     line-height: 32px;
+    .box-sizing();
+    float: left;
+    width: 100%;
+}
+
+#card.box {
+    padding: 0;
+}
+
+#card ul {
+    margin: 0;
+    list-style: none;
+    padding: 15px 15px 10px;
+    width: 100%;
+    float: left;
+    .box-sizing();
+}
+
+#card li {
+    margin: 5px 0;
+    padding: 0;
+    float: left;
+    width: 100%;
+}
+
+.smallHeader .heading h2 {
+    font-size: 24px;
+    text-align: left;
+    margin: 25px 0 20px 20px;
+}
+
+#card + .btn {
+    width: 100%;
+    margin: 20px 0 0;
     .box-sizing();
 }
 
@@ -968,6 +1006,47 @@ fieldset input.left {
 
 fieldset + input[type="submit"] {
     margin-top: 10px;
+}
+
+form input[type="text"],
+form input[type="email"],
+form input[type="password"],
+form input[type="url"],
+form textarea {
+    background: #FFF;
+    border: none;
+    border: 1px solid @borders;
+    font-size: 16px;
+    color: @base;
+    font-family: "freight-sans-pro",sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    padding: 8px;
+    .border-radius(3px);
+}
+
+/*Templates------------------------------------------------------------------- */
+
+.one-column #colA {
+    width: 100%;
+    float: left;
+    margin: -50px 0 0;
+}
+
+#configure-question.one-column #colA {
+    margin: -60px 0 0;
+}
+
+.two-column #colA {
+    float: left;
+    width: 40.62%;
+    margin: -50px 0 0 0;
+}
+
+.two-column #colB {
+    float: right;
+    width: 52.08%;
+    margin: 50px 0 0;
 }
 
 /*Pricing Options------------------------------------------------------------- */
@@ -1190,6 +1269,11 @@ table .btn {
     top: 4px;
 }
 
+table ~ .btn {
+    float: right;
+    margin: 20px 0 0;
+}
+
 .pagination {
     float: left;
     width: 100%;
@@ -1201,13 +1285,53 @@ table .btn {
     margin: 0 3px;
 }
 
+table.simpleTable {
+    background: #FFF;
+    .box-shadow(0);
+    .border-radius(0);
+    border: 1px solid #D8D8D8;
+    border-collapse: collapse;
+}
+
+table.simpleTable td, table.simpleTable th {
+    border: none;
+    border-bottom: 1px solid #D8D8D8;
+    padding: 8px;
+    font-size: 16px;
+    text-align: left;
+}
+
+table.simpleTable th {
+    border: 1px solid transparent;
+}
+
+table.simpleTable .btn {
+    top: 0;
+}
+
+form table input[type="text"],
+form table input[type="email"],
+form table input[type="password"],
+form table input[type="url"],
+form table textarea {
+    background: lighten(@borders, 11%);
+}
+
+form table input[type="text"]:focus,
+form table input[type="email"]:focus,
+form table input[type="password"]:focus,
+form table input[type="url"]:focus,
+form table textarea:focus {
+    background: #FFF;
+    outline: none;
+}
+
 /*Applicant List -------------------------------------------------------------- */
 
 #applicantList {
     float: left;
     width: 100%;
     border-bottom: 1px solid #b7b7b7;
-    margin: -50px 0 0;
 }
 
 #applicantList td:first-child {
@@ -1228,7 +1352,6 @@ table .btn {
     float: left;
     width: 100%;
     border-bottom: 1px solid #b7b7b7;
-    margin: -50px 0 0;
     position: relative;
 }
 
@@ -1265,10 +1388,9 @@ table .btn {
     float: left;    
     width: 40.62%;
     padding: 0;
-    margin: -50px 0 0;
     position: relative;
     border: 1px solid #b7b7b7;
-    .border-radius(3px 3px 0 0);
+    .border-radius(3px);
 }
 
 #applicantProfile #card.fixed {
@@ -1281,6 +1403,7 @@ table .btn {
     background: @base2;
     float: left;
     width: 100%;
+    .border-radius(3px 3px 0 0);
 }
 
 #card .cutout {
@@ -1369,10 +1492,10 @@ table .btn {
 #applicantProfile #submissions {
     float: right;
     width: 52.08%;
-    margin: 60px 0 0;
+    margin: 100px 0 0;
 }
 
-#submissions #toolbar {
+#submissions #toolbar, #colB #toolbar {
     float: left;
     width: 100%;
     text-align: center;
@@ -1469,26 +1592,9 @@ table .btn {
     float: left;    
     width: 40.62%;
     padding: 0;
-    margin: -50px 0 0;
     position: relative;
     border: 1px solid #b7b7b7;
-    .border-radius(3px 3px 0 0);
-}
-
-#hrSignup #card ul {
-    margin: 0;
-    list-style: none;
-    padding: 15px 15px 5px;
-    width: 100%;
-    float: left;
-    .box-sizing();
-}
-
-#hrSignup #card li {
-    margin: 10px 0;
-    padding: 0;
-    float: left;
-    width: 100%;
+    .border-radius(3px);
 }
 
 #hrSignup #card h4 {
@@ -1498,7 +1604,7 @@ table .btn {
 #hrSignup #form {
     float: right;
     width: 52.08%;
-    margin: 60px 0 0;
+    margin: 100px 0 0;
 }
 
 #form h3 {
@@ -1588,6 +1694,28 @@ table .btn {
 }
 
 .customfile-disabled { opacity: .5; filter:progid:DXImageTransform.Microsoft.Alpha(opacity=0); cursor: default;  }
+
+/*Questionaires------------------------------------------------------------------ */
+
+#questionairesForm input[type="text"] {
+    width: 70%;
+    margin-bottom: 30px;
+    float: left;
+}
+
+#questionairesForm .btn {
+    padding: 6px 30px;
+    float: right;
+    margin: 2px 0 0;
+}
+
+#questionairesForm table + .btn {
+    width: 100%;
+    float: left;
+    margin: 20px 0 0;
+    .box-sizing();
+    padding: 10px 30px;
+}
 
 /* =============================================================================
    Footer
