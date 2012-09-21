@@ -50,9 +50,9 @@
                 <?php } ?>
                 
                 <?php if (isset($user->groups['hr-managers'])) { ?>
-                    <a class="btn" href="#">Logout</a>
+                    <a class="btn" href="/logout">Logout</a>
                 <?php } else { ?>
-                    <a class="btn" href="#">Login</a>
+                    <a class="btn" href="/login">Login</a>
                 <?php } ?>
             </div>
             <nav>

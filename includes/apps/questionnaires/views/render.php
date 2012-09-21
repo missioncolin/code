@@ -26,9 +26,9 @@ if (time() < strtotime($datePosted) || $status == 'inactive') {
 
 ?>
 
-<h3><?php echo $title; ?></h3>
 <form id="job-form" method="post" action="<?php echo $_SERVER['REQUEST_URI']; ?>">
 	<table class="simpleTable">
+	<tr><th><?php echo $title; ?></th></tr>
 	<?php
 
     if (is_array($q->questions) && !empty($q->questions)) {
@@ -96,7 +96,7 @@ if (time() < strtotime($datePosted) || $status == 'inactive') {
 
 ?>
 	</table>
-	<input type="submit" value="Submit" />
+	<input type="submit" class="btn green" value="Submit" />
 </form>
 <?php
 }

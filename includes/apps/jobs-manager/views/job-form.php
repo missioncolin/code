@@ -92,7 +92,7 @@ if ($edit == true && !isset($_GET['id'])) {
     } else {
     ?>
     <form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post">
-        <table>
+        <table class="simpleTable">
             <thead>
                 <tr>
                     <th><label for="title">Job Title</label></th>
