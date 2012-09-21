@@ -1,20 +1,20 @@
-<a href="#" id="priceCallout" class="btn green">First Job is Free! <span>Sign Up Today!</span></a>
+<a href="/hr-signup" id="priceCallout" class="btn green">First Job is Free! <span>Sign Up Today!</span></a>
 
 <ul id="pricingOptions">
     <li>
-        <h2>$199</h2>
+        <h2>$<?php echo $db->return_specific_item(false, 'tblJobCreditsPricing', 'price', "199", '`credits` = 1');?></h2>
         <h5>1 Job</h5>
         <p>Maecenas faucibus mollis interdum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Aenean eu leo quam.</p>
         <p><a class="btn" href="#">Learn More</a></p>
     </li>
     <li>
-        <h2>$550</h2>
+        <h2>$<?php echo $db->return_specific_item(false, 'tblJobCreditsPricing', 'price', "550", '`credits` = 3');?></h2>
         <h5>3 Jobs</h5>
         <p>Maecenas faucibus mollis interdum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Aenean eu leo quam.</p>
         <p><a class="btn" href="#">Learn More</a></p>
     </li>
     <li>
-        <h2>$1500</h2>
+        <h2>$<?php echo $db->return_specific_item(false, 'tblJobCreditsPricing', 'price', "1500", '`credits` = 10');?></h2>
         <h5>10 Jobs</h5>
         <p>Maecenas faucibus mollis interdum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Aenean eu leo quam.</p>
         <p><a class="btn" href="#">Learn More</a></p>
