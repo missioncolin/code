@@ -148,10 +148,9 @@ if ($this INSTANCEOF Quipp){
                 <label for="Email">Email Address</label>
                 <input type="text" id="Email" name="Email" class="full" placeholder="Email Address" value="<?php echo $post["Email"]["value"];?>" required="required"/>
                 <label for="password">Password</label>
-                <input type="password" id="password" name="password" class="full" placeholder="Password"  required="required"/>
-
+                <input type="password" id="password" name="password" class="half left bottom" placeholder="Password"  required="required"/>
                 <label for="confirmPassword">Re-Type Password</label>
-                <input type="password" id="confirmPassword" name="confirmPassword" class="full bottom" placeholder="Re-Type Password" required="required"/>
+                <input type="password" id="confirmPassword" name="confirmPassword" class="half bottom" placeholder="Re-Type Password" required="required"/>
             </fieldset>
             <fieldset>
                 <legend>Company Name &amp; Location</legend>
