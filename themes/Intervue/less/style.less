@@ -979,6 +979,7 @@ form fieldset .select {
     .box-sizing();
     float: left;
     width: 100%;
+    .border-radius(0);
 }
 
 #form fieldset .select {
@@ -995,17 +996,17 @@ fieldset input:focus, fieldset textarea:focus {
     outline: none;
 }
 
-fieldset input.half, fieldset div.select.half {
+form fieldset input.half, form fieldset div.select.half {
     width: 50%;
     border-left: 1px solid @borders;
 }
 
-fieldset input.bottom, fieldset textarea.bottom, fieldset div.select.bottom {
+form fieldset input.bottom, form fieldset textarea.bottom, form fieldset div.select.bottom {
     border-bottom: none;
     .border-radius(0 0 3px 3px);
 }
 
-fieldset input.left { 
+form fieldset input.left { 
     border-left: none;
 }
 
