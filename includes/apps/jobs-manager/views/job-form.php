@@ -92,22 +92,31 @@ if ($edit == true && !isset($_GET['id'])) {
     } else {
     ?>
     <form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post">
-        <table class="simpleTable">
+        <table class="simpleTable singleHeader">
             <thead>
                 <tr>
-                    <th><label for="title">Job Title</label></th>
-                    <th>Date Posted</th>
-                    <th>Date Expires</th>
-                    <th><label for="questionnaire">Questionnaire</label></th>
-                    <th><label for="active">Active</label></th>
+                    <th colspan="5">Create a Job</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td><input type="text" name="RQvalALPHTitle" id="title" placeholder="Job Title" value="<?php echo $title; ?>"  required/>
-                    <input type="url" name="RQvalWEBSLink" id="link" placeholder="http://monster.com/jobid" value="<?php echo $link; ?>"  required/></td>
+                    <td><label for="title">Job Title</label></td>
+                    <td><input type="text" name="RQvalALPHTitle" id="title" placeholder="Job Title" value="<?php echo $title; ?>"  required/></td>
+                </tr>
+                <tr>
+                    <td><label for="link">Job Link</label></td>
+                    <td><input type="url" name="RQvalWEBSLink" id="link" placeholder="http://monster.com/jobid" value="<?php echo $link; ?>"  required/></td>
+                </tr>
+                <tr>
+                    <td><label for="datePosted">Date Posted</label></td>
                     <td><input type="text" class="datepicker" name="RQvalDATEDate_Posted" id="datePosted" value="<?php echo $datePosted; ?>"/></td>
+                </tr>
+                <tr>
+                    <td><label for="dateExpires">Date Expires</label></td>
                     <td><input type="text" class="datepicker" name="RQvalDATEDate_Expires" id="dateExpires" value="<?php echo $dateExpires; ?>"/></td>
+                </tr>
+                <tr>
+                    <td><label for="questionnaire">Questionnaire</label></td>
                     <td>
                         <?php
                         
@@ -127,6 +136,9 @@ if ($edit == true && !isset($_GET['id'])) {
                         
                         ?>
                     </td>
+                </tr>
+                <tr>
+                    <td><label for="active">Active</label></td>
                     <td><input type="checkbox" name="active" id="active" <?php if ($status == 'active') { echo ' checked="checked"'; } ?>></td>
                 </tr>
             </tbody>
