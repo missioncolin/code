@@ -40,17 +40,18 @@ if(!empty($vRS['filename'])) {
 
 <h1>Playback</h1>
 <p>A video has been found stored in this location.</p>
-<div id="mediaplayer">This site requires flashplayer. Please upgrade your plugins and install the latest flashplayer.</div>
-	
-	<script type="text/javascript" src="jwplayer.js"></script>
-	<script type="text/javascript">
-		jwplayer("mediaplayer").setup({
-			flashplayer: "player.swf",
-			streamer: "rtmp://media.intervue.ca/intervue/",
-			file: "<?php echo $vRS['filename'] ?>",
-			image: "preview.jpg"
-		});
-	</script>
+<embed src="/includes/apps/ams-media/flx/captureModule.swf"
+    quality="high"
+    bgcolor="#000000"
+    width="550"
+    height="400"
+    name="captureModule" FlashVars="reviewFile=<?php echo $vRS['filename']; ?>"
+    align="middle"
+    allowScriptAccess="sameDomain"
+    allowFullScreen="false"
+    type="application/x-shockwave-flash"
+    pluginspage="http://www.adobe.com/go/getflash"
+/>
 
 <?php } else { ?>
 
