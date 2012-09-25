@@ -35,6 +35,10 @@
     
     <div id="creditCardForm">
     
+        <div class="form-row heading">
+            <h4>Enter Payment Details <img src="/themes/Intervue/img/creditCardCompanies.png" alt="" /></h4>
+        </div>
+    
         <div class="form-row">
             <label for="name">Name on Card</label><br />
             <input id="name" type="text" size="50" autocomplete="off" class="card-name"/>

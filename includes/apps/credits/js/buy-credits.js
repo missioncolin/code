@@ -1,7 +1,7 @@
 $("#payment-form").submit(function (event) {
 
     // disable the submit button to prevent repeated clicks
-    $('.submit-button').attr("disabled", "disabled");
+    $('.submit-button').attr("disabled", "disabled").attr("class", "btn grey submit-button");
 
     Stripe.createToken({
         number: $('.card-number').val(),
@@ -17,8 +17,8 @@ $("#payment-form").submit(function (event) {
 function stripeResponseHandler(status, response) {
     if (response.error) {
         // show the errors on the form
-        $(".payment-errors").text(response.error.message);
-        $(".submit-button").removeAttr("disabled");
+        $(".payment-errors").fadeIn().text(response.error.message);
+        $(".submit-button").removeAttr("disabled").attr("class", "btn green submit-button");
     } else {
         var form$ = $("#payment-form");
         // token contains id, last4, and card type
