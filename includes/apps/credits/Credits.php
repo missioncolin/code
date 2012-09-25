@@ -39,7 +39,23 @@ class Credits {
                 "description" => $this->credits[$creditID]['packageName'] . " for {$user->username}"
             ));
             
-            var_dump($response);
+            if ($response->paid == true) {
+                
+                $qry = sprintf("INSERT INTO tblTransactions (userID, creditID, id, amount, currency, description, paid, sysDateCreated) VALUES ('%d', '%d', '%s', '%d', '%s', '%s', '%d', NOW())",
+                    (int)$user->id,
+                    (int)$creditID,
+                    $this->db->escape($response->id),
+                    (int)$response->amount,
+                    $this->db->escape($response->currency),
+                    $this->db->escape($response->description),
+                    (int)$response->paid);
+                $this->db->query($qry);
+                
+                $totalCredits = $this->addCredits($user, $this->credits[$creditID]['credits']);
+                
+            } else {
+                throw new Exception('There was an unexpected error.');
+            }
         
         } catch (Exception $e) {
             return $e->getMessage();
@@ -47,5 +63,22 @@ class Credits {
         
         return true;
 
+    }
+    
+    
+    /**
+     * Assigns more credits to a user
+     * @param Quipp\User
+     * @param int credits
+     * @return bool
+     */
+    protected function addCredits($user, $credits) {
+    
+        if ($user->set_meta('Job Credits', ((int)$user->get_meta('Job Credits') + (int)$credits))) {
+            
+            return $user->get_meta('Job Credits');
+        } else {
+            return 0;
+        }
     }
 }
