@@ -92,7 +92,7 @@ class JobManager {
      * @return array
      */
     public function getJob($jobID) {
-        $qry = sprintf("SELECT title, link, dateExpires, datePosted, questionnaireID, sysStatus FROM tblJobs WHERE itemID='%d' AND userID='%d' AND sysOpen='1'", (int)$jobID, (int)$this->userID);
+        $qry = sprintf("SELECT title, link, dateExpires, datePosted, questionnaireID, sysStatus FROM tblJobs WHERE itemID='%d' AND sysOpen='1'", (int)$jobID);
         $res = $this->db->query($qry);
        
         
