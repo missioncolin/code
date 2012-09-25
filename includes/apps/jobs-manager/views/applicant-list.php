@@ -1,5 +1,9 @@
 <?php 
 
+require dirname(__DIR__) . '/JobManager.php';
+$jobManager = new JobManager($db, $_SESSION['userID']);
+
+
 function get_user_specific_values($userID, $fields = array()){
 	if (preg_match("/^[0-9]+$/",$userID,$matches) && is_array($fields) && count($fields) > 0){
 		for ($i = 0; $i < count($fields); $i++){
@@ -33,7 +37,7 @@ function get_user_specific_values($userID, $fields = array()){
         
         //select info from tblAnswers, group by userID, questionID 
         //value is sum saved in //answers table
-        $usersQry = sprintf("SELECT userID AS 'userID', jobID AS 'jobID', SUM(value) AS 'points', questionID AS 'questionID', optionID AS 'optionID' 
+        $usersQry = sprintf("SELECT userID AS 'userID', jobID AS 'jobID' 
         			FROM tblAnswers 
         			WHERE  jobID = '%d' AND sysActive = '1' and sysOpen = '1'
         			GROUP BY userID, jobID", $_GET['job']);
@@ -43,43 +47,14 @@ function get_user_specific_values($userID, $fields = array()){
         if ($usersRS){
         	while ($row = mysql_fetch_array($usersRS)){
 	        	
-	        	$points = $row['points'];
-
-	        	//get value of options from tblOptions where answrs.value = none and option id > 0	      
-	        	$radioQry = sprintf("SELECT SUM( options.value ) AS  'value'
-	        		FROM tblAnswers answers
-				INNER JOIN tblOptions options ON answers.optionID = options.itemID
-				WHERE answers.jobID = %d
-				AND answers.userID = %d
-				GROUP BY answers.userID
-				LIMIT 0 , 30", $row['jobID'], $row['userID']);
-
-	        	$radioRS = mysql_query($radioQry);
-	        	if($radioRS){
-		        	$valueRow = mysql_fetch_array($radioRS);
-		        	$points += $valueRow['value'];
-	        	}
-	        
-			
-	        	//multi select qry
-	        	$multiQry = sprintf("SELECT sum(options.value) AS 'value' FROM tblOptions options 
-	        	INNER JOIN tblAnswerOptionsLinks links ON options.itemID = links.optionID
-	        	WHERE links.jobID = %d AND links.applicantID = %d
-	        	GROUP BY applicantID, jobID", $row['jobID'], $row['userID']);
-	        	
-	        	$multiRS = mysql_query($multiQry);
-	        	if ($multiRS){
-		        	$valueRow = mysql_fetch_array($multiRS);
-		        	$points += $valueRow['value'];	
-	        	}
-	        	
-	        	
         		$detailsRS = get_user_specific_values($row['userID'], array(0=>"First Name", 1=>"Last Name"));
         		while($details = mysql_fetch_array($detailsRS)){
-	        		if($details['fieldLabel'] == "First Name"){$firstName = $details['value'];}
-	        		if($details['fieldLabel'] == "Last Name"){$lastName = $details['value'];}
-	        		
+        			if($details['fieldLabel'] == "First Name"){$firstName = $details['value'];}
+        			if($details['fieldLabel'] == "Last Name"){$lastName = $details['value'];}
         		}
+        		
+	        	
+	             $points = $jobManager->get_points_sum($row['jobID'], $row['userID']);
    
 	        	print "<tr>
         			<td><div class=\"imgWrap\"><img src=\"/themes/Intervue/img/profilePicExample.jpg\" alt=\"Full Name\" /></div><strong>".$firstName." ".$lastName."</strong></td>

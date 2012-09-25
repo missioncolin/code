@@ -188,4 +188,51 @@ class JobManager {
         return false;
         
     }  
+    
+    public function get_points_sum($jobID, $userID){
+	  //total from values column in tblanswers
+	  $points = 0;
+	  $answersQry = sprintf("SELECT SUM(value) AS 'points'
+        			FROM tblAnswers 
+        			WHERE  jobID = '%d' AND userID= '%d' AND sysActive = '1' and sysOpen = '1'
+        			GROUP BY userID, jobID", $jobID, $userID);
+        $answersRS= mysql_query($answersQry);
+        if ($answersRS){
+        	$row = mysql_fetch_array($answersRS);
+        	$points += $row['points'];
+        }
+
+
+        //total from options - radio
+ 	$radioQry = sprintf("SELECT SUM( options.value ) AS  'value'
+ 		FROM tblAnswers answers
+		INNER JOIN tblOptions options ON answers.optionID = options.itemID
+		WHERE answers.jobID = '%d'
+		AND answers.userID = %d
+		GROUP BY answers.userID
+		", $jobID, $userID);
+
+ 	$radioRS = mysql_query($radioQry);
+ 	if($radioRS){
+        	$valueRow = mysql_fetch_array($radioRS);
+        	$points += $valueRow['value'];
+ 	}
+ 
+	
+ 	 //total from options - multi-select
+ 	$multiQry = sprintf("SELECT sum(options.value) AS 'value' FROM tblOptions options 
+ 	INNER JOIN tblAnswerOptionsLinks links ON options.itemID = links.optionID
+ 	WHERE links.jobID = '%d' AND links.applicantID = '%d'
+ 	GROUP BY applicantID, jobID", $jobID, $userID);
+ 	
+ 	$multiRS = mysql_query($multiQry);
+ 	if ($multiRS){
+        	$valueRow = mysql_fetch_array($multiRS);
+        	$points += $valueRow['value'];	
+ 	}
+	        
+	return $points;
+	    
+    }
+    
 }
