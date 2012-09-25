@@ -22,4 +22,8 @@ $(document).ready(function() {
     
     $('#RQvalALPHQuestionnaire_Title').focus();
     
+    $('.credits label').click(function(){
+        $(this).addClass('selected').siblings().removeClass('selected');
+    });
+    
 });

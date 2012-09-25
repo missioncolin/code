@@ -26,30 +26,35 @@
         $i = 1;
         foreach ($credits->credits as $creditID => $credit) {
             $checked = ($i == 1) ? ' checked="checked"' : '';
-            echo "<input type=\"radio\" name=\"credits\" id=\"credit_{$credit['itemID']}\" value=\"{$credit['itemID']}\"{$checked}\"> <label for=\"credit_{$credit['itemID']}\">{$credit['packageName']} (\${$credit['price']} CAD)</>\n";
+            echo "<input type=\"radio\" name=\"credits\" id=\"credit_{$credit['itemID']}\" value=\"{$credit['itemID']}\"{$checked}\"> <label for=\"credit_{$credit['itemID']}\">\${$credit['price']}<br /><span>{$credit['packageName']}</span></label>\n";
             $i++;
         }
         ?>
     </div>
-    <div class="form-row">
-        <label>Name on Card</label>
-        <input type="text" size="50" autocomplete="off" class="card-name"/>
+    
+    <div id="creditCardForm">
+    
+        <div class="form-row">
+            <label for="name">Name on Card</label><br />
+            <input id="name" type="text" size="50" autocomplete="off" class="card-name"/>
+        </div>
+    
+        <div class="form-row">
+            <label for="cardNum">Card Number</label><br />
+            <input id="cardNum" type="text" size="20" autocomplete="off" class="card-number"/>
+        </div>
+        <div class="form-row">
+            <label for="cvc">CVC</label><br />
+            <input id="cvc" type="text" size="4" autocomplete="off" class="card-cvc"/>
+        </div>
+        <div class="form-row">
+            <label>Expiration (MM/YYYY)</label><br />
+            <input type="text" size="2" class="card-expiry-month"/>
+            <span> / </span>
+            <input type="text" size="4" class="card-expiry-year"/>
+        </div>
+    
     </div>
 
-    <div class="form-row">
-        <label>Card Number</label>
-        <input type="text" size="20" autocomplete="off" class="card-number"/>
-    </div>
-    <div class="form-row">
-        <label>CVC</label>
-        <input type="text" size="4" autocomplete="off" class="card-cvc"/>
-    </div>
-    <div class="form-row">
-        <label>Expiration (MM/YYYY)</label>
-        <input type="text" size="2" class="card-expiry-month"/>
-        <span> / </span>
-        <input type="text" size="4" class="card-expiry-year"/>
-    </div>
-
-    <input type="submit" class="submit-button btn" value="Submit Payment" />
+    <input type="submit" class="submit-button btn green" value="Submit Payment" />
 </form>
