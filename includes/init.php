@@ -20,6 +20,9 @@ function __autoload($class) {
 require 'includes.php'; 
 require 'quipp/common.php'; 
 require 'apps/Auth/customAuth.php'; //just for Intervue
+require dirname(__DIR__) . '/vendor/Stripe/lib/Stripe.php';
+Stripe::setApiKey('sk_AohcDYj7BQy2HBUB0eKj3C7l28oWo');
+
 
 $config = require __DIR__ . '/config.php.dist';
 $dbc    = $config['db'];
