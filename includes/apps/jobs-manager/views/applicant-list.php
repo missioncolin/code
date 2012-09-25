@@ -83,7 +83,7 @@ function get_user_specific_values($userID, $fields = array()){
    
 	        	print "<tr>
         			<td><div class=\"imgWrap\"><img src=\"/themes/Intervue/img/profilePicExample.jpg\" alt=\"Full Name\" /></div><strong>".$firstName." ".$lastName."</strong></td>
-        			<td><h2>".$points."<br /><a href=\"#\">Rating Details</a></h2></td>
+        			<td><h2>".$points."<br /><a href=\"../applications-detail?job=".$row['jobID']."&applicant=".$row['userID']."\">Rating Details</a></h2></td>
         			<td><a href=\"#\" class=\"btn green\">Recommend</a></td>
         		</tr>";
 	        	
