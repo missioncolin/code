@@ -26,7 +26,7 @@ $quipp->js['footer'][] = "/includes/apps/jobs-manager/js/jobs-manager.js";
 <section id="hrListJobs">
     
     <a href="/create-job" class="btn green newJob">Add a New Job</a>
-    <a href="/buy-credits" class="btn green newJob">Buy Job Credits</a>
+    <a href="/buy-credits" class="btn green buyCredits">Buy Job Credits</a>
     <table>
         <tr>
             <th colspan="4">Job Title</th>

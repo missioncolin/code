@@ -51,7 +51,7 @@ class Credits {
                     (int)$response->paid);
                 $this->db->query($qry);
                 
-                $totalCredits = $this->addCredits($user, $this->credits[$creditID]['credits']);
+                $totalCredits = $this->assignCredits($user, $this->credits[$creditID]['credits']);
                 
             } else {
                 throw new Exception('There was an unexpected error.');
@@ -67,12 +67,12 @@ class Credits {
     
     
     /**
-     * Assigns more credits to a user
+     * Assigns credits to a user
      * @param Quipp\User
      * @param int credits
      * @return bool
      */
-    protected function addCredits($user, $credits) {
+    static public function assignCredits($user, $credits) {
     
         if ($user->set_meta('Job Credits', ((int)$user->get_meta('Job Credits') + (int)$credits))) {
             
