@@ -38,8 +38,8 @@
             
                 <?php if (isset($user->groups['hr-managers'])) { ?>
                     <div id="loggedInButtons">
-                        <a href="/create-job"><?php echo $user->info['Job Credits']; ?> Credits</a> //
-                        <a href="/hr-profile">Profile</a>
+                        <a href="/buy-job-credits"><?php echo $user->info['Job Credits']; ?> Credits</a> //
+                        <a href="/profile">Profile</a>
                     </div>
                 <?php } else { ?>
                     <ul id="social">
