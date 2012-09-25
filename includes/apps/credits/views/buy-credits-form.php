@@ -34,6 +34,10 @@
     
     <div id="creditCardForm">
     
+        <div class="form-row heading">
+            <h4>Enter Payment Details</h4>
+        </div>
+    
         <div class="form-row">
             <label for="name">Name on Card</label><br />
             <input id="name" type="text" size="50" autocomplete="off" class="card-name"/>
@@ -47,12 +51,14 @@
             <label for="cvc">CVC</label><br />
             <input id="cvc" type="text" size="4" autocomplete="off" class="card-cvc"/>
         </div>
-        <div class="form-row">
+        <!--
+<div class="form-row">
             <label>Expiration (MM/YYYY)</label><br />
             <input type="text" size="2" class="card-expiry-month"/>
             <span> / </span>
             <input type="text" size="4" class="card-expiry-year"/>
         </div>
+-->
     
     </div>
 
