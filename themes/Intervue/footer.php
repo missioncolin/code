@@ -24,8 +24,9 @@
     ?>
     <script src="/themes/Intervue/js/plugins.js"></script>
     <script src="/themes/Intervue/js/main.js"></script>
-
     <script>
+    
+        <?php if (isset($quipp->js['onload'])) { echo '$(function() { ' . $quipp->js['onload'] . '});'; } ?>
         var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
         (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
         g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
