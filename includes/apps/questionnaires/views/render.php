@@ -161,17 +161,12 @@ if (time() < strtotime($datePosted) || $status == 'inactive') {
                     if ($video !== 0) {
                     
                     ?>
-                        <div id="mediaplayer">This site requires flashplayer. Please upgrade your plugins and install the latest flashplayer.</div>
-	
-                    	<script type="text/javascript" src="/includes/apps/ams-media/views/jwplayer.js"></script>
-                    	<script type="text/javascript">
-                    		jwplayer("mediaplayer").setup({
-                    			flashplayer: "/includes/apps/ams-media/views/player.swf",
-                    			streamer: "rtmp://media.intervue.ca/intervue/",
-                    			file: "<?php echo $video; ?>",
-                    			image: "/includes/apps/ams-media/views/preview.jpg"
-                    		});
-                    	</script>
+                        	
+                    	<embed src="/includes/apps/ams-media/flx/captureModule.swf" quality="high" bgcolor="#000000" width="550" height="400" name="captureModule" FlashVars="reviewFile=<?php echo $video; ?>" align="middle" allowScriptAccess="sameDomain" allowFullScreen="true" type="application/x-shockwave-flash" pluginspage="http://www.adobe.com/go/getflash" />
+
+                    	
+                    	
+                    	
                     <?php
                     } else {
                     
