@@ -15,7 +15,11 @@ if ($page->template != '') {
 	$breadcrumb = $nav->breadcrumb($page->info['itemID'], 'link', true, ' &gt; ');
 
 	// pull in the template file
+	ob_start();
+	
 	require_once $page->template;
+	
+	ob_end_flush();
 } else {
 
 	$page->display_404();

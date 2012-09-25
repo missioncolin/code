@@ -14,13 +14,17 @@
 
     if (!empty($_POST)) {
         $charge = $credits->charge((int)$_POST['credits'], $_POST['stripeToken'], $user);
+        
+        if ($charge == true) {
+            header('Location: /?success=Credits+successfully+purchased');
+        }
     }
 
 ?>
 
 <div class="payment-errors"><?php if (isset($charge) && $charge !== true) { echo $charge; } ?></div>
 
-<form action="" method="POST" id="payment-form">
+<form action="" method="post" id="payment-form">
     <div class="credits">
         <?php     
         $i = 1;

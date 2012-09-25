@@ -17,7 +17,7 @@ if (!empty($_POST) && !empty($questionnaires)) {
         } else {
             if (isset($_POST['id']) && (int)$_POST['id'] > 0 && $j->canEdit($_POST['id'])) {
                 // edit
-                $j->editJob($_POST);
+                $success = $j->editJob($_POST);
             } else if (isset($_POST['id']) && (int)$_POST['id'] > 0) {
                 $error = 'No access';
             } else {
@@ -40,10 +40,14 @@ if ($edit == true && !isset($_GET['id'])) {
     echo alert_box('<strong>Warning</strong>, no job found', 3);
 } else if ($edit == true && !$j->canEdit($_GET['id'])) {
     echo alert_box('<strong>Access denied</strong. You do not have access to this job', 2);
-} else if ($edit == false && $error == '' && $success === true) {
-    echo alert_box('<strong>Success</strong>, your job has been posted successfully', 1);
-} else {
+} else if ($error == '' && $success === true) {
+    if ($edit == false) {
+        header('Location: /applications?success=Job+created=successfully');
+    } else {
+        header('Location: /applications?success=Job+edited=successfully');
+    }
 
+} else {
     if ($success != '') {
         $error = $success;
     }
@@ -144,7 +148,7 @@ if ($edit == true && !isset($_GET['id'])) {
             </tbody>
         </table>
         <input type="hidden" name="id" value="<?php echo (isset($_GET['id']) && $edit == true) ? (int)$_GET['id'] : 0; ?>" />
-        <input type="submit" value="Create" class="btn green" />
+        <input type="submit" value="<?php echo ($edit == true) ? 'Edit' : 'Create'; ?>" class="btn green" />
     </form>
     <?php
     }

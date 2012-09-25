@@ -8,7 +8,7 @@ $j = new JobManager($db, $_SESSION['userID']);
 
 $offset  = 0;
 $page    = 1;
-$display = 3;
+$display = 10;
 
 if (isset($_GET['page'])) {
     $page   = (int) $_GET['page'];
