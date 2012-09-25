@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(document).ready(function() {
     
     $('#testimonialRotator') 
     .cycle({ 
@@ -19,4 +19,11 @@ $(document).ready(function () {
     
     $('#companyLogo').customFileInput();
     $('.datepicker').datepicker({dateFormat: 'yy-mm-dd'});
+    
+    $('#RQvalALPHQuestionnaire_Title').focus();
+    
+    $('.credits label').click(function(){
+        $(this).addClass('selected').siblings().removeClass('selected');
+    });
+    
 });

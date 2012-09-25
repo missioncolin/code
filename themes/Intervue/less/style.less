@@ -726,6 +726,14 @@ nav a:hover {
     padding-top: 70px;
 }
 
+#banner li > span a {
+    color: #FFF;
+}
+
+#banner li > span a:hover {
+    color: rgba(255,255,255,0.8);
+}
+
 #banner li:first-child {
     float: left;
     background: url(img/banner1Img.jpg) no-repeat;
@@ -1400,10 +1408,14 @@ form table input + input {
     position: relative;
 }
 
-#hrListJobs .newJob {
+#hrListJobs .newJob, #hrListJobs .buyCredits {
     position: absolute;
     top: 15px;
     right: 15px;
+}
+
+#hrListJobs .buyCredits {
+    right: 190px;
 }
 
 #hrListJobs td:first-child {
@@ -1516,6 +1528,15 @@ form table input + input {
     float: left;
     width: 85px;
     color: lighten(@base, 30%);
+}
+
+#applicantProfile dd {
+    float: left;
+    width: 185px;
+    overflow: hidden;
+    margin: 0;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 #applicantProfile #grade {
@@ -1668,6 +1689,15 @@ form table input + input {
     padding: 0 0 20px;
 }
 
+#profileEdit #form h3 {
+    background: @base2;    
+    color: #FFF;
+    border-bottom: none;
+    margin: 22px 0 30px;
+    padding: 15px 20px;
+    .border-radius(3px);
+}
+
 #form div {
     margin: 0 0 15px;
     float: left;
@@ -1800,6 +1830,140 @@ form table input + input {
 .noQuestions {
     float: left;
     margin: 7px 0 0 0;
+}
+
+/*Buy Credits----------------------------------------------------------------- */
+
+.payment-errors {
+    width: 80%;
+    margin: 25px auto 30px;
+    padding: 1% 2%;
+    background: lighten(#FF0000, 46%);
+    border: 1px solid lighten(#FF0000, 20%);
+    color: lighten(#FF0000, 10%);
+    .border-radius(3px);
+    display: none;
+}
+
+#payment-form .credits {
+    width: 100%;
+    float: left;
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.credits label {
+    width: auto;
+    padding: 35px 0 0 0;
+    display: inline-block;
+    *display: inline;*zoom: 1;
+    width: 25%;
+    height: 105px;
+    background: #FFF;
+    border: 1px solid darken(@borders, 20%);
+    font-weight: normal;
+    text-align: center;
+    .border-radius(3px);
+    margin: 0 2%;
+    position: relative;
+    cursor: pointer;
+    font-size: 44px;
+    line-height: 44px;
+    font-family: "proxima-nova",sans-serif;
+    font-style: normal;
+    font-weight: 700;
+}
+
+.credits label span {
+    color: @accent;
+    font-size: 18px;
+    position: relative;
+    top: -14px;
+    text-transform: uppercase;
+}
+
+.credits label:hover {
+    background: lighten(@borders, 10%);
+}
+
+.credits label.selected {
+    background: @accent;
+    border: 1px solid darken(@accent, 10%);
+    color: #FFF;
+}
+
+.credits label.selected span {
+    color: lighten(@accent, 30%);
+}
+
+.credits input[type="radio"] {
+    position: absolute;
+    left: -9999px;
+}
+
+#creditCardForm {
+    background: @accent;
+    border: 1px solid darken(@accent, 10%);
+    color: #FFF;
+    width: 60%;
+    margin: 0 auto;
+    clear: both;
+    .border-radius(3px);
+    padding: 10px 0;
+}
+
+#creditCardForm .heading.form-row {
+    background: darken(@accent, 10%);
+    width: 100%;
+    margin-left: 0;
+}
+
+#creditCardForm h4 {
+    font-size: 22px;
+    color: #FFF;
+    margin: 20px;
+    position: relative;
+}
+
+#creditCardForm h4 img {
+    position: absolute;
+    right: 0;
+    top: -3px;
+}
+
+#creditCardForm .form-row {
+    width: 40%;
+    margin: 10px 0;
+    display: inline-block;
+    margin-left: 20px;
+}
+
+#creditCardForm label {
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+form #creditCardForm input[type="text"], 
+form #creditCardForm input[type="email"], 
+form #creditCardForm input[type="password"], 
+form #creditCardForm input[type="url"], 
+form #creditCardForm textarea {
+    border: 1px solid darken(@accent, 10%);
+    .box-shadow(inset 0, 1px, 2px, rgba(0,0,0,0.2));
+    width: 100%;
+    .box-sizing();
+}
+
+form #creditCardForm input[type="text"]#cvc {
+    width: 50%;
+}
+
+#creditCardForm + .btn {
+    width: 60%;
+    margin: 30px auto 0;
+    clear: both;
+    display: block;
+    font-size: 16px;
 }
 
 /* =============================================================================

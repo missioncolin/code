@@ -1,8 +1,9 @@
 <?php
 
-global $message;
+global $message, $user;
 
 require dirname(__DIR__) . '/JobManager.php';
+require dirname(dirname(__DIR__)) . '/credits/Credits.php';
 
 $j = new JobManager($db, $_SESSION['userID']);
 $questionnaires = $j->getQuestionaires();
@@ -17,12 +18,16 @@ if (!empty($_POST) && !empty($questionnaires)) {
         } else {
             if (isset($_POST['id']) && (int)$_POST['id'] > 0 && $j->canEdit($_POST['id'])) {
                 // edit
-                $j->editJob($_POST);
+                $success = $j->editJob($_POST);
             } else if (isset($_POST['id']) && (int)$_POST['id'] > 0) {
                 $error = 'No access';
             } else {
                 // insert
-                $success = $j->addJob($_POST);
+                if ((int)$user->info['Job Credits'] > 0) {
+                    $success = $j->addJob($_POST);
+                } else {
+                    $success = 'You do not have a sufficiant amount of job credits to create a new job. Please <a href="/buy-job-credits">purchase more job credits</a> to continue.'; 
+                }
             }
         }
     } else {
@@ -40,10 +45,15 @@ if ($edit == true && !isset($_GET['id'])) {
     echo alert_box('<strong>Warning</strong>, no job found', 3);
 } else if ($edit == true && !$j->canEdit($_GET['id'])) {
     echo alert_box('<strong>Access denied</strong. You do not have access to this job', 2);
-} else if ($edit == false && $error == '' && $success === true) {
-    echo alert_box('<strong>Success</strong>, your job has been posted successfully', 1);
-} else {
+} else if ($error == '' && $success === true) {
+    if ($edit == false) {
+        Credits::assignCredits($user, -1);
+        header('Location: /applications?success=Job+created=successfully');
+    } else {
+        header('Location: /applications?success=Job+edited=successfully');
+    }
 
+} else {
     if ($success != '') {
         $error = $success;
     }
@@ -89,13 +99,16 @@ if ($edit == true && !isset($_GET['id'])) {
     if (empty($questionnaires)) {
         
         echo '<strong>You must <a href="/questionnaires">create a questionnaire</a> first</strong>';
+    } else if ((int)$user->info['Job Credits'] == 0) {
+        echo '<strong>You do not have a sufficiant amount of job credits to create a new job. Please <a href="/buy-job-credits">purchase more job credits</a> to continue.</strong>';
+        
     } else {
     ?>
     <form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post">
         <table class="simpleTable singleHeader">
             <thead>
                 <tr>
-                    <th colspan="5">Create a Job</th>
+                    <th colspan="5"><?php echo ($edit == true) ? 'Edit' : 'Create'; ?> a Job</th>
                 </tr>
             </thead>
             <tbody>
@@ -144,7 +157,7 @@ if ($edit == true && !isset($_GET['id'])) {
             </tbody>
         </table>
         <input type="hidden" name="id" value="<?php echo (isset($_GET['id']) && $edit == true) ? (int)$_GET['id'] : 0; ?>" />
-        <input type="submit" value="Create" class="btn green" />
+        <input type="submit" value="<?php echo ($edit == true) ? 'Edit' : 'Create'; ?>" class="btn green" />
     </form>
     <?php
     }
