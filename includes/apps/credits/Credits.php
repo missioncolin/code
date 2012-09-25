@@ -32,20 +32,10 @@ class Credits {
     public function charge($creditID, $token, $user) {
         
         try {
-            $customer = Stripe_Customer::create(array(
-              "description" => $user->info['First Name'] . ' ' . $user->info['Last Name'] . ' (' . $user->username . ')',
-              "email" => $user->info['Email'],
-              "card" => $token
-            ));
-        } catch (Exception $e) {
-            return $e->getMessage();
-        }
-        
-        try {
             $response = Stripe_Charge::create(array(
                 "amount"      => $this->credits[$creditID]['price']*100,
                 "currency"    => "cad",
-                "customer"    => $customer->id,
+                "card"        => $token,
                 "description" => $this->credits[$creditID]['packageName'] . " for {$user->username}"
             ));
             
