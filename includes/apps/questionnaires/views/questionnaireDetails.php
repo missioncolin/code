@@ -82,7 +82,7 @@ if($success == 1){
 			
 			print $questionTable;
 		}else{
-			print "This questionnaire currently has no questions.";
+			print "<div class=\"noQuestions\">This questionnaire currently has no questions.</div>";
 		}
 		
 		print "<a class='btn green' href='/configure-question?qnrID=".$_REQUEST['qnrID']."'>Add A Question</a>";

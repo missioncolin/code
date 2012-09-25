@@ -19,4 +19,5 @@ $(document).ready(function () {
     
     $('#companyLogo').customFileInput();
     $('.datepicker').datepicker({dateFormat: 'yy-mm-dd'});
+    
 });
