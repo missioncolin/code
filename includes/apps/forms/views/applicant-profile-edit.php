@@ -68,13 +68,6 @@ if ($this INSTANCEOF Quipp){
 ?>
     <div id="form">
 
-<?php
-        if (!empty($message)){
-            echo '<div class="error">';
-            echo "Your account was not updated. The following error(s) occurred: <ul>".$message."</ul>";
-            echo '</div>';
-        }
-?>
         <p>**Leave "Password" field empty to keep your current one</p>
 <?php
         include_once(__DIR__."/applicant-form-fields.php");

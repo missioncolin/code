@@ -22,7 +22,7 @@
 
 ?>
 
-<div class="payment-errors"<?php if (isset($charge) && $charge !== true) { echo ' style="display:block"'; } ?>><?php if (isset($charge) && $charge !== true) { echo $charge; } ?></div>
+<div class="payment-errors"<?php if (isset($charge) && $charge !== true) { echo ' style="display:block"'; } ?>><h4>Attention!</h4><article><?php if (isset($charge) && $charge !== true) { echo $charge; } ?></article></div>
 
 <form action="" method="post" id="payment-form">
     <div class="credits">
