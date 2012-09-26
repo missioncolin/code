@@ -5,7 +5,7 @@
 	$applicant = $applicantRS->info;
 
 	$jobManager = new JobManager($db, $_SESSION['userID']);
-	$points = $jobManager->get_points_sum($_GET['job'], $_GET['applicant']);
+	$points = $jobManager->getApplicantRating($_GET['job'], $_GET['applicant']);
 ?>
 
 
@@ -60,63 +60,13 @@
                 <a href="#">Prev</a> // <a href="#">Next</a>
             </span>
         </div>
-        <div id="videoResponses">
-            <h3>Video Responses</h3>
-            <ul>
-                <li>
-                    <div class="imgWrap">
-                        <a href="#" class="icon video">Video</a>
-                        <img src="/themes/Intervue/img/vidSubmissionExample.jpg" alt="" />
-                    </div>
-                    <h4>Name of Question</h4>    
-                </li>
-                <li>
-                    <div class="imgWrap">
-                        <a href="#" class="icon video">Video</a>
-                        <img src="/themes/Intervue/img/vidSubmissionExample.jpg" alt="" />
-                    </div>
-                    <h4>Name of Question</h4>    
-                </li>
-                <li>
-                    <div class="imgWrap">
-                        <a href="#" class="icon video">Video</a>
-                        <img src="/themes/Intervue/img/vidSubmissionExample.jpg" alt="" />
-                    </div>
-                    <h4>Name of Question</h4>    
-                </li>
-                <li>
-                    <div class="imgWrap">
-                        <a href="#" class="icon video">Video</a>
-                        <img src="/themes/Intervue/img/vidSubmissionExample.jpg" alt="" />
-                    </div>
-                    <h4>Name of Question</h4>    
-                </li>
-                <li>
-                    <div class="imgWrap">
-                        <a href="#" class="icon video">Video</a>
-                        <img src="/themes/Intervue/img/vidSubmissionExample.jpg" alt="" />
-                    </div>
-                    <h4>Name of Question</h4>    
-                </li>
-            </ul>
-        </div>
-        <div id="resumeCoverLetter">
-            <h3>Resume/Cover Letter</h3>
-            <ul>
-                <li>
-                    <div class="imgWrap">
-                        <img src="/themes/Intervue/img/resumeExample.jpg" alt="" />
-                    </div>
-                    <h4>Resume</h4>    
-                </li>
-                <li>
-                    <div class="imgWrap">
-                        <img src="/themes/Intervue/img/resumeExample.jpg" alt="" />
-                    </div>
-                    <h4>Cover Letter</h4>    
-                </li>
-            </ul>
-        </div>
+        
+        
+        <?php
+
+        include dirname(dirname(__DIR__)) . '/questionnaires/views/renderAnswers.php';
+        ?>
+
     </div>
     
 </section>
