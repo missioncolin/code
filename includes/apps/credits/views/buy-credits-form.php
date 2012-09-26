@@ -14,15 +14,15 @@
 
     if (!empty($_POST)) {
         $charge = $credits->charge((int)$_POST['credits'], $_POST['stripeToken'], $user);
-        
-        if ($charge == true) {
-            header('Location: /?success=Credits+successfully+purchased');
+        if (is_int($charge)) {
+            header('Location: /invoice?id=' . $charge);
         }
     }
+    
 
 ?>
 
-<div class="payment-errors"><?php if (isset($charge) && $charge !== true) { echo $charge; } ?></div>
+<div class="payment-errors"<?php if (isset($charge) && $charge !== true) { echo ' style="display:block"'; } ?>><?php if (isset($charge) && $charge !== true) { echo $charge; } ?></div>
 
 <form action="" method="post" id="payment-form">
     <div class="credits">
@@ -31,7 +31,7 @@
         foreach ($credits->credits as $creditID => $credit) {
             $checked = ($i == 1) ? ' checked="checked"' : '';
             $class   = ($i == 1) ? ' class="selected"' : '';
-            echo "<input type=\"radio\" name=\"credits\" id=\"credit_{$credit['itemID']}\" value=\"{$credit['itemID']}\"{$checked}\"> <label for=\"credit_{$credit['itemID']}\"{$class}>\${$credit['price']}<br /><span>{$credit['packageName']}</span></label>\n";
+            echo "<input type=\"radio\" name=\"credits\" id=\"credit_{$credit['itemID']}\" value=\"{$credit['itemID']}\"{$checked}\"> <label for=\"credit_{$credit['itemID']}\"{$class}>\${$credit['price']}<span> + tax</span><br /><span>{$credit['packageName']}</span></label>\n";
             $i++;
         }
         ?>
