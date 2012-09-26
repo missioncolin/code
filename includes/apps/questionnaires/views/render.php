@@ -42,22 +42,23 @@ if (time() < strtotime($datePosted) || $status == 'inactive') {
             foreach($q->questions as $questionID => $question) {
                 
 
-                $qry = sprintf("INSERT INTO tblAnswers (jobID, userID, questionID, optionID, value, sysDateInserted) VALUES ('%d', '%d', '%d', '%d', '%s', '%s') ON DUPLICATE KEY UPDATE value='%s', sysDateInserted='%s'",
-                    (int)$_GET['job'],
-                    (int)$_SESSION['userID'],
-                    (int)$questionID,
-                    '',
-                    $db->escape((isset($_POST[$questionID]) && !is_array($_POST[$questionID])) ? $_POST[$questionID] : ''),
-                    date('Y-m-d H:i:s'),
-                    $db->escape((isset($_POST[$questionID]) && !is_array($_POST[$questionID])) ? $_POST[$questionID] : ''),
-                    date('Y-m-d H:i:s'));
-                $db->query($qry);
+                // radios
+                if ($question['type'] == '1') {
+
+                    $qry = sprintf("INSERT INTO tblAnswers (jobID, userID, questionID, optionID, value, sysDateInserted) VALUES ('%d', '%d', '%d', '%d', '%s', '%s') ON DUPLICATE KEY UPDATE optionID='%s', sysDateInserted='%s'",
+                        (int)$_GET['job'],
+                        (int)$_SESSION['userID'],
+                        (int)$questionID,
+                        $db->escape((isset($_POST[$questionID]) && !is_array($_POST[$questionID])) ? $_POST[$questionID] : ''),
+                        $db->escape((isset($_POST[$questionID]) && !is_array($_POST[$questionID])) ? $db->return_specific_item($_POST[$questionID], 'tblOptions', 'value', '') : ''),
+                        date('Y-m-d H:i:s'),
+                        $db->escape((isset($_POST[$questionID]) && !is_array($_POST[$questionID])) ? $_POST[$questionID] : ''),
+                        date('Y-m-d H:i:s'));
+                    $db->query($qry);
                 
-                    
-                    
-                // checkboxes
-                if ($question['type'] == '2') {
-                    
+                
+                } else if ($question['type'] == '2') {     // checkboxes
+
                     
                     $qry = sprintf("DELETE FROM tblAnswerOptionsLinks WHERE jobID='%d' AND applicantID='%d' AND questionID='%d'",
                         (int)$_GET['job'],
@@ -92,6 +93,20 @@ if (time() < strtotime($datePosted) || $status == 'inactive') {
                             $db->insert_id());
                         $db->query($qry);
                     }
+                } else {
+
+                    $qry = sprintf("INSERT INTO tblAnswers (jobID, userID, questionID, optionID, value, sysDateInserted) VALUES ('%d', '%d', '%d', '%d', '%s', '%s') ON DUPLICATE KEY UPDATE value='%s', sysDateInserted='%s'",
+                        (int)$_GET['job'],
+                        (int)$_SESSION['userID'],
+                        (int)$questionID,
+                        '',
+                        $db->escape((isset($_POST[$questionID]) && !is_array($_POST[$questionID])) ? $_POST[$questionID] : ''),
+                        date('Y-m-d H:i:s'),
+                        $db->escape((isset($_POST[$questionID]) && !is_array($_POST[$questionID])) ? $_POST[$questionID] : ''),
+                        date('Y-m-d H:i:s'));
+                    $db->query($qry);
+                
+
                 }
                 
             }

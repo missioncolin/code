@@ -11,7 +11,7 @@ if ($this INSTANCEOF Quipp){
 				$db->query($actionQS);
 				$_REQUEST['qnrID'] = $db->insert_id();
 				$success = 1;
-				$feedback = "<strong>Success!</strong> You have created a new Questionnaire!";
+				header('Location: /questionnaires?action=edit&qnrID=' . $_REQUEST['qnrID']);
 				//yell('print', $actionQS);
 		}
 		if (isset($_REQUEST["update-qnr"])) {

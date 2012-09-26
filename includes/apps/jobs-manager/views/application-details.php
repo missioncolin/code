@@ -5,7 +5,7 @@
 	$applicant = $applicantRS->info;
 
 	$jobManager = new JobManager($db, $_SESSION['userID']);
-	$points = $jobManager->get_points_sum($_GET['job'], $_GET['applicant']);
+	$points = $jobManager->getApplicantRating($_GET['job'], $_GET['applicant']);
 ?>
 
 

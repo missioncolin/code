@@ -189,50 +189,43 @@ class JobManager {
         
     }  
     
-    public function get_points_sum($jobID, $userID){
-	  //total from values column in tblanswers
-	  $points = 0;
-	  $answersQry = sprintf("SELECT SUM(value) AS 'points'
-        			FROM tblAnswers 
-        			WHERE  jobID = '%d' AND userID= '%d' AND sysActive = '1' and sysOpen = '1'
-        			GROUP BY userID, jobID", $jobID, $userID);
-        $answersRS= mysql_query($answersQry);
-        if ($answersRS){
-        	$row = mysql_fetch_array($answersRS);
-        	$points += $row['points'];
-        }
-
-
+    public function getApplicantRating($jobID, $userID){
+        //total from values column in tblanswers
+        $points = 0;
+        
         //total from options - radio
- 	$radioQry = sprintf("SELECT SUM( options.value ) AS  'value'
- 		FROM tblAnswers answers
-		INNER JOIN tblOptions options ON answers.optionID = options.itemID
-		WHERE answers.jobID = '%d'
-		AND answers.userID = %d
-		GROUP BY answers.userID
-		", $jobID, $userID);
-
- 	$radioRS = mysql_query($radioQry);
- 	if($radioRS){
-        	$valueRow = mysql_fetch_array($radioRS);
-        	$points += $valueRow['value'];
- 	}
- 
-	
- 	 //total from options - multi-select
- 	$multiQry = sprintf("SELECT sum(options.value) AS 'value' FROM tblOptions options 
- 	INNER JOIN tblAnswerOptionsLinks links ON options.itemID = links.optionID
- 	WHERE links.jobID = '%d' AND links.applicantID = '%d'
- 	GROUP BY applicantID, jobID", $jobID, $userID);
- 	
- 	$multiRS = mysql_query($multiQry);
- 	if ($multiRS){
-        	$valueRow = mysql_fetch_array($multiRS);
-        	$points += $valueRow['value'];	
- 	}
-	        
-	return $points;
-	    
+        $radioQry = sprintf("SELECT SUM(o.value) AS 'value'
+            FROM tblAnswers AS a
+            INNER JOIN tblOptions AS o ON a.optionID = o.itemID
+            WHERE a.jobID = '%d'
+            AND a.userID = '%d'
+            GROUP BY a.userID", 
+                (int)$jobID, 
+                (int)$userID);        
+        $radioRes = $this->db->query($radioQry);
+        
+        if ($this->db->valid($radioRes)) {
+            $tmp = $this->db->fetch_assoc($radioRes);
+            $points += (int)$tmp['value'];
+        }
+        
+        
+        //total from options - multi-select
+        $multiQry = sprintf("SELECT SUM(o.value) AS 'value'
+            FROM tblOptions AS o 
+            INNER JOIN tblAnswerOptionsLinks l ON o.itemID = l.optionID
+            WHERE l.jobID = '%d' 
+            AND l.applicantID = '%d'
+            GROUP BY l.applicantID, l.jobID",
+                (int)$jobID,
+                (int)$userID);
+        
+        $multiRes = $this->db->query($multiQry);
+        if ($this->db->valid($multiRes)) {
+            $tmp = $this->db->fetch_assoc($multiRes);
+            $points += (int)$tmp['value'];
+        }
+        
+        return $points;   
     }
-    
 }
