@@ -187,8 +187,55 @@ class JobManager {
         }
         return false;
         
-    }  
+    }
     
+    public function getApplicants($jobID, $offset, $page, $display) {
+        
+        $applicants = array();
+        
+        $qry = sprintf("SELECT userID, jobID
+            FROM tblAnswers
+        	WHERE  jobID = '%d' 
+        	AND sysActive = '1' 
+        	AND sysOpen = '1'
+        	GROUP BY userID, jobID
+            LIMIT %d, %d", 
+        	   (int)$jobID,
+        	   $offset,
+        	   $display);
+        $res = $this->db->query($qry);
+        
+        if ($this->db->valid($res)) {
+            while ($a = $this->db->fetch_assoc($res)) {
+                $applicants[$a['userID']] = $a;            
+            }
+        }
+        return $applicants;
+    }
+    
+    /**
+     * Return the total number of jobs
+     * @return int
+     */
+    public function totalApplicants($jobID) {
+        
+        $qry = sprintf("SELECT userID, jobID
+            FROM tblAnswers
+        	WHERE  jobID = '%d' 
+        	AND sysActive = '1' 
+        	AND sysOpen = '1'
+        	GROUP BY userID, jobID", 
+        	   (int)$jobID);
+        $res = $this->db->query($qry);
+       
+        
+        if ($this->db->valid($res)) {
+            return $this->db->num_rows($res);
+        }
+        return 0;
+        
+    }
+        
     public function getApplicantRating($jobID, $userID){
         //total from values column in tblanswers
         $points = 0;
