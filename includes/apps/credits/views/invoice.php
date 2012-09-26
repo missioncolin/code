@@ -34,27 +34,27 @@
         <td colspan="2"><?php echo $invoice['description']; ?></td>
         <td><?php echo money_format('%n', $invoice['amount'] / 100); ?></td>
     </tr>
-    <tr>
+    <tr class="subTotal">
         <td>&nbsp;</td>
-        <td style="text-align:right">Subtotal</td>
+        <td class="total">Subtotal</td>
         <td><?php echo money_format('%n', $invoice['amount'] / 100); ?></td>
     </tr>
     <?php
     if (is_array(json_decode($invoice['taxes'], true))) {
         foreach(json_decode($invoice['taxes']) as $label => $tax) {
     ?>
-    <tr>
+    <tr class="tax">
         <td>&nbsp;</td>
-        <td style="text-align:right"><?php echo $label; ?></td>
+        <td class="total"><?php echo $label; ?></td>
         <td><?php echo money_format('%n', $tax / 100); ?></td>
     </tr>
     <?php 
         } 
     }
     ?>
-    <tr>
+    <tr class="finalTotal">
         <td>&nbsp;</td>
-        <td style="text-align:right"><strong>Total</strong></td>
+        <td class="total"><strong>Total</strong></td>
         <td><strong><?php echo money_format('%n', $invoice['chargedAmount'] / 100); ?></strong></td>
     </tr>
 </tbody>
