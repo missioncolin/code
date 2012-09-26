@@ -31,6 +31,7 @@ if (time() < strtotime($datePosted) || $status == 'inactive') {
     	'image/x-png'                   => 'png',
     	'application/x-shockwave-flash' => 'swf',
         "application/pdf"            => "PDF",
+        "text/plain"                 => "Plain text",
         "application/ms-word"        => "Microsoft Word",
         "application/msword"         => "Microsoft Word",
         "application/vnd.openxmlformats-officedocument.wordprocessingml.document" => "Microsoft Word"
@@ -84,13 +85,20 @@ if (time() < strtotime($datePosted) || $status == 'inactive') {
                         mkdir(dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications/' . (int)$_GET['job'] . '/' . (int)$_SESSION['userID']);
                     }
                     
-                    $file = upload_file($questionID, dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications/' . (int)$_GET['job'] . '/' . (int)$_SESSION['userID'] . '/', $MIME_TYPES, false, false, false, $questionID);
+                    $file = upload_file($questionID, dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications/' . (int)$_GET['job'] . '/' . (int)$_SESSION['userID'] . '/', $MIME_TYPES, false, false, false, base_convert($questionID, 10, 36));
                     if (substr($file, 0, 8) == '<strong>') {
                         $error = $file;
                     } else {
-                        $qry = sprintf("UPDATE tblAnswers SET value='%s' WHERE itemID='%d'",
+
+                        $qry = sprintf("INSERT INTO tblAnswers (jobID, userID, questionID, optionID, value, sysDateInserted) VALUES ('%d', '%d', '%d', '%d', '%s', '%s') ON DUPLICATE KEY UPDATE value='%s', sysDateInserted='%s'",
+                            (int)$_GET['job'],
+                            (int)$_SESSION['userID'],
+                            (int)$questionID,
+                            '',
                             $file,
-                            $db->insert_id());
+                            date('Y-m-d H:i:s'),
+                            $file,
+                            date('Y-m-d H:i:s'));
                         $db->query($qry);
                     }
                 } else {
@@ -112,6 +120,12 @@ if (time() < strtotime($datePosted) || $status == 'inactive') {
             }
         }
 
+    }
+    
+    if (isset($error) && $error != '') {
+            echo alert_box($error, 2);
+
+        
     }
 
 ?>
