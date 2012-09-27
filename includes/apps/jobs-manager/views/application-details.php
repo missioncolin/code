@@ -17,7 +17,7 @@
             <a href="mailto:<?php echo $applicant['Email']; ?>" class="btn">Contact Applicant</a>
         </div>
         <div class="cutout">
-            <div class="profilePic"><img src="/themes/Intervue/img/profilePicExample.jpg" alt="" /></div>
+            <div class="profilePic"><img src="http://www.gravatar.com/avatar/<?php echo md5(strtolower(trim($applicant['Email']))); ?>?d=<?php echo urlencode('http://' . $_SERVER['HTTP_HOST'] . '/themes/Intervue/img/profilePicExample.jpg'); ?>&s=126" alt="" /></div>
         </div>
         <dl>
             <dt>Name</dt>
