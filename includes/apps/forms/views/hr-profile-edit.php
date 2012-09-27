@@ -93,11 +93,7 @@ if ($this INSTANCEOF Quipp){
 
     <div id="form">
 <?php
-        if (!empty($message)){
-            echo '<div class="error">';
-            echo "Your account was not updated. The following error(s) occurred: <ul>".$message."</ul>";
-            echo '</div>';
-        }
+
 
         include_once(__DIR__."/hr-form-fields.php");
 ?>

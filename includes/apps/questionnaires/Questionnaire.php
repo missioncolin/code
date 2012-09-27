@@ -53,5 +53,39 @@ class Questionnaire {
         return $options;
 
     }
+    
+    /**
+     * Get the answer based on a question and userID
+     * @param int questionID
+     * @param int userID
+     * @return string|array
+     */
+    public function getAnswer($questionID, $userID) {
+       
+        $qry = sprintf("SELECT * FROM tblAnswers WHERE questionID='%d' AND userID='%d' AND sysOpen='1' AND sysActive='1'",
+            (int)$questionID,
+            (int)$userID);
+        $res = $this->db->query($qry);
+        
+        if ($this->db->valid($res) && $this->db->num_rows($res) > 0) {
+            return $this->db->fetch_assoc($res);
+        }
+        
+        $answers = array();
+        $qry = sprintf("SELECT * FROM tblAnswerOptionsLinks WHERE questionID='%d' AND applicantID='%d'",
+            (int)$questionID,
+            (int)$userID);
+        $res = $this->db->query($qry);
+        
+        if ($this->db->valid($res) && $this->db->num_rows($res) > 0) {
+            while($answer = $this->db->fetch_assoc($res)) {
+                $answers[$answer['optionID']] = $answer;
+            }
+        }
+        
+        return $answers;
+        
+        
+    }
 
 }

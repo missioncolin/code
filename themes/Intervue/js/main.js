@@ -26,4 +26,11 @@ $(document).ready(function() {
         $(this).addClass('selected').siblings().removeClass('selected');
     });
     
+    $('table.simpleTable td').each(function() {
+    	var content = $(this).html();
+    	if(content == '&nbsp;') {
+			$(this).addClass("empty");
+		}
+    });
+    
 });
