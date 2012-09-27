@@ -22,7 +22,7 @@
 
 ?>
 
-<div class="payment-errors"<?php if (isset($charge) && $charge !== true) { echo ' style="display:block"'; } ?>><h4>Attention!</h4><article><?php if (isset($charge) && $charge !== true) { echo $charge; } ?></article></div>
+<div class="payment-errors"<?php if (isset($charge) && $charge !== true) { echo ' style="display:block"'; } ?>><?php if (isset($charge) && $charge !== true) { echo $charge; } ?></div>
 
 <form action="" method="post" id="payment-form">
     <div class="credits">
@@ -31,7 +31,7 @@
         foreach ($credits->credits as $creditID => $credit) {
             $checked = ($i == 1) ? ' checked="checked"' : '';
             $class   = ($i == 1) ? ' class="selected"' : '';
-            echo "<input type=\"radio\" name=\"credits\" id=\"credit_{$credit['itemID']}\" value=\"{$credit['itemID']}\"{$checked}\"> <label for=\"credit_{$credit['itemID']}\"{$class}>\${$credit['price']}<span> + tax</span><br /><span>{$credit['packageName']}</span></label>\n";
+            echo "<input type=\"radio\" name=\"credits\" id=\"credit_{$credit['itemID']}\" value=\"{$credit['itemID']}\"{$checked}\"> <label for=\"credit_{$credit['itemID']}\"{$class}>\${$credit['price']}<span> + tax</span><br /><span class=\"creditNumber\">{$credit['packageName']}</span></label>\n";
             $i++;
         }
         ?>
