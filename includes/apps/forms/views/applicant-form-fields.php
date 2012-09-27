@@ -4,7 +4,50 @@ if (isset($post)){
 <h3>Applicant Information</h3>
 <form method="post" enctype="multipart/form-data" action="<?php echo $_SERVER["REQUEST_URI"];?>">
     <div>
-        <label for="videoProfile">Upload your <strong>Video</strong></label>
+        <label for="videoProfile">Your <strong>Profile Video</strong>
+        </label> <br />
+        		<table> <tr> <td>
+        		<?php
+        
+	        		$video   = $db->return_specific_item('', 'tblVideos', 'filename', 0, "jobID='0' AND questionID='0' AND userID='" . (int)$_SESSION['userID'] . "' AND sysOpen='1' AND sysActive='1'") ;
+                    $videoID = $db->return_specific_item('', 'tblVideos', 'itemID', 0, "jobID='0' AND questionID='0' AND userID='" . (int)$_SESSION['userID'] . "' AND sysOpen='1'") ;
+
+                    if ($video !== 0) {
+                    	
+                    ?>
+                        <h4> Current Profile Video </h4>	
+                    	<embed src="/includes/apps/ams-media/flx/captureModule.swf" quality="high" bgcolor="#000000" width="450" height="330" name="captureModule" FlashVars="reviewFile=<?php echo $video; ?>" align="middle" allowScriptAccess="sameDomain" allowFullScreen="true" type="application/x-shockwave-flash" pluginspage="http://www.adobe.com/go/getflash" />
+
+                    	
+        		</td><td>	
+                    	
+                    <?php
+                    } 
+                    
+                        if ($videoID == 0) {
+                            $qry = sprintf("INSERT INTO tblVideos (userID, jobID, questionID, filename, sysDateInserted, sysDateLastMod) VALUES ('%d', '%d', '%d', '', NOW(), NOW())",
+                                (int)$_SESSION['userID'],
+                                0,
+                                0);
+                            $db->query($qry);
+                            $videoID = $db->insert_id();
+                        }
+                        
+                       echo "<h4> Update Profile Video </h4>";
+                        //550 x 400
+                        echo '<embed src="/includes/apps/ams-media/flx/captureModule.swf" quality="high" bgcolor="#000000" width="450" height="330" name="captureModule" FlashVars="itemID=' . $videoID . '&securityKey=' . md5("iLikeSalt" . $videoID) . '" align="middle" allowScriptAccess="sameDomain" allowFullScreen="false" type="application/x-shockwave-flash" pluginspage="http://www.adobe.com/go/getflash" />';
+
+                    
+                    ?>
+        		</td></tr></table>
+        
+        <p>Your video profile is a short clip that all HR managers will see. It might include some general information about you.</p>
+        
+       
+        
+        
+    
+    
     </div>
 
     <fieldset>
