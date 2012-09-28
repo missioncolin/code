@@ -91,7 +91,7 @@ class customAuth extends Auth{
     				        
     				        break;
     				    case "hr-managers":
-    				        header("Location:http://". $_SERVER['SERVER_NAME'] . "/create-job");
+    				        header("Location:http://". $_SERVER['SERVER_NAME'] . "/profile");
     				        die('Redirecting (applicant good, no cf)...');
     				        
     				        break;

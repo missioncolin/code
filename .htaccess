@@ -281,10 +281,9 @@ FileETag None
   RewriteRule ^login$ /auth.php?mode=login [QSA,NC,L]
 
   RewriteRule ^toggle-job$ /includes/apps/jobs-manager/ajax/toggle.php [NC,L]
-  RewriteRule ^delete-job$ /includes/apps/jobs-manager/ajax/delete.php [NC,L]
-  
+  RewriteRule ^delete-job$ /includes/apps/jobs-manager/ajax/delete.php [NC,L] 
   RewriteRule ^grade-applicant$ /includes/apps/jobs-manager/ajax/grade-applicant.php [NC,L]
-  
+  RewriteRule ^profile/edit$ /index.php?p=edit-profile [NC,L]
   
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
