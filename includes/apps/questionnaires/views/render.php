@@ -16,7 +16,11 @@ if (time() < strtotime($datePosted) || $status == 'inactive') {
 
 } else if (time() > strtotime($dateExpires)) {
     echo alert_box('<strong>Warning</strong>. We\'re sorry, this job posting has expred.', 3);
-
+} else if ($j->hasApplied($_GET['job'])) {
+    
+    echo '<div class="payment-errors" style="display:block"><strong>You have already applied</strong></div>';
+    include __DIR__ . '/renderAnswers.php';
+    
 } else {
     $q = new Questionnaire($db, $questionnaireID);
     $quipp->js['footer'][] = "/includes/apps/questionnaires/js/questionnaires.js";
@@ -40,13 +44,21 @@ if (time() < strtotime($datePosted) || $status == 'inactive') {
 
     if (!empty($_POST)) {
         if (is_array($q->questions) && !empty($q->questions)) {
+        
+            $qry = sprintf("INSERT INTO tblApplications (jobID, userID, sysDateInserted) VALUES ('%d', '%d', NOW())",
+                (int)$_GET['job'],
+                (int)$_SESSION['userID']);
+            $db->query($qry);
+            $applicationID = $db->insert_id();
+            
             foreach($q->questions as $questionID => $question) {
                 
 
                 // radios
                 if ($question['type'] == '1') {
 
-                    $qry = sprintf("INSERT INTO tblAnswers (jobID, userID, questionID, optionID, value, sysDateInserted) VALUES ('%d', '%d', '%d', '%d', '%s', '%s') ON DUPLICATE KEY UPDATE optionID='%s', sysDateInserted='%s'",
+                    $qry = sprintf("INSERT INTO tblAnswers (applicationID, jobID, userID, questionID, optionID, value, sysDateInserted) VALUES ('%d', '%d', '%d', '%d', '%d', '%s', '%s') ON DUPLICATE KEY UPDATE optionID='%s', sysDateInserted='%s'",
+                        $applicationID,
                         (int)$_GET['job'],
                         (int)$_SESSION['userID'],
                         (int)$questionID,
@@ -59,7 +71,7 @@ if (time() < strtotime($datePosted) || $status == 'inactive') {
                 
                 
                 } else if ($question['type'] == '2') {     // checkboxes
-
+                    
                     
                     $qry = sprintf("DELETE FROM tblAnswerOptionsLinks WHERE jobID='%d' AND applicantID='%d' AND questionID='%d'",
                         (int)$_GET['job'],
@@ -67,20 +79,22 @@ if (time() < strtotime($datePosted) || $status == 'inactive') {
                         (int)$questionID);
                     $db->query($qry);
                     
-                    foreach($_POST[$questionID] as $opt) {
-                        // insert option answers
-                        $qry = sprintf("INSERT INTO `tblAnswerOptionsLinks` (`jobID`, `applicantID`, `questionID`, `optionID`) VALUES ('%d', '%d', '%d', '%d')",
-                            (int)$_GET['job'],
-                            (int)$_SESSION['userID'],
-                            (int)$questionID,
-                            (int)$opt);
-                        $db->query($qry);
+                    if (isset($_POST[$questionID])) {
+                        foreach($_POST[$questionID] as $opt) {
+                            // insert option answers
+                            $qry = sprintf("INSERT INTO `tblAnswerOptionsLinks` (`applicationID`, `jobID`, `applicantID`, `questionID`, `optionID`) VALUES ('%d', '%d', '%d', '%d', '%d')",
+                                $applicationID,
+                                (int)$_GET['job'],
+                                (int)$_SESSION['userID'],
+                                (int)$questionID,
+                                (int)$opt);
+                            $db->query($qry);
+                        }
                     }
-           
                     
                 // file upload
                 } else if ($question['type'] == '5') {
-                    if (!is_dir(dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications/' . (int)$_GET['job'])) {
+                    if (!is_dir(dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications/' . (int)$_GET['job'] . '/' . (int)$_SESSION['userID'])) {
                         mkdir(dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications/' . (int)$_GET['job']);
                         mkdir(dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications/' . (int)$_GET['job'] . '/' . (int)$_SESSION['userID']);
                     }
@@ -90,7 +104,8 @@ if (time() < strtotime($datePosted) || $status == 'inactive') {
                         $error = $file;
                     } else {
 
-                        $qry = sprintf("INSERT INTO tblAnswers (jobID, userID, questionID, optionID, value, sysDateInserted) VALUES ('%d', '%d', '%d', '%d', '%s', '%s') ON DUPLICATE KEY UPDATE value='%s', sysDateInserted='%s'",
+                        $qry = sprintf("INSERT INTO tblAnswers (applicationID, jobID, userID, questionID, optionID, value, sysDateInserted) VALUES ('%d', '%d', '%d', '%d', '%d', '%s', '%s') ON DUPLICATE KEY UPDATE value='%s', sysDateInserted='%s'",
+                            $applicationID,
                             (int)$_GET['job'],
                             (int)$_SESSION['userID'],
                             (int)$questionID,
@@ -103,7 +118,8 @@ if (time() < strtotime($datePosted) || $status == 'inactive') {
                     }
                 } else {
 
-                    $qry = sprintf("INSERT INTO tblAnswers (jobID, userID, questionID, optionID, value, sysDateInserted) VALUES ('%d', '%d', '%d', '%d', '%s', '%s') ON DUPLICATE KEY UPDATE value='%s', sysDateInserted='%s'",
+                    $qry = sprintf("INSERT INTO tblAnswers (applicationID, jobID, userID, questionID, optionID, value, sysDateInserted) VALUES ('%d', '%d', '%d', '%d', '%d', '%s', '%s') ON DUPLICATE KEY UPDATE value='%s', sysDateInserted='%s'",
+                        $applicationID,
                         (int)$_GET['job'],
                         (int)$_SESSION['userID'],
                         (int)$questionID,
