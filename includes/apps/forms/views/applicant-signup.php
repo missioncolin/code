@@ -99,12 +99,9 @@ if ($this INSTANCEOF Quipp){
     </div>
 <?php
     if ($submitted == true && $valid == true){
-?>
-    <div id="form">
-    <h3>Thank you! Your account has been created. Please continue to login using your <strong>Email Address</strong> and the password you provided</h3>
-    <a class="btn" href="/apply" >Continue</a>
-    </div>
-<?php        
+        //auto login
+        $auth->login($post["Email"]["value"], $_POST["password"]);        
+        
     }
     else{
 
