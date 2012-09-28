@@ -2,12 +2,16 @@
 
 global $quipp;
 
-require dirname(__DIR__) . '/Questionnaire.php';
 
+if (!class_exists('Questionnaire')) {
+    require dirname(__DIR__) . '/Questionnaire.php';
+} else {
+    $application['userID'] = $_SESSION['userID'];
+    $application['jobID']  = (int)$_GET['job'];
+}
+$j = new JobManager($db, $application['userID']);
 
-$j = new JobManager($db, $_GET['applicant']);
-
-list($title, $link, $dateExpires, $datePosted, $questionnaireID, $status) = $j->getJob($_GET['job']);
+    list($title, $link, $dateExpires, $datePosted, $questionnaireID, $status) = $j->getJob($application['jobID']);
 
     $q = new Questionnaire($db, $questionnaireID);
 
@@ -15,13 +19,14 @@ list($title, $link, $dateExpires, $datePosted, $questionnaireID, $status) = $j->
 ?>
 
 	<table class="simpleTable">
-
+    	<thead>
+    	<tr><th><?php echo $title; ?></th></tr></thead>
 	<?php
 
     if (is_array($q->questions) && !empty($q->questions)) {
         foreach($q->questions as $questionID => $question) {
         
-            $answer = $q->getAnswer($questionID, $_GET['applicant']);
+            $answer = $q->getAnswer($questionID, $application['userID']);
             
             
             echo "<tr>";
@@ -74,8 +79,8 @@ list($title, $link, $dateExpires, $datePosted, $questionnaireID, $status) = $j->
 
                 case 4: //video
 
-                    $video   = $db->return_specific_item('', 'tblVideos', 'filename', 0, "jobID='" . (int)$_GET['job'] . "' AND questionID='" . $questionID . "' AND userID='" . (int)$_GET['applicant'] . "' AND sysOpen='1' AND sysActive='1'") ;
-                    $videoID = $db->return_specific_item('', 'tblVideos', 'itemID', 0, "jobID='" . (int)$_GET['job'] . "' AND questionID='" . $questionID . "' AND userID='" . (int)$_GET['applicant'] . "' AND sysOpen='1'") ;
+                    $video   = $db->return_specific_item('', 'tblVideos', 'filename', 0, "jobID='" . (int)$application['jobID'] . "' AND questionID='" . $questionID . "' AND userID='" . (int)$application['userID'] . "' AND sysOpen='1' AND sysActive='1'") ;
+                    $videoID = $db->return_specific_item('', 'tblVideos', 'itemID', 0, "jobID='" . (int)$application['jobID'] . "' AND questionID='" . $questionID . "' AND userID='" . (int)$application['userID'] . "' AND sysOpen='1'") ;
 
                     if ($video !== 0) {
                     
@@ -87,14 +92,20 @@ list($title, $link, $dateExpires, $datePosted, $questionnaireID, $status) = $j->
                     	
                     	
                     <?php
-                    } 
+                    } else {
+                        echo '<strong>Question not answered</strong>';
+                    }
                     
                     
                     
                 break;
                 case 5: //file
                     
-                    echo '<a href="/uploads/applications/' . (int)$_GET['job'] . '/' . (int)$_GET['applicant'] . '/' . $answer['value'] . '" class="' . pathinfo($answer['value'], PATHINFO_EXTENSION) . '">Download file</a>';
+                    if (isset($answer['value'])) {
+                        echo '<a href="/uploads/applications/' . (int)$application['jobID'] . '/' . (int)$application['userID'] . '/' . $answer['value'] . '" class="' . pathinfo($answer['value'], PATHINFO_EXTENSION) . '">Download file</a>';
+                    } else {
+                        echo '<strong>No file was uploaded</strong>';
+                    }
                 break;
 
             }
