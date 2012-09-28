@@ -58,22 +58,25 @@ if ($this INSTANCEOF Quipp){
     
 <?php
     if ($submitted == true && $valid == true){
-?>
-    <div class="success">
-    <h3>Success! Your account was updated</h3>
-    </div>
-<?php        
+        header('location: /profile');       
     }
 
 ?>
-    <div id="form">
+<div id="form">
 
-        <p>**Leave "Password" field empty to keep your current one</p>
+<p>**Leave "Password" field empty to keep your current one</p>
+
+
 <?php
+        if (!empty($message)){
+            echo '<div class="error">';
+            echo "Your account was not updated. The following error(s) occurred: <ul>".$message."</ul>";
+            echo '</div>';
+        }
         include_once(__DIR__."/applicant-form-fields.php");
 ?>
         
-    </div>
+</div>
 
 </section>
 <?php

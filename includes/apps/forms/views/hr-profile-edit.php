@@ -83,17 +83,12 @@ if ($this INSTANCEOF Quipp){
 
 <?php
     if ($submitted == true && $valid == true){
-?>
-    <div class="success">
-    <h3>Success! Your account was updated</h3>
-    </div>
-<?php        
+        header('location: /profile');       
     }
 ?>
 
     <div id="form">
 <?php
-
 
         include_once(__DIR__."/hr-form-fields.php");
 ?>
