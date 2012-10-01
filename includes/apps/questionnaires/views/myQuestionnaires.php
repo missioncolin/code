@@ -6,14 +6,14 @@
 <?php 
 //fini_set('display_errors', 'off');
 if ($this INSTANCEOF Quipp){
-	
+
 	$getQuestionnairesQS = sprintf("SELECT * FROM tblQuestionnaires WHERE hrUserID = '%d' AND sysOpen = '1' AND sysActive = '1'", $_SESSION['userID']);
 	$getQuestionnairesQry = $db->query($getQuestionnairesQS);
 	if(is_resource($getQuestionnairesQry)){
 		if($db->num_rows($getQuestionnairesQry) > 0){
 			print "<ul>";
 			while($qnr = $db->fetch_assoc($getQuestionnairesQry)){
-				print "<li><a href=\"".$_SERVER['REQUEST_URI']."?action=edit&qnrID=".$qnr['itemID']."\" >".$qnr['label']."</a></li>";
+				print "<li><a href=\"/questionnaires?action=edit&qnrID=".$qnr['itemID']."\" >".$qnr['label']."</a></li>";
 			}
 			print "</ul>";
 		}else{
