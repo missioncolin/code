@@ -51,14 +51,16 @@ class JobManager {
      * Add a job into the database
      * @return bool
      */
-    public function addJob($post) {
+    public function addJob($post) {       
+        
         
         $active = (isset($post['active']) && $post['active'] == 'on') ? 'active' : 'inactive';
         $qry = sprintf("INSERT INTO tblJobs (`userID`, `title`, `link`, `dateExpires`, `datePosted`, `questionnaireID`, `sysStatus`) VALUES ('%d', '%s', '%s', '%s', '%s', '%d', '%s')",
             (int)$this->userID,
             $this->db->escape($post['RQvalALPHTitle']),
             $this->db->escape($post['RQvalWEBSLink']),
-            $this->db->escape($post['RQvalDATEDate_Expires']),
+            //$this->db->escape($post['RQvalDATEDate_Expires']),
+            date("Y-m-d", strtotime('+2 months')),
             $this->db->escape($post['RQvalDATEDate_Posted']),
             (int)$post['RQvalNUMBQuestionnaire'],
             $active);
