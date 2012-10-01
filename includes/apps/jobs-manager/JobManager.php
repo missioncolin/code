@@ -263,6 +263,37 @@ class JobManager {
         return 0;
         
     }
+    
+    
+    /**
+     * Grade the applicant
+     * @param int applicationID
+     * @param string grade recommend|average|nq
+     * @return bool
+     */
+    public function gradeApplicant($applicationID, $grade)
+    {
+        if (!in_array($grade, array('recommend', 'average', 'nq'))) {
+            return false;
+        }
+        
+        $qry = sprintf("UPDATE tblApplications SET grade='%s' WHERE itemID='%d'",
+            $this->db->escape($grade),
+            (int)$applicationID);
+        $res = $this->db->query($qry);
+        
+        if ($this->db->affected_rows($res) > 0) {
+            $colours = array(
+                'recommend' => 'green',
+                'average'   => 'yellow',
+                'nq'        => 'red'
+            );
+            
+            return $colours[$grade];
+        } else {
+            return false;
+        }   
+    }
         
     public function getApplicantRating($applicationID){
         //total from values column in tblanswers

@@ -1,13 +1,16 @@
 <?php 
-	require dirname(__DIR__) . '/JobManager.php';
+
+global $quipp;
+    
+require dirname(__DIR__) . '/JobManager.php';
 
 
-	$j = new JobManager($db, $_SESSION['userID']);
+$j = new JobManager($db, $_SESSION['userID']);
 
-	$application = $j->getApplication($_GET['application']);
-	$applicant = new User($db, $application['userID']);
+$application = $j->getApplication($_GET['application']);
+$applicant = new User($db, $application['userID']);
 
-
+$quipp->js['footer'][] = "/includes/apps/jobs-manager/js/jobs-manager.js";
 
 ?>
 
@@ -49,9 +52,9 @@
         </dl>
         <div id="grade">
             <h3>Grade Applicant</h3>
-            <a href="#" class="btn <?php echo ($application['grade'] == 'recommend') ? 'green' : 'black'; ?>">Recommend</a>
-            <a href="#" class="btn <?php echo ($application['grade'] == 'average') ? 'green' : 'black'; ?>">Average</a>
-            <a href="#" class="btn <?php echo ($application['grade'] == 'nq') ? 'green' : 'black'; ?>">NQ</a>
+            <a href="#" data-application="<?php echo $_GET['application']; ?>" data-grade="recommend" class="grade btn <?php echo ($application['grade'] == 'recommend') ? 'green' : 'black'; ?>">Recommend</a>
+            <a href="#" data-application="<?php echo $_GET['application']; ?>" data-grade="average" class="grade btn <?php echo ($application['grade'] == 'average') ? 'yellow' : 'black'; ?>">Average</a>
+            <a href="#" data-application="<?php echo $_GET['application']; ?>" data-grade="nq" class="grade btn <?php echo ($application['grade'] == 'nq') ? 'red' : 'black'; ?>">NQ</a>
         </div>
     </div>
     
