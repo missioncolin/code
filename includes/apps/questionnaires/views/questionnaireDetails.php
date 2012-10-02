@@ -34,7 +34,6 @@ if ($this INSTANCEOF Quipp){
 
 $canEditQuestionnaire = true;	
 if(isset($_REQUEST['qnrID'])){
-	$canEditQuestionnaire = false;
 	$getQuestionnaireDetailsQS = sprintf("SELECT * FROM tblQuestionnaires WHERE hrUserID = '%d' AND sysOpen = '1' AND sysActive = '1' AND itemID='%d' ", $_SESSION['userID'], $_REQUEST['qnrID']);
 	$getQuestionnairesDetailsQry = $db->query($getQuestionnaireDetailsQS);
 	if(is_resource($getQuestionnairesDetailsQry)){
@@ -42,20 +41,15 @@ if(isset($_REQUEST['qnrID'])){
 			$qnr = $db->fetch_assoc($getQuestionnairesDetailsQry);
 			$_REQUEST['RQvalALPHQuestionnaire_Title'] = $qnr['label'];
 			$questionnaireIsValid = true;
+			//editable
+			if ($qnr['isUsed'] == 0){
+				$canEditQuestionnaire = true;
+			}else if ($qnr['isUsed'] == 1){
+				$canEditQuestionnaire = false;
+			}
 		}else{
 			$questionnaireIsValid = false;
 			$feedback = "This questionnaire is no longer accessible.";
-		}
-	}
-	//Is questionnaire already in use? If so, it can't be edited
-	$getIsInUseQry = sprintf("SELECT count(jobs.itemID) AS 'countUse' FROM tblJobs jobs INNER JOIN tblQuestionnaires qs ON jobs.questionnaireID = qs.itemID WHERE questionnaireID = '%d' AND qs.isUsed = '0'", $_REQUEST['qnrID']);
-	$getIsInUseRS = $db->query($getIsInUseQry);
-	if(is_resource($getIsInUseRS)){
-		if($db->num_rows($getIsInUseRS) > 0){
-			$getIsInUse = $db->fetch_assoc($getIsInUseRS);
-			if ($getIsInUse['countUse'] < 1){
-				$canEditQuestionnaire = true;
-			}
 		}
 	}
 }else{
