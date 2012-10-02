@@ -124,92 +124,92 @@ if ($this instanceof Quipp) {
     }
 
     if ($success == 1) {
-        print alert_box("<strong>Success!</strong> You have created a question!", 1);
+        echo alert_box("<strong>Success!</strong> You have created a question!", 1);
     } elseif (isset($error_message) && $error_message != '') {
-        print alert_box($error_message, 2);
+        echo alert_box($error_message, 2);
     }
 
 ?>
-    <h4>Questionnaire: <?php print $qnr['label']; ?></h4>
-    <form action="<?php print $_SERVER['REQUEST_URI']; ?>" method="post">
+    <h4>Questionnaire: <?php echo $qnr['label']; ?></h4>
+    <form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post">
         <table id="configure" class="simpleTable">
             <tr><th colspan="2">Configure Question</th><th>Points</th></tr>
             <tr>
                 <td><label>Question</label></td>
-                <td colspan="2"><input size="80" type="text" name="RQvalALPHQuestion" id="RQvalALPHQuestion" value="<?php print $_REQUEST['RQvalALPHQuestion']; ?>" /></td>
+                <td colspan="2"><input size="80" type="text" name="RQvalALPHQuestion" id="RQvalALPHQuestion" value="<?php echo $_REQUEST['RQvalALPHQuestion']; ?>" /></td>
             </tr>
             <tr>
                 <td><label>Type</label></td>
                 <td colspan="2">
                     <select name="RQvalNUMBType" id="RQvalNUMBType" >
-                        <option <?php if($_REQUEST['RQvalNUMBType'] == 1) print "checked='checked'"; ?> value="1">Radio (Single Answer)</option>
-                        <option <?php if($_REQUEST['RQvalNUMBType'] == 2) print "checked='checked'"; ?> value="2">Checkbox (Multiple Answers)</option>
-                        <option <?php if($_REQUEST['RQvalNUMBType'] == 3) print "checked='checked'"; ?> value="3">Years of Experience Slider (1-20)</option>
-                        <option <?php if($_REQUEST['RQvalNUMBType'] == 4) print "checked='checked'"; ?> value="4">Video Response</option>
-                        <option <?php if($_REQUEST['RQvalNUMBType'] == 5) print "checked='checked'"; ?> value="5">File Upload</option>
+                        <option <?php if($_REQUEST['RQvalNUMBType'] == 1) echo "checked='checked'"; ?> value="1">Radio (Single Answer)</option>
+                        <option <?php if($_REQUEST['RQvalNUMBType'] == 2) echo "checked='checked'"; ?> value="2">Checkbox (Multiple Answers)</option>
+                        <option <?php if($_REQUEST['RQvalNUMBType'] == 3) echo "checked='checked'"; ?> value="3">Years of Experience Slider (1-20)</option>
+                        <option <?php if($_REQUEST['RQvalNUMBType'] == 4) echo "checked='checked'"; ?> value="4">Video Response</option>
+                        <option <?php if($_REQUEST['RQvalNUMBType'] == 5) echo "checked='checked'"; ?> value="5">File Upload</option>
                     </select>
                 </td>
 
             </tr>
             <tr class="option-row">
                 <td><label>Options</label></td>
-                <td><input size="70" type="text" name="RQvalALPHOption[1]" id="RQvalALPHOption_1" value="<?php print $_REQUEST['RQvalALPHOption'][1]; ?>" /></td>
-                <td><input size="1" type="text" name="RQvalALPHOptionValues[1]" id="RQvalALPHOptionValues_1" value="<?php print $_REQUEST['RQvalALPHOptionValues'][1]; ?>" /></td>
+                <td><input size="70" type="text" name="RQvalALPHOption[1]" id="RQvalALPHOption_1" value="<?php echo $_REQUEST['RQvalALPHOption'][1]; ?>" /></td>
+                <td><input size="1" type="text" name="RQvalALPHOptionValues[1]" id="RQvalALPHOptionValues_1" value="<?php echo $_REQUEST['RQvalALPHOptionValues'][1]; ?>" /></td>
             </tr>
             <tr class="option-row">
                 <td></td>
-                <td><input size="70" type="text" name="RQvalALPHOption[2]" id="RQvalALPHOption_2" value="<?php print $_REQUEST['RQvalALPHOption'][2]; ?>" /></td>
-                <td><input size="1" type="text" name="RQvalALPHOptionValues[2]" id="RQvalALPHOptionValues_2" value="<?php print $_REQUEST['RQvalALPHOptionValues'][2]; ?>" /></td>
+                <td><input size="70" type="text" name="RQvalALPHOption[2]" id="RQvalALPHOption_2" value="<?php echo $_REQUEST['RQvalALPHOption'][2]; ?>" /></td>
+                <td><input size="1" type="text" name="RQvalALPHOptionValues[2]" id="RQvalALPHOptionValues_2" value="<?php echo $_REQUEST['RQvalALPHOptionValues'][2]; ?>" /></td>
             </tr>
             <tr class="option-row">
                 <td></td>
-                <td><input size="70" type="text" name="RQvalALPHOption[3]" id="RQvalALPHOption_2" value="<?php print $_REQUEST['RQvalALPHOption'][3]; ?>" /></td>
-                <td><input size="1" type="text" name="RQvalALPHOptionValues[3]" id="RQvalALPHOptionValues_2" value="<?php print $_REQUEST['RQvalALPHOptionValues'][3]; ?>" /></td>
+                <td><input size="70" type="text" name="RQvalALPHOption[3]" id="RQvalALPHOption_2" value="<?php echo $_REQUEST['RQvalALPHOption'][3]; ?>" /></td>
+                <td><input size="1" type="text" name="RQvalALPHOptionValues[3]" id="RQvalALPHOptionValues_2" value="<?php echo $_REQUEST['RQvalALPHOptionValues'][3]; ?>" /></td>
             </tr>
             <tr class="option-row">
                 <td></td>
-                <td><input size="70" type="text" name="RQvalALPHOption[4]" id="RQvalALPHOption_4" value="<?php print $_REQUEST['RQvalALPHOption'][4]; ?>" /></td>
-                <td><input size="1" type="text" name="RQvalALPHOptionValues[4]" id="RQvalALPHOptionValues_4" value="<?php print $_REQUEST['RQvalALPHOptionValues'][4]; ?>" /></td>
+                <td><input size="70" type="text" name="RQvalALPHOption[4]" id="RQvalALPHOption_4" value="<?php echo $_REQUEST['RQvalALPHOption'][4]; ?>" /></td>
+                <td><input size="1" type="text" name="RQvalALPHOptionValues[4]" id="RQvalALPHOptionValues_4" value="<?php echo $_REQUEST['RQvalALPHOptionValues'][4]; ?>" /></td>
             </tr>
             <tr class="option-row">
                 <td></td>
-                <td><input size="70" type="text" name="RQvalALPHOption[5]" id="RQvalALPHOption_5" value="<?php print $_REQUEST['RQvalALPHOption'][5]; ?>" /></td>
-                <td><input size="1" type="text" name="RQvalALPHOptionValues[5]" id="RQvalALPHOptionValues_5" value="<?php print $_REQUEST['RQvalALPHOptionValues'][5]; ?>" /></td>
+                <td><input size="70" type="text" name="RQvalALPHOption[5]" id="RQvalALPHOption_5" value="<?php echo $_REQUEST['RQvalALPHOption'][5]; ?>" /></td>
+                <td><input size="1" type="text" name="RQvalALPHOptionValues[5]" id="RQvalALPHOptionValues_5" value="<?php echo $_REQUEST['RQvalALPHOptionValues'][5]; ?>" /></td>
             </tr>
             <tr class="option-row">
                 <td></td>
-                <td><input size="70" type="text" name="RQvalALPHOption[6]" id="RQvalALPHOption_6" value="<?php print $_REQUEST['RQvalALPHOption'][6]; ?>" /></td>
-                <td><input size="1" type="text" name="RQvalALPHOptionValues[6]" id="RQvalALPHOptionValues_6" value="<?php print $_REQUEST['RQvalALPHOptionValues'][6]; ?>" /></td>
+                <td><input size="70" type="text" name="RQvalALPHOption[6]" id="RQvalALPHOption_6" value="<?php echo $_REQUEST['RQvalALPHOption'][6]; ?>" /></td>
+                <td><input size="1" type="text" name="RQvalALPHOptionValues[6]" id="RQvalALPHOptionValues_6" value="<?php echo $_REQUEST['RQvalALPHOptionValues'][6]; ?>" /></td>
             </tr>
             <tr class="option-row">
                 <td></td>
-                <td><input size="70" type="text" name="RQvalALPHOption[7]" id="RQvalALPHOption_7" value="<?php print $_REQUEST['RQvalALPHOption'][7]; ?>" /></td>
-                <td><input size="1" type="text" name="RQvalALPHOptionValues[7]" id="RQvalALPHOptionValues_7" value="<?php print $_REQUEST['RQvalALPHOptionValues'][7]; ?>" /></td>
+                <td><input size="70" type="text" name="RQvalALPHOption[7]" id="RQvalALPHOption_7" value="<?php echo $_REQUEST['RQvalALPHOption'][7]; ?>" /></td>
+                <td><input size="1" type="text" name="RQvalALPHOptionValues[7]" id="RQvalALPHOptionValues_7" value="<?php echo $_REQUEST['RQvalALPHOptionValues'][7]; ?>" /></td>
             </tr>
             <tr class="option-row">
                 <td></td>
-                <td><input size="70" type="text" name="RQvalALPHOption[8]" id="RQvalALPHOption_8" value="<?php print $_REQUEST['RQvalALPHOption'][8]; ?>" /></td>
-                <td><input size="1" type="text" name="RQvalALPHOptionValues[8]" id="RQvalALPHOptionValues_8" value="<?php print $_REQUEST['RQvalALPHOptionValues'][8]; ?>" /></td>
+                <td><input size="70" type="text" name="RQvalALPHOption[8]" id="RQvalALPHOption_8" value="<?php echo $_REQUEST['RQvalALPHOption'][8]; ?>" /></td>
+                <td><input size="1" type="text" name="RQvalALPHOptionValues[8]" id="RQvalALPHOptionValues_8" value="<?php echo $_REQUEST['RQvalALPHOptionValues'][8]; ?>" /></td>
             </tr>
             <tr class="option-row">
                 <td></td>
-                <td><input size="70" type="text" name="RQvalALPHOption[9]" id="RQvalALPHOption_9" value="<?php print $_REQUEST['RQvalALPHOption'][9]; ?>" /></td>
-                <td><input size="1" type="text" name="RQvalALPHOptionValues[9]" id="RQvalALPHOptionValues_9" value="<?php print $_REQUEST['RQvalALPHOptionValues'][9]; ?>" /></td>
+                <td><input size="70" type="text" name="RQvalALPHOption[9]" id="RQvalALPHOption_9" value="<?php echo $_REQUEST['RQvalALPHOption'][9]; ?>" /></td>
+                <td><input size="1" type="text" name="RQvalALPHOptionValues[9]" id="RQvalALPHOptionValues_9" value="<?php echo $_REQUEST['RQvalALPHOptionValues'][9]; ?>" /></td>
             </tr>
             <tr class="option-row">
                 <td></td>
-                <td><input size="70" type="text" name="RQvalALPHOption[10]" id="RQvalALPHOption_10" value="<?php print $_REQUEST['RQvalALPHOption'][10]; ?>" /></td>
-                <td><input size="1" type="text" name="RQvalALPHOptionValues[10]" id="RQvalALPHOptionValues_10" value="<?php print $_REQUEST['RQvalALPHOptionValues'][10]; ?>" /></td>
+                <td><input size="70" type="text" name="RQvalALPHOption[10]" id="RQvalALPHOption_10" value="<?php echo $_REQUEST['RQvalALPHOption'][10]; ?>" /></td>
+                <td><input size="1" type="text" name="RQvalALPHOptionValues[10]" id="RQvalALPHOptionValues_10" value="<?php echo $_REQUEST['RQvalALPHOptionValues'][10]; ?>" /></td>
             </tr>
 
             <tr>
-                <td></td><td colspan="2"><div class="submitWrap"><input type="submit" value="Save" name="configure-question" class="btn" /><a name="configure-question" class="btn green" href="/configure-question?qnrID=<?php print $_REQUEST['qnrID']; ?>" >Add More Questions</a></div></td>
+                <td></td><td colspan="2"><div class="submitWrap"><input type="submit" value="Save" name="configure-question" class="btn" /><a name="configure-question" class="btn green" href="/configure-question?qnrID=<?php echo $_REQUEST['qnrID']; ?>" >Add More Questions</a></div></td>
             </tr>
         </table>
 
-        <input type="hidden" name="action" id="action" value="<?php print $_REQUEST['action']; ?>" />
-        <input type="hidden" name="qnrID" id="qnrID" value="<?php print $_REQUEST['qnrID']; ?>" />
-        <input type="hidden" name="qsnID" id="qsnID" value="<?php print $_REQUEST['qsnID']; ?>" />
+        <input type="hidden" name="action" id="action" value="<?php echo $_REQUEST['action']; ?>" />
+        <input type="hidden" name="qnrID" id="qnrID" value="<?php echo $_REQUEST['qnrID']; ?>" />
+        <input type="hidden" name="qsnID" id="qsnID" value="<?php echo $_REQUEST['qsnID']; ?>" />
     </form>
 
     <script type="text/javascript">

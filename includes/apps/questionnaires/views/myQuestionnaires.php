@@ -11,15 +11,15 @@ if ($this instanceof Quipp) {
     $getQuestionnairesQry = $db->query($getQuestionnairesQS);
     if (is_resource($getQuestionnairesQry)) {
         if ($db->num_rows($getQuestionnairesQry) > 0) {
-            print "<ul>";
+            echo "<ul>";
             while ($qnr = $db->fetch_assoc($getQuestionnairesQry)) {
-                print "<li><a href=\"/questionnaires?action=edit&qnrID=".$qnr['itemID']."\" >".$qnr['label']."</a></li>";
+                echo "<li><a href=\"/questionnaires?action=edit&qnrID=".$qnr['itemID']."\" >".$qnr['label']."</a></li>";
             }
-            print "</ul>";
+            echo "</ul>";
         } else {
-            print "You haven't created any questionnaires. <a href=\"/questionnaires&action=new\">Click here</a> to create one.";
+            echo "You haven't created any questionnaires. <a href=\"/questionnaires&action=new\">Click here</a> to create one.";
         }
     }
 
-    print "</div><a href=\"/questionnaires&action=new\" class='btn green'>Create New</a>";
+    echo "</div><a href=\"/questionnaires&action=new\" class='btn green'>Create New</a>";
 }
