@@ -93,4 +93,18 @@ $(function () {
             }
         });
     });
+   
+    
+    $('.grade').click(function () {
+        var $application = $(this).data('application');
+        var $grade = $(this).data('grade');
+        var $this = $(this);
+        $.post('/grade-applicant', {
+            application: $application,
+            grade: $grade
+        }, function (response) {
+            $this.siblings().removeClass('green').removeClass('yellow').removeClass('red').addClass('black');
+            $this.removeClass('black').addClass(response);
+        });
+    });    
 });

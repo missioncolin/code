@@ -13,7 +13,7 @@ if (isset($_GET['page'])) {
 }
 
 
-$applicants = $j->getApplicants($_GET['job'], $offset, $page, $display);
+$applicants = $j->getApplicants($_GET['job'], $offset, $display);
 $total      = $j->totalApplicants($_GET['job']);
 
 ?>
@@ -33,15 +33,29 @@ $total      = $j->totalApplicants($_GET['job']);
     if (!empty($applicants)) {
         foreach ($applicants as $a) {        
             $applicant = new User($db, $a['userID']);
+            
+            $colours = array(
+                'recommend' => 'green',
+                'average'   => 'yellow',
+                'nq'        => 'red'
+            );
+            
+            $class = $colours[$a['grade']];
             ?>
             <tr>
-    			<td><div class="imgWrap"><a href="/applications-detail?application=<?php echo $a['itemID']; ?>"><img src="http://www.gravatar.com/avatar/<?php echo md5(strtolower(trim($applicant->info['Email']))); ?>?d=<?php echo urlencode('http://' . $_SERVER['HTTP_HOST'] . '/themes/Intervue/img/profilePicExample.jpg'); ?>&s=83" alt="<?php echo $applicant->info['First Name'] . " " . $applicant->info['Last Name']; ?>" /></a></div><a href="/applications-detail?application=<?php echo $a['itemID']; ?>"><strong><?php echo $applicant->info['First Name'] . " " . $applicant->info['Last Name']; ?></strong></a></td>
+    			<td>
+    			     <div class="imgWrap">
+    			         <a href="/applications-detail?application=<?php echo $a['itemID']; ?>"><img src="http://www.gravatar.com/avatar/<?php echo md5(strtolower(trim($applicant->info['Email']))); ?>?d=<?php echo urlencode('http://' . $_SERVER['HTTP_HOST'] . '/themes/Intervue/img/profilePicExample.jpg'); ?>&s=83" alt="<?php echo $applicant->info['First Name'] . " " . $applicant->info['Last Name']; ?>" /></a>
+    			     </div>
+    			     <a href="/applications-detail?application=<?php echo $a['itemID']; ?>"><strong><?php echo $applicant->info['First Name'] . " " . $applicant->info['Last Name']; ?></strong></a><br>
+    			     <span><?php echo date('F jS, Y', strtotime($a['sysDateInserted'])); ?></span>
+    			 </td>
     			<td>
         			<h2><?php echo $j->getApplicantRating($a['itemID']); ?><br />
         			<a href="/applications-detail?application=<?php echo $a['itemID']; ?>">Rating Details</a>
         			</h2>
                 </td>
-    			<td><a class="btn green"><?php echo $a['grade']; ?></a></td>
+    			<td><a class="btn <?php echo $class; ?>"><?php echo $a['grade']; ?></a></td>
     		</tr>
     		<?php
 

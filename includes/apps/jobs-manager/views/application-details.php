@@ -1,13 +1,16 @@
 <?php 
-	require dirname(__DIR__) . '/JobManager.php';
+
+global $quipp;
+    
+require dirname(__DIR__) . '/JobManager.php';
 
 
-	$j = new JobManager($db, $_SESSION['userID']);
+$j = new JobManager($db, $_SESSION['userID']);
 
-	$application = $j->getApplication($_GET['application']);
-	$applicant = new User($db, $application['userID']);
+$application = $j->getApplication($_GET['application']);
+$applicant = new User($db, $application['userID']);
 
-
+$quipp->js['footer'][] = "/includes/apps/jobs-manager/js/jobs-manager.js";
 
 ?>
 
@@ -26,32 +29,43 @@
             <dt>Name</dt>
             <dd><?php echo $applicant->info['First Name']." " . $applicant->info['Last Name'];?></dd>
             <dt>Email</dt>
-            <dd><?php echo $applicant->info['Email'];?></dd>   
+            <dd><?php echo $applicant->info['Email'];?></dd>
+            <dt>Links</dt>
+            <dd id="links">
             <?php
-            	//website
-            	if (isset($applicant->info['Website or Blog URL'])&&(strlen($applicant->info['Website or Blog URL']) > 0)){
-            		print "<dt>Website or Blog</dt><dd><a href=\"".$applicant->info['Website or Blog URL']."\">".$applicant->info['Website or Blog URL']."</a></dd>";
-            	}
-            	//facebook
-              if (isset($applicant->info['Facebook Username'])&&(strlen($applicant->info['Facebook Username']) > 0)){
-            		print "<dt>Facebook</dt><dd><a href=\"".$applicant->info['Facebook Username']."\">".$applicant->info['Facebook Username']."</a></dd>";
-            	}
-            	//twitter
-            	if (isset($applicant->info['Twitter Username'])&&(strlen($applicant->info['Twitter Username']) > 0)){
-            		print "<dt>Twitter</dt><dd><a href=\"".$applicant->info['Twitter Username']."\">".$applicant->info['Twitter Username']."</a></dd>";
-            	}
-            	//linkedin
-            	if (isset($applicant->info['LinkedIn Username'])&&(strlen($applicant->info['LinkedIn Username']) > 0)){
-            		print "<dt>LinkedIn</dt><dd><a href=\"".$applicant->info['LinkedIn Username']."\">".$applicant->info['LinkedIn Username']."</a></dd>";
-            	}
+                $suppliedLinks = false;
+                //website
+                if (isset($applicant->info['Website or Blog URL']) && (strlen($applicant->info['Website or Blog URL']) > 0)){
+                    echo '<a class="icon blog" href="' . $applicant->info['Website or Blog URL'] . '">Website or Blog</a> ';
+                    $suppliedLinks = true;
+                }
+                //facebook
+                if (isset($applicant->info['Facebook Username']) && (strlen($applicant->info['Facebook Username']) > 0)){
+                    echo '<a class="icon facebook" href="http://www.facebook.com/' . $applicant->info['Facebook Username'] . '">Facebook</a> ';
+                    $suppliedLinks = true;
+                }
+                //twitter
+                if (isset($applicant->info['Twitter Username']) && (strlen($applicant->info['Twitter Username']) > 0)){
+                    echo '<a class="icon twitter" href="http://twitter.com/' . $applicant->info['Twitter Username'] . '">Twitter</a> ';
+                    $suppliedLinks = true;
+                }
+                //linkedin
+                if (isset($applicant->info['LinkedIn Username']) && (strlen($applicant->info['LinkedIn Username']) > 0)){
+                    echo '<a class="icon linkedin" href="http://www.linkedin.com/in/' . $applicant->info['LinkedIn Username'] . '">LinkedIn</a> ';
+                    $suppliedLinks = true;
+                }
+                
+                if ($suppliedLinks == false) {
+                    echo 'No links supplied';
+                }
             ?>
-        
+            </dd>
         </dl>
         <div id="grade">
             <h3>Grade Applicant</h3>
-            <a href="#" class="btn <?php echo ($application['grade'] == 'recommend') ? 'green' : 'black'; ?>">Recommend</a>
-            <a href="#" class="btn <?php echo ($application['grade'] == 'average') ? 'green' : 'black'; ?>">Average</a>
-            <a href="#" class="btn <?php echo ($application['grade'] == 'nq') ? 'green' : 'black'; ?>">NQ</a>
+            <a href="#" data-application="<?php echo $_GET['application']; ?>" data-grade="recommend" class="grade btn <?php echo ($application['grade'] == 'recommend') ? 'green' : 'black'; ?>">Recommend</a>
+            <a href="#" data-application="<?php echo $_GET['application']; ?>" data-grade="average" class="grade btn <?php echo ($application['grade'] == 'average') ? 'yellow' : 'black'; ?>">Average</a>
+            <a href="#" data-application="<?php echo $_GET['application']; ?>" data-grade="nq" class="grade btn <?php echo ($application['grade'] == 'nq') ? 'red' : 'black'; ?>">NQ</a>
         </div>
     </div>
     
@@ -60,7 +74,24 @@
             <a class="left" href="applicant-list?job=<?php echo $application['jobID']; ?>">Back to List</a>
             <h4><span>Reviewing: </span><?php echo $applicant->info['First Name']." " . $applicant->info['Last Name'];?></h4>
             <span class="right">
-                <a href="#">Prev</a> // <a href="#">Next</a>
+                
+                <?php
+                $applicants = $j->getApplicants($application['jobID']);
+                
+                $keys    = array_keys($applicants);
+                $current = array_search($application['userID'], $keys);
+                
+                $prev = '';
+                $next = '';
+                if (isset($keys[$current - 1])) {
+                    $prev = $applicants[$keys[$current - 1]];
+                }
+                if (isset($keys[$current + 1])) {
+                    $next = $applicants[$keys[$current + 1]];
+                }
+                            
+                ?>
+                <?php if ($prev != '') { ?><a href="/applications-detail?application=<?php echo $prev['itemID']; ?>">Prev</a><?php } if ($prev != '' && $next != '') { ?> // <?php } if ($next != '') { ?> <a href="/applications-detail?application=<?php echo $next['itemID']; ?>">Next</a><?php } ?>
             </span>
         </div>
         
