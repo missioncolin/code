@@ -837,6 +837,67 @@ nav a:hover {
     text-indent: -9999px;
 }
 
+/*Steps----------------------------------------------------------------------- */
+
+#steps {
+    list-style: none;
+    margin: -35px 0 30px;
+    padding: 0;
+    background: @base2;
+    .border-radius(3px);
+    float: left;
+    width: 100%;
+    padding: 20px;
+    .box-sizing();
+    color: @base;
+    font-weight: bold;
+}
+
+#steps li {
+    display: inline-block;
+}
+
+#steps .current, #steps .alert {
+    color: #FFF;
+}
+
+#steps .alert {
+    float: right;
+}
+
+#steps span {
+    font-family: "proxima-nova",sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    width: 25px;
+    height: 25px;
+    text-align: center;
+    .border-radius(25px);
+    background: @base;
+    display: inline-block;
+    margin: 0 10px 0 25px;
+    color: #FFF;
+    font-size: 14px;
+}
+
+#steps .current span {
+    background: @accent;
+}
+
+#steps .success span {
+    background: url(img/checkIcon.png) no-repeat center @accent2;
+    margin-bottom: -6px;
+}
+
+#steps .fail span {
+    background: url(img/failIcon.png) no-repeat 8px center @accent3;
+    margin-bottom: -6px;
+}
+
+#steps li:first-child span {
+    margin-left: 0;
+}
+
 /*Btn------------------------------------------------------------------------ */
 
 a.btn, input.btn {
@@ -1055,20 +1116,22 @@ form textarea:focus {
 
 /*Templates------------------------------------------------------------------- */
 
-.one-column #colA {
-    width: 100%;
-    float: left;
+.main {
     margin: -50px 0 0;
 }
 
-#configure-question.one-column #colA {
-    margin: -60px 0 0;
+#steps + .main {
+    margin: 0;
+}
+
+.one-column #colA {
+    width: 100%;
+    float: left;
 }
 
 .two-column #colA {
     float: left;
     width: 40.62%;
-    margin: -50px 0 0 0;
 }
 
 .two-column #colB {
