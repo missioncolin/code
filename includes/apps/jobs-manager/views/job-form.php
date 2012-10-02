@@ -119,7 +119,7 @@ if ($edit == true && !isset($_GET['id'])) {
         
         echo '<strong>You must <a href="/questionnaires">create a questionnaire</a> first</strong>';
     } else if ((int)$user->info['Job Credits'] == 0) {
-        echo '<strong>You do not have a sufficiant amount of job credits to create a new job. Please <a href="/buy-job-credits">purchase more job credits</a> to continue.</strong>';
+        echo '<strong>You do not have a sufficiant amount of job credits to create a new job. Please <a href="/buy-job-credits?req=createnew">purchase more job credits</a> to continue.</strong>';
         
     } else {
     ?>

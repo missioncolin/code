@@ -60,22 +60,22 @@ if ($this instanceof Quipp) {
     $buttonFormName = ($questionnaireIsValid) ? "update-qnr" : "new-qnr";
 
     if ($success == 1) {
-        print alert_box($feedback, 1);
+        echo alert_box($feedback, 1);
     } elseif (isset($error_message) && $error_message != '') {
-        print alert_box($feedback, 2);
+        echo alert_box($feedback, 2);
     }
 
 ?>
-    <h4 id="toolbar"><?php if ($qnr != NULL) { print $qnr['label']; } else { print "Create New"; } ?></h4>
-    <form id="questionairesForm" action="<?php print $_SERVER['REQUEST_URI']; ?>" method="post">
+    <h4 id="toolbar"><?php if ($qnr != NULL) { echo $qnr['label']; } else { echo "Create New"; } ?></h4>
+    <form id="questionairesForm" action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post">
         <?php
     //hide if can't edit
     if ($canEditQuestionnaire) {
-        print "<input type=\"text\" id=\"RQvalALPHQuestionnaire_Title\" name=\"RQvalALPHQuestionnaire_Title\" value=\"".$_REQUEST['RQvalALPHQuestionnaire_Title']."\" />";
-        print "<input type=\"submit\" class=\"btn\" value=\"".$buttonLabel."\" name=\"".$buttonFormName."\" class=\"btnStyle\" />";
+        echo "<input type=\"text\" id=\"RQvalALPHQuestionnaire_Title\" name=\"RQvalALPHQuestionnaire_Title\" value=\"".$_REQUEST['RQvalALPHQuestionnaire_Title']."\" />";
+        echo "<input type=\"submit\" class=\"btn\" value=\"".$buttonLabel."\" name=\"".$buttonFormName."\" class=\"btnStyle\" />";
     }
 ?>
-        <input type="hidden" name="qnrID" id="qnrID" value="<?php print $_REQUEST['qnrID']; ?>" />
+        <input type="hidden" name="qnrID" id="qnrID" value="<?php echo $_REQUEST['qnrID']; ?>" />
     <form>
 
 <?php
@@ -106,14 +106,14 @@ if ($this instanceof Quipp) {
             }
             $questionTable .= "</table>";
 
-            print $questionTable;
+            echo $questionTable;
         } else {
-            print "<div class=\"noQuestions\">This questionnaire currently has no questions.</div>";
+            echo "<div class=\"noQuestions\">This questionnaire currently has no questions.</div>";
         }
         if ($canEditQuestionnaire) {
-            print "<a class='btn green' href='/configure-question?qnrID=".$_REQUEST['qnrID']."'>Add A Question</a>";
+            echo "<a class='btn green' href='/configure-question?qnrID=".$_REQUEST['qnrID']."'>Add A Question</a>";
         } else {
-            print "<div>&nbsp;</div><br/><div>Questionnaires in use cannot be edited.</div>";
+            echo "<div>&nbsp;</div><br/><div>Questionnaires in use cannot be edited.</div>";
         }
     }
 }
