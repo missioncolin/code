@@ -13,7 +13,7 @@ if (isset($_GET['page'])) {
 }
 
 
-$applicants = $j->getApplicants($_GET['job'], $offset, $page, $display);
+$applicants = $j->getApplicants($_GET['job'], $offset, $display);
 $total      = $j->totalApplicants($_GET['job']);
 
 ?>

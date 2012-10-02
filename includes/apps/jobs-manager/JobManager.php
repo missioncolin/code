@@ -200,7 +200,7 @@ class JobManager {
         
     }
     
-    public function getApplicants($jobID, $offset, $page, $display) {
+    public function getApplicants($jobID, $offset = 0, $display = 10000) {
         
         $applicants = array();
         

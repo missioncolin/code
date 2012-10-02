@@ -74,7 +74,24 @@ $quipp->js['footer'][] = "/includes/apps/jobs-manager/js/jobs-manager.js";
             <a class="left" href="applicant-list?job=<?php echo $application['jobID']; ?>">Back to List</a>
             <h4><span>Reviewing: </span><?php echo $applicant->info['First Name']." " . $applicant->info['Last Name'];?></h4>
             <span class="right">
-                <a href="#">Prev</a> // <a href="#">Next</a>
+                
+                <?php
+                $applicants = $j->getApplicants($application['jobID']);
+                
+                $keys    = array_keys($applicants);
+                $current = array_search($application['userID'], $keys);
+                
+                $prev = '';
+                $next = '';
+                if (isset($keys[$current - 1])) {
+                    $prev = $applicants[$keys[$current - 1]];
+                }
+                if (isset($keys[$current + 1])) {
+                    $next = $applicants[$keys[$current + 1]];
+                }
+                            
+                ?>
+                <?php if ($prev != '') { ?><a href="/applications-detail?application=<?php echo $prev['itemID']; ?>">Prev</a><?php } if ($prev != '' && $next != '') { ?> // <?php } if ($next != '') { ?> <a href="/applications-detail?application=<?php echo $next['itemID']; ?>">Next</a><?php } ?>
             </span>
         </div>
         
