@@ -51,14 +51,16 @@ class JobManager {
      * Add a job into the database
      * @return bool
      */
-    public function addJob($post) {
+    public function addJob($post) {       
+        
         
         $active = (isset($post['active']) && $post['active'] == 'on') ? 'active' : 'inactive';
         $qry = sprintf("INSERT INTO tblJobs (`userID`, `title`, `link`, `dateExpires`, `datePosted`, `questionnaireID`, `sysStatus`) VALUES ('%d', '%s', '%s', '%s', '%s', '%d', '%s')",
             (int)$this->userID,
             $this->db->escape($post['RQvalALPHTitle']),
             $this->db->escape($post['RQvalWEBSLink']),
-            $this->db->escape($post['RQvalDATEDate_Expires']),
+            //$this->db->escape($post['RQvalDATEDate_Expires']),
+            date("Y-m-d", strtotime('+2 months')),
             $this->db->escape($post['RQvalDATEDate_Posted']),
             (int)$post['RQvalNUMBQuestionnaire'],
             $active);
@@ -260,6 +262,37 @@ class JobManager {
         }
         return 0;
         
+    }
+    
+    
+    /**
+     * Grade the applicant
+     * @param int applicationID
+     * @param string grade recommend|average|nq
+     * @return bool
+     */
+    public function gradeApplicant($applicationID, $grade)
+    {
+        if (!in_array($grade, array('recommend', 'average', 'nq'))) {
+            return false;
+        }
+        
+        $qry = sprintf("UPDATE tblApplications SET grade='%s' WHERE itemID='%d'",
+            $this->db->escape($grade),
+            (int)$applicationID);
+        $res = $this->db->query($qry);
+        
+        if ($this->db->affected_rows($res) > 0) {
+            $colours = array(
+                'recommend' => 'green',
+                'average'   => 'yellow',
+                'nq'        => 'red'
+            );
+            
+            return $colours[$grade];
+        } else {
+            return false;
+        }   
     }
         
     public function getApplicantRating($applicationID){

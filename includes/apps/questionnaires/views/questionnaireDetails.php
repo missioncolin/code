@@ -2,23 +2,32 @@
 
 <?php 
 ini_set('display_errors', 'off');
+require dirname(__DIR__) . '/Questionnaire.php';
+$q = new Questionnaire($db);
+
 if ($this INSTANCEOF Quipp){
 	//yell('print', $_REQUEST);
 	if(validate_form($_REQUEST)){
 		
 		if (isset($_REQUEST["new-qnr"])) {
-				$actionQS = sprintf("INSERT INTO tblQuestionnaires (hrUserID, label, sysDateInserted, sysDateLastMod) VALUES ('%d', '%s', NOW(), NOW())", $_SESSION['userID'], clean($_REQUEST['RQvalALPHQuestionnaire_Title'], true, true));
+				/*$actionQS = sprintf("INSERT INTO tblQuestionnaires (hrUserID, label, sysDateInserted, sysDateLastMod) VALUES ('%d', '%s', NOW(), NOW())", $_SESSION['userID'], clean($_REQUEST['RQvalALPHQuestionnaire_Title'], true, true));
 				$db->query($actionQS);
 				$_REQUEST['qnrID'] = $db->insert_id();
-				$success = 1;
-				header('Location: /questionnaires?action=edit&qnrID=' . $_REQUEST['qnrID']);
+				$success = 1;*/
+				$success = $q->createQuestionnaire($title, $userID);
+				if ($success > 0){
+				    header('Location: /questionnaires?action=edit&qnrID=' . $success);
+				}
+				else{
+    				$error_message = "Your questionnaire could not be created";
+				}
 				//yell('print', $actionQS);
 		}
 		if (isset($_REQUEST["update-qnr"])) {
 				$actionQS = sprintf("UPDATE tblQuestionnaires SET label = '%s', sysDateLastMod = NOW() WHERE itemID = '%d' ", clean($_REQUEST['RQvalALPHQuestionnaire_Title'], true, true), $_REQUEST['qnrID']);
 				$db->query($actionQS);
 				$success = 1;
-				$feedback = "<strong>Success!</strong> You have renamed your Questionnaire!";
+				$feedback = "<strong>Success!</strong> You renamed your Questionnaire!";
 				//yell('print', $actionQS);
 		}
 	}

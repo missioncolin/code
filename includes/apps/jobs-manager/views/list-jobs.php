@@ -1,6 +1,7 @@
 <?php
 
 global $quipp;
+global $user;
 
 require dirname(__DIR__) . '/JobManager.php';
 
@@ -26,7 +27,7 @@ $quipp->js['footer'][] = "/includes/apps/jobs-manager/js/jobs-manager.js";
 <section id="hrListJobs">
     
     <a href="/create-job" class="btn green newJob">Add a New Job</a>
-    <a href="/buy-credits" class="btn green buyCredits">Buy Job Credits</a>
+    <a href="/buy-job-credits" class="btn green buyCredits">Buy Job Credits</a>
     <table>
         <tr>
             <th colspan="4">Job Title</th>
@@ -39,13 +40,24 @@ $quipp->js['footer'][] = "/includes/apps/jobs-manager/js/jobs-manager.js";
         } else {
             
             foreach ($jobs as $jobID => $job) {
+?>
+            <tr>
+                <td><strong><a href="/applicant-list?job=<?php echo $jobID; ?>"><?php echo $job['title']; ?></a></strong><br /><?php echo $job['link']; ?></td>
+<?php
+                if (date("U") > strtotime($job["dateExpires"])){
+?>
+                    <td colspan="3"><a href="#" data-job="<?php echo $jobID; ?>" class="btn red <?php echo ($user->info['Job Credits'] > 0 ? "reactivate" : "buy");?>">Re-activate (1 Credit)</a></td>
+            <?php
+                }
+                else{
                 ?>
-        <tr>
-            <td><strong><a href="/applicant-list?job=<?php echo $jobID; ?>"><?php echo $job['title']; ?></a></strong><br /><?php echo $job['link']; ?></td>
             <td><a href="#" data-job="<?php echo $jobID; ?>" class="activate btn <?php echo ($job['sysStatus'] == 'active') ? 'black' : 'grey'; ?>"><?php echo ucfirst($job['sysStatus']); ?></a></td>
             <td><a href="#" data-job="<?php echo $jobID; ?>" class="btn red delete">Delete</a></td>
             <td><a href="/edit-job?id=<?php echo $jobID; ?>" class="btn">Edit</a></td>
-        </tr>
+                <?php
+                }
+                ?>
+            </tr>
                 <?php
             }
             

@@ -3,27 +3,42 @@
 global $message, $user;
 
 require dirname(__DIR__) . '/JobManager.php';
+require dirname(dirname(__DIR__)) . '/questionnaires/Questionnaire.php';
 require dirname(dirname(__DIR__)) . '/credits/Credits.php';
 
 $j = new JobManager($db, $_SESSION['userID']);
+$q = new Questionnaire($db);
 $questionnaires = $j->getQuestionaires();
 $error = '';
 $success = false;
+$newQnr = false;
 
 if (!empty($_POST) && !empty($questionnaires)) {
-    if (isset($_POST['RQvalALPHTitle'], $_POST['RQvalWEBSLink'], $_POST['RQvalDATEDate_Posted'], $_POST['RQvalDATEDate_Expires'], $_POST['RQvalNUMBQuestionnaire'])) {
+    if (isset($_POST['RQvalALPHTitle'], $_POST['RQvalWEBSLink'], $_POST['RQvalDATEDate_Posted'], $_POST['RQvalNUMBQuestionnaire'])) {
         
         if (!validate_form($_POST)) {
             $error = $message;        
         } else {
+        
+            if ((int)$_POST['RQvalNUMBQuestionnaire'] == 0 && isset($_POST['RQvalALPHNew_Questionnaire']) && !empty($_POST['RQvalALPHNew_Questionnaire'])){
+                $_POST['RQvalNUMBQuestionnaire'] = $q->createQuestionnaire($_POST['RQvalALPHNew_Questionnaire'], $user->id);
+                if ((int)$_POST['RQvalNUMBQuestionnaire'] > 0){
+                    $newQnr = true;
+                }
+                else{
+                    $success = 'Your questionnaire could not be created. Please retry or use a previously created questionnaire.';
+                }
+            }
+            
             if (isset($_POST['id']) && (int)$_POST['id'] > 0 && $j->canEdit($_POST['id'])) {
                 // edit
                 $success = $j->editJob($_POST);
             } else if (isset($_POST['id']) && (int)$_POST['id'] > 0) {
                 $error = 'No access';
-            } else {
+            } else if ((int)$_POST['RQvalNUMBQuestionnaire'] > 0) {
                 // insert
                 if ((int)$user->info['Job Credits'] > 0) {
+
                     $success = $j->addJob($_POST);
                 } else {
                     $success = 'You do not have a sufficiant amount of job credits to create a new job. Please <a href="/buy-job-credits">purchase more job credits</a> to continue.'; 
@@ -48,7 +63,12 @@ if ($edit == true && !isset($_GET['id'])) {
 } else if ($error == '' && $success === true) {
     if ($edit == false) {
         Credits::assignCredits($user, -1);
-        header('Location: /applications?success=Job+created=successfully');
+        if ($newQnr === true){
+            header('Location: /configure-question?qnrID='.$_POST["RQvalNUMBQuestionnaire"]);
+        }
+        else {
+            header('Location: /applications?success=Job+created=successfully');
+        }
     } else {
         header('Location: /applications?success=Job+edited=successfully');
     }
@@ -66,7 +86,7 @@ if ($edit == true && !isset($_GET['id'])) {
     $title           = '';
     $link            = '';
     $datePosted      = date('Y-m-d');
-    $dateExpires     = date('Y-m-d', strtotime('+1 month'));
+    $dateExpires     = date('Y-m-d', strtotime('+2 months'));
     $questionnaireID = 0;
     $status          = 'inactive';
 
@@ -113,7 +133,7 @@ if ($edit == true && !isset($_GET['id'])) {
             </thead>
             <tbody>
                 <tr>
-                    <td><label for="title">Job Title</label></td>
+                    <td width="30%"><label for="title">Job Title</label></td>
                     <td><input type="text" name="RQvalALPHTitle" id="title" placeholder="Job Title" value="<?php echo $title; ?>"  required/></td>
                 </tr>
                 <tr>
@@ -126,7 +146,7 @@ if ($edit == true && !isset($_GET['id'])) {
                 </tr>
                 <tr>
                     <td><label for="dateExpires">Date Expires</label></td>
-                    <td><input type="text" class="datepicker" name="RQvalDATEDate_Expires" id="dateExpires" value="<?php echo $dateExpires; ?>"/></td>
+                    <td><?php echo date("Y-m-d", strtotime('+2 months'));?></td>
                 </tr>
                 <tr>
                     <td><label for="questionnaire">Questionnaire</label></td>
@@ -136,6 +156,7 @@ if ($edit == true && !isset($_GET['id'])) {
                         if (is_array($questionnaires) && !empty($questionnaires)) {
                             echo '<select name="RQvalNUMBQuestionnaire" id="questionnaire" required>';
                             echo '<option>Select a questionnaire</option>';
+                            echo '<option value="0">Create a New Questionnaire</option>';
                             foreach ($questionnaires as $qID => $qLabel) {
                                 $selected = ($qID == $questionnaireID) ? ' selected="selected"' : '';
                                 echo '<option value="' . $qID . '"' . $selected . '>' . $qLabel . '</option>';
@@ -149,6 +170,10 @@ if ($edit == true && !isset($_GET['id'])) {
                         
                         ?>
                     </td>
+                </tr>
+                <tr style="display:none" id="rCreateNew">
+                    <td><label for="newQuestionnaire">New Questionnaire</label></td>
+                    <td><input type="text" name="RQvalALPHNew_Questionnaire" id="newQuestionnaire" disabled="disabled" placeholder="Questionnaire Title" /></td>
                 </tr>
                 <tr>
                     <td><label for="active">Active</label></td>

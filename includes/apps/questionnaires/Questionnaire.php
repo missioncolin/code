@@ -87,5 +87,20 @@ class Questionnaire {
         
         
     }
+    
+    public function createQuestionnaire($title, $userID){
+        $qID = 0;
+        if (!empty($title) && (int)$userID > 0){
+            $actionQS = sprintf("INSERT INTO tblQuestionnaires (hrUserID, label, sysDateInserted, sysDateLastMod, isUsed) VALUES ('%d', '%s', NOW(), NOW(), 0)", 
+                (int)$userID, 
+                clean($title, true, true));
+            $this->db->query($actionQS);
+            if ($this->db->error() == 0 && $this->db->affected_rows() == 1){
+                $qID = $this->db->insert_id();
+            }
+            
+        }
+        return $qID; 
+    }
 
 }
