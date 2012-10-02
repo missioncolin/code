@@ -79,6 +79,6 @@
         </div>
     
     </div>
-    <input type="hidden" name="referrer" value="<?php echo (isset($_GET['req']) ? $_GET['req'] : '');?>" />
     <input type="submit" class="submit-button btn green" value="Submit Payment" />
+    <input type="hidden" name="referrer" value="<?php echo (isset($_GET['req']) ? $_GET['req'] : '');?>" />
 </form>
