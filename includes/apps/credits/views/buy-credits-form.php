@@ -15,7 +15,7 @@
     if (!empty($_POST)) {
         $charge = $credits->charge((int)$_POST['credits'], $_POST['stripeToken'], $user);
         if (is_int($charge)) {
-            header('Location: /invoice?id=' . $charge);
+            header('Location: /invoice?id=' . $charge.(!empty($_POST['referrer']) ? '&req='.str_replace(' ','+',$_POST['referrer']) : ''));
         }
     }
     
@@ -79,6 +79,6 @@
         </div>
     
     </div>
-
+    <input type="hidden" name="referrer" value="<?php echo (isset($_GET['req']) ? $_GET['req'] : '');?>" />
     <input type="submit" class="submit-button btn green" value="Submit Payment" />
 </form>
