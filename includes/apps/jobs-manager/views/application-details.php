@@ -29,26 +29,37 @@ $quipp->js['footer'][] = "/includes/apps/jobs-manager/js/jobs-manager.js";
             <dt>Name</dt>
             <dd><?php echo $applicant->info['First Name']." " . $applicant->info['Last Name'];?></dd>
             <dt>Email</dt>
-            <dd><?php echo $applicant->info['Email'];?></dd>   
+            <dd><?php echo $applicant->info['Email'];?></dd>
+            <dt>Links</dt>
+            <dd id="links">
             <?php
-            	//website
-            	if (isset($applicant->info['Website or Blog URL'])&&(strlen($applicant->info['Website or Blog URL']) > 0)){
-            		print "<dt>Website or Blog</dt><dd><a href=\"".$applicant->info['Website or Blog URL']."\">".$applicant->info['Website or Blog URL']."</a></dd>";
-            	}
-            	//facebook
-              if (isset($applicant->info['Facebook Username'])&&(strlen($applicant->info['Facebook Username']) > 0)){
-            		print "<dt>Facebook</dt><dd><a href=\"".$applicant->info['Facebook Username']."\">".$applicant->info['Facebook Username']."</a></dd>";
-            	}
-            	//twitter
-            	if (isset($applicant->info['Twitter Username'])&&(strlen($applicant->info['Twitter Username']) > 0)){
-            		print "<dt>Twitter</dt><dd><a href=\"".$applicant->info['Twitter Username']."\">".$applicant->info['Twitter Username']."</a></dd>";
-            	}
-            	//linkedin
-            	if (isset($applicant->info['LinkedIn Username'])&&(strlen($applicant->info['LinkedIn Username']) > 0)){
-            		print "<dt>LinkedIn</dt><dd><a href=\"".$applicant->info['LinkedIn Username']."\">".$applicant->info['LinkedIn Username']."</a></dd>";
-            	}
+                $suppliedLinks = false;
+                //website
+                if (isset($applicant->info['Website or Blog URL']) && (strlen($applicant->info['Website or Blog URL']) > 0)){
+                    echo '<a class="icon blog" href="' . $applicant->info['Website or Blog URL'] . '">Website or Blog</a> ';
+                    $suppliedLinks = true;
+                }
+                //facebook
+                if (isset($applicant->info['Facebook Username']) && (strlen($applicant->info['Facebook Username']) > 0)){
+                    echo '<a class="icon facebook" href="http://www.facebook.com/' . $applicant->info['Facebook Username'] . '">Facebook</a> ';
+                    $suppliedLinks = true;
+                }
+                //twitter
+                if (isset($applicant->info['Twitter Username']) && (strlen($applicant->info['Twitter Username']) > 0)){
+                    echo '<a class="icon twitter" href="http://twitter.com/' . $applicant->info['Twitter Username'] . '">Twitter</a> ';
+                    $suppliedLinks = true;
+                }
+                //linkedin
+                if (isset($applicant->info['LinkedIn Username']) && (strlen($applicant->info['LinkedIn Username']) > 0)){
+                    echo '<a class="icon linkedin" href="http://www.linkedin.com/in/' . $applicant->info['LinkedIn Username'] . '">LinkedIn</a> ';
+                    $suppliedLinks = true;
+                }
+                
+                if ($suppliedLinks == false) {
+                    echo 'No links supplied';
+                }
             ?>
-        
+            </dd>
         </dl>
         <div id="grade">
             <h3>Grade Applicant</h3>
