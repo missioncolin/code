@@ -1,3 +1,5 @@
+<a href="/create-job" class="createAJobCallout">Create A Job Today!</a>
+
 <section id="profileEdit">
 <div id="form">
 <?php
@@ -29,3 +31,10 @@ if ($this INSTANCEOF Quipp && isset($_SESSION['userID'])){
 ?>
 </div>
 </section>
+
+<!--<div class="leftColumn">
+	<article>
+		<img src="../../../../themes/Intervue/img/example.png" alt="example" width="390" height="236" />
+		<a href="#">Create Questions</a>
+	</article>
+</div>-->
