@@ -33,21 +33,4 @@ $(document).ready(function() {
 		}
     });
     
-    $('#jobManagerEdit #questionnaire').change(function(){
-        $('#newQuestionnaire').val('');
-        
-        var selected = document.getElementById('questionnaire').options[document.getElementById('questionnaire').selectedIndex].value;
-        
-        console.log(selected);
-        
-        if ($('option:eq(1)',this).is(':selected')){
-            $('#newQuestionnaire').attr('disabled',false);
-            $('#rCreateNew').show();
-        }
-        else{
-            $('#newQuestionnaire').attr('disabled',true);
-            $('#rCreateNew').hide();
-        }
-        
-    });
 });

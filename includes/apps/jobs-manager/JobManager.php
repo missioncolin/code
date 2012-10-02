@@ -315,4 +315,43 @@ class JobManager {
         
         return $points;   
     }
+    
+    public function reactivate($jobID, $user){
+        $success = "fail";
+        $currentCredits = $user->info['Job Credits'];
+        if ($currentCredits > 0){
+            if (is_numeric($jobID) && (int)$jobID > 0){
+                $newCredits = Credits::assignCredits($user, -1);
+                
+                if ($newCredits < $currentCredits){
+                
+                    $qry = sprintf("UPDATE `tblJobs` 
+                    SET `dateExpires` = '%s', `sysStatus` = 'active', `sysOpen` = '1' 
+                    WHERE `itemID` = %d AND `userID` = %d",
+                        date("Y-m-d", strtotime('+2 months')),
+                        (int)$jobID,
+                        (int)$this->userID
+                    );
+                    $res = $this->db->query($qry);
+                    if ($this->db->affected_rows($res) == 1){
+                        $success = 'success';
+                    }
+                    else{
+                        $newCredits = Credits::assignCredits($user, 1);
+                        $success = "An error occurred and your job could not be re-activated. Your available credits were not updated";
+                    }
+                }
+                else{
+                    $success = "Credits could not be updated";
+                }
+            }
+            else{
+                $success = "Invalid Job Selected";
+            }
+        }
+        else{
+            $success = "You do not have enough credits to re-activate this job";
+        }
+        return $success;
+    }
 }
