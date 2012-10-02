@@ -17,7 +17,7 @@ if ($db->valid($provs)){
 <img src="/uploads/profiles/<?php echo $_SESSION["userID"];?>/<?php echo $post["Company_Logo"]["value"];?>" alt="Company Logo" height="80px" width="auto" /><?php echo $post["Company_Name"]["value"];?>
 <a href="/profile/edit">Edit Profile</a>
 </h3>
-<form>
+<form class="fifty">
     <fieldset>
         <legend>System Username</legend>
         <input type="text" class="full" placeholder="System Login" value="<?php echo $post["Email"]["value"];?>" disabled="disabled"/>
