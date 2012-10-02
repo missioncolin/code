@@ -385,4 +385,23 @@ class JobManager {
         }
         return $success;
     }
+    public function getYearsOfExperienceQuestions($jobID){
+	    //type = 3
+	    $qsArr = array();
+	    $selectExpQry = sprintf("SELECT question.itemID AS 'questionID', question.label AS 'label' 
+	    		FROM tblQuestions question INNER JOIN tblQuestionnaires questionnaire ON question.questionnaireID = questionnaire.itemID
+	    		INNER JOIN tblJobs jobs ON jobs.questionnaireID = question.questionnaireID
+	    		WHERE question.type='3' AND jobs.itemID = '%d'", $jobID);
+	   
+	   $selectExpRS = $this->db->query($selectExpQry);
+	   
+	   if(is_resource($selectExpRS)){
+	   	if($this->db->num_rows($selectExpRS) > 0){
+			while($selectExp = $this->db->fetch_assoc($selectExpRS)){
+				$qsArr[$selectExp['questionID']] = $selectExp['label'];
+			} //end while
+		} //end if num row > 0
+	   } //end if resource
+	   return $qsArr;
+    }    
 }
