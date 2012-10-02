@@ -13,6 +13,8 @@ $error = '';
 $success = false;
 $newQnr = false;
 
+$quipp->js['footer'][] = "/includes/apps/jobs-manager/js/jobs-manager.js";
+
 if (!empty($_POST) && !empty($questionnaires)) {
     if (isset($_POST['RQvalALPHTitle'], $_POST['RQvalWEBSLink'], $_POST['RQvalDATEDate_Posted'], $_POST['RQvalNUMBQuestionnaire'])) {
         
@@ -88,7 +90,6 @@ if ($edit == true && !isset($_GET['id'])) {
     $datePosted      = date('Y-m-d');
     $dateExpires     = date('Y-m-d', strtotime('+2 months'));
     $questionnaireID = 0;
-    $status          = 'inactive';
 
     if ($edit == true) {
         list($title, $link, $dateExpires, $datePosted, $questionnaireID, $status) = $j->getJob($_GET['id']);               
@@ -100,9 +101,7 @@ if ($edit == true && !isset($_GET['id'])) {
         $link            = (isset($_POST['RQvalWEBSLink'])) ? $_POST['RQvalWEBSLink'] : $link;
         $datePosted      = (isset($_POST['RQvalDATEDate_Posted'])) ? $_POST['RQvalDATEDate_Posted'] : $datePosted;
         $dateExpires     = (isset($_POST['RQvalDATEDate_Expires'])) ? $_POST['RQvalDATEDate_Expires'] : $dateExpires;
-        $questionnaireID = (isset($_POST['RQvalNUMBQuestionnaire'])) ? $_POST['RQvalNUMBQuestionnaire'] : $questionnaireID;
-        $status          = (isset($_POST['active'])) ? 'active' : $status;
-    
+        $questionnaireID = (isset($_POST['RQvalNUMBQuestionnaire'])) ? $_POST['RQvalNUMBQuestionnaire'] : $questionnaireID;    
     }
 
 /* display the form if:
@@ -120,7 +119,7 @@ if ($edit == true && !isset($_GET['id'])) {
         
         echo '<strong>You must <a href="/questionnaires">create a questionnaire</a> first</strong>';
     } else if ((int)$user->info['Job Credits'] == 0) {
-        echo '<strong>You do not have a sufficiant amount of job credits to create a new job. Please <a href="/buy-job-credits">purchase more job credits</a> to continue.</strong>';
+        echo '<strong>You do not have a sufficiant amount of job credits to create a new job. Please <a href="/buy-job-credits?req=createnew">purchase more job credits</a> to continue.</strong>';
         
     } else {
     ?>
@@ -174,10 +173,6 @@ if ($edit == true && !isset($_GET['id'])) {
                 <tr style="display:none" id="rCreateNew">
                     <td><label for="newQuestionnaire">New Questionnaire</label></td>
                     <td><input type="text" name="RQvalALPHNew_Questionnaire" id="newQuestionnaire" disabled="disabled" placeholder="Questionnaire Title" /></td>
-                </tr>
-                <tr>
-                    <td><label for="active">Active</label></td>
-                    <td><input type="checkbox" name="active" id="active" <?php if ($status == 'active') { echo ' checked="checked"'; } ?>></td>
                 </tr>
             </tbody>
         </table>

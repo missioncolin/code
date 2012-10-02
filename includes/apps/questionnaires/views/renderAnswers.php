@@ -2,12 +2,11 @@
 
 global $quipp;
 
-
 if (!class_exists('Questionnaire')) {
     require dirname(__DIR__) . '/Questionnaire.php';
 } else {
     $application['userID'] = $_SESSION['userID'];
-    $application['jobID']  = (int)$_GET['job'];
+    $application['jobID']  = (int) $_GET['job'];
 }
 $j = new JobManager($db, $application['userID']);
 
@@ -15,31 +14,28 @@ $j = new JobManager($db, $application['userID']);
 
     $q = new Questionnaire($db, $questionnaireID);
 
-
 ?>
 
-	<table class="simpleTable">
-    	<thead>
-    	<tr><th><?php echo $title; ?></th></tr></thead>
-	<?php
+    <table class="simpleTable">
+        <thead>
+        <tr><th><?php echo $title; ?></th></tr></thead>
+    <?php
 
     if (is_array($q->questions) && !empty($q->questions)) {
-        foreach($q->questions as $questionID => $question) {
-        
+        foreach ($q->questions as $questionID => $question) {
+
             $answer = $q->getAnswer($questionID, $application['userID']);
-            
-            
+
             echo "<tr>";
             echo "<td>";
             echo $question['label'];
-            
+
             echo "</td>";
             echo "</tr>";
 
-
             echo "<tr>";
             echo "<td>";
-            switch($question['type']){
+            switch ($question['type']) {
                 case 1: //radio
                 case 2: //checkbox
 
@@ -54,8 +50,7 @@ $j = new JobManager($db, $application['userID']);
                                 $checked = (isset($answer['optionID']) && $answer['optionID'] == $opt['itemID']) ? ' checked="checked"' : '';
                                 echo '<input type="radio" id="' . $id . '"  name="' . $name . '"  value="' . $opt['itemID'] . '"' . $checked . ' disabled />';
                             } else {
-                                
-                               
+
                                 $checked = (isset($answer[$optionID])) ? ' checked="checked"' : '';
 
                                 echo '<input type="checkbox" id="' . $id . '"  name="' . $name . '[]"  value="' . $opt['itemID'] . '"' . $checked . ' disabled />';
@@ -79,30 +74,25 @@ $j = new JobManager($db, $application['userID']);
 
                 case 4: //video
 
-                    $video   = $db->return_specific_item('', 'tblVideos', 'filename', 0, "jobID='" . (int)$application['jobID'] . "' AND questionID='" . $questionID . "' AND userID='" . (int)$application['userID'] . "' AND sysOpen='1' AND sysActive='1'") ;
-                    $videoID = $db->return_specific_item('', 'tblVideos', 'itemID', 0, "jobID='" . (int)$application['jobID'] . "' AND questionID='" . $questionID . "' AND userID='" . (int)$application['userID'] . "' AND sysOpen='1'") ;
+                    $video   = $db->return_specific_item('', 'tblVideos', 'filename', 0, "jobID='" . (int) $application['jobID'] . "' AND questionID='" . $questionID . "' AND userID='" . (int) $application['userID'] . "' AND sysOpen='1' AND sysActive='1'") ;
+                    $videoID = $db->return_specific_item('', 'tblVideos', 'itemID', 0, "jobID='" . (int) $application['jobID'] . "' AND questionID='" . $questionID . "' AND userID='" . (int) $application['userID'] . "' AND sysOpen='1'") ;
 
                     if ($video !== 0) {
-                    
-                    ?>
-                        	
-                    	<embed src="/includes/apps/ams-media/flx/captureModule.swf" quality="high" bgcolor="#000000" width="550" height="400" name="captureModule" FlashVars="reviewFile=<?php echo $video; ?>" align="middle" allowScriptAccess="sameDomain" allowFullScreen="true" type="application/x-shockwave-flash" pluginspage="http://www.adobe.com/go/getflash" />
 
-                    	
-                    	
-                    	
+                    ?>
+
+                        <embed src="/includes/apps/ams-media/flx/captureModule.swf" quality="high" bgcolor="#000000" width="550" height="400" name="captureModule" FlashVars="reviewFile=<?php echo $video; ?>" align="middle" allowScriptAccess="sameDomain" allowFullScreen="true" type="application/x-shockwave-flash" pluginspage="http://www.adobe.com/go/getflash" />
+
                     <?php
                     } else {
                         echo '<strong>Question not answered</strong>';
                     }
-                    
-                    
-                    
+
                 break;
                 case 5: //file
-                    
+
                     if (isset($answer['value'])) {
-                        echo '<a href="/uploads/applications/' . (int)$application['jobID'] . '/' . (int)$application['userID'] . '/' . $answer['value'] . '" class="' . pathinfo($answer['value'], PATHINFO_EXTENSION) . '">Download file</a>';
+                        echo '<a href="/uploads/applications/' . (int) $application['jobID'] . '/' . (int) $application['userID'] . '/' . $answer['value'] . '" class="' . pathinfo($answer['value'], PATHINFO_EXTENSION) . '">Download file</a>';
                     } else {
                         echo '<strong>No file was uploaded</strong>';
                     }
@@ -112,12 +102,10 @@ $j = new JobManager($db, $application['userID']);
             echo "</td>";
             echo "</tr>";
 
-
         }
     } else {
         $feedback = "This questionnaire has no questions.";
     }
 
-
 ?>
-	</table>
+    </table>

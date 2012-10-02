@@ -4,6 +4,7 @@
     
     
     include dirname(__DIR__) . '/Credits.php';
+    array_push($quipp->js['footer'], '/includes/apps/credits/js/buy-credits.js'); 
     $credits = new Credits($db);
     
     
@@ -31,7 +32,7 @@
 </thead>
 <tbody>
     <tr>
-        <td colspan="2"><?php echo $invoice['description']; ?></td>
+        <td colspan="2"><?php echo $invoice['description']; ?> (on <?php echo date("Y-m-d g:i a", strtotime($invoice['sysDateCreated']));?>)</td>
         <td><?php echo money_format('%n', $invoice['amount'] / 100); ?></td>
     </tr>
     <tr class="subTotal">
@@ -61,5 +62,18 @@
 </table>
 <a href="javascript:window.print();" class="btn green">Print</a>
 <?php
+    if (isset($_GET['req'])){
+        $qryData = explode(" ",$_GET['req']);
+        switch($qryData[0]){
+            case "reactivate":
+                echo '<a class="btn reactivate" href="/applications?req='.str_replace(' ','+',$_GET['req']).'" data-job="'.$qryData[1].'">Re-Publish Job</a>&nbsp;';
+                break;
+            case "createnew":
+                echo '<a class="btn" href="/create-job">Create New Job</a>&nbsp;';
+                break;
+            
+        }
+        
+    }
         }
     }

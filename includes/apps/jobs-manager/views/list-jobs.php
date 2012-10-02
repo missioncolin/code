@@ -21,6 +21,9 @@ $total = $j->totalJobs();
 
 $quipp->js['footer'][] = "/includes/apps/jobs-manager/js/jobs-manager.js";
 
+if (isset($_GET['req']) && preg_match('%^reactivate[\s\+](\d+)$%', $_GET['req'], $matches)){
+    echo "Success! Your job was re-published and your credit account debited";
+}
 
 
 ?>
@@ -46,7 +49,7 @@ $quipp->js['footer'][] = "/includes/apps/jobs-manager/js/jobs-manager.js";
 <?php
                 if (date("U") > strtotime($job["dateExpires"])){
 ?>
-                    <td colspan="3"><a href="#" data-job="<?php echo $jobID; ?>" class="btn red <?php echo ($user->info['Job Credits'] > 0 ? "reactivate" : "buy");?>">Re-activate (1 Credit)</a></td>
+                    <td colspan="3"><a href="<?php echo ($user->info['Job Credits'] > 0 ? "#" : "/buy-job-credits?req=reactivate+{$jobID}");?>" data-job="<?php echo $jobID; ?>" class="btn <?php echo ($user->info['Job Credits'] > 0 ? "green reactivate" : "red buy");?>">Re-Publish</a></td>
             <?php
                 }
                 else{
