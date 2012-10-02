@@ -43,7 +43,10 @@ $(function () {
     }); 
     
     $('.reactivate').click(function() {
-        
+        var $jobID = $(this).data('job');
+        var $this = $(this);
+        var parTD = $(this).parent();
+        var parTR = $(this).parents('tr').index();
         $.post('/reactivate-job', {
             job: $jobID
         }, function(data) {
@@ -54,12 +57,6 @@ $(function () {
                 if (typeof credits != 'undefined' && credits[1] > 0){
                     var creditHTML = (parseInt(credits[1], 10) - 1)+' Credits';
                     $('#loggedInButtons a:eq(0)').html(creditHTML);
-                    var $jobID = $(this).data('job');
-                    var $this = $(this);
-                    var parTD = $(this).parent();
-                    var parTR = $(this).parents('tr').index();
-                    console.log(parTD);
-                    console.log(parTR);
                     
                     var domTR = document.getElementById('hrListJobs').getElementsByTagName('tr');
                     
