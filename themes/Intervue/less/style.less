@@ -550,11 +550,12 @@ header > div, #container, footer > div {
    ========================================================================== */
 
 .alertBoxFunctionGood, .alertBoxFunctionBad, .alertBoxFunctionWarn, .alertBoxFunctionEmpty {
-    width:100%;
-	padding:10px;
-	margin:5px 5px 10px;
-	color:#000000;
-	float:left;
+    width: 100%;
+	padding: 10px;
+	margin: 10px 0;
+	color: #000000;
+	float: left;
+	.box-sizing();
 }
 
 .alertBoxFunctionGood {
@@ -1078,9 +1079,17 @@ form fieldset input.half, form fieldset div.select.half {
     border-left: 1px solid @borders;
 }
 
+#profileEdit .fifty form fieldset input.half, #profileEdit .fifty form fieldset div.select.half {
+    border-left: 0;
+}
+
 form fieldset input.bottom, form fieldset textarea.bottom, form fieldset div.select.bottom {
     border-bottom: none;
     .border-radius(0 0 3px 3px);
+}
+
+#profileEdit .fifty form fieldset input.bottom, #profileEdit .fifty form fieldset textarea.bottom, #profileEdit .fifty form fieldset div.select.bottom {
+    border-bottom: 1px solid @borders;
 }
 
 form fieldset input.left { 
@@ -1521,7 +1530,7 @@ table.simpleTable td.total {
 #hrListJobs td:first-child {
     text-align: left;
     padding: 40px 0 40px 30px;  
-    width: 45%;
+    width: 20%;
 }
 
 #hrListJobs th:first-child {
@@ -1791,15 +1800,21 @@ table.simpleTable td.total {
 }
 
 #profileEdit #form h3 {
-	float: left;
-    background: #fff;    
-    border-bottom: none;
-    margin: 22px 0 10px;
+    background: #000;    
+    color: #FFF;
+    margin: 22px 0 30px;
     padding: 15px 20px;
-    border: 1px solid #B7B7B7;
-    min-height: ;
-    .box-shadow(1px, 1px, 5px, rgba(0,0,0,0.2));
     .border-radius(3px);
+}
+#profileEdit #form h3.profileViewHeading {
+	float: left;
+	width: 94%;
+	background: #FFF;
+	color: @base;
+	padding: 15px;
+	margin: 22px 0 10px;
+	border: 1px solid #B7B7B7;
+    .box-shadow(1px, 1px, 5px, rgba(0,0,0,0.2));
 }
 #profileEdit #form h3 img {
 	float: left;
@@ -1810,6 +1825,7 @@ table.simpleTable td.total {
 }
 #profileEdit #form h3 span {
 	float: left;
+	width: 80%;
 	padding: 18px 0 10px;
 }
 #profileEdit .fifty {
@@ -1886,6 +1902,10 @@ a.createAJobCallout:hover {
     margin: 10px 0;
 }
 #form div ul {
+    margin: 0;
+}
+
+#profileEdit #form div input {
     margin: 0;
 }
 /*custom upload elements*/
