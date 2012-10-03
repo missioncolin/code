@@ -54,6 +54,6 @@ function alertBox(liClass, message){
             document.getElementById('steps').appendChild(liAlert);
         }
         $('#steps').removeClass('hide');
-    }
+    }    
     
 }
