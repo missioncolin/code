@@ -1104,9 +1104,17 @@ form fieldset input.half, form fieldset div.select.half {
     border-left: 1px solid @borders;
 }
 
+#profileEdit .fifty form fieldset input.half, #profileEdit .fifty form fieldset div.select.half {
+    border-left: 0;
+}
+
 form fieldset input.bottom, form fieldset textarea.bottom, form fieldset div.select.bottom {
     border-bottom: none;
     .border-radius(0 0 3px 3px);
+}
+
+#profileEdit .fifty form fieldset input.bottom, #profileEdit .fifty form fieldset textarea.bottom, #profileEdit .fifty form fieldset div.select.bottom {
+    border-bottom: 1px solid @borders;
 }
 
 form fieldset input.left { 
@@ -1919,6 +1927,10 @@ a.createAJobCallout:hover {
     margin: 10px 0;
 }
 #form div ul {
+    margin: 0;
+}
+
+#profileEdit #form div input {
     margin: 0;
 }
 /*custom upload elements*/
