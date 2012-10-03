@@ -1,6 +1,8 @@
 <?php
 
-require dirname(__DIR__) . '/Questionnaire.php';
+if (!class_exists('Questionnaire')) {
+    require dirname(__DIR__) . '/Questionnaire.php';
+}
 $q = new Questionnaire($db);
 
 if ($this instanceof Quipp) {
@@ -22,14 +24,14 @@ if ($this instanceof Quipp) {
 
     if (validate_form($_POST)) {
 
-        if (isset($_REQUEST["new-qnr"])) {
+        if (isset($_POST["new-qnr"])) {
             $success = $q->createQuestionnaire($_POST['RQvalALPHQuestionnaire_Title'], $_SESSION['userID']);
             if ($success > 0) {
                 header('Location: /configure-question?step=2&qnrID=' . $success);
             } else {
                 $error_message = "Your questionnaire could not be created";
             }
-        } elseif (isset($_REQUEST["update-qnr"])) {
+        } elseif (isset($_POST["update-qnr"])) {
             $actionQS = sprintf("UPDATE tblQuestionnaires SET label = '%s', sysDateLastMod = NOW() WHERE itemID = '%d' ",
                 $db->escape(strip_tags($_REQUEST['RQvalALPHQuestionnaire_Title'])),
                 (int) $_GET['qnrID']);
