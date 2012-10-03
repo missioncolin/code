@@ -33,4 +33,6 @@ $(document).ready(function() {
 		}
     });
     
+    $('#steps').not(':has(li)').addClass('hide');
+    
 });
