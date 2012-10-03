@@ -8,9 +8,9 @@ $(function () {
             job: $jobID
         }, function () {
             if ($this.hasClass('grey')) {
-                $this.addClass('black').removeClass('grey').html('Active');
+                $this.addClass('black').removeClass('grey').html('Deactivate');
             } else {
-                $this.addClass('grey').removeClass('black').html('Inactive');
+                $this.addClass('grey').removeClass('black').html('Activate/publish');
             }
         });
     });
@@ -61,7 +61,7 @@ $(function () {
                     var domTR = document.getElementById('hrListJobs').getElementsByTagName('tr');
                     
                     parTD.attr('colspan','1');
-                    $('a', parTD).removeClass('green').removeClass('reactivate').addClass('black').addClass('activate').html('active');
+                    $('a', parTD).removeClass('green').removeClass('reactivate').addClass('black').addClass('activate').html('Deactivate');
                     
                     var tdDel = document.createElement('td');
                     var aDel = document.createElement('a');
