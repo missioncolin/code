@@ -346,7 +346,14 @@ class JobManager {
         
         return $points;   
     }
-    
+    /**
+    * Method to re-publish a job. This is done via ajax request
+    * @access public
+    * @param integer $jobID
+    * @param object $user
+    * @see Credits::assignCredits
+    * @return string
+    */
     public function reactivate($jobID, $user){
         $success = "fail";
         $currentCredits = $user->info['Job Credits'];
@@ -358,10 +365,11 @@ class JobManager {
                 
                     $qry = sprintf("UPDATE `tblJobs` 
                     SET `dateExpires` = '%s', `sysStatus` = 'active', `sysOpen` = '1' 
-                    WHERE `itemID` = %d AND `userID` = %d",
+                    WHERE `itemID` = %d AND `userID` = %d AND `dateExpires` < %d",
                         date("Y-m-d", strtotime('+2 months')),
                         (int)$jobID,
-                        (int)$this->userID
+                        (int)$this->userID,
+                        date("U") //want to make sure that this was not already re-published
                     );
                     $res = $this->db->query($qry);
                     if ($this->db->affected_rows($res) == 1){
