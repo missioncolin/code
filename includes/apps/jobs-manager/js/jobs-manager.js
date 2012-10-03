@@ -13,6 +13,7 @@ $(function () {
                 $this.addClass('grey').removeClass('black').html('Publish');
             }
         });
+        return false;
     });
     
     var clearPopUp = function(){

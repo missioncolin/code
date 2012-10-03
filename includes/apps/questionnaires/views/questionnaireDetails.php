@@ -7,8 +7,6 @@ $q = new Questionnaire($db);
 
 if ($this instanceof Quipp) {
 
-
-
     $canEdit = false;
 
     if (!isset($_GET['qnrID'])) {
@@ -44,7 +42,7 @@ if ($this instanceof Quipp) {
         }
     }
 
-    $buttonLabel = (isset($questionnaire) && is_array($questionnaire) && !empty($questionnaire)) ? "Rename" : "Create";
+    $buttonLabel    = (isset($questionnaire) && is_array($questionnaire) && !empty($questionnaire)) ? "Rename" : "Create";
     $buttonFormName = (isset($questionnaire) && is_array($questionnaire) && !empty($questionnaire)) ? "update-qnr" : "new-qnr";
 
 
