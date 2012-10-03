@@ -45,7 +45,8 @@ if (isset($_GET['req']) && preg_match('%^reactivate[\s\+](\d+)$%', $_GET['req'],
             foreach ($jobs as $jobID => $job) {
 ?>
             <tr>
-                <td><strong><a href="/applicant-list?job=<?php echo $jobID; ?>"><?php echo $job['title']; ?></a></strong><br /><?php echo $job['link']; ?></td>
+                <td><strong><a href="/applicant-list?job=<?php echo $jobID; ?>"><?php echo $job['title']; ?></a></strong><br /><?php echo $job['link']; ?><br/><?php echo $_SERVER['SERVER_NAME']."/apply?job=".$jobID;?></td>
+                
 <?php
                 if (date("U") > strtotime($job["dateExpires"])){
 ?>
@@ -53,8 +54,12 @@ if (isset($_GET['req']) && preg_match('%^reactivate[\s\+](\d+)$%', $_GET['req'],
             <?php
                 }
                 else{
+                //set button verbiage
+                
+                if(ucfirst($job['sysStatus']) == 'Active'){ $btnLabel = "Deactivate"; }else{ $btnLabel = "Activate/Publish";}
+                
                 ?>
-            <td><a href="#" data-job="<?php echo $jobID; ?>" class="activate btn <?php echo ($job['sysStatus'] == 'active') ? 'black' : 'grey'; ?>"><?php echo ucfirst($job['sysStatus']); ?></a></td>
+            <td><a href="#" data-job="<?php echo $jobID; ?>" class="activate btn <?php echo ($job['sysStatus'] == 'active') ? 'black' : 'grey'; ?>"><?php echo $btnLabel; ?></a></td>
             <td><a href="#" data-job="<?php echo $jobID; ?>" class="btn red delete">Delete</a></td>
             <td><a href="/edit-job?id=<?php echo $jobID; ?>" class="btn">Edit</a></td>
                 <?php
