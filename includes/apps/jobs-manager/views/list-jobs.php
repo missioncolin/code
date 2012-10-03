@@ -22,7 +22,7 @@ $total = $j->totalJobs();
 $quipp->js['footer'][] = "/includes/apps/jobs-manager/js/jobs-manager.js";
 
 if (isset($_GET['req']) && preg_match('%^reactivate[\s\+](\d+)$%', $_GET['req'], $matches)){
-    echo "Success! Your job was re-published and your credit account debited";
+    $quipp->js['onload'] = 'alertBox("success", "Success! Your job was re-published and one (1) credit was debited");';
 }
 
 

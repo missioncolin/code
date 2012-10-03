@@ -36,3 +36,20 @@ $(document).ready(function() {
     $('#steps').not(':has(li)').addClass('hide');
     
 });
+function alertBox(liClass, message){
+    if (document.getElementById('steps')){
+        if ($('#steps li:last-child').hasClass('alert')){
+            $('#steps li:last-child').removeClass('success').removeClass('fail').addClass(liClass).html('<span></span>'+message);
+        }
+        else{
+            var liAlert = document.createElement('li');
+            liAlert.className = "alert "+liClass;
+            var liSp = document.createElement('span');
+            var liTxt = document.createTextNode(message);
+            liAlert.appendChild(liSp);
+            liAlert.appendChild(liTxt);
+            document.getElementById('steps').appendChild(liAlert);
+        }
+        $('#steps').removeClass('hide');
+    }
+}
