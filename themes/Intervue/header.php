@@ -72,8 +72,5 @@
     <section id="container" <?php if ($meta['body_id'] == 'home') { print 'class="home"'; } ?>>
     
         <ul id="steps">
-            <li class="current"><span>1</span>Create Job</li>
-            <li><span>2</span>Create Questions</li>
-            <li><span>3</span>Complete</li>
-            <li class="alert success"><span></span>Job Created Successfully!</li>
+
         </ul>
