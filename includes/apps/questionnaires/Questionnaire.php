@@ -12,7 +12,33 @@ class Questionnaire
             $this->questions = $this->getQuestions($questionnaireID);
         }
     }
+    /**
+     * Checks to see if the current user has access to edit an existing questionnaire
+     * @param int questionnaire
+     * @return bool
+     */
+    public function canEdit($questionnaireID) {
+        return (bool)$this->db->num_rows($this->db->query(sprintf("SELECT itemID FROM tblQuestionnaires WHERE itemID='%d' AND hrUserID='%d' AND sysOpen = '1' AND sysActive = '1'", (int)$questionnaireID, (int)$_SESSION['userID'])));
+    }
 
+    /**
+     * Get the details of a questionnaire
+     * @param int questionnaireID
+     * @return array
+     */
+    public function getQuestionnaire($questionnaireID) {
+        
+        $qry = sprintf("SELECT * FROM tblQuestionnaires WHERE itemID='%d'", (int)$questionnaireID);
+        $res = $this->db->query($qry);
+        
+        $questionnaire = array();
+        if ($this->db->valid($res) && $this->db->num_rows($res) > 0) {
+            $questionnaire = $this->db->fetch_assoc($res);
+            $questionnaire['questions'] = $this->getQuestions($questionnaireID);
+        }
+        
+        return $questionnaire;
+    }
     /**
      * Get an array of questions based on a questionnaire id
      * @param int questionnaire id
