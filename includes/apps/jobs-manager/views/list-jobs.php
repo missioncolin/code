@@ -77,11 +77,12 @@ if (isset($_GET['req']) && preg_match('%^reactivate[\s\+](\d+)$%', $_GET['req'],
     <div class="pagination">
         <?php echo pagination($total, $display, $page, '/applications?page=', false); ?>
     </div>
-    <div id="confirm" style="display:none">
-    <div class="popUp">
-    <h2></h2>
-    <p></p>
-    <a class="btn" id="popUpOk">Ok</a>&nbsp;<a class="btn red" id="popUpNo">Cancel</a>
-    </div>
-    </div>
+    
 </section>
+<div id="confirm" style="display:none">
+<div class="popUp">
+<h2></h2>
+<p></p>
+<a class="btn" id="popUpOk">Ok</a>&nbsp;<a class="btn red" id="popUpNo">Cancel</a>
+</div>
+</div>
