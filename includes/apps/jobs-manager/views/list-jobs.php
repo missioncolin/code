@@ -50,7 +50,7 @@ if (isset($_GET['req']) && preg_match('%^reactivate[\s\+](\d+)$%', $_GET['req'],
 <?php
                 if (date("U") > strtotime($job["dateExpires"])){
 ?>
-                    <td colspan="4"><a href="<?php echo ($user->info['Job Credits'] > 20 ? "#" : "/buy-job-credits?req=reactivate+{$jobID}");?>" data-job="<?php echo $jobID; ?>" class="btn <?php echo ($user->info['Job Credits'] > 20 ? "green reactivate" : "red buy");?>">Re-Publish</a></td>
+                    <td colspan="4"><a href="<?php echo ($user->info['Job Credits'] > 0 ? "" : "/buy-job-credits?req=reactivate+{$jobID}");?>" data-job="<?php echo $jobID; ?>" class="btn <?php echo ($user->info['Job Credits'] > 0 ? "green reactivate" : "red buy");?>">Re-Publish</a></td>
             <?php
                 }
                 else{
