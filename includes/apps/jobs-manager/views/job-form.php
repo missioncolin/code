@@ -23,7 +23,7 @@ if (!empty($_POST) && !empty($questionnaires)) {
         } else {
         
             if ((int)$_POST['RQvalNUMBQuestionnaire'] == 0 && isset($_POST['RQvalALPHNew_Questionnaire']) && !empty($_POST['RQvalALPHNew_Questionnaire'])){
-                $_POST['RQvalNUMBQuestionnaire'] = $q->createQuestionnaire($_POST['RQvalALPHNew_Questionnaire'], $user->id);
+                $_POST['RQvalNUMBQuestionnaire'] = $q->createQuestionnaire($_POST['RQvalALPHNew_Questionnaire'], $_SESSION['userID']);
                 if ((int)$_POST['RQvalNUMBQuestionnaire'] > 0){
                     $newQnr = true;
                 }
@@ -66,7 +66,7 @@ if ($edit == true && !isset($_GET['id'])) {
     if ($edit == false) {
         Credits::assignCredits($user, -1);
         if ($newQnr === true){
-            header('Location: /configure-question?qnrID='.$_POST["RQvalNUMBQuestionnaire"]);
+            header('Location: /configure-question?step=2&qnrID='.$_POST["RQvalNUMBQuestionnaire"]);
         }
         else {
             header('Location: /applications?success=Job+created=successfully');
@@ -115,10 +115,12 @@ if ($edit == true && !isset($_GET['id'])) {
     
     <?php
     
-    if (empty($questionnaires)) {
+    /*
+if (empty($questionnaires)) {
         
         echo '<strong>You must <a href="/questionnaires">create a questionnaire</a> first</strong>';
-    } else if ((int)$user->info['Job Credits'] == 0) {
+    } else 
+*/if ((int)$user->info['Job Credits'] == 0) {
         echo '<strong>You do not have a sufficiant amount of job credits to create a new job. Please <a href="/buy-job-credits?req=createnew">purchase more job credits</a> to continue.</strong>';
         
     } else {
@@ -152,7 +154,6 @@ if ($edit == true && !isset($_GET['id'])) {
                     <td>
                         <?php
                         
-                        if (is_array($questionnaires) && !empty($questionnaires)) {
                             echo '<select name="RQvalNUMBQuestionnaire" id="questionnaire" required>';
                             echo '<option>Select a questionnaire</option>';
                             echo '<option value="0">Create a New Questionnaire</option>';
@@ -161,11 +162,6 @@ if ($edit == true && !isset($_GET['id'])) {
                                 echo '<option value="' . $qID . '"' . $selected . '>' . $qLabel . '</option>';
                             }
                             echo '</select>';
-                        } else {
-                            ?>
-                            <strong>You must create a questionnaire first</strong>
-                            <?php
-                        }
                         
                         ?>
                     </td>
@@ -177,7 +173,7 @@ if ($edit == true && !isset($_GET['id'])) {
             </tbody>
         </table>
         <input type="hidden" name="id" value="<?php echo (isset($_GET['id']) && $edit == true) ? (int)$_GET['id'] : 0; ?>" />
-        <input type="submit" value="<?php echo ($edit == true) ? 'Edit' : 'Create'; ?>" class="btn green" />
+        <input type="submit" value="<?php echo ($edit == true) ? 'Edit' : 'Create &amp; Continue'; ?>" class="btn green" />
     </form>
     <?php
     }

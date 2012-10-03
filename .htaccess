@@ -285,6 +285,8 @@ FileETag None
   RewriteRule ^grade-applicant$ /includes/apps/jobs-manager/ajax/grade-applicant.php [NC,L]
   RewriteRule ^reactivate-job$ /includes/apps/jobs-manager/ajax/reactivate.php [NC,L]
   RewriteRule ^profile/edit$ /index.php?p=edit-profile [NC,L]
+
+  RewriteRule ^apply/([0-9]+)$ /index.php?p=apply&job=$1 [NC,L]
   
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d

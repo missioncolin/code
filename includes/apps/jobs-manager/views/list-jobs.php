@@ -45,7 +45,7 @@ if (isset($_GET['req']) && preg_match('%^reactivate[\s\+](\d+)$%', $_GET['req'],
             foreach ($jobs as $jobID => $job) {
 ?>
             <tr>
-                <td width="20%"><strong><a href="/applicant-list?job=<?php echo $jobID; ?>"><?php echo $job['title']; ?></a></strong><br /><?php echo $job['link']; ?><br/></td>
+                <td width="20%"><strong><a href="/applicant-list?job=<?php echo $jobID; ?>"><?php echo $job['title']; ?></a></strong><br />View <?php echo $j->totalApplicants($job['itemID']); ?> applicants<br/></td>
                 
 <?php
                 if (date("U") > strtotime($job["dateExpires"])){
