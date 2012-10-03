@@ -603,10 +603,19 @@ header > div, #container, footer > div {
   border-radius: 5px;
   -webkit-box-shadow: rgba(0,0,0,0.2) 0px 1px 3px;
   -moz-box-shadow: rgba(0,0,0,0.2) 0px 1px 3px;
-  box-shadow: rgba(0,0,0,0.2) 0px 1px 3px;
+  box-shadow: rgba(0,0,0,0.6) 0px 0px 20px;
   text-decoration: none;
 }
-.popUp h2 { margin: 0; }
+.popUp h2 { 
+	float: left; 
+	margin: -10% -10% 0; 
+	background:url(img/alertTile.png) @accent3; 
+	width: 100%;
+	.border-radius(5px 5px 0 0);
+	padding: 5% 10%;
+	color: #FFF;
+	margin-bottom: 20px;
+}
 .popUp p { margin: 20px 0; }
 
 /* =============================================================================
@@ -1903,12 +1912,13 @@ a.createAJobCallout:hover {
 }
 .leftColumn article img {
 	width: 388px;
+	margin-bottom: 12px;
 }
 .leftColumn article a {
 	display: block;
 	float: left;
 	width: 100%;
-	padding: 12px 0;
+	padding: 0 0 12px;
 	text-align: center;
 	.border-radius(0 0 3px 3px);
 	border-top: none;

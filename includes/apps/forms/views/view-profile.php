@@ -34,11 +34,13 @@ if ($this INSTANCEOF Quipp && isset($_SESSION['userID'])){
 
 <div class="leftColumn">
 	<article>
-		<img src="/themes/Intervue/img/example.png" alt="example" width="390" height="236" />
-		<a href="#">Create Questions</a>
+		<a href="/applications">
+		<img src="/themes/Intervue/img/example2.png" alt="example2" width="388" height="236" />
+		View Jobs</a>
 	</article>
 	<article>
-		<img src="/themes/Intervue/img/example2.png" alt="example2" width="388" height="236" />
-		<a href="#">View Jobs</a>
+		<a href="/questionnaires">
+		<img src="/themes/Intervue/img/example.png" alt="example" width="390" height="236" />
+		Create Questions</a>
 	</article>
 </div>
