@@ -164,7 +164,7 @@ if ($this instanceof Quipp) {
     <h4>Questionnaire: <?php echo $qnr['label']; ?></h4>
     <form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post">
         <table id="configure" class="simpleTable">
-            <tr><th colspan="3">Enter your questions</th></tr>
+            <tr><th colspan="3">Enter Your Questions</th></tr>
             
             <?php   
             $label = 'Question';

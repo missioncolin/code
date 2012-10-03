@@ -49,14 +49,14 @@ if ($db->valid($provs)){
     </fieldset>
     <fieldset>
         <legend>Website &amp; Social Links</legend>
-        <label for="Website_or_Blog_URL">Website</label>
-        <input type="text" class="half left" value="<?php echo $post["Website_or_Blog_URL"]["value"];?>" placeholder="Website" disabled="disabled"/>
-        <label for="Facebook_Username">Facebook</label>
-        <input type="text" class="half" value="<?php echo $post["Facebook_Username"]["value"];?>" placeholder="Facebook" disabled="disabled" />
-        <label for="Twitter_Username">Twitter</label>
-        <input type="text" value="<?php echo $post["Twitter_Username"]["value"];?>" placeholder="Twitter" disabled="disabled" class="half left bottom"/>
-        <label for="LinkedIn_Username">LinkedIn</label>
-        <input type="text" value="<?php echo $post["LinkedIn_Username"]["value"];?>" placeholder="LinkedIn" disabled="disabled" class="half bottom" />
+        <label for="Website_or_Blog_URL">Website URL</label>
+        <input type="text" class="half left" value="<?php echo $post["Website_or_Blog_URL"]["value"];?>" placeholder="Website URL" disabled="disabled"/>
+        <label for="Facebook_Username">Facebook Username</label>
+        <input type="text" class="half" value="<?php echo $post["Facebook_Username"]["value"];?>" placeholder="Facebook Username" disabled="disabled" />
+        <label for="Twitter_Username">Twitter Handle</label>
+        <input type="text" value="<?php echo $post["Twitter_Username"]["value"];?>" placeholder="Twitter Handle" disabled="disabled" class="half left bottom"/>
+        <label for="LinkedIn_Username">LinkedIn Email</label>
+        <input type="text" value="<?php echo $post["LinkedIn_Username"]["value"];?>" placeholder="LinkedIn ID" disabled="disabled" class="half bottom" />
     </fieldset>
     <fieldset>
         <legend>Company Information &amp; Size</legend>

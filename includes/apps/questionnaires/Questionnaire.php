@@ -157,9 +157,9 @@ class Questionnaire
             $qry = sprintf("INSERT INTO tblQuestionnaires (hrUserID, label, sysDateInserted, sysDateLastMod, isUsed) VALUES ('%d', '%s', NOW(), NOW(), 0)",
                 (int) $userID,
                 $this->db->escape(strip_tags($title)));
-            $this->db->query($qry);
+            $res = $this->db->query($qry);
             
-            if ($this->db->error() == 0 && $this->db->affected_rows() == 1) {
+            if ($this->db->error() == 0 && $this->db->affected_rows($res) == 1) {
                 return $this->db->insert_id();
             }
 

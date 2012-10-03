@@ -25,13 +25,13 @@ $grav_url = "http://www.gravatar.com/avatar/" . md5(strtolower(trim($post["Email
     <fieldset>
         <legend>Website &amp; Social Links</legend>
         <label for="Website_or_Blog_URL">Website</label>
-        <input type="text" class="half left" placeholder="Website" value="<?php echo $post["Website_or_Blog_URL"]["value"];?>" disabled="disabled"/>
+        <input type="text" class="half left" placeholder="Website URL" value="<?php echo $post["Website_or_Blog_URL"]["value"];?>" disabled="disabled"/>
         <label for="Facebook_Username">Facebook</label>
-        <input type="text" class="half" placeholder="Facebook" value="<?php echo $post["Facebook_Username"]["value"];?>" disabled="disabled"/>
+        <input type="text" class="half" placeholder="Facebook Username" value="<?php echo $post["Facebook_Username"]["value"];?>" disabled="disabled"/>
         <label for="Twitter_Username">Twitter</label>
-        <input type="text" class="half left bottom" placeholder="Twitter" value="<?php echo $post["Twitter_Username"]["value"];?>" disabled="disabled"/>
+        <input type="text" class="half left bottom" placeholder="Twitter Handle" value="<?php echo $post["Twitter_Username"]["value"];?>" disabled="disabled"/>
         <label for="LinkedIn_Username">LinkedIn</label>
-        <input type="text" class="half bottom" placeholder="LinkedIn" value="<?php echo $post["LinkedIn_Username"]["value"];?>" disabled="disabled"/>
+        <input type="text" class="half bottom" placeholder="LinkedIn ID" value="<?php echo $post["LinkedIn_Username"]["value"];?>" disabled="disabled"/>
     </fieldset>
     <fieldset>
     <legend>Profile Video</legend>
