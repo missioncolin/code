@@ -1,6 +1,6 @@
 <?php
 
-global $message, $user;
+global $message, $user, $quipp;
 
 require dirname(__DIR__) . '/JobManager.php';
 require dirname(dirname(__DIR__)) . '/questionnaires/Questionnaire.php';
