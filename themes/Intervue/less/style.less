@@ -582,8 +582,6 @@ header > div, #container, footer > div {
 .alertBoxFunctionGood a:hover, .alertBoxFunctionBad a:hover, .alertBoxFunctionWarn a:hover, .alertBoxFunctionEmpty a:hover { color:#0000FF; }
 .alertBoxFunctionGood div, .alertBoxFunctionBad div, .alertBoxFunctionWarn div, .alertBoxFunctionEmpty div { width: 100% !important; }
 
-
-
 /* =============================================================================
    Header
    ========================================================================== */
@@ -1782,30 +1780,35 @@ table.simpleTable td.total {
 }
 
 #profileEdit #form h3 {
-    background: @base2;    
-    color: #FFF;
+	float: left;
+    background: #fff;    
     border-bottom: none;
-    margin: 22px 0 30px;
+    margin: 22px 0 10px;
     padding: 15px 20px;
+    border: 1px solid #B7B7B7;
+    min-height: ;
+    .box-shadow(1px, 1px, 5px, rgba(0,0,0,0.2));
     .border-radius(3px);
 }
 #profileEdit #form h3 img {
+	float: left;
 	margin-right: 10px;
 }
 #profileEdit #form h3 a {
-	float: right;
-	margin-top: 30px;
+	float: left;
 }
-#profileEdit form.fifty {
+#profileEdit #form h3 span {
+	float: left;
+	padding: 18px 0 10px;
+}
+#profileEdit .fifty {
 	float: right;
 	width: 52.08%;
 }
-.leftColumn {
-	position: relative;
-	float: left;
-	width: 40.62%;
+#profileEdit .fifty .btn {
+	margin-bottom: 10px;
+	width: 88%;
 }
-
 a.createAJobCallout {
 	position: relative;
 	display: block;
@@ -1816,6 +1819,7 @@ a.createAJobCallout {
 	font-size: 36px;
 	font-weight: 700;
 	text-shadow: 0px 1px 0px #000;
+	margin-top: -35px;
 	.border-radius;
 	.box-shadow(1px, 1px, 5px, rgba(0,0,0,0.2));
 	.transition;
@@ -1833,41 +1837,47 @@ a.createAJobCallout:after {
 a.createAJobCallout:hover {
 	background:darken(@accent, 10%);
 }
-
-.leftColumn article {
-	border: 1px solid #848484;
-	.border-radius;
+.leftColumn {
+	position: relative;
+	float: left;
+	width: 40.62%;
+	margin-top: 20px;
 }
-
+.leftColumn article {
+	float: left;
+	border: 1px solid #B7B7B7;
+	.border-radius;
+	margin-bottom: 20px;
+}
+.leftColumn article img {
+	width: 388px;
+}
 .leftColumn article a {
 	display: block;
 	float: left;
 	width: 100%;
 	padding: 12px 0;
 	text-align: center;
+	.border-radius(0 0 3px 3px);
+	border-top: none;
 	background: @base2;
 }
-
 #form div {
     margin: 0 0 15px;
     float: left;
     width: 100%;
 }
-
 #form div label {
     color: #000;
 }
-
 #form div input {
     display: block;
     width: 100%;
     margin: 10px 0;
 }
-
 #form div ul {
     margin: 0;
 }
-
 /*custom upload elements*/
 .customfile-input { 
     position: absolute; 
@@ -1984,11 +1994,6 @@ a.createAJobCallout:hover {
 
 /*Buy Credits----------------------------------------------------------------- */
 
-.payment-errors {
-    width: 80%;
-    margin: 25px auto 30px;
-    display: none;
-}
 
 #payment-form .credits {
     width: 100%;
@@ -2115,32 +2120,6 @@ form #creditCardForm input[type="text"]#cvc {
     font-size: 16px;
 }
 
-.error, .payment-errors {
-	background: #FFF;
-	border: 1px solid @borders;
-	.border-radius(5px);
-}
-.error h4, .payment-errors h4 {
-	background:url(img/alertTile.png) #bf0000;
-	padding: 16px 20px;
-	.border-radius(5px 5px 0 0);
-	margin-top: 0;
-	color: #FFF;
-	font-size: 20px;
-	text-shadow: 1px 1px rgba(0,0,0,0.8);
-	border-bottom: 1px solid @borders;
-	text-align: center;
-}
-.error article, .payment-errors article {
-	padding: 10px 20px 16px;
-	color: #9a9a9a;
-}
-.error article ul, #form div.error ul {
-	padding: 0;
-	text-align: left;
-	list-style-position: inside;
-	color: @base;
-}
 
 /* =============================================================================
    Footer

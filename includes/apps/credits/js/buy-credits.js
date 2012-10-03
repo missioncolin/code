@@ -17,7 +17,7 @@ $("#payment-form").submit(function (event) {
 function stripeResponseHandler(status, response) {
     if (response.error) {
         // show the errors on the form
-        $(".payment-errors").fadeIn().html("<h4>Attention!</h4><article>" + response.error.message + "</article>");
+        $(".payment-errors").fadeIn().text(response.error.message);
         $(".submit-button").removeAttr("disabled").attr("class", "btn green submit-button");
     } else {
         var form$ = $("#payment-form");

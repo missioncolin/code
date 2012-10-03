@@ -13,11 +13,12 @@ if ($db->valid($provs)){
     }
 }
 ?>
+<div class="fifty">
 <h3>
-<img src="/uploads/profiles/<?php echo $_SESSION["userID"];?>/<?php echo $post["Company_Logo"]["value"];?>" alt="Company Logo" height="80px" width="auto" /><?php echo $post["Company_Name"]["value"];?>
+<img src="/uploads/profiles/<?php echo $_SESSION["userID"];?>/<?php echo $post["Company_Logo"]["value"];?>" alt="Company Logo" height="80px" width="auto" /><span><?php echo $post["Company_Name"]["value"];?></span>
 <a href="/profile/edit">Edit Profile</a>
 </h3>
-<form class="fifty">
+<form>
     <fieldset>
         <legend>System Username</legend>
         <input type="text" class="full" placeholder="System Login" value="<?php echo $post["Email"]["value"];?>" disabled="disabled"/>
@@ -75,3 +76,5 @@ if ($db->valid($provs)){
         <textarea><?php echo $post["Company_Bio"]["value"];?></textarea>
     </fieldset>
 </form>
+<a href="/profile/edit" class="btn green">Edit Profile</a>
+</div>
