@@ -843,7 +843,8 @@ nav a:hover {
     list-style: none;
     margin: -35px 0 30px;
     padding: 0;
-    background: @base2;
+    background: #FFF;
+    border: 1px solid darken(@borders, 10%);
     .border-radius(3px);
     float: left;
     width: 100%;
@@ -851,6 +852,11 @@ nav a:hover {
     .box-sizing();
     color: @base;
     font-weight: bold;
+    .box-shadow(0, 1px, 3px, rgba(0,0,0,0.1));
+}
+
+#steps.hide {
+    display: none;
 }
 
 #steps li {
@@ -858,10 +864,10 @@ nav a:hover {
 }
 
 #steps .current, #steps .alert {
-    color: #FFF;
+    color: @base2;
 }
 
-#steps .alert {
+#steps li + .alert {
     float: right;
 }
 
@@ -1116,7 +1122,7 @@ form textarea:focus {
 
 /*Templates------------------------------------------------------------------- */
 
-.main {
+.main, #steps.hide + .main {
     margin: -50px 0 0;
 }
 
@@ -1145,7 +1151,11 @@ form textarea:focus {
 .two-column #colB {
     float: right;
     width: 52.08%;
-    margin: 50px 0 0;
+    margin: 25px 0 0;
+}
+
+.two-column #steps.hide + .main #colB {
+    margin: 100px 0 0;
 }
 
 /*Pricing Options------------------------------------------------------------- */
@@ -1657,6 +1667,10 @@ table.simpleTable td.total {
 #applicantProfile #submissions {
     float: right;
     width: 52.08%;
+    margin: 25px 0 0;
+}
+
+#steps.hide + .main #applicantProfile #submissions {
     margin: 100px 0 0;
 }
 
