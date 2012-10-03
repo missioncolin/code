@@ -23,7 +23,8 @@
     <link rel="stylesheet" href="/themes/Intervue/style.css">
     <link rel="stylesheet" href="/css/plugins/jquery-ui-1.8.6.css">
 
-
+    <link rel="stylesheet" href="/themes/Intervue/scratch.css">
+    
     <script src="/themes/Intervue/js/vendor/modernizr-2.5.3.min.js"></script>
     <script type="text/javascript" src="http://use.typekit.com/gux8ztq.js"></script>
     <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
