@@ -35,6 +35,9 @@ $(document).ready(function() {
     
     $('#steps').not(':has(li)').addClass('hide');
     
+    var getHeight = $('#hrListJobs table').height();
+    $('#confirm').css('height', getHeight);
+    
 });
 function alertBox(liClass, message){
     if (document.getElementById('steps')){
@@ -52,4 +55,5 @@ function alertBox(liClass, message){
         }
         $('#steps').removeClass('hide');
     }
+    
 }
