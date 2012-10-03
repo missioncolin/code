@@ -31,12 +31,13 @@ $(function () {
     }
 
     
-    $('.delete').click(function () {
+    $('.delete').click(function (e) {
+        e.preventDefault();
         var $jobID = $(this).data('job');
         var $this = $(this);
         confirmAction("Delete Job?", "Once this job is deleted, you will no longer be able to edit it, or view applications");
         $('.popUp #popUpNo').on('click', clearPopUp);
-        $('.popUp #popUpOk ').on('click', function(){
+        $('.popUp #popUpOk').on('click', function(){
             $.post('/delete-job', {
                 job: $jobID
             }, function() {
@@ -63,18 +64,18 @@ $(function () {
         
     }); 
     
-    $('.reactivate').click(function() {
+    $('.reactivate').click(function(e) {
+        e.preventDefault();
         var $jobID = $(this).data('job');
         var react = $(this);
-        confirmAction("Re-Publish Job", "Re-publishing this job will cost one (1) credit");
+        confirmAction("Re-Publish Job?", "Re-publishing this job will cost one (1) credit");
         $('.popUp #popUpNo').on('click', clearPopUp);
-        $('.popUp #popUpOk ').on('click', function(){
+        $('.popUp #popUpOk').on('click', function(){
             var parTD = react.parent();
             var parTR = react.parents('tr').index();
             $.post('/reactivate-job', {
                 job: $jobID
             }, function(data) {
-                clearPopUp();
                 if (data == 'success'){
                     //create active elements
                     var credits = $('#loggedInButtons a:eq(0)').html().match(/^(\d+)\sCredits$/);
@@ -129,11 +130,11 @@ $(function () {
         e.preventDefault();
         var $jobID = $(this).data('job');
         var react = $(this);
-        confirmAction("Re-Publish Job", "You do not have enough credits. Re-publishing this job will cost one (1) credit.<br />Do you want to buy credits?");
+        confirmAction("Re-Publish Job?", "You do not have enough credits. Re-publishing this job will cost one (1) credit.<br />Do you want to buy credits?");
         $('.popUp #popUpNo').on('click', function(){
             clearPopUp();
         });
-        $('.popUp #popUpOk ').on('click', function(){
+        $('.popUp #popUpOk').on('click', function(){
             clearPopUp();
             window.location.href = react.attr('href');
         });
