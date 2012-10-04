@@ -590,8 +590,11 @@ header > div, #container, footer > div {
 
 #confirm{
     width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
     margin: 0;
-    position: absolute;
+    position: fixed;
     background-color: rgba(0, 0, 0, 0.2);
 }
 .popUp a { cursor:pointer }
@@ -599,9 +602,11 @@ header > div, #container, footer > div {
 .popUp {  
   position: relative;
   background: #FFF;
-  margin: 36% auto;
-  width: 40%;
-  padding: 4%;
+  top: 50%;
+  left: 50%;
+  margin: -100px 0 0 -250px;
+  width: 500px;
+  padding: 20px;
   text-align: left;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
@@ -613,11 +618,11 @@ header > div, #container, footer > div {
 }
 .popUp h2 { 
 	float: left; 
-	margin: -10% -10% 0; 
+	margin: -20px -20px 0; 
 	background:url(img/alertTile.png) @accent3; 
 	width: 100%;
 	.border-radius(5px 5px 0 0);
-	padding: 5% 10%;
+	padding: 15px 20px;
 	color: #FFF;
 	margin-bottom: 20px;
 }
