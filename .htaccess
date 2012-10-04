@@ -288,7 +288,7 @@ FileETag None
   RewriteRule ^logout$ /auth.php?mode=logout [NC,L]
   RewriteRule ^login$ /auth.php?mode=login [QSA,NC,L]
   RewriteRule ^profile/edit$ /index.php?p=edit-profile [NC,L]
-  RewriteRule ^apply/([0-9]+)$ /index.php?p=apply&job=$1 [NC,L]
+  RewriteRule ^apply/([0-9]+)$ /index.php?p=apply&job=$1 [QSA,NC,L]
 
   # Send everything else through index  
   RewriteCond %{REQUEST_FILENAME} !-f

@@ -18,8 +18,12 @@ if (time() < strtotime($datePosted) || $status == 'inactive') {
     $quipp->js['onload'] .= 'alertBox("fail", "We\'re sorry, this job posting has expred");';
 
 } elseif ($j->hasApplied($_GET['job'])) {
- 
-    $quipp->js['onload'] .= 'alertBox("fail", "You have already applied");';
+    
+    if (isset($_GET['success'])) {
+        $quipp->js['onload'] .= 'alertBox("success", "Thank you for applying. Your application has been received.");';
+    } else {
+        $quipp->js['onload'] .= 'alertBox("fail", "You have already applied");';
+    }
     include __DIR__ . '/renderAnswers.php';
 
 } else {
@@ -131,6 +135,8 @@ if (time() < strtotime($datePosted) || $status == 'inactive') {
                 }
 
             }
+            
+            header('Location: /apply/' . (int)$_GET['job'] . '?success');
         }
 
     }
