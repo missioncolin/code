@@ -3,15 +3,6 @@ if (isset($post)){
 ?>
 <h3>Applicant Information</h3>
 
-
-<?php
-        if (!empty($message)){
-            echo '<div class="error">';
-            echo "Your account was not updated. The following error(s) occurred: <ul>".$message."</ul>";
-            echo '</div>';
-        }
-?>
-
 <form method="post" enctype="multipart/form-data" action="<?php echo $_SERVER["REQUEST_URI"];?>">
     <fieldset>
         <legend>Account Details</legend>

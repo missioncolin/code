@@ -33,7 +33,4 @@ $grav_url = "http://www.gravatar.com/avatar/" . md5(strtolower(trim($post["Email
         <label for="LinkedIn_Username">LinkedIn</label>
         <input type="text" class="half bottom" placeholder="LinkedIn ID" value="<?php echo $post["LinkedIn_Username"]["value"];?>" disabled="disabled"/>
     </fieldset>
-    <fieldset>
-    <legend>Profile Video</legend>
-    </fieldset>
 </form>

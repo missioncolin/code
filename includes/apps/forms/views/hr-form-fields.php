@@ -3,17 +3,6 @@ if (isset($post) && isset($provs)){
 ?>
 
 <h3>Company Information</h3>
-
-<?php
-    if (!empty($message)){
-        echo '<div class="error">';
-        echo '<h4>Attention!</h4>';
-        echo '<article>';
-        echo "Your account was not updated. The following error(s) occurred: <ul>".$message."</ul>";
-        echo '</article>';
-        echo '</div>';
-    }
-?>
 <form method="post" enctype="multipart/form-data" action="<?php echo $_SERVER["REQUEST_URI"];?>">
     <div>
         <label for="companyLogo">Upload your <strong>Company Logo</strong></label>
