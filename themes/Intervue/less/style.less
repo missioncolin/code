@@ -556,6 +556,11 @@ header > div, #container, footer > div {
 	color: #000000;
 	float: left;
 	.box-sizing();
+	.border-radius(3px);
+}
+
+.alertBoxFunctionWarn {
+    margin: 0 0 20px;
 }
 
 .alertBoxFunctionGood {
@@ -873,7 +878,7 @@ nav a:hover {
 
 /*Steps----------------------------------------------------------------------- */
 
-#steps {
+#steps, .payment-errors, #steps.errorMessage {
     list-style: none;
     margin: -35px 0 30px;
     padding: 0;
@@ -905,7 +910,7 @@ nav a:hover {
     float: right;
 }
 
-#steps span {
+#steps span, .payment-errors span, #steps.errorMessage span {
     font-family: "proxima-nova",sans-serif;
     font-style: normal;
     font-weight: 700;
@@ -918,6 +923,7 @@ nav a:hover {
     margin: 0 10px 0 25px;
     color: #FFF;
     font-size: 14px;
+    float: left;
 }
 
 #steps .current span {
@@ -929,7 +935,7 @@ nav a:hover {
     margin-bottom: -6px;
 }
 
-#steps .fail span {
+#steps .fail span, .payment-errors .fail span, #steps.errorMessage .fail span {
     background: url(img/failIcon.png) no-repeat 8px center @accent3;
     margin-bottom: -6px;
 }
@@ -937,6 +943,16 @@ nav a:hover {
 #steps li:first-child span {
     margin-left: 0;
 }
+
+/* Steps Error Message */
+
+#steps.errorMessage { margin: 0 0 30px; }
+
+#steps.errorMessage .fail { float: left; width: auto; }
+#steps.errorMessage .padMe { float: none; width: auto; padding-left: 70px; }
+#steps.errorMessage .padMe ul { list-style: decimal; font-weight: 400; }
+.payment-errors { display: none; float: left; }
+
 
 /*Btn------------------------------------------------------------------------ */
 
@@ -1204,6 +1220,11 @@ form textarea:focus {
 
 .two-column #steps.hide + .main #colB {
     margin: 100px 0 0;
+}
+
+#colA h4 {
+    float: left;
+    width: 100%;
 }
 
 /*Pricing Options---------------------------------------------------------- */
@@ -1871,6 +1892,29 @@ table.simpleTable td.total {
 #profileEdit #form h3 a {
 	float: left;
 }
+#profileEdit #form h3#applicantProfileEdit {
+    position: relative;
+    padding-left: 80px;
+}
+#profileEdit #form h3#applicantProfileEdit a {
+    float: right;
+}
+h3#applicantProfileEdit .imgWrap {
+    position: absolute;
+    left: -20px;
+    top: -20px;
+    width: 80px;
+    height: 80px;
+    overflow: hidden;
+    border: 3px solid #FFF;
+    .box-shadow(1px, 0, 5px, rgba(0,0,0,0.3));
+    .border-radius(42px);
+}
+
+h3#applicantProfileEdit .imgWrap img {
+    .border-radius(42px);
+    width: 80px;
+}
 #profileEdit #form h3 span {
 	float: left;
 	width: 80%;
@@ -2044,7 +2088,7 @@ a.createAJobCallout:hover {
     text-align: left;
 }
 
-/*Questionaires------------------------------------------------------------------ */
+/*Questionaires--------------------------------------------------------------- */
 
 #questionairesForm input[type="text"] {
     width: 70%;

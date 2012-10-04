@@ -10,13 +10,14 @@ $j = new JobManager($db, $_SESSION['userID']);
 list($title, $link, $dateExpires, $datePosted, $questionnaireID, $status) = $j->getJob($_GET['job']);
 
 if (time() < strtotime($datePosted) || $status == 'inactive') {
-    echo alert_box('<strong>Error</strong>. No job found', 2);
+    $quipp->js['onload'] .= 'alertBox("fail", "No job found");';
 
 } elseif (time() > strtotime($dateExpires)) {
-    echo alert_box('<strong>Warning</strong>. We\'re sorry, this job posting has expred.', 3);
-} elseif ($j->hasApplied($_GET['job'])) {
+    $quipp->js['onload'] .= 'alertBox("fail", "We\'re sorry, this job posting has expred");';
 
-    echo '<div class="payment-errors" style="display:block"><strong>You have already applied</strong></div>';
+} elseif ($j->hasApplied($_GET['job'])) {
+ 
+    $quipp->js['onload'] .= 'alertBox("fail", "You have already applied");';
     include __DIR__ . '/renderAnswers.php';
 
 } else {
@@ -133,8 +134,7 @@ if (time() < strtotime($datePosted) || $status == 'inactive') {
     }
 
     if (isset($error) && $error != '') {
-            echo alert_box($error, 2);
-
+        $quipp->js['onload'] .= 'alertBox("fail", "' . $error . '");';
     }
 
 ?>
@@ -230,7 +230,7 @@ if (time() < strtotime($datePosted) || $status == 'inactive') {
 
         }
     } else {
-        $feedback = "This questionnaire has no questions.";
+        $quipp->js['onload'] .= 'alertBox("fail", "This application has no questions");';
     }
 
 ?>
