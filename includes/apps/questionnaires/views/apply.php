@@ -57,13 +57,13 @@ $size       = $user->get_meta('Company Size', $companyID);
                     echo '<a class="icon blog" href="' . $website . '">Website or Blog</a> ';
                 }
                 if (!empty($fb)){
-                    echo '<a class="icon facebook" href="' . $fb . '">Website or Blog</a> ';
+                    echo '<a class="icon facebook" href="http://www.facebook.com/' . $fb . '">Facebook</a> ';
                 }
                 if (!empty($twitter)){
-                    echo '<a class="icon twitter" href="' . $twitter . '">Website or Blog</a> ';
+                    echo '<a class="icon twitter" href="http://twitter.com/' . $twitter . '">Twitter</a> ';
                 }
                 if (!empty($linkedIn)){
-                    echo '<a class="icon linkedin" href="' . $linkedIn . '">Website or Blog</a> ';
+                    echo '<a class="icon linkedin" href="http://www.linkedin.com/in/' . $linkedIn . '">LinkedIn</a> ';
                 }
                
             ?></dd>
