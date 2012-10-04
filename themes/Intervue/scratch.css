@@ -13,12 +13,3 @@ input.large{
 }*/
 
 /* These styles are currently used in /applications to mimic a dialog box. They need to be refined */
-#confirm{
-    width: 100%;
-    height: 90%;
-    margin: 0;
-    position: absolute;
-    background-color: rgba(0, 0, 0, 0.2);
-}
-.popUp{margin: 30% 0 0 265px;}
-.popUp a{cursor:pointer}
