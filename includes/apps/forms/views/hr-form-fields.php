@@ -6,11 +6,11 @@ if (isset($post) && isset($provs)){
 
 <?php
     if (!empty($message)){
-        echo '<div class="error">';
-        echo '<h4>Attention!</h4>';
-        echo '<article>';
+        echo '<div id="steps" class="errorMessage">';
+        echo "<div class='fail'><span></span></div>";
+        echo '<div class="padMe">';
         echo "Your account was not updated. The following error(s) occurred: <ul>".$message."</ul>";
-        echo '</article>';
+        echo '</div>';
         echo '</div>';
     }
 ?>

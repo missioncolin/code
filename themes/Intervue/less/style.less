@@ -873,7 +873,7 @@ nav a:hover {
 
 /*Steps----------------------------------------------------------------------- */
 
-#steps {
+#steps, .payment-errors, #steps.errorMessage {
     list-style: none;
     margin: -35px 0 30px;
     padding: 0;
@@ -905,7 +905,7 @@ nav a:hover {
     float: right;
 }
 
-#steps span {
+#steps span, .payment-errors span, #steps.errorMessage span {
     font-family: "proxima-nova",sans-serif;
     font-style: normal;
     font-weight: 700;
@@ -918,6 +918,7 @@ nav a:hover {
     margin: 0 10px 0 25px;
     color: #FFF;
     font-size: 14px;
+    float: left;
 }
 
 #steps .current span {
@@ -929,7 +930,7 @@ nav a:hover {
     margin-bottom: -6px;
 }
 
-#steps .fail span {
+#steps .fail span, .payment-errors .fail span, #steps.errorMessage .fail span {
     background: url(img/failIcon.png) no-repeat 8px center @accent3;
     margin-bottom: -6px;
 }
@@ -937,6 +938,16 @@ nav a:hover {
 #steps li:first-child span {
     margin-left: 0;
 }
+
+/* Steps Error Message */
+
+#steps.errorMessage { margin: 0 0 30px; }
+
+#steps.errorMessage .fail { float: left; width: auto; }
+#steps.errorMessage .padMe { float: none; width: auto; padding-left: 70px; }
+#steps.errorMessage .padMe ul { list-style: decimal; font-weight: 400; }
+.payment-errors { display: none; float: left; }
+
 
 /*Btn------------------------------------------------------------------------ */
 
