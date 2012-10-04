@@ -27,10 +27,10 @@ $j = new JobManager($db, $application['userID']);
             $answer = $q->getAnswer($questionID, $application['userID']);
 
             echo "<tr>";
-            echo "<td>";
+            echo "<td><strong>";
             echo $question['label'];
 
-            echo "</td>";
+            echo "</strong></td>";
             echo "</tr>";
 
             echo "<tr>";
@@ -85,7 +85,7 @@ $j = new JobManager($db, $application['userID']);
 
                     <?php
                     } else {
-                        echo '<strong>Question not answered</strong>';
+                        echo '<i>Question not answered</i>';
                     }
 
                 break;
