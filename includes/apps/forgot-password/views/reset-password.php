@@ -9,7 +9,6 @@
 	require_once dirname(__DIR__) . '/ForgotPassword.php';
     $fp = new ForgotPassword($db);
 ?>
-<h2>Reset your password</h2><p></p>
 
 <?php
 
@@ -21,25 +20,28 @@
             if (isset($_POST['password'], $_POST['conf_password'])) {
     
                 if ($_POST['password'] != $_POST['conf_password']) {
-                    echo 'Password mismatch';
-    
+                    $quipp->js['onload'] .= 'alertBox("fail", "Password mismatch");';
+
                 } else {
     
     
                     try {
                         $result = $user->changePassword($_POST['password']);
                     } catch (Exception $e) {
-                        echo $e->getMessage();
+                        $quipp->js['onload'] .= 'alertBox("fail", "' . $e->getMessage() . '");';
+
                         $showForm = false;
                     }
                     
                     if ($result) {
                         $user->removeHash();
                         $url = 'http' . (isset($_SERVER['HTTPS']) ? 's' : '') . '://' . $_SERVER['HTTP_HOST'] . '/login';
-                        echo 'Your password was changed. Please <a href="' . $url . '">proceed to the login</a>';
+
+                        $quipp->js['onload'] .= 'alertBox("success", "Your password was changed. Please <a href=\"' . $url . '\">proceed to the login</a>");';
+
 
                     } else {
-                        echo 'Unable to change account password';
+                        $quipp->js['onload'] .= 'alertBox("fail", "Unable to change account password");';
     
                     }
                     
@@ -49,16 +51,19 @@
             }
     
         } catch (Exception $e) {
-            echo $e->getMessage();
+            $quipp->js['onload'] .= 'alertBox("fail", "' . $e->getMessage() . '");';
             $showForm = false;
         }
     
     } else {
         echo 'No token provided';
     }
+?>
 
+<?php
 if ($showForm == true) { 
 ?>
+<h2>Reset your password</h2><p></p>
 
 <form action="?token=<?php echo $_GET['token']; ?>" method="post">
     <div>
