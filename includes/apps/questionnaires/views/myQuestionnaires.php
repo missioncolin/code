@@ -18,7 +18,7 @@ $questionnaires = $q->getQuestionnaires($_SESSION['userID']);
 if ($this instanceof Quipp) {
     
     if (empty($questionnaires)) {
-       echo "You haven't created any questionnaires";
+       echo "<ul><li>You haven't created any questionnaires</li></ul>";
     
     } else {
         
