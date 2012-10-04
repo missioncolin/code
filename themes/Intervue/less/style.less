@@ -1746,6 +1746,7 @@ table.simpleTable td.total {
     float: left;
     width: 85px;
     color: lighten(@base, 30%);
+    clear: left;
 }
 
 #applicantProfile dd {
@@ -1755,6 +1756,12 @@ table.simpleTable td.total {
     margin: 0;
     white-space: nowrap;
     text-overflow: ellipsis;
+}
+
+#applicantProfile dd.dontCut {
+    overflow: visible;
+    white-space: normal;
+    text-overflow: inherit;
 }
 
 #applicantProfile #grade {
