@@ -2,7 +2,6 @@
  
 $root = dirname(dirname(dirname(__DIR__)));
 require $root . '/includes/init.php';
-require $root . '/admin/classes/Editor.php';
 
 $meta['title'] = 'Job Credit Transactions';
 $meta['title_append'] = ' &bull; Quipp CMS';
@@ -31,17 +30,10 @@ if ($auth->has_permission("viewTransactions")){
 
     //view = view state, these standard views will do for most single table interactions, you may need to replace with your own
         
-    $listqry = "SELECT * FROM tblTransactions WHERE sysOpen='1'";
+    $listqry = "SELECT * FROM tblTransactions WHERE sysOpen='1' ORDER BY sysDateCreated DESC";
     $resQry = $db->query($listqry);
     
     if ($db->valid($resQry) !== false){
-    //list table field titles
-    $titles[0] = "Package";
-    $titles[1] = "Price (CDN)";
-    $titles[2] = "Savings";
-
-    $basePrice = 0;
-    //print an editor with basic controls
     ?>
     <table id="adminTableList" class="adminTableList tablesorter" width="100%" cellpadding="5" cellspacing="0" border="1">
         <thead>
@@ -50,7 +42,7 @@ if ($auth->has_permission("viewTransactions")){
                 <th>Stripe ID</th>
                 <th>Description</th>
                 <th>Amount</th>
-                <th>Taxes</th>
+                <th>Taxes (&cent)</th>
                 <th>Date</th>
             </tr>
         </thead>
