@@ -29,7 +29,7 @@ if (isset($_GET['req']) && preg_match('%^reactivate[\s\+](\d+)$%', $_GET['req'],
 ?>
 <section id="hrListJobs">
     
-    <a href="/create-job" class="btn green newJob">Add a New Job</a>
+    <a href="/create-job?step=1" class="btn green newJob">Add a New Job</a>
     <a href="/buy-job-credits" class="btn green buyCredits">Buy Job Credits</a>
     <table>
         <tr>
@@ -43,9 +43,21 @@ if (isset($_GET['req']) && preg_match('%^reactivate[\s\+](\d+)$%', $_GET['req'],
         } else {
             
             foreach ($jobs as $jobID => $job) {
+                
+                $totalApplicants = $j->totalApplicants($job['itemID']);
+                
+                if ($totalApplicants == 0) {
+                    $verbiage = "<br />There are no applicants";
+                } elseif ($totalApplicants == 1) {
+                    $verbiage = "<br /><a href=\"/applicant-list?job={$jobID}\">View {$totalApplicants} applicant</a>";
+                } else {
+                    $verbiage = "<br /><a href=\"/applicant-list?job={$jobID}\"View {$totalApplicants} applicants</a>";
+
+                }
+                
 ?>
             <tr>
-                <td width="20%"><strong><a href="/applicant-list?job=<?php echo $jobID; ?>"><?php echo $job['title']; ?></a></strong><br />View <?php echo $j->totalApplicants($job['itemID']); ?> applicants<br/></td>
+                <td width="20%"><strong><a href="/applicant-list?job=<?php echo $jobID; ?>"><?php echo $job['title']; ?></a></strong><?php echo $verbiage; ?></td>
                 
 <?php
                 if (date("U") > strtotime($job["dateExpires"])){

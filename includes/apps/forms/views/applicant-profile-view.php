@@ -6,7 +6,7 @@ foreach($meta as $fields){
 }
 $grav_url = "http://www.gravatar.com/avatar/" . md5(strtolower(trim($post["Email"]["value"]))) . "?d=" . urlencode("http://".$_SERVER["SERVER_NAME"]."/themes/Intervue/img/profilePicExample.jpg") . "&s=80";
 ?>
-<h3><img src="<?php echo $grav_url;?>" alt="avatar" width="80px" height="80px" /><?php echo $post["First_Name"]["value"]." ".$post["Last_Name"]["value"];?><a href="/profile/edit">Edit Profile</a></h3>
+<h3 id="applicantProfileEdit"><div class="imgWrap"><img src="<?php echo $grav_url;?>" alt="avatar" width="80px" height="80px" /></div><?php echo $post["First_Name"]["value"]." ".$post["Last_Name"]["value"];?><a href="/profile/edit">Edit Profile</a></h3>
 <form>
     <fieldset>
         <legend>System Username</legend>
@@ -32,8 +32,5 @@ $grav_url = "http://www.gravatar.com/avatar/" . md5(strtolower(trim($post["Email
         <input type="text" class="half left bottom" placeholder="Twitter Handle" value="<?php echo $post["Twitter_Username"]["value"];?>" disabled="disabled"/>
         <label for="LinkedIn_Username">LinkedIn</label>
         <input type="text" class="half bottom" placeholder="LinkedIn ID" value="<?php echo $post["LinkedIn_Username"]["value"];?>" disabled="disabled"/>
-    </fieldset>
-    <fieldset>
-    <legend>Profile Video</legend>
     </fieldset>
 </form>

@@ -1009,6 +1009,12 @@ a:hover.btn.red, input:hover.btn.red {
     margin-left: 10px;
 }
 
+/*Datepicker-------------------------------------------------------------------- */
+
+.ui-datepicker {
+    display: none !important;
+}
+
 /*Box-------------------------------------------------------------------------- */
 
 .box {
@@ -1372,7 +1378,7 @@ tr:last-child td:last-child {
     .border-radius(0 0 3px 0);  
 }
 
-#job-form th:last-child, .singleHeader th:last-child {
+#job-form th:last-child, .singleHeader th:last-child, table.oneTH th {
     .border-radius(3px 3px 0 0);
 }
 
@@ -1657,6 +1663,13 @@ table.simpleTable td.total {
     line-height: 44px;
 }
 
+#applicantProfile.apply .heading h2 {
+    font-size: 30px;
+    line-height: 30px;
+    text-align: left;
+    margin: 25px 0 25px 20px;
+}
+
 .heading h2 a {
     font-size: 14px;
     position: relative;
@@ -1868,6 +1881,29 @@ table.simpleTable td.total {
 }
 #profileEdit #form h3 a {
 	float: left;
+}
+#profileEdit #form h3#applicantProfileEdit {
+    position: relative;
+    padding-left: 80px;
+}
+#profileEdit #form h3#applicantProfileEdit a {
+    float: right;
+}
+h3#applicantProfileEdit .imgWrap {
+    position: absolute;
+    left: -20px;
+    top: -20px;
+    width: 80px;
+    height: 80px;
+    overflow: hidden;
+    border: 3px solid #FFF;
+    .box-shadow(1px, 0, 5px, rgba(0,0,0,0.3));
+    .border-radius(42px);
+}
+
+h3#applicantProfileEdit .imgWrap img {
+    .border-radius(42px);
+    width: 80px;
 }
 #profileEdit #form h3 span {
 	float: left;

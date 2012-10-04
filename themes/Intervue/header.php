@@ -39,7 +39,7 @@
             
                 <?php if (isset($user->groups['hr-managers'])) { ?>
                     <div id="loggedInButtons">
-                        <a href="/buy-job-credits"><?php echo $user->info['Job Credits']; ?> Credits</a> //
+                        <a href="/buy-job-credits"><?php echo $user->info['Job Credits'];  echo ( $user->info['Job Credits'] == 1 ? ' Credit': ' Credits'); ?></a> //
                         <a href="/profile">Profile</a>
                     </div>
                 <?php } else { ?>

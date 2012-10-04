@@ -59,9 +59,14 @@ if ($this->info['systemName'] == 'edit-job') {
 
 
 if ($edit == true && !isset($_GET['id'])) {
-    echo alert_box('<strong>Warning</strong>, no job found', 3);
+
+    $quipp->js['onload'] .= 'alertBox("fail", "No job found");';
+    
 } else if ($edit == true && !$j->canEdit($_GET['id'])) {
-    echo alert_box('<strong>Access denied</strong. You do not have access to this job', 2);
+    
+    $quipp->js['onload'] .= 'alertBox("fail", "You do not have access to this job");';
+
+    
 } else if ($error == '' && $success === true) {
     if ($edit == false) {
         Credits::assignCredits($user, -1);
@@ -81,7 +86,7 @@ if ($edit == true && !isset($_GET['id'])) {
     }
 
     if ($error != '') {
-        echo alert_box($error, '2');
+        $quipp->js['onload'] .= 'alertBox("fail", "' . $error . '");';
     }
 
     
@@ -142,14 +147,6 @@ if (empty($questionnaires)) {
                     <td><input type="url" name="RQvalWEBSLink" id="link" placeholder="http://monster.com/jobid" value="<?php echo $link; ?>"  required/></td>
                 </tr>
                 <tr>
-                    <td><label for="datePosted">Date Posted</label></td>
-                    <td><input type="text" class="datepicker" name="RQvalDATEDate_Posted" id="datePosted" value="<?php echo $datePosted; ?>"/></td>
-                </tr>
-                <tr>
-                    <td><label for="dateExpires">Date Expires</label></td>
-                    <td><?php echo date("Y-m-d", strtotime('+2 months'));?></td>
-                </tr>
-                <tr>
                     <td><label for="questionnaire">Questionnaire</label></td>
                     <td>
                         <?php
@@ -172,6 +169,7 @@ if (empty($questionnaires)) {
                 </tr>
             </tbody>
         </table>
+        <input type="hidden" name="RQvalDATEDate_Posted" value="<?php echo $datePosted; ?>"/>
         <input type="hidden" name="id" value="<?php echo (isset($_GET['id']) && $edit == true) ? (int)$_GET['id'] : 0; ?>" />
         <input type="submit" value="<?php echo ($edit == true) ? 'Edit' : 'Create &amp; Continue'; ?>" class="btn green" />
     </form>
