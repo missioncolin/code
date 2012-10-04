@@ -899,6 +899,10 @@ nav a:hover {
     .box-shadow(0, 1px, 3px, rgba(0,0,0,0.1));
 }
 
+.payment-errors {
+    margin: 15px 0 30px;
+}
+
 #steps.hide {
     display: none;
 }
@@ -945,7 +949,7 @@ nav a:hover {
     margin-bottom: -6px;
 }
 
-#steps li:first-child span {
+#steps li:first-child span, .payment-errors span {
     margin-left: 0;
 }
 
@@ -2211,7 +2215,8 @@ a.createAJobCallout:hover {
 
 .credits input[type="radio"] {
     position: absolute;
-    left: -9999px;
+    margin: 110px 0 0 230px;
+    z-index: 99;
 }
 
 #creditCardForm {
@@ -2236,6 +2241,8 @@ a.createAJobCallout:hover {
     color: #FFF;
     margin: 20px;
     position: relative;
+    float: none;
+    width: auto;
 }
 
 #creditCardForm h4 img {
