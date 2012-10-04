@@ -1480,10 +1480,41 @@ table .slider {
     width: 100%;
     margin: 30px 0;
     text-align: center;
+    font-family: "proxima-nova",sans-serif;
+    font-style: normal;
+    font-weight: 400;
 }
 
-.pagination a {
+.pagination a, .pagination span {
     margin: 0 3px;
+}
+
+.pagination a, .pagination span {
+    background: #FFF;
+    border: 1px solid @borders;
+    width: 30px;
+    height: 27px;
+    text-align: center;
+    padding-top: 3px;
+    .border-radius(50px);
+    display: inline-block;
+}
+
+.pagination a.previous, .pagination a.next, .pagination span.previous, .pagination span.next, .pagination a:hover.previous, .pagination a:hover.next {
+    background: none;
+    border: none;
+    width: auto;
+    margin: 0 10px;
+}
+
+.pagination a:hover {
+    background: darken(#FFF, 5%);
+}
+
+.pagination a.current {
+    background: @accent;
+    color: #FFF;
+    border: 1px solid darken(@accent, 10%);
 }
 
 table.simpleTable {
