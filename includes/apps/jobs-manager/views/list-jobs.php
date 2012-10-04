@@ -51,7 +51,7 @@ if (isset($_GET['req']) && preg_match('%^reactivate[\s\+](\d+)$%', $_GET['req'],
                 } elseif ($totalApplicants == 1) {
                     $verbiage = "<br /><a href=\"/applicant-list?job={$jobID}\">View {$totalApplicants} applicant</a>";
                 } else {
-                    $verbiage = "<br /><a href=\"/applicant-list?job={$jobID}\"View {$totalApplicants} applicants</a>";
+                    $verbiage = "<br /><a href=\"/applicant-list?job={$jobID}\">View {$totalApplicants} applicants</a>";
 
                 }
                 

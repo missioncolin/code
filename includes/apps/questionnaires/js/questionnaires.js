@@ -34,3 +34,36 @@ $('.add').live('click', function() {
     $(this).remove();
     return false;
 });
+
+
+    $('.delete').click(function (e) {
+        e.preventDefault();
+        var $question = $(this).data('question');
+        var $this = $(this);
+        confirmAction("Delete question?", "Once this question is deleted, you will no longer be able to edit it");
+        $('.popUp #popUpNo').on('click', clearPopUp);
+        $('.popUp #popUpOk').on('click', function(){
+            $.post('/delete-question', {
+                question: $question
+            }, function() {
+                $this.parent().parent().remove();
+                $('.alert').removeClass('fail').addClass('success').html('<span></span>Question Deleted Successfully');
+            });
+            clearPopUp();
+        });
+    }); 
+    
+    
+    var clearPopUp = function(){
+        $('#confirm').fadeOut();
+        $('.popUp h2').empty();
+        $('.popUp p').empty();
+        $('.popUp #popUpOk').off('click');
+        $('.popUp #popUpNo').off('click');
+    }
+    
+    var confirmAction = function(title, message){
+        $('.popUp h2').html(title);
+        $('.popUp p').html(message);
+        $('#confirm').fadeIn();
+    }

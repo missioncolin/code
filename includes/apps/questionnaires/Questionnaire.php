@@ -167,4 +167,53 @@ class Questionnaire
 
         return 0;
     }
+    
+    
+    /**
+     * Get the questionnaire ID for use with can edit based on a question ID
+     * @param int questionID
+     * @return int
+     */
+    public function getQuestionnaireID($questionID) {
+        
+        $qry = sprintf("SELECT questionnaireID FROM tblQuestions WHERE itemID='%d'", (int)$questionID);
+        $res = $this->db->query($qry);
+        
+        $questionnaireID = 0;
+        if ($this->db->valid($res) && $this->db->num_rows($res) > 0) {
+            list($questionnaireID) = $this->db->fetch_array($res);
+        }
+        
+        return $questionnaireID;
+    }
+    
+    
+    /**
+     * Delete a question
+     * @param int questionID
+     * @return bool
+     */
+    public function deleteQuestion($questionID) {
+        
+        
+        // check to see if the questionnaire is in use
+                
+        $qry = sprintf("SELECT itemID FROM tblQuestionnaires WHERE hrUserID = '%d' AND itemID = '%d' AND isUsed = '0' AND sysOpen = '1' AND sysActive = '1'", 
+            (int) $_SESSION['userID'],
+            (int) $this->getQuestionnaireID($questionID));
+        $res = $this->db->query($qry);
+        
+        if ($this->db->valid($res) && $this->db->num_rows($res) > 0) {
+            
+            $qry = sprintf("UPDATE tblQuestions SET sysOpen='0', sysActive='0' WHERE itemID='%d'",
+                (int) $questionID);
+            $this->db->query($qry);
+            
+            if ($this->db->affected_rows($res) == 1) {
+                return true;
+            }
+        
+        }
+        return false;
+    }
 }

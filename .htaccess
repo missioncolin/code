@@ -277,17 +277,20 @@ FileETag None
   RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
   RewriteRule ^(.*)$ http://%1/$1 [R=301,L]
   
-  RewriteRule ^logout$ /auth.php?mode=logout [NC,L]
-  RewriteRule ^login$ /auth.php?mode=login [QSA,NC,L]
-
+  #AJAX
   RewriteRule ^toggle-job$ /includes/apps/jobs-manager/ajax/toggle.php [NC,L]
   RewriteRule ^delete-job$ /includes/apps/jobs-manager/ajax/delete.php [NC,L] 
   RewriteRule ^grade-applicant$ /includes/apps/jobs-manager/ajax/grade-applicant.php [NC,L]
   RewriteRule ^reactivate-job$ /includes/apps/jobs-manager/ajax/reactivate.php [NC,L]
-  RewriteRule ^profile/edit$ /index.php?p=edit-profile [NC,L]
+  RewriteRule ^delete-question$ /includes/apps/questionnaires/ajax/delete.php [NC,L] 
 
+  # Page rewrites
+  RewriteRule ^logout$ /auth.php?mode=logout [NC,L]
+  RewriteRule ^login$ /auth.php?mode=login [QSA,NC,L]
+  RewriteRule ^profile/edit$ /index.php?p=edit-profile [NC,L]
   RewriteRule ^apply/([0-9]+)$ /index.php?p=apply&job=$1 [NC,L]
-  
+
+  # Send everything else through index  
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteRule ^(.+)$ /index.php?p=$1&%{QUERY_STRING} [L] 

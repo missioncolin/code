@@ -1,9 +1,13 @@
 <?php
 
+global $quipp;
+
 if (!class_exists('Questionnaire')) {
     require dirname(__DIR__) . '/Questionnaire.php';
 }
 $q = new Questionnaire($db);
+
+$quipp->js['footer'][] = "/includes/apps/questionnaires/js/questionnaires.js";
 
 if ($this instanceof Quipp) {
 
@@ -94,8 +98,8 @@ if ($this instanceof Quipp) {
                 echo  "<td>".$question['label']."</td>";
                 echo  "<td>".$questionTypeLabels[$question['type']]."</td>";
                 if ($questionnaire['isUsed'] == '0') {
-                    echo  "<td><a href='/configure-question?qsnID=".$question['itemID']."&qnrID=".$_GET['qnrID']."' class='btnStyle'>Change</a></td>";
-                    echo  "<td><a class='btnStyle'>Delete</a></td>";
+                    echo  "<td><a href='/configure-question?action=edit&qsnID=".$question['itemID']."&qnrID=".$_GET['qnrID']."' class='btn'>Change</a></td>";
+                    echo  "<td><a class=\"btn red delete\" data-question=\"" . $question['itemID'] . "\">Delete</a></td>";
                 }
                 echo  "</tr>";
 
@@ -116,3 +120,11 @@ if ($this instanceof Quipp) {
     }
 
 }
+?>
+<div id="confirm" style="display:none">
+<div class="popUp">
+<h2></h2>
+<p></p>
+<a class="btn" id="popUpOk">Ok</a>&nbsp;<a class="btn red" id="popUpNo">Cancel</a>
+</div>
+</div>
