@@ -8,6 +8,10 @@ $applications = array(
 		"label" => "Job Credit Pricing",
 		"permissions" => "modifyPricing",
 	),
+	"transactions" => array(
+		"label" => "Transactions",
+		"permissions" => "viewTransactions",
+	),
 	"notification-manager" => array(
 		"label" => "Notification Manager",
 		"permissions" => "modifyNotifications",
