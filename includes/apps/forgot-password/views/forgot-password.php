@@ -20,14 +20,15 @@
        }
 	}
 ?>
-<h2>Reset your password</h2>
-<p>In order to reset your password, please supply us with your email address that you used to sign up</p>
-<form action="" method="post">
-    <div>
-        <label for="email">Your email address</label> <input type="email" name="email" id="email" placeholder="johndoe@example.com" required />
-    </div>
-    <div>
+<section id="forgot-password">
+
+    <h2>Reset your password</h2>
+    <form action="" method="post">
+        <fieldset>
+            <legend>In order to reset your password, please supply us with your email address that you used to sign up</legend>
+            <label for="email">Your Email Address</label><input type="email" class="full bottom" name="email" id="email" placeholder="Your Email Address" required />
+        </fieldset>
         <input class="btn" type="submit" value="Submit" />
-        
-    </div>
-</form>
+    </form>
+
+</section>
