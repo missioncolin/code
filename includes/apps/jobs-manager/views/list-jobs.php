@@ -29,7 +29,7 @@ if (isset($_GET['req']) && preg_match('%^reactivate[\s\+](\d+)$%', $_GET['req'],
 ?>
 <section id="hrListJobs">
     
-    <a href="/create-job" class="btn green newJob">Add a New Job</a>
+    <a href="/create-job?step=1" class="btn green newJob">Add a New Job</a>
     <a href="/buy-job-credits" class="btn green buyCredits">Buy Job Credits</a>
     <table>
         <tr>

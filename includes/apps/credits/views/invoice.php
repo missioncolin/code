@@ -69,7 +69,7 @@
                 echo '<a class="btn reactivate" href="/applications?req='.str_replace(' ','+',$_GET['req']).'" data-job="'.$qryData[1].'">Re-Publish Job</a>&nbsp;';
                 break;
             case "createnew":
-                echo '<a class="btn" href="/create-job">Create New Job</a>&nbsp;';
+                echo '<a class="btn" href="/create-job?step=1">Create New Job</a>&nbsp;';
                 break;
             
         }

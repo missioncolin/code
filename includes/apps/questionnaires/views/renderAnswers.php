@@ -104,7 +104,7 @@ $j = new JobManager($db, $application['userID']);
 
         }
     } else {
-        $feedback = "This questionnaire has no questions.";
+        $quipp->js['onload'] .= 'alertBox("fail", "This application has no questions");';
     }
 
 ?>
