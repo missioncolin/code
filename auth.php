@@ -76,7 +76,11 @@ if ($_GET['mode'] == 'logout') {
                             <input type="submit"  value="Sign-in" class="btn" />
                             <a href="/forgot-password">Password Recovery</a>
                         </div>
+                        
                     </div>
+                    <div>
+                            Don't have an account? <a href="/applicant-signup">Register now</a>
+                        </div>
             </form>
         </div>
 
