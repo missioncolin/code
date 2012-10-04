@@ -1,8 +1,3 @@
 <?php
 
-	require 'lib/adLDAP.php';
-	require 'lib/PHPMailer.php';
-	require 'lib/ThumbLib.inc.php';
-
-	
-?>
+	require __DIR__ . '/lib/PHPMailer/class.phpmailer.php';

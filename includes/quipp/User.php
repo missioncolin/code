@@ -319,7 +319,33 @@ class User
 		return $formBuffer;
 	}
 
+    /**
+     * Change the user's password
+     * @param string
+     * @return bool
+     */
+     
+    public function changePassword($password)
+    {
+        if (empty($password)) {
+            throw new Exception('Password can not be empty');
+        }
+        $stmt = $this->db->query(sprintf("UPDATE sysUsers SET `userIDPassword`= MD5('%s') WHERE itemID='%d'", $password, $this->id));
+        
+        return (boolean)$this->db->affected_rows($stmt);
+    
+    }
 
+
+    /**
+     * Rest the fp hash
+     * @return bool
+     */
+    public function removeHash()
+    {
+        $stmt = $this->db->query(sprintf("UPDATE sysUsers SET `fpHash`= NULL WHERE itemID='%d'", $this->id));
+        return (boolean)$this->db->affected_rows($stmt);
+    }
 }
 
 
