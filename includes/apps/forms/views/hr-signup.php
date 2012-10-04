@@ -116,9 +116,7 @@ if ($this INSTANCEOF Quipp){
     <div id="form">
 <?php
         if (!empty($message)){
-            echo '<div class="error">';
-            echo "The following must be completed in order to create your account: <ul>".$message."</ul>";
-            echo '</div>';
+            echo alert_box("The following must be completed in order to create your account: <ul>".$message."</ul>", 2);
         }
         include_once(__DIR__."/hr-form-fields.php");
 ?>
