@@ -485,7 +485,7 @@ class Auth
 				$message = "<div align=\"left\">
 				<strong> Access Denied </strong>
 				<p>You do not have the necessary permission to view this area. </p>
-				<p> <input type=\"button\" onclick=\"javascript:history.go(-1);\" value=\"Go Back\" /></p></div>";
+				<p> <input type=\"button\" onclick=\"javascript:history.go(-1);\" value=\"Go Back\" class=\"btn\" /></p></div>";
 		
 				return alert_box($message, 2);
 				break;
