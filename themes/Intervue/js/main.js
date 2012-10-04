@@ -33,6 +33,16 @@ $(document).ready(function() {
 		}
     });
     
+    var counter = 0;
+    $('table').each(function() {
+       $(this).children('thead').children('tr').children('th').each(function() {
+          counter++; 
+       }); 
+       if(counter == 1) {
+           $(this).addClass('oneTH');
+       }
+    });
+    
     $('#steps').not(':has(li)').addClass('hide');
     
     var getHeight = $('#hrListJobs table').height();
