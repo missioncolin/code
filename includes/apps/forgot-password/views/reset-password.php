@@ -9,6 +9,7 @@
 	require_once dirname(__DIR__) . '/ForgotPassword.php';
     $fp = new ForgotPassword($db);
 ?>
+<section id="forgot-password">
 
 <?php
 
@@ -63,17 +64,18 @@
 <?php
 if ($showForm == true) { 
 ?>
-<h2>Reset your password</h2><p></p>
+<h2>Reset your password</h2>
 
 <form action="?token=<?php echo $_GET['token']; ?>" method="post">
-    <div>
-        <label for="email"><?php echo 'Your email' ?></label> <input type="email" name="email" id="email" value="<?php echo $user->info['Email']; ?>" /><br>
-        <label for="password"><?php echo 'New password' ?></label> <input type="password" name="password" id="password" required /><br>
-        <label for="conf_password"><?php echo 'Confirm password' ?></label> <input type="password" name="conf_password" id="conf_password" required />
-
-        <input class="btn" type="submit" value="<?php echo 'Submit' ?>" />
-    </div>
+    <fieldset>
+        <legend>Enter a New Password</legend>
+        <label for="email"><?php echo 'Your email' ?></label><input type="email" class="full" name="email" id="email" value="<?php echo $user->info['Email']; ?>" /><br>
+        <label for="password"><?php echo 'New password' ?></label><input type="password" class="half bottom left" name="password" id="password" placeholder="<?php echo 'New password' ?>" required /><br>
+        <label for="conf_password"><?php echo 'Confirm password' ?></label> <input type="password" class="half bottom" name="conf_password" placeholder="<?php echo 'Confirm password' ?>" id="conf_password" required />
+    </fieldset>
+    <input class="btn" type="submit" value="<?php echo 'Submit' ?>" />
 </form>
+</section>
 
 <?php
 }
