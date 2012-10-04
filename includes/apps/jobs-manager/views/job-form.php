@@ -15,7 +15,7 @@ $newQnr = false;
 
 $quipp->js['footer'][] = "/includes/apps/jobs-manager/js/jobs-manager.js";
 
-if (!empty($_POST) && !empty($questionnaires)) {
+if (!empty($_POST)) {
     if (isset($_POST['RQvalALPHTitle'], $_POST['RQvalWEBSLink'], $_POST['RQvalDATEDate_Posted'], $_POST['RQvalNUMBQuestionnaire'])) {
         
         if (!validate_form($_POST)) {
