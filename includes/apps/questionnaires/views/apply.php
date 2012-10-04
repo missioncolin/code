@@ -60,7 +60,7 @@ if (time() < strtotime($datePosted) || $status == 'inactive') {
         if (!empty($website) || !empty($fb) || !empty($linkedIn) || !empty($twitter)){
         ?>
             <dt>Links</dt>
-            <dd><?php 
+            <dd id="links"><?php 
                 if (!empty($website)){
                     echo '<a class="icon blog" href="' . $website . '">Website or Blog</a> ';
                 }
@@ -90,16 +90,15 @@ if (time() < strtotime($datePosted) || $status == 'inactive') {
         <?php
         }
         ?>
-        </dl>
         <?php
         if (!empty($bio)){
         ?>
-            <p style="margin-left:100px;width:70%"><span style="color:#cfcfcf">Bio</span><br />
-            <?php echo $bio;?>
-            </p>
+            <dt>Bio</dt>
+            <dd class="dontCut"><?php echo $bio;?></dd>
         <?php
         }
         ?>
+    </dl>
     </div>
     
     <div id="submissions">
