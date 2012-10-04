@@ -80,3 +80,13 @@
             <li<?php if ($_GET['step'] == '4') { ?> class="current"<?php } ?>><span>4</span>Complete</li>
             <?php } ?>
         </ul>
+
+        <?php $signUpPages = array("hr-signup", "profile"); ?>
+        
+        <?php if(in_array($_GET['p'], $signUpPages)) { ?>
+             <ul id="steps">
+                <li<?php if ($_GET['p'] == 'hr-signup') { ?> class="current"<?php } ?>><span>1</span>Create a HR Account</li>
+                <li<?php if ($_GET['p'] == 'profile') { ?> class="current"<?php } ?>><span>2</span>Your Profile</li>
+                <li<?php if ($_GET['p'] == 'nope') { ?> class="current"<?php } ?>><span>3</span>Create Your First Job</li>
+            </ul>
+        <?php } ?>

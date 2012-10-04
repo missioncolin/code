@@ -16,7 +16,7 @@ $newQnr = false;
 $quipp->js['footer'][] = "/includes/apps/jobs-manager/js/jobs-manager.js";
 
 if (!empty($_POST)) {
-    if (isset($_POST['RQvalALPHTitle'], $_POST['RQvalWEBSLink'], $_POST['RQvalDATEDate_Posted'], $_POST['RQvalNUMBQuestionnaire'])) {
+    if (isset($_POST['RQvalALPHTitle'], $_POST['OPvalWEBSLink'], $_POST['RQvalDATEDate_Posted'], $_POST['RQvalNUMBQuestionnaire'])) {
         
         if (!validate_form($_POST)) {
             $error = $message;        
@@ -115,7 +115,7 @@ if ($edit == true && !isset($_GET['id'])) {
     if (!empty($_POST)) {
         
         $title           = (isset($_POST['RQvalALPHTitle'])) ? $_POST['RQvalALPHTitle'] : $title;
-        $link            = (isset($_POST['RQvalWEBSLink'])) ? $_POST['RQvalWEBSLink'] : $link;
+        $link            = (isset($_POST['OPvalWEBSLink'])) ? $_POST['OPvalWEBSLink'] : $link;
         $datePosted      = (isset($_POST['RQvalDATEDate_Posted'])) ? $_POST['RQvalDATEDate_Posted'] : $datePosted;
         $dateExpires     = (isset($_POST['RQvalDATEDate_Expires'])) ? $_POST['RQvalDATEDate_Expires'] : $dateExpires;
         $questionnaireID = (isset($_POST['RQvalNUMBQuestionnaire'])) ? $_POST['RQvalNUMBQuestionnaire'] : $questionnaireID;    
@@ -154,10 +154,12 @@ if (empty($questionnaires)) {
                     <td width="30%"><label for="title">Job Title</label></td>
                     <td><input type="text" name="RQvalALPHTitle" id="title" placeholder="Job Title" value="<?php echo $title; ?>"  required/></td>
                 </tr>
-                <tr>
+             <!--   <tr>
                     <td><label for="link">Job Link</label></td>
-                    <td><input type="url" name="RQvalWEBSLink" id="link" placeholder="http://monster.com/jobid" value="<?php echo $link; ?>"  required/></td>
+                    <td><input type="url" name="OPvalWEBSLink" id="link" placeholder="http://monster.com/jobid" value="<?php echo $link; ?>"  required/></td>
                 </tr>
+               
+              --> 
                 <tr>
                     <td><label for="questionnaire">Questionnaire</label></td>
                     <td>
@@ -181,6 +183,10 @@ if (empty($questionnaires)) {
                 </tr>
             </tbody>
         </table>
+        
+        <?php if(!isset($link)) { $link = "http://www.example.com"; } ?>
+        
+        <input type="hidden" name="OPvalWEBSLink" id="link" placeholder="http://monster.com/jobid" value="<?php echo $link; ?>" />
         <input type="hidden" name="RQvalDATEDate_Posted" value="<?php echo $datePosted; ?>"/>
         <input type="hidden" name="id" value="<?php echo (isset($_GET['id']) && $edit == true) ? (int)$_GET['id'] : 0; ?>" />
         <input type="submit" value="<?php echo ($edit == true) ? 'Edit' : 'Create &amp; Continue'; ?>" class="btn green" />
