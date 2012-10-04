@@ -2,12 +2,14 @@
 
 global $quipp;
 
-require dirname(dirname(__DIR__)) . '/jobs-manager/JobManager.php';
-require dirname(__DIR__) . '/Questionnaire.php';
+require_once dirname(dirname(__DIR__)) . '/jobs-manager/JobManager.php';
+require_once dirname(__DIR__) . '/Questionnaire.php';
 
-$j = new JobManager($db, $_SESSION['userID']);
+if (!isset($j) || !$j INSTANCEOF JobManager){
+    $j = new JobManager($db, $_SESSION['userID']);
+}
 
-list($title, $link, $dateExpires, $datePosted, $questionnaireID, $status) = $j->getJob($_GET['job']);
+list($title, $link, $dateExpires, $datePosted, $questionnaireID, $status, $companyID) = $j->getJob($_GET['job']);
 
 if (time() < strtotime($datePosted) || $status == 'inactive') {
     $quipp->js['onload'] .= 'alertBox("fail", "No job found");';

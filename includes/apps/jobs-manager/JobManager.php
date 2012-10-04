@@ -96,14 +96,13 @@ class JobManager {
         return true;
     }
     
-    
     /**
      * Get the job details
      * @param int jobID
      * @return array
      */
     public function getJob($jobID) {
-        $qry = sprintf("SELECT title, link, dateExpires, datePosted, questionnaireID, sysStatus FROM tblJobs WHERE itemID='%d' AND sysOpen='1'", (int)$jobID);
+        $qry = sprintf("SELECT title, link, dateExpires, datePosted, questionnaireID, sysStatus, userID FROM tblJobs WHERE itemID='%d' AND sysOpen='1'", (int)$jobID);
         $res = $this->db->query($qry);
        
         
