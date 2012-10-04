@@ -57,10 +57,7 @@ function alertBox(liClass, message){
         else{
             var liAlert = document.createElement('li');
             liAlert.className = "alert "+liClass;
-            var liSp = document.createElement('span');
-            var liTxt = document.createTextNode(message);
-            liAlert.appendChild(liSp);
-            liAlert.appendChild(liTxt);
+            liAlert.innerHTML = '<span></span>'+message;
             document.getElementById('steps').appendChild(liAlert);
         }
         $('#steps').removeClass('hide');
