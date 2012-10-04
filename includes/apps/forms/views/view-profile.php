@@ -7,7 +7,7 @@ if ($this INSTANCEOF Quipp && isset($_SESSION['userID'])){
     $groups = $frms->getUserGroups();
     
     $hrManager = false;
-    if (isset($groups[1]) && in_array('hr-managers', $groups[1])){
+    if ((isset($groups[1]) && in_array('hr-managers', $groups[1])) || in_array('hr-managers', $groups[0])){
         $hrManager = true;
     }
 }

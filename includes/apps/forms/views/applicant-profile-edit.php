@@ -69,9 +69,11 @@ if ($this INSTANCEOF Quipp){
 
 <?php
         if (!empty($message)){
-            echo '<div class="error">';
+            echo "<div id='steps' class='errorMessage'>";
+            echo "<div class='fail'><span></span></div>";
+            echo '<div class="padMe">';
             echo "Your account was not updated. The following error(s) occurred: <ul>".$message."</ul>";
-            echo '</div>';
+            echo "</div></div>";
         }
         include_once(__DIR__."/applicant-form-fields.php");
 ?>

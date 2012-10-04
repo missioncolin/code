@@ -57,6 +57,18 @@ if ($this->info['systemName'] == 'edit-job') {
    $edit = true;
 }
 
+if (isset($_GET['step'])) {
+        
+    switch($_GET['step']) {
+        
+        case '1':
+            echo alert_box('Create a new job below providing a job title and link to where the job posting can be found. Also, you have an option to use a questionnaire that has already been created or the option to create a new questionnaire, specific to this job.', 3);
+            break;
+        
+    }
+    
+}
+
 
 if ($edit == true && !isset($_GET['id'])) {
 
