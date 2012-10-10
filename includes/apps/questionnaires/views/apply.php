@@ -62,16 +62,16 @@ if (time() < strtotime($datePosted) || $status == 'inactive') {
             <dt>Links</dt>
             <dd id="links"><?php 
                 if (!empty($website)){
-                    echo '<a class="icon blog" href="' . $website . '">Website or Blog</a> ';
+                    echo '<a class="icon blog" target="_blank"  href="' . $website . '">Website or Blog</a> ';
                 }
                 if (!empty($fb)){
-                    echo '<a class="icon facebook" href="http://www.facebook.com/' . $fb . '">Facebook</a> ';
+                    echo '<a class="icon facebook" target="_blank"  href="http://www.facebook.com/' . $fb . '">Facebook</a> ';
                 }
                 if (!empty($twitter)){
-                    echo '<a class="icon twitter" href="http://twitter.com/' . $twitter . '">Twitter</a> ';
+                    echo '<a class="icon twitter" target="_blank" href="http://twitter.com/' . $twitter . '">Twitter</a> ';
                 }
                 if (!empty($linkedIn)){
-                    echo '<a class="icon linkedin" href="http://www.linkedin.com/in/' . $linkedIn . '">LinkedIn</a> ';
+                    echo '<a class="icon linkedin" target="_blank"  href="http://www.linkedin.com/in/' . $linkedIn . '">LinkedIn</a> ';
                 }
                
             ?></dd>
