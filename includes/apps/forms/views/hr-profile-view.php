@@ -20,7 +20,7 @@ if ($db->valid($provs)){
 </h3>
 <form>
     <fieldset>
-        <legend>System Username</legend>
+        <legend>Username</legend>
         <input type="text" class="full" placeholder="System Login" value="<?php echo $post["Email"]["value"];?>" disabled="disabled"/>
     </fieldset>
     <fieldset>

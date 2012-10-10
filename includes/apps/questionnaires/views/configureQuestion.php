@@ -150,7 +150,7 @@ if ($this instanceof Quipp) {
         switch($_GET['step']) {
             
             case '2':
-                echo alert_box('During the interview you can add ‘Years of Experience’ questions that your applicant can answer. eg. How many years of experience do you have in Project Management. The applicant will supply this answer using slider controls that you can later filter against.', 3);
+                echo alert_box('On this page you can create a list of skills the job requires.  When the applicant applies they will enter the years of experience they have in each skill. Intervue will use this information to rank applicants.', 3);
                 break;
             case '3':
                 echo alert_box('During the interview you can add multiple Video Response questions. Here you can ask general questions that you would like you applicant to answer via video. eg. What is your five year plan?', 3);
@@ -171,7 +171,7 @@ if ($this instanceof Quipp) {
             $type  = '4';
 
             if (isset($_GET['step']) && $_GET['step'] == '2') {
-                $label = 'How many years of experience do you have in';
+                $label = '';
                 $type  = '3';
             }
             if (isset($_GET['step'])) { ?>
@@ -261,7 +261,7 @@ if ($this instanceof Quipp) {
                 <td></td>
                 <td colspan="2">
                     <div class="submitWrap">
-                        <input type="submit" value="Save<?php if (isset($_GET['step']) && $_GET['step'] == '2') { echo ' &amp; continue'; } ?>" name="configure-question" class="btn" />
+                        <input type="submit" value="Save & Continue<?php if (isset($_GET['step']) && $_GET['step'] == '2') { echo ' &amp; continue'; } ?>" name="configure-question" class="btn" />
                         <a name="configure-question" class="btn grey" href="/configure-question?qnrID=<?php echo $_REQUEST['qnrID']; ?>" >Reset</a>
                     </div>
                 </td>

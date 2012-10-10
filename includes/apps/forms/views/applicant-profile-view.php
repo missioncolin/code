@@ -9,7 +9,7 @@ $grav_url = "http://www.gravatar.com/avatar/" . md5(strtolower(trim($post["Email
 <h3 id="applicantProfileEdit"><div class="imgWrap"><img src="<?php echo $grav_url;?>" alt="avatar" width="80px" height="80px" /></div><?php echo $post["First_Name"]["value"]." ".$post["Last_Name"]["value"];?><a href="/profile/edit">Edit Profile</a></h3>
 <form>
     <fieldset>
-        <legend>System Username</legend>
+        <legend>Username</legend>
         <input type="text" class="full" placeholder="System Login" value="<?php echo $post["Email"]["value"];?>" disabled="disabled"/>
     </fieldset>
     <fieldset>
