@@ -31,7 +31,7 @@ if (isset($_GET['req']) && preg_match('%^reactivate[\s\+](\d+)$%', $_GET['req'],
     
     <a href="/create-job?step=1" class="btn green newJob">Add a New Job</a>
     <a href="/buy-job-credits" class="btn green buyCredits">Buy Job Credits</a>
-    <table>
+    <table class="simpleTable jobTable">
         <tr>
             <th colspan="5">Job Title</th>
         </tr>

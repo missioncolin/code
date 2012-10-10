@@ -79,7 +79,7 @@ if ($_GET['mode'] == 'logout') {
                         
                     </div>
                     <div>
-                        Don't have an account? <a href="/applicant-signup<?php echo (isset($_GET['cf'])) ? '?cf=' . urlencode($_GET['cf']) : ''; ?>">Register now</a>
+                        Don't have an account? <a href="/hr-signup<?php echo (isset($_GET['cf'])) ? '?cf=' . urlencode($_GET['cf']) : ''; ?>">Register now</a>
                     </div>
             </form>
         </div>
