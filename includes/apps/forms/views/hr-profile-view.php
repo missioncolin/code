@@ -24,7 +24,7 @@ if ($db->valid($provs)){
         <input type="text" class="full" placeholder="System Login" value="<?php echo $post["Email"]["value"];?>" disabled="disabled"/>
     </fieldset>
     <fieldset>
-        <legend>Hiring Manager</legend>
+        <legend>Contact Information</legend>
         <label for="First_Name">First Name</label>
         <input type="text" value="<?php echo $post["First_Name"]["value"];?>" disabled="disabled" />
         <label for="Last_Name">Last Name</label>

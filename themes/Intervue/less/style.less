@@ -485,12 +485,14 @@ td {
 
 @base: #828282;
 @base2: #212123;
+@base3: #525252;
 
 @accent: #34b0e4;
 @accent2: #8cc63e;
 @accent3: #ca2626;
 
 @borders: #d8d8d8;
+@darkBorders: #848484;
 
 /* =============================================================================
    Basics
@@ -498,7 +500,7 @@ td {
    
 body {
     background: url(img/bg.jpg) repeat;
-    color: @base;
+    color: @base3;
     font-size: 16px;
     line-height: 26px;
     font-family: "freight-sans-pro",sans-serif;
@@ -751,7 +753,7 @@ nav a:hover {
 #banner li {
     display: block;
     float: right;
-    border: 1px solid #848484;
+    border: 1px solid @darkBorders;
     background: #FFF;
     .border-radius(3px);
     width: 245px;
@@ -1023,6 +1025,30 @@ a:hover.btn.red, input:hover.btn.red {
     margin-left: 10px;
 }
 
+.activate.btn { width: 54px; }
+
+
+a.btn2 {
+	text-align: center;
+    color: #FFF;
+    font-size: 14px;
+    font-family: "freight-sans-pro",sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    text-transform: uppercase;
+    padding: 2px 10px;
+    .border-radius(30px);
+    display: inline-block;
+    text-decoration: none;
+    background: @accent;
+    .transition(all, 0.3s, linear);
+    border: none;
+    line-height: 24px;
+}
+a.btn2.green {
+	background: @accent2;
+}
+
 /*Datepicker-------------------------------------------------------------------- */
 
 .ui-datepicker {
@@ -1032,7 +1058,7 @@ a:hover.btn.red, input:hover.btn.red {
 /*Box-------------------------------------------------------------------------- */
 
 .box {
-    border: 1px solid #B7B7B7;
+    border: 1px solid @darkBorders;
     background: #FFF;
     .border-radius(3px);
     .box-shadow(1px, 1px, 5px, rgba(0,0,0,0.2));
@@ -1059,7 +1085,7 @@ a:hover.btn.red, input:hover.btn.red {
 #card li {
     margin: 0;
     padding: 15px 15px 10px;
-    border-top: 1px solid @borders;
+    border-top: 1px solid @darkBorders;
     float: none;
 }
 
@@ -1083,7 +1109,7 @@ form fieldset {
     width: 100%;
     background: #FFF;
     .border-radius(3px);
-    border: 1px solid #848484;
+    border: 1px solid @darkBorders;
     .box-shadow(1px, 1px, 5px, rgba(0,0,0,0.2));
     margin: 10px 0;
 }
@@ -1098,7 +1124,7 @@ form fieldset legend {
     .box-sizing();
     .border-radius(3px 3px 0 0);
     float: left;
-    border-bottom: 1px solid #848484;
+    border-bottom: 1px solid @darkBorders;
 }
 
 form fieldset label {
@@ -1113,9 +1139,9 @@ form fieldset textarea,
 form fieldset .select {
     background: #FFF;
     border: none;
-    border-bottom: 1px solid @borders;
+    border-bottom: 1px solid @darkBorders;
     font-size: 16px;
-    color: @base;
+    color: @base3;
     font-family: "freight-sans-pro",sans-serif;
     font-style: normal;
     font-weight: 400;
@@ -1155,7 +1181,8 @@ form fieldset input.bottom, form fieldset textarea.bottom, form fieldset div.sel
 }
 
 #profileEdit .fifty form fieldset input.bottom, #profileEdit .fifty form fieldset textarea.bottom, #profileEdit .fifty form fieldset div.select.bottom {
-    border-bottom: 1px solid @borders;
+    border-bottom: 1px solid @darkBorders;
+    .border-radius(0);
 }
 
 form fieldset input.left { 
@@ -1173,7 +1200,7 @@ form input[type="url"],
 form textarea {
     background: #FFF;
     border: none;
-    border: 1px solid @borders;
+    border: 1px solid @darkBorders;
     font-size: 16px;
     color: @base;
     font-family: "freight-sans-pro",sans-serif;
@@ -1406,13 +1433,13 @@ td {
     padding: 40px 0;
     font-size: 18px;
     line-height: 24px;
-    border-right: 1px solid #848484;
-    border-bottom: 1px solid #848484;
+    border-right: 1px solid @darkBorders;
+    border-bottom: 1px solid @darkBorders;
     position: relative;
 }
 
 td:first-child { 
-    border-left: 1px solid #848484;
+    border-left: 1px solid @darkBorders;
 }
 
 th {
@@ -1530,13 +1557,13 @@ table.simpleTable {
     background: #FFF;
     .box-shadow(0);
     .border-radius(0);
-    border: 1px solid #D8D8D8;
+    border: 1px solid @darkBorders;
     border-collapse: collapse;
 }
 
 table.simpleTable td, table.simpleTable th {
     border: none;
-    border-bottom: 1px solid #D8D8D8;
+    border-bottom: 1px solid @darkBorders;
     padding: 15px;
     font-size: 16px;
     text-align: left;
@@ -1574,7 +1601,7 @@ form table input + input {
 }
 
 /*Invoice*/
-table.simpleTable tr td { border-right: 1px solid #d8d8d8; }
+table.simpleTable tr td { border-right: 1px solid @darkBorders; }
 table.simpleTable tr.subTotal { background-color: #f5f5f5; }
 table.simpleTable tr.tax { background-color: #fafafa;  }
 table.simpleTable tr.finalTotal, table.simpleTable tr.subTotal:hover, table.simpleTable tr.tax:hover { background-color: lighten(@accent, 41%); }
@@ -1843,7 +1870,7 @@ table.simpleTable td.total {
 }
 
 #applicantProfile ul .imgWrap {
-    border: 1px solid #848484;
+    border: 1px solid @darkBorders;
     background: #FFF;
     .border-radius(3px);
     .box-shadow(1px, 1px, 5px, rgba(0,0,0,0.2));
@@ -1928,10 +1955,10 @@ table.simpleTable td.total {
 	float: left;
 	width: 94%;
 	background: #FFF;
-	color: @base;
+	color: @base3;
 	padding: 15px;
 	margin: 22px 0 10px;
-	border: 1px solid #B7B7B7;
+	border: 1px solid @darkBorders;
     .box-shadow(1px, 1px, 5px, rgba(0,0,0,0.2));
 }
 #profileEdit #form h3 img {
@@ -2012,7 +2039,7 @@ a.createAJobCallout:hover {
 }
 .leftColumn article {
 	float: left;
-	border: 1px solid #B7B7B7;
+	border: 1px solid @darkBorders;
 	.border-radius;
 	margin-bottom: 20px;
 }
@@ -2064,7 +2091,7 @@ a.createAJobCallout:hover {
 }
 
 .customfile-feedback {
-    border: 1px solid #848484;
+    border: 1px solid @darkBorders;
     background: #FFF;
     .border-radius(3px);
     .box-shadow(1px, 1px, 5px, rgba(0,0,0,0.2));

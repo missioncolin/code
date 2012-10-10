@@ -71,7 +71,7 @@ $quipp->js['footer'][] = "/includes/apps/jobs-manager/js/jobs-manager.js";
     
     <div id="submissions">
         <div id="toolbar">
-            <a class="left" href="applicant-list?job=<?php echo $application['jobID']; ?>">Back to List</a>
+            <a class="left btn2" href="applicant-list?job=<?php echo $application['jobID']; ?>">Back to List</a>
             <h4><span>Reviewing: </span><?php echo $applicant->info['First Name']." " . $applicant->info['Last Name'];?></h4>
             <span class="right">
                 
@@ -91,7 +91,7 @@ $quipp->js['footer'][] = "/includes/apps/jobs-manager/js/jobs-manager.js";
                 }
                             
                 ?>
-                <?php if ($prev != '') { ?><a href="/applications-detail?application=<?php echo $prev['itemID']; ?>">Prev</a><?php } if ($prev != '' && $next != '') { ?> // <?php } if ($next != '') { ?> <a href="/applications-detail?application=<?php echo $next['itemID']; ?>">Next</a><?php } ?>
+                <?php if ($prev != '') { ?><a href="/applications-detail?application=<?php echo $prev['itemID']; ?>" class="btn2 green">Prev</a><?php } if ($prev != '' && $next != '') { ?><?php } if ($next != '') { ?> <a href="/applications-detail?application=<?php echo $next['itemID']; ?>" class="btn2 green">Next</a><?php } ?>
             </span>
         </div>
         
