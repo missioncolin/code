@@ -45,23 +45,18 @@ $(document).ready(function() {
     
     $('#steps').not(':has(li)').addClass('hide');
     
-    $('body').keyup(function(e) {
+    $('body#configure-question').keyup(function(e) {
 	    console.log('keyup called');
 	    var code = e.keyCode || e.which;
-	    if (code == '9') {
-	    alert('Tab pressed');
+	    if (code == '9') { 
+	       var count = +$('a.add').last().data('count') + 1;
+	       var label = $('a.add').last().data('label');      
+            $('<tr><td><label>' + label + '</label></td><td colspan="2"><input size="75" type="text" name="RQvalALPHQuestions[]" id="RQvalALPHQuestion_' + count + '" value="" /> <a href="#" data-count="' + count + '" data-label="' + label + '" class="add">Add</a></td></tr>').insertAfter($('a.add').last().parent().parent());
+            $('a.add').first().remove();
+            $('input:text').last().focus();
+            return false;
 	    }
     });
-    $('a.add').keydown(function(e) {
-	   console.log('keyup called');
-	   var code = e.keyCode || e.which;
-	   if (code == '9') {
-	     alert('Tab pressed');
-	
-	   return false;
-	   }
-
-   });
     
 });
 function alertBox(liClass, message){
