@@ -74,6 +74,8 @@ if ($this instanceof Quipp) {
                 header("Location: /configure-question?step=3&qnrID=".$_GET['qnrID']);
             } elseif (isset($_GET['step']) && $_GET['step'] == '3') {
                 header("Location: /applications");
+                //rediect to confirmation page and explanation page instead
+               // header("Location: /questionnaire-complete?qnrID=".$_GET['qnrID']);
             } else {
                 header("Location: /questionnaires?qnrID=".$_GET['qnrID']);
 
@@ -164,9 +166,12 @@ if ($this instanceof Quipp) {
     <h4>Questionnaire: <?php echo $qnr['label']; ?></h4>
     <form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post">
         <table id="configure" class="simpleTable">
-            <tr><th colspan="3">Enter Your Questions</th></tr>
-            
-            <?php   
+            <?php 
+            if (isset($_GET['step']) && $_GET['step'] == 2){
+            	 echo "<tr><th colspan=\"3\">Please Enter The Required Skills You Are Looking For</th></tr>";
+            }else{
+               echo "<tr><th colspan=\"3\">Enter Your Questions</th></tr>";
+            }
             $label = 'Question';
             $type  = '4';
 
@@ -261,7 +266,7 @@ if ($this instanceof Quipp) {
                 <td></td>
                 <td colspan="2">
                     <div class="submitWrap">
-                        <input type="submit" value="Save<?php if (isset($_GET['step']) && $_GET['step'] == '2') { echo ' &amp; continue'; } ?>" name="configure-question" class="btn" />
+                        <input type="submit" value="Save<?php if (isset($_GET['step']) && ($_GET['step'] == '2' || $_GET['step'] == '3')) { echo ' &amp; continue'; } ?>" name="configure-question" class="btn" />
                         <a name="configure-question" class="btn grey" href="/configure-question?qnrID=<?php echo $_REQUEST['qnrID']; ?>" >Reset</a>
                     </div>
                 </td>

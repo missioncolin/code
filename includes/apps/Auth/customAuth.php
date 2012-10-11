@@ -4,7 +4,7 @@
 */
 class customAuth extends Auth{
     
-    public function login($username, $password)
+    public function login($username, $password, $newRegistration = false)
 	{
 		$cf = '';
 		if (isset($_GET['cf'])) {
@@ -86,9 +86,13 @@ class customAuth extends Auth{
 				    //here re-direct based on user group
 				    switch ($RS['usrGroup']){
     				    case "applicants":
-    				        header("Location:http://". $_SERVER['SERVER_NAME'] . "/profile");
-    				        die('Redirecting (applicant good, no cf)...');
-    				        
+    				    	 if ($newRegistration == false){
+    				        	header("Location:http://". $_SERVER['SERVER_NAME'] . "/profile");
+    				        	die('Redirecting (applicant good, no cf)...');
+    				        }else{
+	    				       header("Location:http://". $_SERVER['SERVER_NAME'] . "/profile?created=true");
+    				        	die('Redirecting (applicant good, no cf)...');
+    				        }
     				        break;
     				    case "hr-managers":
     				        header("Location:http://". $_SERVER['SERVER_NAME'] . "/profile");

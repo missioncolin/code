@@ -28,6 +28,9 @@ if (!empty($groups)){
     if (!empty($groups)){
         foreach($groups as $group){
             if ($group["nameSystem"] == 'applicants'){
+            	  if (isset($_GET['created']) && $_GET['created'] == true){
+            	  	//echo alert_box("Thank you for registering, your account has been successfully created.", 1);
+            	  }
                 include_once(__DIR__ ."/applicant-profile-view.php");
                 $profile = true;
                 break;
