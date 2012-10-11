@@ -8,9 +8,9 @@ $(function () {
             job: $jobID
         }, function () {
             if ($this.hasClass('grey')) {
-                $this.addClass('black').removeClass('grey').html('Remove');
+                $this.addClass('black').removeClass('grey').html('Live - Un-Publish');
             } else {
-                $this.addClass('grey').removeClass('black').html('Publish');
+                $this.addClass('grey').removeClass('black').html('Not Live - Publish');
             }
         });
         return false;
@@ -87,7 +87,7 @@ $(function () {
                         var actTD = domTR[parTR].getElementsByTagName('td');
                         
                         parTD.attr('colspan','1');
-                        $('a', parTD).removeClass('green').removeClass('reactivate').addClass('black').addClass('activate').html('Remove');
+                        $('a', parTD).removeClass('green').removeClass('reactivate').addClass('black').addClass('activate').html('Live - Un-Publish');
                         
                         var tdLink = document.createElement('td');
                         var linkText = document.createTextNode(location.host+"/apply/"+$jobID);

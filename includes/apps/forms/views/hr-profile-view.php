@@ -15,7 +15,16 @@ if ($db->valid($provs)){
 ?>
 <div class="fifty">
 <h3 class="profileViewHeading">
-<img src="/uploads/profiles/<?php echo $_SESSION["userID"];?>/<?php echo $post["Company_Logo"]["value"];?>" alt="Company Logo" height="80px" width="auto" /><span><?php echo $post["Company_Name"]["value"];?></span>
+
+<?php
+	$logoFile = "/uploads/profiles/" . $_SESSION["userID"] . "/" . $post["Company_Logo"]["value"];
+
+	if(!file_exists($logoFile)) {
+		$logoFile = "/themes/Intervue/img/hrPlaceholder.jpg";
+	}
+
+?>
+<img src="<?php echo $logoFile; ?>" alt="Company Logo" height="80px" width="auto" /><span><?php echo $post["Company_Name"]["value"];?></span>
 <a href="/profile/edit">Edit Profile</a>
 </h3>
 <form>
