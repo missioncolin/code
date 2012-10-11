@@ -266,11 +266,9 @@ if ($this instanceof Quipp) {
                 <td></td>
                 <td colspan="2">
                     <div class="submitWrap">
-<<<<<<< HEAD
-                        <input type="submit" value="Save & Continue<?php if (isset($_GET['step']) && $_GET['step'] == '2') { echo ' &amp; continue'; } ?>" name="configure-question" class="btn" />
-=======
+
                         <input type="submit" value="Save<?php if (isset($_GET['step']) && ($_GET['step'] == '2' || $_GET['step'] == '3')) { echo ' &amp; continue'; } ?>" name="configure-question" class="btn" />
->>>>>>> refs/heads/checklist-fixes
+
                         <a name="configure-question" class="btn grey" href="/configure-question?qnrID=<?php echo $_REQUEST['qnrID']; ?>" >Reset</a>
                     </div>
                 </td>
