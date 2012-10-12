@@ -270,11 +270,9 @@ if ($this instanceof Quipp) {
                 <?php } ?>
                 <td colspan="2">
                     <div class="submitWrap">
-
+                    	<a name="configure-question" class="btn grey" href="/configure-question?qnrID=<?php echo $_REQUEST['qnrID']; ?>" >Reset</a>
                         <input type="submit" value="Save<?php if (isset($_GET['step']) && ($_GET['step'] == '2' || $_GET['step'] == '3')) { echo ' &amp; continue'; } ?>" name="configure-question" class="btn" />
-
-                        <a name="configure-question" class="btn grey" href="/configure-question?qnrID=<?php echo $_REQUEST['qnrID']; ?>" >Reset</a>
-                    </div>
+                  </div>
                 </td>
             </tr>
         </table>
