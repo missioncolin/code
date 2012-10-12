@@ -51,9 +51,9 @@ $(function () {
     var successPopUp = function() {
         var $jobID = $(this).data('job');
         var $this = $(this);
-        var link = $('table tr:nth-child(2) td:nth-child(2)').text();
+        var link = $('.newJob').text();
         $('.popUp').addClass('success');
-        confirmAction("Your Job Has Been Created!", "Use this link to send potential applicants to your job: <br /><strong><a href='" + link + "' target='_blank'>" + link + "</a></strong>");
+        confirmAction("Your Job Has Been Created!", "Use this link to send applicants to your job: <br /><strong><a href='" + link + "' target='_blank'>" + link + "</a></strong>");
         $('.popUp #popUpNo').hide();
         $('.popUp #popUpOk').on('click', function() {
             clearPopUp();
