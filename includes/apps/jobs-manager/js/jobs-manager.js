@@ -62,7 +62,7 @@ $(function () {
         });
     }
     
-    if ($('table tr:nth-child(2) td:nth-child(2)').length) {
+    if ($('.newJobAlert').length) {
         successPopUp();
     }
     
