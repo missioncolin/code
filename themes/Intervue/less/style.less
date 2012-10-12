@@ -1031,12 +1031,12 @@ a:hover.btn.red, input:hover.btn.red {
 a.btn2 {
 	text-align: center;
     color: #FFF;
-    font-size: 14px;
+    font-size: 12px;
     font-family: "freight-sans-pro",sans-serif;
     font-style: normal;
     font-weight: 600;
     text-transform: uppercase;
-    padding: 2px 10px;
+    padding: 3px 15px;
     .border-radius(30px);
     display: inline-block;
     text-decoration: none;
@@ -1045,8 +1045,17 @@ a.btn2 {
     border: none;
     line-height: 24px;
 }
+
+a:hover.btn2, input:hover.btn2 {
+    background: darken(@accent, 10%);
+}
+
 a.btn2.green {
 	background: @accent2;
+}
+
+a:hover.btn2.green, input:hover.btn2.green {
+    background: darken(@accent2, 10%);
 }
 
 /*Datepicker-------------------------------------------------------------------- */
@@ -2254,7 +2263,25 @@ a.createAJobCallout:hover {
     z-index: 99;
 }
 
-#creditCardForm {
+#whatAreYouBuying {
+    background: #FFF;
+    border: 1px solid darken(@borders, 10%);
+    .border-radius(3px);
+    width: 60%;
+    padding: 20px;
+    .box-sizing();
+    color: @base; 
+    .box-shadow(0, 1px, 3px, rgba(0,0,0,0.1));
+    margin: 0 auto 30px;
+    clear: both;
+    font-size: 18px;
+}
+
+#whatAreYouBuying strong {
+    color: @accent;
+}
+
+.creditCardForm {
     background: @accent;
     border: 1px solid darken(@accent, 10%);
     color: #FFF;
@@ -2265,13 +2292,13 @@ a.createAJobCallout:hover {
     padding: 10px 0;
 }
 
-#creditCardForm .heading.form-row {
+.creditCardForm .heading.form-row {
     background: darken(@accent, 10%);
     width: 100%;
     margin-left: 0;
 }
 
-#creditCardForm h4 {
+.creditCardForm h4, #colA .creditCardForm h4 {
     font-size: 22px;
     color: #FFF;
     margin: 20px;
@@ -2280,45 +2307,49 @@ a.createAJobCallout:hover {
     width: auto;
 }
 
-#creditCardForm h4 img {
+.creditCardForm h4 img {
     position: absolute;
     right: 0;
     top: -3px;
 }
 
-#creditCardForm .form-row {
+.creditCardForm .form-row {
     width: 40%;
     margin: 10px 0;
     display: inline-block;
     margin-left: 20px;
 }
 
-#creditCardForm label {
+.creditCardForm label {
     font-weight: 600;
     text-transform: uppercase;
 }
 
-form #creditCardForm input[type="text"], 
-form #creditCardForm input[type="email"], 
-form #creditCardForm input[type="password"], 
-form #creditCardForm input[type="url"], 
-form #creditCardForm textarea {
+form .creditCardForm input[type="text"], 
+form .creditCardForm input[type="email"], 
+form .creditCardForm input[type="password"], 
+form .creditCardForm input[type="url"], 
+form .creditCardForm textarea {
     border: 1px solid darken(@accent, 10%);
     .box-shadow(inset 0, 1px, 2px, rgba(0,0,0,0.2));
     width: 100%;
     .box-sizing();
 }
 
-form #creditCardForm input[type="text"]#cvc {
+form .creditCardForm input[type="text"]#cvc {
     width: 50%;
 }
 
-#creditCardForm + .btn {
+.creditCardForm + .btn {
     width: 60%;
     margin: 30px auto 0;
     clear: both;
     display: block;
     font-size: 16px;
+}
+
+.creditCardForm + .creditCardForm {
+    margin-top: 30px;
 }
 
 /*Forgot Password------------------------------------------------------------- */

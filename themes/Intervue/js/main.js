@@ -26,6 +26,8 @@ $(document).ready(function() {
         $(this).addClass('selected').siblings().removeClass('selected');
     });
     
+    $('#credit_1').click();
+    
     $('table.simpleTable td').each(function() {
     	var content = $(this).html();
     	if(content == '&nbsp;') {

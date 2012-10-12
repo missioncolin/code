@@ -72,11 +72,10 @@
         
         ?>
     </script>
+    
+    <div id="whatAreYouBuying">&nbsp;</div>
    
-    <div id="creditCardForm">
-        <div id="whatAreYouBuying" style="padding:10px; text-align:center;">
-        &nbsp;
-        </div>
+    <div class="creditCardForm">
         
         <div class="form-row heading">
             <h4>Billing Details</h4>
@@ -121,6 +120,9 @@
         </div>
   
            </div>
+           
+    </div>
+    <div class="creditCardForm">
         
         
         <div class="form-row heading">
