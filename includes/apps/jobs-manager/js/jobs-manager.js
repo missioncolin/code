@@ -53,7 +53,7 @@ $(function () {
         var $this = $(this);
         var link = $('.newJobAlert').text();
         $('.popUp').addClass('success');
-        confirmAction("Your Job Has Been Created!", "Use this link to send applicants to your job: <br /><strong><a href='" + link + "' target='_blank'>" + link + "</a></strong>");
+        confirmAction("Your Job Has Been Created!", "Use this link to send applicants to your job: <br /><strong><a href='http://" + link + "' target='_blank'>" + link + "</a></strong>");
         $('.popUp #popUpNo').hide();
         $('.popUp #popUpOk').on('click', function() {
             clearPopUp();
