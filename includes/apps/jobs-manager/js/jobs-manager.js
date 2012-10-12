@@ -53,7 +53,7 @@ $(function () {
         var $this = $(this);
         var link = $('.newJobAlert').text();
         $('.popUp').addClass('success');
-        confirmAction("Your Job Has Been Created!", "Use this link to send applicants to your job: <br /><form><input class='jobAlertInput' type='text' value='http://" + link + "' /></form>");
+        confirmAction("Your Job Has Been Created!", "Use this link to send applicants to your job: <br /><form><input class='jobAlertInput' type='text' disabled='disabled' value='http://" + link + "' /></form>");
         $('.jobAlertInput').focus();
         $('.jobAlertInput').select();
         $('.popUp #popUpNo').hide();
