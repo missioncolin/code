@@ -121,7 +121,7 @@ class JobManager {
         
         $jobs = array();
         
-        $qry = sprintf("SELECT itemID, title, link, dateExpires, datePosted, questionnaireID, sysStatus FROM tblJobs WHERE userID='%d' AND sysOpen='1' ORDER BY datePosted DESC LIMIT %d, %d",
+        $qry = sprintf("SELECT itemID, title, link, dateExpires, datePosted, questionnaireID, hasBeenViewed, sysStatus FROM tblJobs WHERE userID='%d' AND sysOpen='1' ORDER BY datePosted DESC LIMIT %d, %d",
             (int)$this->userID,
             $offset,
             $display);

@@ -76,7 +76,9 @@ if (isset($_GET['req']) && preg_match('%^reactivate[\s\+](\d+)$%', $_GET['req'],
                 
                 ?>
             <td><?php 
-                if(ucfirst($job['sysStatus']) == 'Active'){  echo $_SERVER['SERVER_NAME']."/apply/".$jobID; } else { echo "<span class=\"disabledLink\">(You must publish this job to use a link)</span>"; } ?></td>
+            	  if($job['hasBeenViewed'] == 0){ $printClass = " class=\"newJobAlert\""; }else{ $printClass = ""; }
+                if(ucfirst($job['sysStatus']) == 'Active'){  echo "<span ".$printClass.">".$_SERVER['SERVER_NAME']."/apply/".$jobID."</span>"; } else { echo "<span class=\"disabledLink\">(You must publish this job to use a link)</span>"; } ?></td>
+
             <td><a href="#" data-job="<?php echo $jobID; ?>" class="activate btn <?php echo ($job['sysStatus'] == 'active') ? 'black' : 'grey'; ?>"><?php echo $btnLabel; ?></a></td>
             <td><a href="#" data-job="<?php echo $jobID; ?>" class="btn red delete">Delete</a></td>
             <td><a href="/edit-job?id=<?php echo $jobID; ?>" class="btn">Edit</a></td>
