@@ -411,4 +411,15 @@ class JobManager {
 	   } //end if resource
 	   return $qsArr;
     }    
+    
+    public function setJobViewed($jobID){
+	    $setJobViewedQry = "UPDATE tblJobs set hasBeenViewed = 1 WHERE itemID = '".$jobID."'";
+	    $setJobViewedRS = $this->db->query($setJobViewedQry);
+	            
+	    if ($this->db->valid($setJobViewedRS)) {
+		    return true;
+	    }
+	    return false;
+		
+    }
 }

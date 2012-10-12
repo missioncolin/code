@@ -87,6 +87,13 @@ if (isset($_GET['req']) && preg_match('%^reactivate[\s\+](\d+)$%', $_GET['req'],
                 ?>
             </tr>
                 <?php
+                
+                //set hasBeenViewed to 1 if(hasBeenViewed == 0)
+                if ($job['hasBeenViewed'] == 0){
+	                $j->setJobViewed($jobID);
+                }
+                
+                
             }
             
         }
