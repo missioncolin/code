@@ -30,7 +30,7 @@ $('.add').live('click', function() {
     $count = +$(this).data('count') + 1;
     $label = $(this).data('label');
     
-    $('<tr><td><label>' + $label + '</label></td><td colspan="2"><input size="75" type="text" name="RQvalALPHQuestions[]" id="RQvalALPHQuestion_' + $count + '" value="" /> <a href="#" data-count="' + $count + '" data-label="' + $label + '" class="add">Add</a></td></tr>').insertAfter($(this).parent().parent());
+    $('<tr><td colspan="2"><input size="75" type="text" name="RQvalALPHQuestions[]" id="RQvalALPHQuestion_' + $count + '" value="" /> <a href="#" data-count="' + $count + '" data-label="' + $label + '" class="add">Add Another Question</a></td></tr>').insertAfter($(this).parent().parent());
     $(this).remove();
     return false;
 });
