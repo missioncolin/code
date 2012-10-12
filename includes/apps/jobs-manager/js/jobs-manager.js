@@ -48,6 +48,24 @@ $(function () {
         });
     }); 
     
+    var successPopUp = function() {
+        var $jobID = $(this).data('job');
+        var $this = $(this);
+        var link = $('table tr:nth-child(2) td:nth-child(2)').text();
+        $('.popUp').addClass('success');
+        confirmAction("Your Job Has Been Created!", "Use this link to send potential applicants to your job: <br /><strong><a href='" + link + "' target='_blank'>" + link + "</a></strong>");
+        $('.popUp #popUpNo').hide();
+        $('.popUp #popUpOk').on('click', function() {
+            clearPopUp();
+            $('.popUp #popUpNo').show();
+            $('.popUp').removeClass('success');
+        });
+    }
+    
+    if ($('table tr:nth-child(2) td:nth-child(2)').length) {
+        successPopUp();
+    }
+    
     $('#jobManagerEdit #questionnaire').change(function(){
         $('#newQuestionnaire').val('');
         
