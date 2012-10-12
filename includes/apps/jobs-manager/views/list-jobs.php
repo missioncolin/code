@@ -58,7 +58,7 @@ if (isset($_GET['req']) && preg_match('%^reactivate[\s\+](\d+)$%', $_GET['req'],
                 
 ?>
             <tr>
-                <td width="20%"><strong>
+                <td><strong>
                 
                 
                 <a href="/applicant-list?job=<?php echo $jobID; ?>"><?php echo $job['title']; ?></a></strong><?php echo $verbiage; ?></td>
