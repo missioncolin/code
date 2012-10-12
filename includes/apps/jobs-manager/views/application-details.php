@@ -51,7 +51,7 @@ $quipp->js['footer'][] = "/includes/apps/jobs-manager/js/jobs-manager.js";
                 }
                 //linkedin
                 if (isset($applicant->info['LinkedIn Username']) && (strlen($applicant->info['LinkedIn Username']) > 0)){
-                    echo '<a class="icon linkedin" target="_blank"  href="http://www.linkedin.com/in/' . $applicant->info['LinkedIn Username'] . '">LinkedIn</a> ';
+                    echo '<a class="icon linkedIn" target="_blank"  href="http://www.linkedin.com/in/' . $applicant->info['LinkedIn Username'] . '">LinkedIn</a> ';
                     $suppliedLinks = true;
                 }
                 
