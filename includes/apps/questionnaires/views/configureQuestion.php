@@ -181,7 +181,7 @@ if ($this instanceof Quipp) {
             }
             if (isset($_GET['step'])) { ?>
             <tr>
-                <td><label><?php echo $label; ?></label></td>
+                <!-- <td><label><?php echo $label; ?></label></td> -->
                 <td colspan="2">
                     <input size="75" type="text" name="RQvalALPHQuestions[]" id="RQvalALPHQuestion_1" value="<?php echo (isset($_POST['RQvalALPHQuestion'][0])) ? $_POST['RQvalALPHQuestion'][0] : ''; ?>" /> <a href="#" data-count="1" data-label="<?php echo $label; ?>" class="add">Add Another Question</a>
                     <input type="hidden" id="RQvalNUMBType" name="RQvalNUMBType" value="<?php echo $type; ?>" />
@@ -263,7 +263,11 @@ if ($this instanceof Quipp) {
             */ ?>
             <?php } ?>
             <tr>
+                <?php if (isset($_GET['step'])) { ?>
+                <!-- <td></td> -->
+                <?php } else { ?>
                 <td></td>
+                <?php } ?>
                 <td colspan="2">
                     <div class="submitWrap">
 
