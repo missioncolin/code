@@ -47,6 +47,29 @@ class Questionnaire
         return $questionnaires;
     }
     
+        /**
+     * Get an array of the current users questionnaires
+     * @param int userID
+     * @return array
+     */
+    public function getProfileQuestionnaires($userID = 0, $count = 3) {
+        
+        $userID = ($userID == 0) ? $_SESSION['userID'] : $userID;
+                
+        $qry = sprintf("SELECT * FROM tblQuestionnaires WHERE hrUserID = '%d' AND sysOpen = '1' AND sysActive = '1' LIMIT 0,%d", (int) $userID, $count);
+        $res = $this->db->query($qry);
+        
+        $questionnaires = array();
+        if ($this->db->valid($res) && $this->db->num_rows($res) > 0) {
+            while ($q = $this->db->fetch_assoc($res)) {
+                $questionnaires[$q['itemID']] = $q;
+                $questionnaires[$q['itemID']]['questions'] = $this->getQuestions($q['itemID']);
+            }
+        }
+        
+        return $questionnaires;
+    }
+    
     
     /**
      * Get the details of a questionnaire

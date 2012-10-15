@@ -52,9 +52,17 @@ if (!empty($groups)){
 </div>
 </section>
 
-<div class="leftColumn">
+<div class="leftColumn"> 
+	<?php
+	include_once(dirname(dirname(__DIR__)) ."/jobs-manager/views/profile-job-widget.php");
+	echo "<div>&nbsp;</div>";
+	include_once(dirname(dirname(__DIR__)) ."/questionnaires/views/profileQuestionnaireWidget.php");
+	?>
+</div>
+
+<!--<div class="leftColumn">
     <?php
-    if ($hrManager === true){
+    //if ($hrManager === true){
         ?>
 	<article>
 		<a href="/applications">
@@ -67,6 +75,6 @@ if (!empty($groups)){
 		Create Questions</a>
 	</article>
 <?php
-    }
+   // }
 ?>
-</div>
+</div> --> 
