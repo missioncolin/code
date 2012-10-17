@@ -27,8 +27,12 @@ if (isset($_GET['req']) && preg_match('%^reactivate[\s\+](\d+)$%', $_GET['req'],
 
 
 ?>
+
+<div class="pagination top">
+        <?php echo pagination($total, $display, $page, '/applications?page=', false); ?>
+ </div>
 <section id="hrListJobs">
-    
+     
     <a href="/create-job?step=1" class="btn green newJob">Create a New Job</a>
     <a href="/buy-job-credits" class="btn green buyCredits">Buy Job Credits</a>
     <table class="simpleTable jobTable">

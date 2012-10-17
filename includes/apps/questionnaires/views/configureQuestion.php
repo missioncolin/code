@@ -176,21 +176,21 @@ if ($this instanceof Quipp) {
             $type  = '4';
 
             if (isset($_GET['step']) && $_GET['step'] == '2') {
-                $label = '';
+                $label = 'How many years experience&hellip;';
                 $type  = '3';
             }
             if (isset($_GET['step'])) { ?>
             <tr>
-                <!-- <td><label><?php echo $label; ?></label></td> -->
+                <td><label><?php echo $label; ?></label></td> 
                 <td colspan="2">
-                    <input size="75" type="text" name="RQvalALPHQuestions[]" id="RQvalALPHQuestion_1" value="<?php echo (isset($_POST['RQvalALPHQuestion'][0])) ? $_POST['RQvalALPHQuestion'][0] : ''; ?>" /> <a href="#" data-count="1" data-label="<?php echo $label; ?>" class="add">Add Another Question</a>
+                    <input size="75" type="text" name="RQvalALPHQuestions[]" id="RQvalALPHQuestion_1" placeholder="Required Skill" value="<?php echo (isset($_POST['RQvalALPHQuestion'][0])) ? $_POST['RQvalALPHQuestion'][0] : ''; ?>" /> <a href="#" data-count="1" data-label="<?php echo $label; ?>" class="add">Add Another Question</a>
                     <input type="hidden" id="RQvalNUMBType" name="RQvalNUMBType" value="<?php echo $type; ?>" />
                 </td>
             </tr>
             <?php } else { ?>
             <tr>
                 <td><label>Question</label></td>
-                <td colspan="2"><input size="80" type="text" name="RQvalALPHQuestion" id="RQvalALPHQuestion" value="<?php echo (isset($_POST['RQvalALPHQuestion'])) ? $_POST['RQvalALPHQuestion'] : ''; ?>" /></td>
+                <td colspan="2"><input size="80" type="text" name="RQvalALPHQuestion" id="RQvalALPHQuestion" value="<?php echo (isset($_POST['RQvalALPHQuestion'])) ? $_POST['RQvalALPHQuestion'] : ''; ?>" /	></td>
             </tr>
 
             <tr>

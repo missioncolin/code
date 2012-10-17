@@ -76,7 +76,7 @@
             <?php if (isset($_GET['step'])) { ?>
             <li<?php if ($_GET['step'] == '1') { ?> class="current"<?php } ?>><span>1</span>Create a Job</li>
             <li<?php if ($_GET['step'] == '2') { ?> class="current"<?php } ?>><span>2</span>Add Years of Experience Questions</li>
-            <li<?php if ($_GET['step'] == '3') { ?> class="current"<?php } ?>><span>3</span>Video Responses</li>
+            <li<?php if ($_GET['step'] == '3') { ?> class="current"<?php } ?>><span>3</span>Add Intervue Questions</li>
             <li<?php if ($_GET['step'] == '4') { ?> class="current"<?php } ?>><span>4</span>Complete</li>
             <?php } ?>
         </ul>
