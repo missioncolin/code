@@ -4,17 +4,17 @@
     <li>
         <h2>$<?php echo $db->return_specific_item(false, 'tblJobCreditsPricing', 'price', "199", '`credits` = 1');?></h2>
         <h5>1 Job</h5>
-        <p><a class="btn" href="#">Buy Now</a></p>
+        <p><a class="btn" href="/buy-job-credits">Buy Now</a></p>
     </li>
     <li>
         <h2>$<?php echo $db->return_specific_item(false, 'tblJobCreditsPricing', 'price', "550", '`credits` = 3');?></h2>
         <h5>3 Jobs</h5>
-        <p><a class="btn" href="#">Buy Now<span class="saleTag">Save<br />10%</span></a></p>
+        <p><a class="btn" href="/buy-job-credits">Buy Now<span class="saleTag">Save<br />10%</span></a></p>
     </li>
     <li>
         <h2>$<?php echo $db->return_specific_item(false, 'tblJobCreditsPricing', 'price', "1500", '`credits` = 10');?></h2>
         <h5>10 Jobs</h5>
-        <p><a class="btn" href="#">Buy Now<span class="saleTag">Save<br />25%</span></a></p>
+        <p><a class="btn" href="/buy-job-credits">Buy Now<span class="saleTag">Save<br />25%</span></a></p>
     </li>
 </ul>
 
