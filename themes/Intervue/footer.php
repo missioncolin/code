@@ -24,6 +24,9 @@
     ?>
     <script src="/themes/Intervue/js/plugins.js"></script>
     <script src="/themes/Intervue/js/main.js"></script>
+        <!--tablesorter-->
+    <script src="../js/jquery.tablesorter.js"></script>
+    <script src="../js/tablesort.js"></script> 
     <script>
     
         <?php if (isset($quipp->js['onload'])) { echo '$(function() { ' . $quipp->js['onload'] . '});'; } ?>

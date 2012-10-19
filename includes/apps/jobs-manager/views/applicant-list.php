@@ -17,16 +17,16 @@ $applicants = $j->getApplicants($_GET['job'], $offset, $display);
 $total      = $j->totalApplicants($_GET['job']);
 
 ?>
-
-
 <section id="applicantList">
 
-    <table>
-        <tr>
-            <th>Applicant Details</th>
-            <th>Intervue Rating</th>
-            <th>Applicant Grade</th>
-        </tr>
+    <table id="myTable" class="tablesorter">
+    	 <thead>
+	        <tr>
+	            <th>Applicant Details</th>
+	            <th>Intervue Rating</th>
+	            <th>Applicant Grade</th>
+	        </tr>
+    	 </thead><tbody>
         <?php
         
         
@@ -65,7 +65,7 @@ $total      = $j->totalApplicants($_GET['job']);
     }
 
 ?>
-    </table>
+    </tbody></table>
 
     <div class="pagination">
         <?php echo pagination($total, $display, $page, '/applicant-list?job=' . (int)$_GET['job'] . '&amp;page=', false); ?>
