@@ -172,5 +172,6 @@ $(function () {
             $this.siblings().removeClass('green').removeClass('yellow').removeClass('red').addClass('black');
             $this.removeClass('black').addClass(response);
         });
-    });    
+    }); 
+      
 });

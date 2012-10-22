@@ -5,6 +5,7 @@ $("#RQvalNUMBType").change(function () {
         $("tr.option-row").hide();
     }
 });
+
 $(".slider").each(function () {
     var slideVal = parseInt($(this).attr('alt'));
     //console.log(slideVal);

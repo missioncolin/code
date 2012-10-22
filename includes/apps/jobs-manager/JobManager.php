@@ -392,6 +392,8 @@ class JobManager {
         }
         return $success;
     }
+    
+    
     public function getYearsOfExperienceQuestions($jobID){
 	    //type = 3
 	    $qsArr = array();
@@ -422,4 +424,112 @@ class JobManager {
 	    return false;
 		
     }
-}
+    
+    /**
+    *  Returns applicant's answer to the slider question
+    *  returns false if no answer found
+    *  @return integer 
+    **/
+    private function getAnswer($applicantID, $jobID, $questionID) {
+	    
+	    $ansQry = sprintf("SELECT value FROM tblAnswers WHERE userID='%d' AND jobID='%d' AND questionID='%d'", (int)$applicantID, (int)$jobID, (int)$questionID);
+	    $ansRS = mysql_query($ansQry);
+
+	    if ($ansRS) {
+
+		    $returnedAnswer = mysql_fetch_array($ansRS); 	    		    
+		    
+		    if ($returnedAnswer != false) {  // could return 0 which could be taken as false...make sure this works!
+			    return (int)$returnedAnswer[0]; // return the answer that was retrieved 
+		    }
+		    else {
+			    return false;
+		    }
+	    }
+	    else {
+		    return false;
+	    }
+    }
+    
+    /**
+    *  Returns array of users to display based on 
+    *  values in the array of questions requiring
+    *  slider input
+    *  format of return array: Array([0]=>[userID])
+    *  @return int array
+    **/
+    
+    public function getApplicantVisibility($desiredVal, $jobID, $questionID, $allApplicants) {
+	    
+	    // Return array with visible userIDs
+	    $visibleApplicants = array();
+	    
+	    // For each applicant check whether applicant's answer is
+		// greater than or equal to the selected value on the slider for this question
+	    foreach ($allApplicants as $applicantID=>$infoArray) {
+
+			$answer = $this->getAnswer($applicantID, $jobID, $questionID);
+			
+			// If an answer exists, check whether within range
+			if ($answer) {		
+			
+				if ($answer >= $desiredVal) {
+					
+					// Will display this applicant
+					$appVisibility[] = $applicantID;
+					
+				}
+	
+			}
+	        
+	    }
+	    
+	    
+	    return $appVisibility;	    
+	
+	}
+	
+	
+	/** 
+	*  Displays list of visible applicants
+	*  @return void
+	*/
+
+	public function displayApplicants($applicants, $finalVisibleList, $db) {
+		
+		foreach ($applicants as $a) {   
+	        	// Display only if within slider parameters -----> JAVASCRIPT EVENTUALLY 
+	        	if (in_array($a['userID'], $finalVisibleList[0])) {     
+		            $applicant = new User($db, $a['userID']);
+		            
+		            $colours = array(
+		                'recommend' => 'green',
+		                'average'   => 'yellow',
+		                'nq'        => 'red'
+		            );
+		            
+		            $class = $colours[$a['grade']];
+		            ?>
+		            <tr>
+		    			<td>
+		    			     <div class="imgWrap">
+		    			     	 
+		    			         <a href="/applications-detail?application=<?php echo $a['itemID']; ?>"><img src="http://www.gravatar.com/avatar/<?php echo md5(strtolower(trim($applicant->info['Email']))); ?>?d=<?php echo urlencode('http://' . $_SERVER['HTTP_HOST'] . '/themes/Intervue/img/profilePicExample.jpg'); ?>&s=83" alt="<?php echo $applicant->info['First Name'] . " " . $applicant->info['Last Name']; ?>" /></a>
+		    			     	 
+		    			     </div>
+		    			     <a href="/applications-detail?application=<?php echo $a['itemID']; ?>"><strong><?php echo $applicant->info['First Name'] . " " . $applicant->info['Last Name']; ?></strong></a><br>
+		    			     <span><?php echo date('F jS, Y', strtotime($a['sysDateInserted'])); ?></span>
+		    			 </td>
+		    			<td>
+		        			<h2><?php echo $this->getApplicantRating($a['itemID']); ?><br />
+		        			<a href="/applications-detail?application=<?php echo $a['itemID']; ?>">Rating Details</a>
+		        			</h2>
+		                </td>
+		    			<td><a class="btn <?php echo $class; ?>"><?php echo $a['grade']; ?></a></td>
+		    		</tr>
+		    		<?php
+		    	}
+	       }
+	}
+
+} ?>
