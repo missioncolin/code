@@ -56,7 +56,7 @@ if (!empty($groups)){
 	<?php
 	include_once(dirname(dirname(__DIR__)) ."/jobs-manager/views/profile-job-widget.php");
 	echo "<div>&nbsp;</div>";
-	include_once(dirname(dirname(__DIR__)) ."/questionnaires/views/profileQuestionnaireWidget.php");
+	//include_once(dirname(dirname(__DIR__)) ."/questionnaires/views/profileQuestionnaireWidget.php");
 	?>
 </div>
 
