@@ -358,7 +358,7 @@ class JobManager {
         $currentCredits = $user->info['Job Credits'];
         if ($currentCredits > 0){
             if (is_numeric($jobID) && (int)$jobID > 0){
-                $newCredits = Credits::assignCredits($user, -1);
+                //$newCredits = Credits::assignCredits($user, -1);
                 
                 if ($newCredits < $currentCredits){
                 
@@ -375,7 +375,7 @@ class JobManager {
                         $success = 'success';
                     }
                     else{
-                        $newCredits = Credits::assignCredits($user, 1);
+                        //$newCredits = Credits::assignCredits($user, 1);
                         $success = "An error occurred and your job could not be re-activated. Your available credits were not updated";
                     }
                 }
@@ -423,7 +423,7 @@ class JobManager {
 		
     }
     
-    public function getQuestionnaireName($jobID){
+    /*public function getQuestionnaireName($jobID){
 	    $getQuestionnaireQry = sprintf("SELECT q.label AS qName FROM tblQuestionnaires q INNER JOIN tblJobs j ON q.itemID = j.questionnaireID WHERE j.itemID = %d AND j.sysOpen = 1 and q.sysActive = 1 and q.sysOpen = 1", $jobID);
 	    $getQuestionnaireRS = $this->db->query($getQuestionnaireQry);
 	    if($this->db->valid($getQuestionnaireRS)){
@@ -431,6 +431,6 @@ class JobManager {
 		    return $row['qName'];
 	    }
 	    else{return "";}
-    }
+    }*/
     
 }

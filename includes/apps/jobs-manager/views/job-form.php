@@ -81,7 +81,7 @@ if ($edit == true && !isset($_GET['id'])) {
     
 } else if ($error == '' && $success === true) {
     if ($edit == false) {
-        Credits::assignCredits($user, -1);
+       // Credits::assignCredits($user, -1);
         if ($newQnr === true){
             header('Location: /configure-question?step=2&qnrID='.$_POST["RQvalNUMBQuestionnaire"]);
         }
