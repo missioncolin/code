@@ -32,17 +32,14 @@ if (isset($_GET['req']) && preg_match('%^reactivate[\s\+](\d+)$%', $_GET['req'],
         <?php echo pagination($total, $display, $page, '/applications?page=', false); ?>
  </div>
 
-<a href="/create-job?step=1" class="btn green newJob" style="float:right; margin-bottom:10px;">Create a New Job</a>
-<a href="/buy-job-credits" class="btn green buyCredits" style="float:right; margin: 0px 10px 10px 10px;">Buy Job Credits</a>
-
 <section id="hrListJobs">
+     
+    <a href="/create-job?step=1" class="btn green newJob">Create a New Job</a>
+    <a href="/buy-job-credits" class="btn green buyCredits">Buy Job Credits</a>
     <table class="simpleTable jobTable">
         <tr>
-            <th>Job Title</th>
-            <th>Questionnaire Name</th>
-            <th>Link</th>
-            <th>Expiry</th>
-            <th>Edit</th>
+            <th colspan="1">Job Title</th>
+             <th colspan="4">Intervue Link</th>
         </tr>
         <?php
         
@@ -54,7 +51,6 @@ if (isset($_GET['req']) && preg_match('%^reactivate[\s\+](\d+)$%', $_GET['req'],
             foreach ($jobs as $jobID => $job) {
                 
                 $totalApplicants = $j->totalApplicants($job['itemID']);
-                $qName = $j->getQuestionnaireName($job['itemID']);
                 
                 if ($totalApplicants == 0) {
                     $verbiage = "<br />There are no applicants";
@@ -67,40 +63,29 @@ if (isset($_GET['req']) && preg_match('%^reactivate[\s\+](\d+)$%', $_GET['req'],
                 
 ?>
             <tr>
-                <td>
-                	<strong><a href="/applicant-list?job=<?php echo $jobID; ?>"><?php echo $job['title']; ?></a></strong>
-                	<?php echo $verbiage; ?>
-                </td>
-                <td>
-                	<?php echo $qName; ?>
-                </td>
+                <td><strong>
+                
+                
+                <a href="/applicant-list?job=<?php echo $jobID; ?>"><?php echo $job['title']; ?></a></strong><?php echo $verbiage; ?></td>
+                
 <?php
-	       
                 if (date("U") > strtotime($job["dateExpires"])){
-?>	
-		      <td></td>
-                    <td><a href="<?php echo ($user->info['Job Credits'] > 0 ? "" : "/buy-job-credits?req=reactivate+{$jobID}");?>" data-job="<?php echo $jobID; ?>" class="btn <?php echo ($user->info['Job Credits'] > 0 ? "green reactivate" : "red buy");?>">Re-Publish</a></td>
-                    <td></td>
-<?php
+?>
+                    <td colspan="4"><a href="<?php echo ($user->info['Job Credits'] > 0 ? "" : "/buy-job-credits?req=reactivate+{$jobID}");?>" data-job="<?php echo $jobID; ?>" class="btn <?php echo ($user->info['Job Credits'] > 0 ? "green reactivate" : "red buy");?>">Re-Publish</a></td>
+            <?php
                 }
                 else{
-                	//set button verbiage
-               	 if(ucfirst($job['sysStatus']) == 'Active'){ $btnLabel = "Live - Un-Publish"; }else{ $btnLabel = "Not Live - Publish";}              
-?>
-            		<td>
-<?php 
-		
-	            	  	if($job['hasBeenViewed'] == 0){ $printClass = " class=\"newJobAlert\""; }else{ $printClass = ""; }
-	            	  	if(ucfirst($job['sysStatus']) == 'Active'){  
-	            	  		echo "<span ".$printClass.">".$_SERVER['SERVER_NAME']."/apply/".$jobID."</span>"; 
-	            	  	} 
-	            	  	else { echo "<span class=\"disabledLink\">(You must publish this job to use a link)</span>"; } ?></td>
+                //set button verbiage
+                
+                if(ucfirst($job['sysStatus']) == 'Active'){ $btnLabel = "Live - Un-Publish"; }else{ $btnLabel = "Not Live - Publish";}
+                
+                ?>
+            <td><?php 
+            	  if($job['hasBeenViewed'] == 0){ $printClass = " class=\"newJobAlert\""; }else{ $printClass = ""; }
+                if(ucfirst($job['sysStatus']) == 'Active'){  echo "<span ".$printClass.">".$_SERVER['SERVER_NAME']."/apply/".$jobID."</span>"; } else { echo "<span class=\"disabledLink\">(You must publish this job to use a link)</span>"; } ?></td>
 
-            <td>
-            	<?php print $job["dateExpires"]; ?>
-            	<!--<a href="#" data-job="<?php //echo $jobID; ?>" class="activate btn <?php //echo ($job['sysStatus'] == 'active') ? 'black' : 'grey'; ?>"><?php //echo $btnLabel; ?></a>-->
-            </td>
-            <!--<td><a href="#" data-job="<?php //echo $jobID; ?>" class="btn red delete">Delete</a></td>-->
+            <td><a href="#" data-job="<?php echo $jobID; ?>" class="activate btn <?php echo ($job['sysStatus'] == 'active') ? 'black' : 'grey'; ?>"><?php echo $btnLabel; ?></a></td>
+            <td><a href="#" data-job="<?php echo $jobID; ?>" class="btn red delete">Delete</a></td>
             <td><a href="/edit-job?id=<?php echo $jobID; ?>" class="btn">Edit</a></td>
                 <?php
                 }
@@ -125,14 +110,6 @@ if (isset($_GET['req']) && preg_match('%^reactivate[\s\+](\d+)$%', $_GET['req'],
     </div>
     
 </section>
-
-
-
-
-
-
-
-
 
 
 <div id="confirm" style="display:none">

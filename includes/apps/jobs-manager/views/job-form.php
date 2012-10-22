@@ -39,12 +39,12 @@ if (!empty($_POST)) {
                 $error = 'No access';
             } else if ((int)$_POST['RQvalNUMBQuestionnaire'] > 0) {
                 // insert
-                if ((int)$user->info['Job Credits'] > 0) {
-
+               //REMOVING THE CHECK FOR CREDITS BEFORE ADDING A JOB.
+                 //if ((int)$user->info['Job Credits'] > 0) {
                     $success = $j->addJob($_POST);
-                } else {
-                    $success = 'You do not have a sufficiant amount of job credits to create a new job. Please <a href="/buy-job-credits">purchase more job credits</a> to continue.'; 
-                }
+                // } else {
+                 //    $success = 'You do not have a sufficiant amount of job credits to create a new job. Please <a href="/buy-job-credits">purchase more job credits</a> to continue.'; 
+                //}
             }
         }
     } else {

@@ -532,4 +532,15 @@ class JobManager {
 	       }
 	}
 
-} ?>
+} ?>    
+    public function getQuestionnaireName($jobID){
+	    $getQuestionnaireQry = sprintf("SELECT q.label AS qName FROM tblQuestionnaires q INNER JOIN tblJobs j ON q.itemID = j.questionnaireID WHERE j.itemID = %d AND j.sysOpen = 1 and q.sysActive = 1 and q.sysOpen = 1", $jobID);
+	    $getQuestionnaireRS = $this->db->query($getQuestionnaireQry);
+	    if($this->db->valid($getQuestionnaireRS)){
+		    $row = $this->db->fetch_array($getQuestionnaireRS); 
+		    return $row['qName'];
+	    }
+	    else{return "";}
+    }
+    
+}

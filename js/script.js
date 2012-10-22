@@ -2,7 +2,6 @@
 
 */
 
-
 function toggleArrow(myGID) {
     if ($('#'+myGID).attr('src') == "/images/arrow1.gif") {
         $('#'+myGID).attr('src', "/images/arrow2.gif");

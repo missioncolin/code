@@ -28,6 +28,7 @@
     <script src="/themes/Intervue/js/vendor/modernizr-2.5.3.min.js"></script>
     <script type="text/javascript" src="http://use.typekit.com/gux8ztq.js"></script>
     <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+    
 </head>
 <body data-controller="<?php echo str_replace('-', '_', $meta['body_id']); ?>" class="<?php print Page::body_class($meta['body_classes']); ?>" id="<?php echo $meta['body_id']; ?>">
     <!--[if lt IE 7]><p class="chromeframe">Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
@@ -76,7 +77,7 @@
             <?php if (isset($_GET['step'])) { ?>
             <li<?php if ($_GET['step'] == '1') { ?> class="current"<?php } ?>><span>1</span>Create a Job</li>
             <li<?php if ($_GET['step'] == '2') { ?> class="current"<?php } ?>><span>2</span>Add Years of Experience Questions</li>
-            <li<?php if ($_GET['step'] == '3') { ?> class="current"<?php } ?>><span>3</span>Video Responses</li>
+            <li<?php if ($_GET['step'] == '3') { ?> class="current"<?php } ?>><span>3</span>Add Intervue Questions</li>
             <li<?php if ($_GET['step'] == '4') { ?> class="current"<?php } ?>><span>4</span>Complete</li>
             <?php } ?>
         </ul>
