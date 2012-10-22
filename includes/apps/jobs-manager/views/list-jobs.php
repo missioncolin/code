@@ -39,7 +39,6 @@ if (isset($_GET['req']) && preg_match('%^reactivate[\s\+](\d+)$%', $_GET['req'],
     <table class="simpleTable jobTable">
         <tr>
             <th>Job Title</th>
-            <th>Questionnaire Name</th>
             <th>Link</th>
             <th>Expiry</th>
             <th>Edit</th>
@@ -70,9 +69,6 @@ if (isset($_GET['req']) && preg_match('%^reactivate[\s\+](\d+)$%', $_GET['req'],
                 <td>
                 	<strong><a href="/applicant-list?job=<?php echo $jobID; ?>"><?php echo $job['title']; ?></a></strong>
                 	<?php echo $verbiage; ?>
-                </td>
-                <td>
-                	<?php echo $qName; ?>
                 </td>
 <?php
 	       
