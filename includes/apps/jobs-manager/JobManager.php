@@ -470,8 +470,9 @@ class JobManager {
 
 			$answer = $this->getAnswer($applicantID, $jobID, $questionID);
 			
+
 			// If an answer exists, check whether within range
-			if ($answer) {		
+			if ($answer >= 0) {		
 			
 				if ($answer >= $desiredVal) {
 					
@@ -531,8 +532,7 @@ class JobManager {
 		    	}
 	       }
 	}
-
-} ?>    
+    
     public function getQuestionnaireName($jobID){
 	    $getQuestionnaireQry = sprintf("SELECT q.label AS qName FROM tblQuestionnaires q INNER JOIN tblJobs j ON q.itemID = j.questionnaireID WHERE j.itemID = %d AND j.sysOpen = 1 and q.sysActive = 1 and q.sysOpen = 1", $jobID);
 	    $getQuestionnaireRS = $this->db->query($getQuestionnaireQry);
@@ -543,4 +543,4 @@ class JobManager {
 	    else{return "";}
     }
     
-}
+} ?>
