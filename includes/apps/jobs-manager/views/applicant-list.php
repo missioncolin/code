@@ -39,15 +39,8 @@ if (isset($_GET['page'])) {
 
 $applicants = $j->getApplicants((int)$jobID, $offset, $display);
 $allYearQuestions = $j->getYearsOfExperienceQuestions($_GET['job']);
-/*
 
-// Store all questions for use w Javascript
-foreach ($allYearQuestions as $qID => $desc) {
-	$qIDs[] = $qID;
-}
-*/
 
-// For each 'year' question, get list of applicants that match current slider parameter
 ?>
 
 <script>
@@ -80,7 +73,7 @@ $(function() {
 		    slide: function( event, ui ) {
 		    	var count = String(this.id).split("-");		    	
 		        $( "#amount" + count[1]).html( ui.value );
-		
+		        $( "#apps" ).fadeOut(100);
 		    },
 		    // When user stops sliding, update applicant list
 		    stop: function( event, ui ) {
@@ -135,13 +128,13 @@ function ajaxFunction() {
 	// Receive data
 	ajaxRequest.onreadystatechange = function() {
 	if (ajaxRequest.readyState == 4) // Ready to receive {
-	    $( "#stuff" ).fadeOut(300);
-		var ajaxDisplay = document.getElementById('stuff');
+
+		var ajaxDisplay = document.getElementById('apps');
 		
 		if (ajaxDisplay != null) {
 		
 			ajaxDisplay.innerHTML = ajaxRequest.responseText;
-			$( "#stuff" ).fadeIn(300);
+			$( "#apps" ).fadeIn(100);
 		}			
 
 	}
@@ -149,7 +142,7 @@ function ajaxFunction() {
 	//Send a request:
 	// 1. Specify URL of server-side script that will be used in Ajax app
 	// 2. Use send function to send request
-	ajaxRequest.open("GET", "http://kristina.140b.git.resolutionim.com/includes/apps/jobs-manager/views/process-slider.php?sliderValue=" + sliderValueString + "&jobID=" + jobID + "&page=" + page + "&userID=" + userID, true); // make a relative path
+	ajaxRequest.open("GET", "http://kristina.140b.git.resolutionim.com/includes/apps/jobs-manager/ajax/process-slider.php?sliderValue=" + sliderValueString + "&jobID=" + jobID + "&page=" + page + "&userID=" + userID, true); // make a relative path
 	ajaxRequest.send();
 	
 }
@@ -171,7 +164,7 @@ function ajaxFunction() {
 		echo "<span id=\"amount".$i."\"></span>";
 		
 		//Display slider for this ID
-		echo "<div id=\"slider-".$i."\"></div></br></br>";
+		echo "<div id=\"slider-".$i."\" style=\"width:250px\"></div></br>";
 		$i++;
 		
 	} 
@@ -189,7 +182,7 @@ function ajaxFunction() {
             <th>Applicant Grade</th>
         </tr>
     </table>
-    <div id="stuff"></div>
+    <div id="apps"></div>
 
 
     <div class="pagination">

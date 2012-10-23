@@ -464,13 +464,13 @@ class JobManager {
 	    
 	    // Return array with visible userIDs
 	    $visibleApplicants = array();
+	    $appVisibility = array();
 	    
 	    // For each applicant check whether applicant's answer is
 		// greater than or equal to the selected value on the slider for this question
 	    foreach ($allApplicants as $applicantID=>$infoArray) {
 
 			$answer = $this->getAnswer($applicantID, $jobID, $questionID);
-			
 
 			// If an answer exists, check whether within range
 			if ($answer >= 0) {		
@@ -486,7 +486,6 @@ class JobManager {
 	        
 	    }
 	    
-	    
 	    return $appVisibility;	    
 	
 	}
@@ -496,6 +495,7 @@ class JobManager {
 	*  Displays list of visible applicants
 	*  @return void
 	*/
+/*
 
 	public function displayApplicants($applicants, $finalVisibleList, $db) {
 		
@@ -533,6 +533,7 @@ class JobManager {
 		    	}
 	       }
 	}
+*/
 	
     /*public function getQuestionnaireName($jobID){
 	    $getQuestionnaireQry = sprintf("SELECT q.label AS qName FROM tblQuestionnaires q INNER JOIN tblJobs j ON q.itemID = j.questionnaireID WHERE j.itemID = %d AND j.sysOpen = 1 and q.sysActive = 1 and q.sysOpen = 1", $jobID);

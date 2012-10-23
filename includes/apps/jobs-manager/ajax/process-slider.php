@@ -33,24 +33,6 @@ $offset = ($page - 1) * $display;
 $applicants = $j->getApplicants((int)$jobID, $offset, $display);
 $finalVisibleList = array();
 
-?>
-
-
-<!--
-<script>
-
-$(function(){  // $(document).ready shorthand
-
-	var table = document.getElementById("users");
-	table.hide();
-	
-});
-	
-</script>
--->
-
-<?php
-
 $allYearQuestions = $j->getYearsOfExperienceQuestions($jobID);
 
 if (!empty($applicants)) {
@@ -73,8 +55,8 @@ if (!empty($applicants)) {
 				}
 				
 				//Add array of visible applicants to list for all questions --> format: [53]=>[[0]=>[userID]];
-				$visibleAppsByQ[$questionID] = $j->getApplicantVisibility($sliderVal, $jobID, $questionID, $applicants);  ////*** replace first param with slider input ***///
-				
+				$visibleAppsByQ[$questionID] = $j->getApplicantVisibility($sliderVal, $jobID, $questionID, $applicants); 
+								
 				foreach ($visibleAppsByQ as $questionID=>$userArray) {
 					$visibleAppsByQ[$questionID] = $userArray;
 					
@@ -87,7 +69,6 @@ if (!empty($applicants)) {
 		// ex, if Q53 has 103, 102 and Q52 has 103
 		// final array of visibile applicants will be 103.
 		// If only one question, just print it
-		echo "Visible applicants by question: ".count($visibleAppsByQ);
 		
 		if (count($visibleAppsByQ) > 1) {
 			
@@ -100,7 +81,7 @@ if (!empty($applicants)) {
 		else {
 			$visibleList = $visibleAppsByQ;
 			foreach ($visibleList as $key=>$value) {
-				$finalVisibleList[] = $value;
+				$finalVisibleList = $value;
 			}
 		}
 		
@@ -109,12 +90,12 @@ if (!empty($applicants)) {
 
 ?>
 
-<table id="users">
+<table>
 <?php
+
         if (!empty($finalVisibleList)) {
-	        
-	        
-        	    
+
+	                	    
 	        foreach ($applicants as $a) {   
 		 	    
 		 	    if (in_array($a['userID'], $finalVisibleList)) {     
@@ -148,15 +129,19 @@ if (!empty($applicants)) {
 		    		</tr>
 		  		<?php
 		    	}
-	/* 	    echo "</div>"; */
 		    
 		 	} 
 		        	    
-		} 
+		}
+		else { 
+				
+			?><tr><td colspan="3">No applicants fit this criteria.</td></tr><?php
+	    
+	    } 
     
-    }else {
-        ?><tr><td colspan="3">No applicants at this time.</td></tr><?php
-    }
+}else {
+    ?><tr><td colspan="3">No applicants at this time.</td></tr><?php
+}
 	
 
 
