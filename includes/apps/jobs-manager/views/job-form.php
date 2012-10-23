@@ -62,7 +62,7 @@ if (isset($_GET['step'])) {
     switch($_GET['step']) {
         
         case '1':
-            echo alert_box('Create a new job below providing a job title and link to where the job posting can be found. Also, you have an option to use a questionnaire that has already been created or the option to create a new questionnaire, specific to this job.', 3);
+            echo alert_box('On this page you can create a new job, begin by providing a job title. Then create a new set of questions specific to this job.', 3);
             break;
         
     }
@@ -81,7 +81,7 @@ if ($edit == true && !isset($_GET['id'])) {
     
 } else if ($error == '' && $success === true) {
     if ($edit == false) {
-        Credits::assignCredits($user, -1);
+       // Credits::assignCredits($user, -1);
         if ($newQnr === true){
             header('Location: /configure-question?step=2&qnrID='.$_POST["RQvalNUMBQuestionnaire"]);
         }
