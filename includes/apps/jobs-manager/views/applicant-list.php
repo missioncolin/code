@@ -14,6 +14,8 @@ if (isset($_GET['sliderValue'])) {
 
 require dirname(__DIR__) . '/JobManager.php';
 
+$ajaxFile = dirname(__DIR__) . '/ajax/process-slider.php';
+
 $j = new JobManager($db, $_SESSION['userID']);
 
 // Variables to pass for processing
@@ -154,6 +156,20 @@ function ajaxFunction() {
 <!-- get question's question -->
 <?php 
 
+	// Display alert with instructions to use sliders
+	if (count($allYearQuestions) > 1) {
+		$sliders = "sliders";
+		$theseStr = "these restrictions";
+		$qStr = "each question";
+	}
+	else {
+		$sliders = "slider";
+		$theseStr = "this restriction";
+		$qStr = "this question";
+	}
+	
+	echo alert_box('Use the following '.$sliders.' to select an inclusive minimum number of years for '.$qStr.'. Applicants who fit '.$theseStr.' will be displayed.', 3);
+	
 	$i = 0;
 	foreach ($allYearQuestions as $id=>$desc) {
 	
