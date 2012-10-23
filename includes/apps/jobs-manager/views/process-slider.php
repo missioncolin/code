@@ -12,10 +12,8 @@ require dirname(__DIR__) . '/JobManager.php';
 
 
 $sliderVal = $_GET['sliderValue'];
-print_r($sliderVal);
 
 $sliderValues = explode(",", $sliderVal);
-print_r($sliderValues);
 
 $userID = $_GET['userID'];
 $jobID = $_GET['jobID'];
@@ -33,6 +31,7 @@ $currentSlider = array(); // [questionID]=>[sliderInput]
 $offset = ($page - 1) * $display;
 
 $applicants = $j->getApplicants((int)$jobID, $offset, $display);
+$finalVisibleList = array();
 
 ?>
 
@@ -88,6 +87,7 @@ if (!empty($applicants)) {
 		// ex, if Q53 has 103, 102 and Q52 has 103
 		// final array of visibile applicants will be 103.
 		// If only one question, just print it
+		echo "Visible applicants by question: ".count($visibleAppsByQ);
 		
 		if (count($visibleAppsByQ) > 1) {
 			
@@ -106,63 +106,55 @@ if (!empty($applicants)) {
 		
 	}
 
-}
-
 
 ?>
 
 <table id="users">
 <?php
-       
-    if (!empty($applicants)) {
-        
-        $iCount = 0;
+        if (!empty($finalVisibleList)) {
+	        
+	        
         	    
-        foreach ($applicants as $a) {   
-	 	    
-	 	    if (in_array($a['userID'], $finalVisibleList[0])) {     
-/*
-	            
-	            echo "<div id=\"user".$iCount."\">";
-	            ++$iCount;
-*/
-	            
-	            $applicant = new User($db, $a['userID']);
-	            
-	            $colours = array(
-	                'recommend' => 'green',
-	                'average'   => 'yellow',
-	                'nq'        => 'red'
-	            );
-	            
-	            $class = $colours[$a['grade']];
-	            ?>
-	            <tr id="newUser">
-	    			<td>
-	    			     <div class="imgWrap">
-	    			     	 
-	    			         <a href="/applications-detail?application=<?php echo $a['itemID']; ?>"><img src="http://www.gravatar.com/avatar/<?php echo md5(strtolower(trim($applicant->info['Email']))); ?>?d=<?php echo urlencode('http://' . $_SERVER['HTTP_HOST'] . '/themes/Intervue/img/profilePicExample.jpg'); ?>&s=83" alt="<?php echo $applicant->info['First Name'] . " " . $applicant->info['Last Name']; ?>" /></a>
-	    			     	 
-	    			     </div>
-	    			     <a href="/applications-detail?application=<?php echo $a['itemID']; ?>"><strong><?php echo $applicant->info['First Name'] . " " . $applicant->info['Last Name']; ?></strong></a><br>
-	    			     <span><?php echo date('F jS, Y', strtotime($a['sysDateInserted'])); ?></span>
-	    			 </td>
-	    			<td>
-	        			<h2><?php echo $j->getApplicantRating($a['itemID']); ?><br />
-	        			<a href="/applications-detail?application=<?php echo $a['itemID']; ?>">Rating Details</a>
-	        			</h2>
-	                </td>
-	    			<td><a class="btn <?php echo $class; ?>"><?php echo $a['grade']; ?></a></td>
-	    		</tr>
-	  		<?php
-	    	}
-/* 	    echo "</div>"; */
-	    
-	 	} 
-	        	    
-	} 
+	        foreach ($applicants as $a) {   
+		 	    
+		 	    if (in_array($a['userID'], $finalVisibleList)) {     
+		            
+		            $applicant = new User($db, $a['userID']);
+		            
+		            $colours = array(
+		                'recommend' => 'green',
+		                'average'   => 'yellow',
+		                'nq'        => 'red'
+		            );
+		            
+		            $class = $colours[$a['grade']];
+		            ?>
+		            <tr id="newUser">
+		    			<td>
+		    			     <div class="imgWrap">
+		    			     	 
+		    			         <a href="/applications-detail?application=<?php echo $a['itemID']; ?>"><img src="http://www.gravatar.com/avatar/<?php echo md5(strtolower(trim($applicant->info['Email']))); ?>?d=<?php echo urlencode('http://' . $_SERVER['HTTP_HOST'] . '/themes/Intervue/img/profilePicExample.jpg'); ?>&s=83" alt="<?php echo $applicant->info['First Name'] . " " . $applicant->info['Last Name']; ?>" /></a>
+		    			     	 
+		    			     </div>
+		    			     <a href="/applications-detail?application=<?php echo $a['itemID']; ?>"><strong><?php echo $applicant->info['First Name'] . " " . $applicant->info['Last Name']; ?></strong></a><br>
+		    			     <span><?php echo date('F jS, Y', strtotime($a['sysDateInserted'])); ?></span>
+		    			 </td>
+		    			<td>
+		        			<h2><?php echo $j->getApplicantRating($a['itemID']); ?><br />
+		        			<a href="/applications-detail?application=<?php echo $a['itemID']; ?>">Rating Details</a>
+		        			</h2>
+		                </td>
+		    			<td><a class="btn <?php echo $class; ?>"><?php echo $a['grade']; ?></a></td>
+		    		</tr>
+		  		<?php
+		    	}
+	/* 	    echo "</div>"; */
+		    
+		 	} 
+		        	    
+		} 
     
-    else {
+    }else {
         ?><tr><td colspan="3">No applicants at this time.</td></tr><?php
     }
 	

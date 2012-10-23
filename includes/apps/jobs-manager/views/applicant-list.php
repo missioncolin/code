@@ -52,54 +52,62 @@ foreach ($allYearQuestions as $qID => $desc) {
 
 <script>
 
-var sliderValues = new Array();
+var sliderValues = new Array(); // Stores each slider value as updated
+var sliderValueString; // Stores joined array of slider values
 var page = <?php echo $page;?>;
 var jobID = <?php echo $jobID;?>;
 var userID = <?php echo $userID;?>;
-var i = 0;
+
+// Initialize all sliders
+for (var i = 0; i < <?php echo count($allYearQuestions);?>; i++) {
+	sliderValues.push(0);  
+}
+
+sliderValueString = sliderValues.join(",");
+ajaxFunction();	
 
 $(function() {
     
     //ajaxFunction();
-    for (i = 0; i < <?php echo count($allYearQuestions); ?>; i++) {
-	    
-	    $( "#" + i).slider({
+	$('div[id^="slider-"]').each(function() {
+	
+		$(this).slider({
 		    range: "max",
 		    min: 0,
 		    max: 20,
 		    value: 0,
 		    // Each slide updates value label
-		    create: function( event, ui ) {
-		        //ajaxFunction();
-		    },
 		    slide: function( event, ui ) {
-		        $( "#amount" + i).val( ui.value );
-
+		    	var count = String(this.id).split("-");		    	
+		        $( "#amount" + count[1]).html( ui.value );
+		
 		    },
 		    // When user stops sliding, update applicant list
 		    stop: function( event, ui ) {
-		        //Store value of ID
-		        sliderValues[this.id] = ui.value;
-		        //ajaxFunction();
-		        callAjax();
+		        //Store value of ID to store slider value
+		        var count = String(this.id).split("-");	
+		        sliderValues[count[1]] = ui.value;
+		        
+		        // Create string from values
+				// and submit to process-slider.php
+				sliderValueString = sliderValues.join(",");
+				console.log(sliderValues);
+				ajaxFunction();	
+			
+				/* ajaxFunction(); */
+	
 		    }
-    });
-    
- 		$( "#amount" + i).val( $( "#" + i).slider( "value" ) );
-
-	    
-    }
-        
+		    
+		    });
+		    
+		    // Get id number value 
+		    var count = String(this.id).split("-");
+		    
+		    // Display value of slider & send to process-slider.php
+			$( "#amount" + count[1]).html( $( this ).slider( "value" ) );        
+	});
 });
 
-function callAjax() {
-	
-	if (i == <?php echo count($allYearQuestions); ?>) {
-		
-		// All sliders have been loaded, call ajax
-		ajaxFunction();
-	}
-}
 
 function ajaxFunction() {
 	
@@ -127,22 +135,21 @@ function ajaxFunction() {
 	// Receive data
 	ajaxRequest.onreadystatechange = function() {
 	if (ajaxRequest.readyState == 4) // Ready to receive {
-/* 	    $( "#stuff" ).fadeOut(300); */
+	    $( "#stuff" ).fadeOut(300);
 		var ajaxDisplay = document.getElementById('stuff');
 		
 		if (ajaxDisplay != null) {
+		
 			ajaxDisplay.innerHTML = ajaxRequest.responseText;
-		    $( "#stuff" ).fadeIn(300);			
-		}
+			$( "#stuff" ).fadeIn(300);
+		}			
 
 	}
 	
 	//Send a request:
 	// 1. Specify URL of server-side script that will be used in Ajax app
 	// 2. Use send function to send request
-	sliderValues = sliderValues.join(",");
-	alert(sliderValues);
-	ajaxRequest.open("GET", "http://kristina.140b.git.resolutionim.com/includes/apps/jobs-manager/views/process-slider.php?sliderValue=" + sliderValues + "&jobID=" + jobID + "&page=" + page + "&userID=" + userID, true); // make a relative path
+	ajaxRequest.open("GET", "http://kristina.140b.git.resolutionim.com/includes/apps/jobs-manager/views/process-slider.php?sliderValue=" + sliderValueString + "&jobID=" + jobID + "&page=" + page + "&userID=" + userID, true); // make a relative path
 	ajaxRequest.send();
 	
 }
@@ -161,10 +168,10 @@ function ajaxFunction() {
 		printf("%s ", $desc);
 		
 		//Apply range for ID
-		echo "<input type=\"text\" id=\"amount".$i."\" style=\"border:0;\"/>";
+		echo "<span id=\"amount".$i."\"></span>";
 		
 		//Display slider for this ID
-		echo "<div id=\"".$i."\"></div></br></br>";
+		echo "<div id=\"slider-".$i."\"></div></br></br>";
 		$i++;
 		
 	} 
