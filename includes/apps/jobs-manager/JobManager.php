@@ -168,13 +168,12 @@ class JobManager {
             (int)$jobID,
             (int)$this->userID);
         $res = $this->db->query($qry);
-       
-        
+
         if ($this->db->valid($res)) {
             return true;
         }
         return false;
-        
+
     }    
     
     
