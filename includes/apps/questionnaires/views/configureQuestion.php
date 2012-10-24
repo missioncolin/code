@@ -152,10 +152,10 @@ if ($this instanceof Quipp) {
         switch($_GET['step']) {
             
             case '2':
-                echo alert_box('On this page you can create a list of skills the job requires.  When the applicant applies they will enter the years of experience they have in each skill. Intervue will use this information to rank applicants. Clicking Tab will create another question and hitting Enter will submit the form.', 3);
+                echo alert_box('On this page you can create a list of skills the job requires.  When the applicant applies they will enter the years of experience they have in each skill. Intervue will use this information to rank applicants. Note: Pressing the Tab button on your keyboard will create another question field and hitting Enter will submit the form.', 3);
                 break;
             case '3':
-                echo alert_box('During the interview you can add multiple Video Response questions. Here you can ask general questions that you would like you applicant to answer via video. eg. What is your five year plan?', 3);
+                echo alert_box('On this page you can ask questions that will be answered by the applicant using their webcam during the application process.  Below is a list of generic questions in the dropdown menu or you can create your own questions specific to this job.', 3);
                 break;
             
         }
