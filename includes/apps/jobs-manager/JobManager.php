@@ -359,11 +359,6 @@ class JobManager {
         if ($currentCredits > 0){
             if (is_numeric($jobID) && (int)$jobID > 0){
                 $newCredits = Credits::assignCredits($user, -1);
-<<<<<<< HEAD
-=======
-                //$newCredits = Credits::assignCredits($user, -1);
->>>>>>> 72409bbc2f3ac0df45d381a37c867dc75bdd3b37
-                
                 if ($newCredits < $currentCredits){
                 
                     $qry = sprintf("UPDATE `tblJobs` 
@@ -397,7 +392,7 @@ class JobManager {
         return $success;
     }
     
-<<<<<<< HEAD
+
     public function activate($jobID, $user){
         $success = "fail";
         $currentCredits = $user->info['Job Credits'];
@@ -437,10 +432,7 @@ class JobManager {
         }
         return $success;
     }
-    
-    
-=======
->>>>>>> 72409bbc2f3ac0df45d381a37c867dc75bdd3b37
+
     
     public function getYearsOfExperienceQuestions($jobID){
 	    //type = 3
