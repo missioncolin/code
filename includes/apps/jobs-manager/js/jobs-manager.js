@@ -105,19 +105,62 @@ var sliderValues = new Array(); // Stores each slider value as updated
 	}
 */
     
-    $('.activate').click(function() {
+    /*$('.activate').click(function() {
         var $jobID = $(this).data('job');
+        var $expiry = $(this).data('expiry');
         var $this = $(this);
         $.post('/toggle-job', {
             job: $jobID
         }, function () {
             if ($this.hasClass('grey')) {
-                $this.addClass('black').removeClass('grey').html('Live - Un-Publish');
-            } else {
-                $this.addClass('grey').removeClass('black').html('Not Live - Publish');
+                $this.fadeOut("fast", function(){
+	                $this.replaceWith($expiry);
+	                $this.fadeIn("slow");
+    		 });                    
             }
         });
         return false;
+    });
+    */
+    
+    
+    $('.activate').click(function(e) {
+    	 e.preventDefault();
+        var $jobID = $(this).data('job');
+        var $expiry = $(this).data('expiry');
+        var $this = $(this);
+        var react = $(this);
+        confirmAction("Publish Job?", "Publishing this job will cost one (1) credit");
+        $('.popUp #popUpNo').on('click', clearPopUp);
+        $('.popUp #popUpOk').on('click', function(){
+               var parTD = react.parent();
+               var parTR = react.parents('tr').index();     
+		$.post('/toggle-job', {
+			job: $jobID
+		}, function (data) {
+			
+			if (data == 'success'){
+				//create active elements
+				var credits = $('#loggedInButtons a:eq(0)').html().match(/^(\d+)\sCredits$/);
+				if (typeof credits != 'undefined' && credits[1] > 0){
+					var creditHTML = (parseInt(credits[1], 10) - 1)+' Credits';
+					$('#loggedInButtons a:eq(0)').html(creditHTML);
+					$('.alert').removeClass('fail').addClass('success').html('<span></span>Job Re-published Successfully. Your account was debited one (1) credit');
+				}
+					
+			}else{
+				$('.alert').removeClass('success').addClass('fail').html('<span></span>Job not Re-published. '+data);
+			}
+			if ($this.hasClass('grey')) {
+				$this.fadeOut("fast", function(){
+					$this.replaceWith($expiry);
+					$this.fadeIn("slow");
+				});                    
+			}
+			clearPopUp();
+		}); 
+     
+         });
     });
     
     var clearPopUp = function(){
