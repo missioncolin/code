@@ -22,15 +22,17 @@ if (!empty($_POST)) {
             $error = $message;        
         } else {
         
-            if ((int)$_POST['RQvalNUMBQuestionnaire'] == 0 && isset($_POST['RQvalALPHNew_Questionnaire']) && !empty($_POST['RQvalALPHNew_Questionnaire'])){
-                $_POST['RQvalNUMBQuestionnaire'] = $q->createQuestionnaire($_POST['RQvalALPHNew_Questionnaire'], $_SESSION['userID']);
+/*             if ((int)$_POST['RQvalNUMBQuestionnaire'] == 0 && isset($_POST['RQvalALPHNew_Questionnaire']) && !empty($_POST['RQvalALPHNew_Questionnaire'])){ */
+/*             if ((int)$_POST['RQvalNUMBQuestionnaire'] == 0){ */
+                $_POST['RQvalNUMBQuestionnaire'] = $q->createQuestionnaire($_POST['RQvalALPHTitle'], $_SESSION['userID']);
+                
                 if ((int)$_POST['RQvalNUMBQuestionnaire'] > 0){
                     $newQnr = true;
                 }
                 else{
                     $success = 'Your questionnaire could not be created. Please retry or use a previously created questionnaire.';
                 }
-            }
+/*             } */
             
             if (isset($_POST['id']) && (int)$_POST['id'] > 0 && $j->canEdit($_POST['id'])) {
                 // edit
@@ -81,7 +83,7 @@ if ($edit == true && !isset($_GET['id'])) {
     
 } else if ($error == '' && $success === true) {
     if ($edit == false) {
-        Credits::assignCredits($user, -1);
+       // Credits::assignCredits($user, -1);
         if ($newQnr === true){
             header('Location: /configure-question?step=2&qnrID='.$_POST["RQvalNUMBQuestionnaire"]);
         }
@@ -153,6 +155,7 @@ if (empty($questionnaires)) {
                 <tr>
                     <td width="30%"><label for="title">Job Title</label></td>
                     <td><input type="text" name="RQvalALPHTitle" id="title" placeholder="Job Title" value="<?php echo $title; ?>"  required/></td>
+                    <input type="hidden" name="RQvalNUMBQuestionnaire" id="questionnaire" value="0">
                 </tr>
              <!--   <tr>
                     <td><label for="link">Job Link</label></td>
@@ -160,6 +163,8 @@ if (empty($questionnaires)) {
                 </tr>
                
               --> 
+              
+              <!--
                 <tr>
                     <td><label for="questionnaire">Questionnaire</label></td>
                     <td>
@@ -177,10 +182,12 @@ if (empty($questionnaires)) {
                         ?>
                     </td>
                 </tr>
+					
                 <tr style="display:none" id="rCreateNew">
                     <td><label for="newQuestionnaire">New Questionnaire</label></td>
                     <td><input type="text" name="RQvalALPHNew_Questionnaire" id="newQuestionnaire" disabled="disabled" placeholder="Questionnaire Title" /></td>
                 </tr>
+-->
             </tbody>
         </table>
         

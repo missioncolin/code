@@ -359,7 +359,6 @@ class JobManager {
         if ($currentCredits > 0){
             if (is_numeric($jobID) && (int)$jobID > 0){
                 $newCredits = Credits::assignCredits($user, -1);
-                
                 if ($newCredits < $currentCredits){
                 
                     $qry = sprintf("UPDATE `tblJobs` 
@@ -392,6 +391,49 @@ class JobManager {
         }
         return $success;
     }
+    
+
+    public function activate($jobID, $user){
+        $success = "fail";
+        $currentCredits = $user->info['Job Credits'];
+        if ($currentCredits > 0){
+            if (is_numeric($jobID) && (int)$jobID > 0){
+                $newCredits = Credits::assignCredits($user, -1);
+                
+                if ($newCredits < $currentCredits){
+                
+                    $qry = sprintf("UPDATE `tblJobs` 
+                    SET `dateExpires` = '%s', `sysStatus` = 'active', `sysOpen` = '1' 
+                    WHERE `itemID` = %d AND `userID` = %d AND `dateExpires` < %d",
+                        date("Y-m-d", strtotime('+2 months')),
+                        (int)$jobID,
+                        (int)$this->userID,
+                        date("U") //want to make sure that this was not already re-published
+                    );
+                    $res = $this->db->query($qry);
+                    if ($this->db->affected_rows($res) == 1){
+                        $success = 'success';
+                    }
+                    else{
+                        $newCredits = Credits::assignCredits($user, 1);
+                        $success = "An error occurred and your job could not be activated. Your available credits were not updated";
+                    }
+                }
+                else{
+                    $success = "Credits could not be updated";
+                }
+            }
+            else{
+                $success = "Invalid Job Selected";
+            }
+        }
+        else{
+            $success = "You do not have enough credits to activate this job";
+        }
+        return $success;
+    }
+
+    
     public function getYearsOfExperienceQuestions($jobID){
 	    //type = 3
 	    $qsArr = array();
@@ -423,14 +465,68 @@ class JobManager {
 		
     }
     
-    public function getQuestionnaireName($jobID){
-	    $getQuestionnaireQry = sprintf("SELECT q.label AS qName FROM tblQuestionnaires q INNER JOIN tblJobs j ON q.itemID = j.questionnaireID WHERE j.itemID = %d AND j.sysOpen = 1 and q.sysActive = 1 and q.sysOpen = 1", $jobID);
-	    $getQuestionnaireRS = $this->db->query($getQuestionnaireQry);
-	    if($this->db->valid($getQuestionnaireRS)){
-		    $row = $this->db->fetch_array($getQuestionnaireRS); 
-		    return $row['qName'];
+    /**
+    *  Returns applicant's answer to the slider question
+    *  returns false if no answer found
+    *  @return integer 
+    **/
+    private function getAnswer($applicantID, $jobID, $questionID) {
+	    
+	    $ansQry = sprintf("SELECT value FROM tblAnswers WHERE userID='%d' AND jobID='%d' AND questionID='%d'", (int)$applicantID, (int)$jobID, (int)$questionID);
+	    $ansRS = mysql_query($ansQry);
+
+	    if ($ansRS) {
+
+		    $returnedAnswer = mysql_fetch_array($ansRS); 	    		    
+		    
+		    if ($returnedAnswer != false) {  // could return 0 which could be taken as false...make sure this works!
+			    return (int)$returnedAnswer[0]; // return the answer that was retrieved 
+		    }
+		    else {
+			    return false;
+		    }
 	    }
-	    else{return "";}
+	    else {
+		    return false;
+	    }
     }
     
-}
+    /**
+    *  Returns array of users to display based on 
+    *  values in the array of questions requiring
+    *  slider input
+    *  format of return array: Array([0]=>[userID])
+    *  @return int array
+    **/
+    
+    public function getApplicantVisibility($desiredVal, $jobID, $questionID, $allApplicants) {
+	    
+	    // Return array with visible userIDs
+	    $visibleApplicants = array();
+	    $appVisibility = array();
+	    
+	    // For each applicant check whether applicant's answer is
+		// greater than or equal to the selected value on the slider for this question
+	    foreach ($allApplicants as $applicantID=>$infoArray) {
+
+			$answer = $this->getAnswer($applicantID, $jobID, $questionID);
+
+			// If an answer exists, check whether within range
+			if ($answer >= 0) {		
+			
+				if ($answer >= $desiredVal) {
+					
+					// Will display this applicant
+					$appVisibility[] = $applicantID;
+					
+				}
+	
+			}
+	        
+	    }
+	    
+	    return $appVisibility;	    
+	
+	}
+	    
+} ?>

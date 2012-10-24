@@ -1,19 +1,166 @@
+
 $(function () {
+
+	/*
+var sliderValues = new Array(); // Stores each slider value as updated
+	var sliderValueString; // Stores joined array of slider values
+	var page = <?php echo $page;?>;
+	var jobID = <?php echo $jobID;?>;
+	var userID = <?php echo $userID;?>;
+	
+	// Initialize all sliders
+	for (var i = 0; i < <?php echo count($allYearQuestions);?>; i++) {
+		sliderValues.push(0);  
+	}
+	
+	sliderValueString = sliderValues.join(",");
+	ajaxFunction();	
+
+	//ajaxFunction();
+	$('div[id^="slider-"]').each(function() {
+	
+		$(this).slider({
+		    range: "max",
+		    min: 0,
+		    max: 20,
+		    value: 0,
+		    // Each slide updates value label
+		    slide: function( event, ui ) {
+		    	var count = String(this.id).split("-");		    	
+		        $( "#amount" + count[1]).html( ui.value );
+		        	    $( "#apps" ).fadeOut(100);
+		    },
+		    // When user stops sliding, update applicant list
+		    stop: function( event, ui ) {
+		        //Store value of ID to store slider value
+		        var count = String(this.id).split("-");	
+		        sliderValues[count[1]] = ui.value;
+		        
+		        // Create string from values
+				// and submit to process-slider.php
+				sliderValueString = sliderValues.join(",");
+				console.log(sliderValues);
+				ajaxFunction();	
+			
+				/* ajaxFunction(); */
+	
+/*
+		    }
+		    
+		    });
+		    
+*/
+		    // Get id number value 
+/*
+		    var count = String(this.id).split("-");
+		    
+		    // Display value of slider & send to process-slider.php
+			$( "#amount" + count[1]).html( $( this ).slider( "value" ) );        
+	});
+
+
+    function ajaxFunction() {
+	
+		var ajaxRequest;
+		
+		try {
+			
+			// Handles Opera, Firefox, Safari, Chrome
+			ajaxRequest = new XMLHttpRequest();
+			
+		} catch(e) {
+			// Handles IE...
+			try {
+				ajaxRequest = new ActiveXObject("Msxml2.XMLHTTP");
+			} catch(e) {
+				try {
+					ajaxRequest = new ActiveXObject("Microsoft.XMLHTTP");
+				} catch(e) {
+					alert("There has been an error.");
+					return false;
+				}
+			}
+		}
+		
+		// Receive data
+		ajaxRequest.onreadystatechange = function() {
+		if (ajaxRequest.readyState == 4) // Ready to receive {
+	
+			var ajaxDisplay = document.getElementById('apps');
+			
+			if (ajaxDisplay != null) {
+			
+				ajaxDisplay.innerHTML = ajaxRequest.responseText;
+				$( "#apps" ).fadeIn(100);
+			}			
+	
+		}
+		
+		//Send a request:
+		// 1. Specify URL of server-side script that will be used in Ajax app
+		// 2. Use send function to send request
+		ajaxRequest.open("GET", "http://kristina.140b.git.resolutionim.com/includes/apps/jobs-manager/views/process-slider.php?sliderValue=" + sliderValueString + "&jobID=" + jobID + "&page=" + page + "&userID=" + userID, true); // make a relative path
+		ajaxRequest.send();
+	
+	}
+*/
     
-    
-    $('.activate').click(function() {
+    /*$('.activate').click(function() {
         var $jobID = $(this).data('job');
+        var $expiry = $(this).data('expiry');
         var $this = $(this);
         $.post('/toggle-job', {
             job: $jobID
         }, function () {
             if ($this.hasClass('grey')) {
-                $this.addClass('black').removeClass('grey').html('Live - Un-Publish');
-            } else {
-                $this.addClass('grey').removeClass('black').html('Not Live - Publish');
+                $this.fadeOut("fast", function(){
+	                $this.replaceWith($expiry);
+	                $this.fadeIn("slow");
+    		 });                    
             }
         });
         return false;
+    });
+    */
+    
+    
+    $('.activate').click(function(e) {
+    	 e.preventDefault();
+        var $jobID = $(this).data('job');
+        var $expiry = $(this).data('expiry');
+        var $this = $(this);
+        var react = $(this);
+        confirmAction("Publish Job?", "Publishing this job will cost one (1) credit");
+        $('.popUp #popUpNo').on('click', clearPopUp);
+        $('.popUp #popUpOk').on('click', function(){
+               var parTD = react.parent();
+               var parTR = react.parents('tr').index();     
+		$.post('/toggle-job', {
+			job: $jobID
+		}, function (data) {
+			
+			if (data == 'success'){
+				//create active elements
+				var credits = $('#loggedInButtons a:eq(0)').html().match(/^(\d+)\sCredits$/);
+				if (typeof credits != 'undefined' && credits[1] > 0){
+					var creditHTML = (parseInt(credits[1], 10) - 1)+' Credits';
+					$('#loggedInButtons a:eq(0)').html(creditHTML);
+					$('.alert').removeClass('fail').addClass('success').html('<span></span>Job Re-published Successfully. Your account was debited one (1) credit');
+				}
+					
+			}else{
+				$('.alert').removeClass('success').addClass('fail').html('<span></span>Job not Re-published. '+data);
+			}
+			if ($this.hasClass('grey')) {
+				$this.fadeOut("fast", function(){
+					$this.replaceWith($expiry);
+					$this.fadeIn("slow");
+				});                    
+			}
+			clearPopUp();
+		}); 
+     
+         });
     });
     
     var clearPopUp = function(){
@@ -72,6 +219,7 @@ $(function () {
         $('#newQuestionnaire').val('');
         
         var selected = document.getElementById('questionnaire').options[document.getElementById('questionnaire').selectedIndex].value;
+/*
         
         if ($('option:eq(1)',this).is(':selected')){
             $('#newQuestionnaire').attr('disabled',false);
@@ -82,6 +230,9 @@ $(function () {
             $('#rCreateNew').hide();
         }
         
+*/
+		console.log("new Questionnaire being called");
+		
     }); 
     
     $('.reactivate').click(function(e) {
@@ -172,5 +323,6 @@ $(function () {
             $this.siblings().removeClass('green').removeClass('yellow').removeClass('red').addClass('black');
             $this.removeClass('black').addClass(response);
         });
-    });    
+    }); 
+      
 });
