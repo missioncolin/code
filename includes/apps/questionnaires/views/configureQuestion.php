@@ -199,10 +199,11 @@ if ($this instanceof Quipp) {
             <tr>
                 <td><label><?php echo $label; ?></label></td> 
                 <td colspan="2">
-                    <input size="75" type="text" name="RQvalALPHQuestions[]" id="RQvalALPHQuestion_1" placeholder="Required Skill" value="<?php echo (isset($_POST['RQvalALPHQuestion']						[0])) ? $_POST['RQvalALPHQuestion'][0] : ''; ?>" /> 
+                    <input size="75" type="text" name="RQvalALPHQuestions[]" id="RQvalALPHQuestion_1" placeholder="Select a default question, or create your own." value="<?php echo (isset($_POST['RQvalALPHQuestion']						[0])) ? $_POST['RQvalALPHQuestion'][0] : ''; ?>" /> 
                     
 	                <!--- JS dropdown menu ---->
 	                <select class="DefaultQs_1" name="Generic Questions" style="width:400px;">
+	                	<option>Optionally select a default question.</option>
 						<option value="fiveYearPlan">What are your goals and objectives for the next five years?</option>
 						<option value="careerGoals">How do you plan to achieve your career goals?</option>
 						<option value="rewarding">What do you find most rewarding in your career?</option>
@@ -233,7 +234,7 @@ if ($this instanceof Quipp) {
             </tr>
             <?php } else { ?>
             <tr>
-                <td><label>Question - HERE!</label></td>
+                <td><label>Question</label></td>
                 <td colspan="2"><input size="80" type="text" name="RQvalALPHQuestion" id="RQvalALPHQuestion" value="<?php echo (isset($_POST['RQvalALPHQuestion'])) ? $_POST['RQvalALPHQuestion'] : ''; ?>" /	></td>
             </tr>
 
