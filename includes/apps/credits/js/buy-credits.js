@@ -92,3 +92,23 @@ $('.reactivate').bind('click',function(){
     });
     return false;
 });
+
+
+
+$('.activate').bind('click',function(){
+    var $jobID = $(this).data('job');
+    var $this = $(this);
+    $.post('/activate-job', {
+        job: $jobID
+    }, function(data) {
+        if (data == 'success'){
+            //create active elements
+            window.location.href = $this.attr('href');
+            
+        }
+        else{
+            //error message in a dialog box of some kind
+        }
+    });
+    return false;
+});
