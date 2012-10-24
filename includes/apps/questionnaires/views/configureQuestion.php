@@ -195,7 +195,7 @@ if ($this instanceof Quipp) {
             
             <?php
             }
-            if (isset($_GET['step']) && $_GET['step'] == '3') { ?>
+            else if (isset($_GET['step']) && $_GET['step'] == '3') { ?>
             <tr>
                 <td><label><?php echo $label; ?></label></td> 
                 <td colspan="2">
@@ -233,7 +233,7 @@ if ($this instanceof Quipp) {
             </tr>
             <?php } else { ?>
             <tr>
-                <td><label>Question</label></td>
+                <td><label>Question - HERE!</label></td>
                 <td colspan="2"><input size="80" type="text" name="RQvalALPHQuestion" id="RQvalALPHQuestion" value="<?php echo (isset($_POST['RQvalALPHQuestion'])) ? $_POST['RQvalALPHQuestion'] : ''; ?>" /	></td>
             </tr>
 

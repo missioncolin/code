@@ -1,5 +1,109 @@
+
 $(function () {
-    
+
+	/*
+var sliderValues = new Array(); // Stores each slider value as updated
+	var sliderValueString; // Stores joined array of slider values
+	var page = <?php echo $page;?>;
+	var jobID = <?php echo $jobID;?>;
+	var userID = <?php echo $userID;?>;
+	
+	// Initialize all sliders
+	for (var i = 0; i < <?php echo count($allYearQuestions);?>; i++) {
+		sliderValues.push(0);  
+	}
+	
+	sliderValueString = sliderValues.join(",");
+	ajaxFunction();	
+
+	//ajaxFunction();
+	$('div[id^="slider-"]').each(function() {
+	
+		$(this).slider({
+		    range: "max",
+		    min: 0,
+		    max: 20,
+		    value: 0,
+		    // Each slide updates value label
+		    slide: function( event, ui ) {
+		    	var count = String(this.id).split("-");		    	
+		        $( "#amount" + count[1]).html( ui.value );
+		        	    $( "#apps" ).fadeOut(100);
+		    },
+		    // When user stops sliding, update applicant list
+		    stop: function( event, ui ) {
+		        //Store value of ID to store slider value
+		        var count = String(this.id).split("-");	
+		        sliderValues[count[1]] = ui.value;
+		        
+		        // Create string from values
+				// and submit to process-slider.php
+				sliderValueString = sliderValues.join(",");
+				console.log(sliderValues);
+				ajaxFunction();	
+			
+				/* ajaxFunction(); */
+	
+/*
+		    }
+		    
+		    });
+		    
+*/
+		    // Get id number value 
+/*
+		    var count = String(this.id).split("-");
+		    
+		    // Display value of slider & send to process-slider.php
+			$( "#amount" + count[1]).html( $( this ).slider( "value" ) );        
+	});
+
+
+    function ajaxFunction() {
+	
+		var ajaxRequest;
+		
+		try {
+			
+			// Handles Opera, Firefox, Safari, Chrome
+			ajaxRequest = new XMLHttpRequest();
+			
+		} catch(e) {
+			// Handles IE...
+			try {
+				ajaxRequest = new ActiveXObject("Msxml2.XMLHTTP");
+			} catch(e) {
+				try {
+					ajaxRequest = new ActiveXObject("Microsoft.XMLHTTP");
+				} catch(e) {
+					alert("There has been an error.");
+					return false;
+				}
+			}
+		}
+		
+		// Receive data
+		ajaxRequest.onreadystatechange = function() {
+		if (ajaxRequest.readyState == 4) // Ready to receive {
+	
+			var ajaxDisplay = document.getElementById('apps');
+			
+			if (ajaxDisplay != null) {
+			
+				ajaxDisplay.innerHTML = ajaxRequest.responseText;
+				$( "#apps" ).fadeIn(100);
+			}			
+	
+		}
+		
+		//Send a request:
+		// 1. Specify URL of server-side script that will be used in Ajax app
+		// 2. Use send function to send request
+		ajaxRequest.open("GET", "http://kristina.140b.git.resolutionim.com/includes/apps/jobs-manager/views/process-slider.php?sliderValue=" + sliderValueString + "&jobID=" + jobID + "&page=" + page + "&userID=" + userID, true); // make a relative path
+		ajaxRequest.send();
+	
+	}
+*/
     
     $('.activate').click(function() {
         var $jobID = $(this).data('job');
@@ -72,6 +176,7 @@ $(function () {
         $('#newQuestionnaire').val('');
         
         var selected = document.getElementById('questionnaire').options[document.getElementById('questionnaire').selectedIndex].value;
+/*
         
         if ($('option:eq(1)',this).is(':selected')){
             $('#newQuestionnaire').attr('disabled',false);
@@ -82,6 +187,9 @@ $(function () {
             $('#rCreateNew').hide();
         }
         
+*/
+		console.log("new Questionnaire being called");
+		
     }); 
     
     $('.reactivate').click(function(e) {
