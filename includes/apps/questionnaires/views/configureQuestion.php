@@ -155,10 +155,10 @@ if ($this instanceof Quipp) {
         switch($_GET['step']) {
             
             case '2':
-                echo alert_box('On this page you can create a list of skills the job requires.  When the applicant applies they will enter the years of experience they have in each skill. Intervue will use this information to rank applicants. Clicking Tab will create another question and hitting Enter will submit the form.', 3);
+                echo alert_box('On this page you can create a list of skills the job requires.  When the applicant applies they will enter the years of experience they have in each skill. Intervue will use this information to rank applicants. Note: Pressing the Tab button on your keyboard will create another question field and hitting Enter will submit the form.', 3);
                 break;
             case '3':
-                echo alert_box('During the interview you can add multiple Video Response questions. Here you can ask general questions that you would like you applicant to answer via video. eg. What is your five year plan?', 3);
+                echo alert_box('On this page you can ask questions that will be answered by the applicant using their webcam during the application process.  Below is a list of generic questions in the dropdown menu or you can create your own questions specific to this job.', 3);
                 break;
             
         }
@@ -199,10 +199,11 @@ if ($this instanceof Quipp) {
             <tr>
                 <td><label><?php echo $label; ?></label></td> 
                 <td colspan="2">
-                    <input size="75" type="text" name="RQvalALPHQuestions[]" id="RQvalALPHQuestion_1" placeholder="Required Skill" value="<?php echo (isset($_POST['RQvalALPHQuestion']						[0])) ? $_POST['RQvalALPHQuestion'][0] : ''; ?>" /> 
+                    <input size="75" type="text" name="RQvalALPHQuestions[]" id="RQvalALPHQuestion_1" placeholder="Select a default question, or create your own." value="<?php echo (isset($_POST['RQvalALPHQuestion']						[0])) ? $_POST['RQvalALPHQuestion'][0] : ''; ?>" /> 
                     
 	                <!--- JS dropdown menu ---->
 	                <select class="DefaultQs_1" name="Generic Questions" style="width:400px;">
+	                	<option>Optionally select a default question.</option>
 						<option value="fiveYearPlan">What are your goals and objectives for the next five years?</option>
 						<option value="careerGoals">How do you plan to achieve your career goals?</option>
 						<option value="rewarding">What do you find most rewarding in your career?</option>
@@ -233,7 +234,7 @@ if ($this instanceof Quipp) {
             </tr>
             <?php } else { ?>
             <tr>
-                <td><label>Question - HERE!</label></td>
+                <td><label>Question</label></td>
                 <td colspan="2"><input size="80" type="text" name="RQvalALPHQuestion" id="RQvalALPHQuestion" value="<?php echo (isset($_POST['RQvalALPHQuestion'])) ? $_POST['RQvalALPHQuestion'] : ''; ?>" /	></td>
             </tr>
 

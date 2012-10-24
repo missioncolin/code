@@ -135,16 +135,16 @@ var sliderValues = new Array(); // Stores each slider value as updated
         $('.popUp #popUpOk').on('click', function(){
                var parTD = react.parent();
                var parTR = react.parents('tr').index();     
-		$.post('/toggle-job', {
+		$.post('/reactivate-job', {
 			job: $jobID
 		}, function (data) {
-			
-			if (data == 'success'){
+			  if (data == 'success'){
 				//create active elements
 				var credits = $('#loggedInButtons a:eq(0)').html().match(/^(\d+)\sCredits$/);
 				if (typeof credits != 'undefined' && credits[1] > 0){
 					var creditHTML = (parseInt(credits[1], 10) - 1)+' Credits';
 					$('#loggedInButtons a:eq(0)').html(creditHTML);
+					console.log("Success!");
 					$('.alert').removeClass('fail').addClass('success').html('<span></span>Job Re-published Successfully. Your account was debited one (1) credit');
 				}
 				if ($this.hasClass('grey')) {
@@ -157,10 +157,12 @@ var sliderValues = new Array(); // Stores each slider value as updated
 			}else{
 				$('.alert').removeClass('success').addClass('fail').html('<span></span>Job not Re-published. '+data);
 			}
+
 			clearPopUp();
+				
 		}); 
      
-         });
+       });
     });
     
     var clearPopUp = function(){
