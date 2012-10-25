@@ -187,7 +187,7 @@ if ($this instanceof Quipp) {
                 <tr>
                 <td><label><?php echo $label; ?></label></td> 
                 <td colspan="2">
-                    <input size="75" type="text" name="RQvalALPHQuestions[]" id="RQvalALPHQuestion_1" placeholder="Required Skill" value="<?php echo (isset($_POST['RQvalALPHQuestion']						[0])) ? $_POST['RQvalALPHQuestion'][0] : ''; ?>" /> 
+                    <input size="75" type="text" name="RQvalALPHQuestions[]" id="RQvalALPHQuestion_1" placeholder="Required Skill" value="<?php echo (isset($_POST['RQvalALPHQuestion'][0])) ? $_POST['RQvalALPHQuestion'][0] : ''; ?>" /><a href="#" data-count="1" class="removeSkillQ">&nbsp;x</a> 
                     <br><a href="#" data-count="1" data-label="<?php echo $label; ?>" class="add">Add Another Question</a>
                     <input type="hidden" id="RQvalNUMBType" name="RQvalNUMBType" value="<?php echo $type; ?>" />
                 </td>
@@ -228,6 +228,7 @@ if ($this instanceof Quipp) {
 						<option value="travelAmount">Are you comfortable with the amount of travel this job requires?</option>
 						<option value="sixMonths">Are you willing to spend at least six months as a trainee?</option>
 					</select>    
+					<a href="#" data-count="1" class="removeDropDown">&nbsp;x</a>
                 <br><a href="#" data-count="1" data-label="<?php echo $label; ?>" class="add_dropdown_q">Add Another Question</a>
                     <input type="hidden" id="RQvalNUMBType" name="RQvalNUMBType" value="<?php echo $type; ?>" />
                 </td>
