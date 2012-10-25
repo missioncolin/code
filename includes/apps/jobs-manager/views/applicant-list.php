@@ -1,7 +1,7 @@
 <!-- probably called somewhere else too -->
 <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
 <script src="http://code.jquery.com/ui/1.9.0/jquery-ui.js"></script>
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.0/themes/base/jquery-ui.css" />
+
 
 <?php
 
@@ -169,9 +169,11 @@ function ajaxFunction() {
 	}
 	
 	echo alert_box('Use the following '.$sliders.' to select an inclusive minimum number of years for '.$qStr.'. Applicants who fit '.$theseStr.' will be displayed.', 3);
-	
+	echo "<ul class='sliderList'>";
 	$i = 0;
 	foreach ($allYearQuestions as $id=>$desc) {
+	
+		echo "<li>";
 	
 		//Print description
 		printf("%s ", $desc);
@@ -180,10 +182,12 @@ function ajaxFunction() {
 		echo "<span id=\"amount".$i."\"></span>";
 		
 		//Display slider for this ID
-		echo "<div id=\"slider-".$i."\" style=\"width:250px\"></div></br>";
+		echo "<div id=\"slider-".$i."\"></div>";
+		echo "</li>";
 		$i++;
 		
 	} 
+	echo "</ul>";
 
 ?>
 

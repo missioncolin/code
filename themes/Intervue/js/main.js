@@ -45,6 +45,8 @@ $(document).ready(function() {
        }
     });
     
+    $('ul.sliderList li:nth-child(3n)').addClass('noMargins');
+    
     $('#steps').not(':has(li)').addClass('hide');
     
     $('body#configure-question').keyup(function(e) {

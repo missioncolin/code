@@ -2217,6 +2217,39 @@ a.createAJobCallout:hover {
 
 .customfile-disabled { opacity: .5; filter:progid:DXImageTransform.Microsoft.Alpha(opacity=0); cursor: default;  }
 
+
+/* Sliders */
+
+ul.sliderList {
+	float: left;
+	width: 100%;
+	margin: 10px 0 20px;
+	padding: 0;
+	list-style: none;
+	clear: both;
+}
+ul.sliderList li {
+	float: left; 
+	width: 30%;
+	margin: 0 5% 20px 0;
+}
+ul.sliderList li.noMargins {
+	margin-right: 0;
+}
+
+ul.sliderList li span {
+	float: right;
+	padding: 1px 10px;
+	background: @accent;
+	color: #FFF;
+	margin-top: -2px;
+	.border-radius(30px);
+}
+
+ul.sliderList li .ui-slider {
+	margin-top: 10px !important;
+}
+
 /*Contact Form-------------------------------------------------------------------- */
 
 #contactUs #card {
