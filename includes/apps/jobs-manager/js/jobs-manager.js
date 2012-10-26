@@ -263,12 +263,14 @@ var sliderValues = new Array(); // Stores each slider value as updated
                         var domTR = document.getElementById('hrListJobs').getElementsByTagName('tr');
                         var actTD = domTR[parTR].getElementsByTagName('td');
                         
-                        parTD.attr('colspan','1');
+                       // domTR[parTR].
+                        
+                       // parTD.attr('colspan','1');
                         //$('a', parTD).removeClass('green').removeClass('reactivate').addClass('black').addClass('activate').html('Live - Un-Publish');
-                        $('a', parTD).fadeOut("fast");
-	                    $('a', parTD).replaceWith($expiry);
-	                    $('a', parTD).fadeIn("slow");         
-	                    
+                       $('a', parTD).fadeOut("fast");
+	                   $('a', parTD).replaceWith($expiry);
+	                   $('a', parTD).fadeIn("slow");         
+
                         
                         var tdLink = document.createElement('td');
                         var linkText = document.createTextNode(location.host+"/apply/"+$jobID);
@@ -294,13 +296,39 @@ var sliderValues = new Array(); // Stores each slider value as updated
                         
                         //remove columns under expiry and delete
                         
+                        
+                        $(actTD[1]).remove();
+                        $(actTD[2]).remove();
+                        $(actTD[2]).remove();
+                       //$(actTD[3]).remove();
+                        //$(actTD[2]).remove();
+                       // $(actTD[5]).remove();
+                        
+                        
                         domTR[parTR].insertBefore(tdLink, actTD[1]); //add link to job
-/*                      domTR[parTR].insertBefore(tdEdit, actTD[3]); //add edit button */  /******* Causing the table to expand a LOT ******* */
-/*                      domTR[parTR].appendChild(tdDel); //add delete button */
-						$(domTR[parTR]).append(tdEdit);
+                        //domTR[parTR].remove(actTD[1]);
+                    
+                        domTR[parTR].appendChild(tdEdit); //add edit button
+                        domTR[parTR].appendChild(tdDel); //add delete butotn
                         //actTD[1].child().replaceWith(tdLink);
-                        // actTD[2].replaceWith(tdEdit);
-                        // actTD[3].replaceWith(tdDel);
+                       // actTD[2].replaceWith(tdEdit);
+                       // actTD[3].replaceWith(tdDel);
+                       
+                       console.log(actTD[0]);
+                       console.log(actTD[1]);
+                       console.log(actTD[2]);
+                       console.log(actTD[3]);
+                        console.log(actTD[4]);
+                         console.log(actTD[5]);
+                       
+                       
+                       
+                      
+                        
+                       
+                    
+                       
+                       
                         $('.alert').removeClass('fail').addClass('success').html('<span></span>Job Re-published Successfully. Your account was debited one (1) credit');
                         
                    
@@ -314,6 +342,41 @@ var sliderValues = new Array(); // Stores each slider value as updated
         });
         
     });
+    
+    
+    $('.reactivateLanding').click(function(e) {
+        e.preventDefault();
+        var $jobID = $(this).data('job');
+        var react = $(this);
+        confirmAction("Publish Job?", "Publishing this job will cost one (1) credit");
+        $('.popUp #popUpNo').on('click', clearPopUp);
+        $('.popUp #popUpOk').on('click', function(){
+            var parTD = react.parent();
+            var parTR = react.parents('tr').index();
+            $.post('/reactivate-job', {
+                job: $jobID
+            }, function(data) {
+                if (data == 'success'){
+                    //create active elements
+                    var credits = $('#loggedInButtons a:eq(0)').html().match(/^(\d+)\sCredits$/);
+                    if (typeof credits != 'undefined' && credits[1] > 0){
+
+	                 $('.reactivateLanding').remove();  
+	                 $('.successAlert').html('Your job has been published!<br/>');    
+                        $('.alert').removeClass('fail').addClass('success').html('<span></span>Job Re-published Successfully. Your account was debited one (1) credit');
+                        
+                   
+                    }else{
+                    		$('.alert').removeClass('success').addClass('fail').html('<span></span>Job not Re-published. '+data);
+                    }
+                    clearPopUp();
+                }
+            });
+            clearPopUp();
+        });
+        
+    });
+    
     
     $('.buy').click(function(e){
         e.preventDefault();

@@ -54,7 +54,8 @@ class JobManager {
     public function addJob($post) {       
         
         
-        $active = (isset($post['active']) && $post['active'] == 'on') ? 'active' : 'inactive';
+        //$active = (isset($post['active']) && $post['active'] == 'on') ? 'active' : 'inactive';
+        $active = 'inactive';
         $qry = sprintf("INSERT INTO tblJobs (`userID`, `title`, `link`, `dateExpires`, `datePosted`, `questionnaireID`, `sysStatus`) VALUES ('%d', '%s', '%s', '%s', '%s', '%d', '%s')",
             (int)$this->userID,
             $this->db->escape($post['RQvalALPHTitle']),
@@ -69,7 +70,7 @@ class JobManager {
         if ($this->db->error()) {
             return $this->db->error();
         }
-        return true;
+        return mysql_insert_id();
     }
     
     
@@ -368,13 +369,14 @@ class JobManager {
                         (int)$this->userID,
                         date("U") //want to make sure that this was not already re-published
                     );
+                   
                     $res = $this->db->query($qry);
                     if ($this->db->affected_rows($res) == 1){
                         $success = 'success';
                     }
                     else{
                         $newCredits = Credits::assignCredits($user, 1);
-                        $success = "An error occurred and your job could not be re-activated. Your available credits were not updated";
+                        $success = "An error occurred and your job could not be re-activated. Your available credits were not updated  ".$qry;
                     }
                 }
                 else{

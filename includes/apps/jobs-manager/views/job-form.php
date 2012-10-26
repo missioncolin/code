@@ -12,6 +12,7 @@ $questionnaires = $j->getQuestionaires();
 $error = '';
 $success = false;
 $newQnr = false;
+$jobID = 0;
 
 $quipp->js['footer'][] = "/includes/apps/jobs-manager/js/jobs-manager.js";
 
@@ -43,7 +44,14 @@ if (!empty($_POST)) {
                 // insert
                //REMOVING THE CHECK FOR CREDITS BEFORE ADDING A JOB.
                  //if ((int)$user->info['Job Credits'] > 0) {
-                    $success = $j->addJob($_POST);
+                    $addJobReturn = $j->addJob($_POST);
+                    if (is_numeric($addJobReturn)){
+	                    $success = true;
+	                    $jobID = $addJobReturn;
+                    } else{
+	                    $success = "false";
+	                    $error = "There was a problem with your entry, please try again";
+                    }
                 // } else {
                  //    $success = 'You do not have a sufficiant amount of job credits to create a new job. Please <a href="/buy-job-credits">purchase more job credits</a> to continue.'; 
                 //}
@@ -81,11 +89,11 @@ if ($edit == true && !isset($_GET['id'])) {
     $quipp->js['onload'] .= 'alertBox("fail", "You do not have access to this job");';
 
     
-} else if ($error == '' && $success === true) {
+} else if ($error == '' && $success == true && $jobID > 0) {
     if ($edit == false) {
        // Credits::assignCredits($user, -1);
         if ($newQnr === true){
-            header('Location: /configure-question?step=2&qnrID='.$_POST["RQvalNUMBQuestionnaire"]); //redirect to page that lists all questions
+            header('Location: /configure-question?step=2&qnrID='.$_POST["RQvalNUMBQuestionnaire"].'&jobID='.$jobID);
         }
         else {
             header('Location: /applications?success=Job+created=successfully');
@@ -195,8 +203,8 @@ if (empty($questionnaires)) {
         
         <input type="hidden" name="OPvalWEBSLink" id="link" placeholder="http://monster.com/jobid" value="<?php echo $link; ?>" />
         <input type="hidden" name="RQvalDATEDate_Posted" value="<?php echo $datePosted; ?>"/>
-        <input type="hidden" name="id" value="<?php echo (isset($_GET['id']) && $edit == true) ? (int)$_GET['id'] : 0; ?>" />   
-	   	<input type="submit" value="<?php echo ($edit == true) ? 'Edit' : 'Create &amp; Continue'; ?>" class="btn green" />   	        
+        <input type="hidden" name="id" value="<?php echo (isset($_GET['id']) && $edit == true) ? (int)$_GET['id'] : 0; ?>" />
+        <input type="submit" value="<?php echo ($edit == true) ? 'Edit' : 'Create &amp; Continue'; ?>" class="btn green" />
     </form>
     <?php
     }
