@@ -212,6 +212,60 @@ class Questionnaire
     
     
     /**
+     * Edit a question
+     * @param int questionID
+     * @param string label
+     * @return bool
+     */
+    public function editQuestion($questionID, $label) {
+        
+        
+         if (!empty($title) && (int) $userID > 0) {
+            $qry = sprintf("UPDATE tblQuestions SET label = '%s' WHERE itemID = '%d'",
+               $this->db->escape(strip_tags($title)),
+                (int) $questionID
+                );
+            $res = $this->db->query($qry);
+            
+            if ($this->db->error() == 0 && $this->db->affected_rows($res) == 1) {
+                return true;
+            }
+
+        }
+
+        return false;
+    }
+
+    
+     /**
+     * Creates a blank question, defaults to a years of experience type question (3)
+     * @param int questionnaireID
+     * @param int typeID
+     * @return bool
+     */
+    public function createQuestion($questionnaireID, $typeID = 3) {
+        
+        
+         if (!empty($title) && (int) $userID > 0) {
+            $qry = sprintf("INSERT INTO tblQuestions (questionnaireID, label, type, sysOpen, sysActive) VALUES ('%d', '', '%d', '1', '1')",
+               $this->db->escape(strip_tags($title)),
+                (int) $questionnaireID,
+                (int) $typeID
+                );
+            $res = $this->db->query($qry);
+            
+            if ($this->db->error() == 0 && $this->db->affected_rows($res) == 1) {
+                 return $this->db->insert_id();
+            }
+
+        }
+
+        return false;
+    }
+
+    
+    
+    /**
      * Delete a question
      * @param int questionID
      * @return bool
