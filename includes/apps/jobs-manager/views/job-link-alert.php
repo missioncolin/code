@@ -17,7 +17,9 @@ Paste this link into your job ad:
 <br/>
 <span style="font-weight:bolder;"><?php echo $_SERVER['SERVER_NAME']."/apply/".$_GET['jobID'];?></span>
 
-<br/><br/>
+<br/>
+<div class="successAlert"></div>
+<br/>
 <?php
 if($user->info['Job Credits'] > 0){
 	//echo "<a href=\"\" data-job=\"".$_GET['jobID']."\" data-expiry=\"".$job["dateExpires"]."\" class=\"btn activate grey\">Use 1 Credit to Activate Now</a>";
@@ -26,7 +28,8 @@ if($user->info['Job Credits'] > 0){
 	echo "<a href=\"buy-job-credits\" class=\"btn red\">Buy Credits</a>"; 
 }
 ?>
-<a href="applications" class="btn">Return to Job List and Activate Later</a> 
+
+<a href="applications" class="btn ">Return to Job List</a> 
 
 
 <div id="confirm" style="display:none">

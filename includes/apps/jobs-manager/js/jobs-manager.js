@@ -348,7 +348,7 @@ var sliderValues = new Array(); // Stores each slider value as updated
         e.preventDefault();
         var $jobID = $(this).data('job');
         var react = $(this);
-        confirmAction("Publish Job?", "publishing this job will cost one (1) credit");
+        confirmAction("Publish Job?", "Publishing this job will cost one (1) credit");
         $('.popUp #popUpNo').on('click', clearPopUp);
         $('.popUp #popUpOk').on('click', function(){
             var parTD = react.parent();
@@ -361,8 +361,8 @@ var sliderValues = new Array(); // Stores each slider value as updated
                     var credits = $('#loggedInButtons a:eq(0)').html().match(/^(\d+)\sCredits$/);
                     if (typeof credits != 'undefined' && credits[1] > 0){
 
-	                 //$(this).remove();
-	                 
+	                 $('.reactivateLanding').remove();  
+	                 $('.successAlert').html('Your job has been published!<br/>');    
                         $('.alert').removeClass('fail').addClass('success').html('<span></span>Job Re-published Successfully. Your account was debited one (1) credit');
                         
                    
