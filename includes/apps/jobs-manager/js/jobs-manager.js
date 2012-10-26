@@ -314,6 +314,41 @@ var sliderValues = new Array(); // Stores each slider value as updated
         
     });
     
+    
+    $('.reactivateLanding').click(function(e) {
+        e.preventDefault();
+        var $jobID = $(this).data('job');
+        var react = $(this);
+        confirmAction("Publish Job?", "publishing this job will cost one (1) credit");
+        $('.popUp #popUpNo').on('click', clearPopUp);
+        $('.popUp #popUpOk').on('click', function(){
+            var parTD = react.parent();
+            var parTR = react.parents('tr').index();
+            $.post('/reactivate-job', {
+                job: $jobID
+            }, function(data) {
+                if (data == 'success'){
+                    //create active elements
+                    var credits = $('#loggedInButtons a:eq(0)').html().match(/^(\d+)\sCredits$/);
+                    if (typeof credits != 'undefined' && credits[1] > 0){
+
+	                 //$(this).remove();
+	                 
+                        $('.alert').removeClass('fail').addClass('success').html('<span></span>Job Re-published Successfully. Your account was debited one (1) credit');
+                        
+                   
+                    }else{
+                    		$('.alert').removeClass('success').addClass('fail').html('<span></span>Job not Re-published. '+data);
+                    }
+                    clearPopUp();
+                }
+            });
+            clearPopUp();
+        });
+        
+    });
+    
+    
     $('.buy').click(function(e){
         e.preventDefault();
         var $jobID = $(this).data('job');

@@ -74,9 +74,10 @@ if ($this instanceof Quipp) {
             }
 
             if (isset($_GET['step']) && $_GET['step'] == '2') {
-                header("Location: /configure-question?step=3&qnrID=".$_GET['qnrID']);
+                header("Location: /configure-question?step=3&qnrID=".$_GET['qnrID'].'&jobID='.$_GET['jobID']);
             } elseif (isset($_GET['step']) && $_GET['step'] == '3') {
-                header("Location: /applications");
+                //header("Location: /applications");
+                header("Location: /new-job-info?jobID=".$_GET['jobID']);
                 //rediect to confirmation page and explanation page instead
                // header("Location: /questionnaire-complete?qnrID=".$_GET['qnrID']);
             } else {
@@ -166,7 +167,7 @@ if ($this instanceof Quipp) {
     }
 
 ?>
-    <h4>Questionnaire: <?php echo $qnr['label']; ?></h4>
+    <h4>New Job: <?php echo $qnr['label']; ?></h4>
     <form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post">
         <table id="configure" class="simpleTable">
             <?php 
