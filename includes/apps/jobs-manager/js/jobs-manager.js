@@ -266,9 +266,9 @@ var sliderValues = new Array(); // Stores each slider value as updated
                         parTD.attr('colspan','1');
                         //$('a', parTD).removeClass('green').removeClass('reactivate').addClass('black').addClass('activate').html('Live - Un-Publish');
                         $('a', parTD).fadeOut("fast");
-	                 $('a', parTD).replaceWith($expiry);
-	                 $('a', parTD).fadeIn("slow");         
-
+	                    $('a', parTD).replaceWith($expiry);
+	                    $('a', parTD).fadeIn("slow");         
+	                    
                         
                         var tdLink = document.createElement('td');
                         var linkText = document.createTextNode(location.host+"/apply/"+$jobID);
@@ -276,7 +276,7 @@ var sliderValues = new Array(); // Stores each slider value as updated
                         
                         
                         //deit and delete buttons
-                       var tdDel = document.createElement('td');
+                        var tdDel = document.createElement('td');
                         var aDel = document.createElement('a');
                         aDel.setAttribute('href', '#');
                         aDel.setAttribute('data-job', $jobID);
@@ -295,11 +295,12 @@ var sliderValues = new Array(); // Stores each slider value as updated
                         //remove columns under expiry and delete
                         
                         domTR[parTR].insertBefore(tdLink, actTD[1]); //add link to job
-                        domTR[parTR].appendChild(tdEdit); //add edit button
-                        domTR[parTR].appendChild(tdDel); //add delete butotn
+/*                      domTR[parTR].insertBefore(tdEdit, actTD[3]); //add edit button */  /******* Causing the table to expand a LOT ******* */
+/*                      domTR[parTR].appendChild(tdDel); //add delete button */
+						$(domTR[parTR]).append(tdEdit);
                         //actTD[1].child().replaceWith(tdLink);
-                       // actTD[2].replaceWith(tdEdit);
-                       // actTD[3].replaceWith(tdDel);
+                        // actTD[2].replaceWith(tdEdit);
+                        // actTD[3].replaceWith(tdDel);
                         $('.alert').removeClass('fail').addClass('success').html('<span></span>Job Re-published Successfully. Your account was debited one (1) credit');
                         
                    

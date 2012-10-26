@@ -53,9 +53,14 @@ $(document).ready(function() {
 	    console.log('keyup called');
 	    var code = e.keyCode || e.which;
 	    if (code == '9') { 
+    
 	       var count = +$('a.add').last().data('count') + 1;
 	       var label = $('a.add').last().data('label');      
-            $('<tr><td>' + label + '</td><td colspan="2"><input size="75" type="text" name="RQvalALPHQuestions[]" id="RQvalALPHQuestion_' + count + '" placeholder="Required Skill" value="" /> <a href="#" data-count="' + count + '" data-label="' + label + '" class="add">Add Another Question</a></td></tr>').insertAfter($('a.add').last().parent().parent());
+	       
+	       totalCountQ.push(count);
+		   console.log(totalCountQ);
+		   
+            $('<tr><td>' + label + '</td><td colspan="2"><input size="75" type="text" name="RQvalALPHQuestions[]" id="RQvalALPHQuestion_' + count + '" placeholder="Required Skill" value="" /> <a href="#" data-count="' + count + '" data-label="' + label + '" class="add">Add Another Question</a><a href="#" data-count="' + count + '" class="removeSkillQ">&nbsp;x</a></td></tr>').insertAfter($('a.add').last().parent().parent());
             $('a.add').first().remove();
             $('input:text').last().focus();
             return false;

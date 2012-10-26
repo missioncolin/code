@@ -187,14 +187,52 @@ if ($this instanceof Quipp) {
                 <tr>
                 <td><label><?php echo $label; ?></label></td> 
                 <td colspan="2">
-                    <input size="75" type="text" name="RQvalALPHQuestions[]" id="RQvalALPHQuestion_1" placeholder="Required Skill" value="<?php echo (isset($_POST['RQvalALPHQuestion'][0])) ? $_POST['RQvalALPHQuestion'][0] : ''; ?>" /><a href="#" data-count="1" class="removeSkillQ">&nbsp;x</a> 
+                    <input size="75" type="text" name="RQvalALPHQuestions[]" id="RQvalALPHQuestion_1" placeholder="Required Skill" value="<?php echo (isset($_POST['RQvalALPHQuestion'][0])) ? $_POST['RQvalALPHQuestion'][0] : ''; ?>" /> 
                     <br><a href="#" data-count="1" data-label="<?php echo $label; ?>" class="add">Add Another Question</a>
+                    <a href="#" data-count="1" class="removeSkillQ">&nbsp;x</a>
                     <input type="hidden" id="RQvalNUMBType" name="RQvalNUMBType" value="<?php echo $type; ?>" />
                 </td>
             </tr>
             
             <?php
             }
+            
+            else if (isset($_GET['step']) && $_GET['step'] == '4') {
+            
+            	// Display all questions from this questionnaire for this job
+            	// with editable text boxes
+            	
+            	/* Query the database and return an array of all questions */
+/*
+            	$questionQry = sprintf("SELECT %s FROM %s WHERE %s = '%d'", "label", "tblQuestions", "questionnaireID", (int) $_GET['qnrID']);
+            	$questionRS = mysql_query($questionQry);
+            	$questionArray = mysql_fetch_array($questionQry);
+            	print_r($questionArray);	
+/*
+*/
+/*				if ($questionArray == null) {
+					
+					// Alert that no questions exist
+					
+				}
+				else {
+					
+					// For each one, list etc.
+					foreach ($questionArray as $)
+				}
+*/
+
+/*
+           ?>
+            	<tr>
+            	<td colspan="2">
+            		
+            	
+            	
+           <?php	
+*/
+            }
+            
             else if (isset($_GET['step']) && $_GET['step'] == '3') { ?>
             <tr>
                 <td><label><?php echo $label; ?></label></td> 

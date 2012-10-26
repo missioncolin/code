@@ -85,7 +85,7 @@ if ($edit == true && !isset($_GET['id'])) {
     if ($edit == false) {
        // Credits::assignCredits($user, -1);
         if ($newQnr === true){
-            header('Location: /configure-question?step=2&qnrID='.$_POST["RQvalNUMBQuestionnaire"]);
+            header('Location: /configure-question?step=2&qnrID='.$_POST["RQvalNUMBQuestionnaire"]); //redirect to page that lists all questions
         }
         else {
             header('Location: /applications?success=Job+created=successfully');
@@ -144,7 +144,7 @@ if (empty($questionnaires)) {
         
     } else {
     ?>
-    <form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post">
+    <form action="<?php echo ($edit == true) ? header('Location: /configure-question?step=4&qnrID='.$questionnaireID) : $_SERVER['REQUEST_URI']; ?>" method="post">
         <table class="simpleTable singleHeader">
             <thead>
                 <tr>
@@ -195,8 +195,8 @@ if (empty($questionnaires)) {
         
         <input type="hidden" name="OPvalWEBSLink" id="link" placeholder="http://monster.com/jobid" value="<?php echo $link; ?>" />
         <input type="hidden" name="RQvalDATEDate_Posted" value="<?php echo $datePosted; ?>"/>
-        <input type="hidden" name="id" value="<?php echo (isset($_GET['id']) && $edit == true) ? (int)$_GET['id'] : 0; ?>" />
-        <input type="submit" value="<?php echo ($edit == true) ? 'Edit' : 'Create &amp; Continue'; ?>" class="btn green" />
+        <input type="hidden" name="id" value="<?php echo (isset($_GET['id']) && $edit == true) ? (int)$_GET['id'] : 0; ?>" />   
+	   	<input type="submit" value="<?php echo ($edit == true) ? 'Edit' : 'Create &amp; Continue'; ?>" class="btn green" />   	        
     </form>
     <?php
     }
