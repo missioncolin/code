@@ -455,7 +455,40 @@ class JobManager {
 	   return $qsArr;
     }
             
+     /** Returns array of all questions by jobID
+     *  returns false if none exist
+     *  @return array
+    **/
+    public function getAllQuestions($jobID) {
+	    
+	    $qsArr = array();
+	    $selectQQry = sprintf("SELECT question.itemID AS 'questionID', question.label AS 'label' 
+	    		FROM tblQuestions question INNER JOIN tblQuestionnaires questionnaire ON question.questionnaireID = questionnaire.itemID
+	    		INNER JOIN tblJobs jobs ON jobs.questionnaireID = question.questionnaireID
+	    		WHERE jobs.itemID = '%d'", $jobID);
+	    $selectQRS = $this->db->query($selectQQry);
+	    
+	    if (is_resource($selectQRS)) {
+		    
+		    if ($this->db->num_rows($selectQRS) > 0) {
+			    while ($selectQ = $this->db->fetch_assoc($selectQRS)) {
+				    $qsArr[$selectQ['questionID']] = $selectQ['label'];
+			    }
+		    }
+		    else {
+			    // No questions
+			    return false;
+		    }
+	    }
+	    else {
+		    // No questions
+		    return false;
+	    }
+	    
+	    return $qsArr;
+    }
     
+
     public function setJobViewed($jobID){
 	    $setJobViewedQry = "UPDATE tblJobs set hasBeenViewed = 1 WHERE itemID = '".$jobID."'";
 	    $setJobViewedRS = $this->db->query($setJobViewedQry);
