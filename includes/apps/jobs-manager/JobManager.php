@@ -453,7 +453,8 @@ class JobManager {
 		} //end if num row > 0
 	   } //end if resource
 	   return $qsArr;
-    }    
+    }
+            
     
     public function setJobViewed($jobID){
 	    $setJobViewedQry = "UPDATE tblJobs set hasBeenViewed = 1 WHERE itemID = '".$jobID."'";

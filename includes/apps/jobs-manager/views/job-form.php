@@ -152,7 +152,7 @@ if (empty($questionnaires)) {
         
     } else {
     ?>
-    <form action="<?php echo ($edit == true) ? header('Location: /configure-question?step=4&qnrID='.$questionnaireID) : $_SERVER['REQUEST_URI']; ?>" method="post">
+    <form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post">
         <table class="simpleTable singleHeader">
             <thead>
                 <tr>
