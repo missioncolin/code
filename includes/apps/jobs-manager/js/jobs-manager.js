@@ -370,6 +370,7 @@ var sliderValues = new Array(); // Stores each slider value as updated
                     		$('.alert').removeClass('success').addClass('fail').html('<span></span>Job not Re-published. '+data);
                     }
                     clearPopUp();
+                    
                 }
             });
             clearPopUp();
