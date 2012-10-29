@@ -9,7 +9,7 @@ require dirname(dirname(__DIR__)) . '/credits/Credits.php';
 $j = new JobManager($db, $_SESSION['userID']);
 $q = new Questionnaire($db);
 $questionnaires = $j->getQuestionaires();
-$error = '';
+$error = false;
 $success = false;
 $newQnr = false;
 $jobID = 0;
@@ -48,6 +48,7 @@ if (!empty($_POST)) {
                     if (is_numeric($addJobReturn)){
 	                    $success = true;
 	                    $jobID = $addJobReturn;
+	                    $error = false;
                     } else{
 	                    $success = false;
 	                    $error = "There was a problem with your entry, please try again";
@@ -103,7 +104,7 @@ if ($edit == true && !isset($_GET['id'])) {
     }
 
 } else {
-    if ($success != '') {
+    if ($success != true) {
         $error = $success;
     }
 
