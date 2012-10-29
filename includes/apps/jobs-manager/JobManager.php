@@ -82,7 +82,7 @@ class JobManager {
         $active = (isset($post['active']) && $post['active'] == 'on') ? 'active' : 'inactive';
         $qry = sprintf("UPDATE tblJobs SET `title`='%s', `link`='%s', `dateExpires`='%s', `datePosted`='%s', `questionnaireID`='%d', `sysStatus`='%s' WHERE itemID='%d' AND userID='%d'",
             $this->db->escape($post['RQvalALPHTitle']),
-            $this->db->escape($post['RQvalWEBSLink']),
+            $this->db->escape($post['OPvalWEBSLink']),
             $this->db->escape($post['RQvalDATEDate_Expires']),
             $this->db->escape($post['RQvalDATEDate_Posted']),
             (int)$post['RQvalNUMBQuestionnaire'],

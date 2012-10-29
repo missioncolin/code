@@ -49,7 +49,7 @@ if (!empty($_POST)) {
 	                    $success = true;
 	                    $jobID = $addJobReturn;
                     } else{
-	                    $success = "false";
+	                    $success = false;
 	                    $error = "There was a problem with your entry, please try again";
                     }
                 // } else {
@@ -107,7 +107,7 @@ if ($edit == true && !isset($_GET['id'])) {
         $error = $success;
     }
 
-    if ($error != '') {
+    if ($error != false) {
         $quipp->js['onload'] .= 'alertBox("fail", "' . $error . '");';
     }
 
@@ -203,6 +203,7 @@ if (empty($questionnaires)) {
         
         <input type="hidden" name="OPvalWEBSLink" id="link" placeholder="http://monster.com/jobid" value="<?php echo $link; ?>" />
         <input type="hidden" name="RQvalDATEDate_Posted" value="<?php echo $datePosted; ?>"/>
+        <input type="hidden" name="RQvalDATEDate_Expires" value="<?php echo $dateExpires; ?>"/>
         <input type="hidden" name="id" value="<?php echo (isset($_GET['id']) && $edit == true) ? (int)$_GET['id'] : 0; ?>" />
         <input type="submit" value="<?php echo ($edit == true) ? 'Edit' : 'Create &amp; Continue'; ?>" class="btn green" />
     </form>
