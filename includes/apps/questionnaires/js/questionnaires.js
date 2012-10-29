@@ -70,7 +70,7 @@ $('.add').live('click', function() {
     totalCountQ.push($count);
     console.log(totalCountQ);
     
-    $('<tr><td>' + $label + '</td><td colspan="2"><input size="75" type="text" name="RQvalALPHQuestions[]" id="RQvalALPHQuestion_' + $count + '" placeholder="Required Skill" value="" /><a href="#" data-count="' + $count + '" class="removeSkillQ">&nbsp;x</a><br><a href="#" data-count="' + $count + '" data-label="' + $label + '" class="add">Add Another Question</a></td></tr>').insertAfter($(this).parent().parent());
+    $('<tr><td>' + $label + '</td><td colspan="2"><input size="75" type="text" name="RQvalALPHQuestions[]" id="RQvalALPHQuestion_' + $count + '" placeholder="Required Skill" value="" /><br><a href="#" data-count="' + $count + '" data-label="' + $label + '" class="add">Add Another Question</a><a href="#" data-count="' + $count + '" class="removeSkillQ">&nbsp;x</a></td></tr>').insertAfter($(this).parent().parent());
     $(this).remove();
     return false;
 });
@@ -119,7 +119,7 @@ $('.removeSkillQ').live('click', function() {
 		$('#RQvalALPHQuestion_' + $count).remove();
 		$(this).closest('tr').remove();
 		$(this).closest('td').remove();
-		$('<a href="#" data-count="' + $count + '" data-label="' + $label + '" class="add">Add Another Question</a>').insertAfter($('#RQvalALPHQuestion_' + (totalCountQ[totalCountQ.length - 1])));
+		$('<a href="#" data-count="' + $count + '" class="add">Add Another Question</a>').insertAfter($('#RQvalALPHQuestion_' + (totalCountQ[totalCountQ.length - 1])));
 		$(this).remove();
 		
 	}

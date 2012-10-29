@@ -278,7 +278,7 @@ var sliderValues = new Array(); // Stores each slider value as updated
                         
                         
                         //deit and delete buttons
-                       var tdDel = document.createElement('td');
+                        var tdDel = document.createElement('td');
                         var aDel = document.createElement('a');
                         aDel.setAttribute('href', '#');
                         aDel.setAttribute('data-job', $jobID);
