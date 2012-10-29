@@ -94,7 +94,7 @@ class JobManager {
         if ($this->db->error()) {
             return $this->db->error();
         }
-        return true;
+        return $this->userID;
     }
     
     /**
