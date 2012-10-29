@@ -9,10 +9,10 @@ require dirname(dirname(__DIR__)) . '/credits/Credits.php';
 $j = new JobManager($db, $_SESSION['userID']);
 $q = new Questionnaire($db);
 $questionnaires = $j->getQuestionaires();
-$error = '';
-$success = false;
+$error = false;
 $newQnr = false;
 $jobID = 0;
+$editReturn;
 
 $quipp->js['footer'][] = "/includes/apps/jobs-manager/js/jobs-manager.js";
 
@@ -31,13 +31,18 @@ if (!empty($_POST)) {
                     $newQnr = true;
                 }
                 else{
-                    $success = 'Your questionnaire could not be created. Please retry or use a previously created questionnaire.';
+                    $error = 'Your questionnaire could not be created. Please retry or use a previously created questionnaire.';
                 }
 /*             } */
             
             if (isset($_POST['id']) && (int)$_POST['id'] > 0 && $j->canEdit($_POST['id'])) {
                 // edit
-                $success = $j->editJob($_POST);
+                $editReturn = $j->editJob($_POST);
+                if (is_numeric((int)$editReturn)){
+	                $jobID = $editReturn;
+                }else{
+	                $error = $editReturn;
+                }
             } else if (isset($_POST['id']) && (int)$_POST['id'] > 0) {
                 $error = 'No access';
             } else if ((int)$_POST['RQvalNUMBQuestionnaire'] > 0) {
@@ -46,10 +51,8 @@ if (!empty($_POST)) {
                  //if ((int)$user->info['Job Credits'] > 0) {
                     $addJobReturn = $j->addJob($_POST);
                     if (is_numeric($addJobReturn)){
-	                    $success = true;
 	                    $jobID = $addJobReturn;
                     } else{
-	                    $success = false;
 	                    $error = "There was a problem with your entry, please try again";
                     }
                 // } else {
@@ -89,7 +92,7 @@ if ($edit == true && !isset($_GET['id'])) {
     $quipp->js['onload'] .= 'alertBox("fail", "You do not have access to this job");';
 
     
-} else if ($error == '' && $success == true && $jobID > 0) {
+} else if ($error == false && $jobID > 0) {
     if ($edit == false) {
        // Credits::assignCredits($user, -1);
         if ($newQnr === true){
@@ -103,10 +106,6 @@ if ($edit == true && !isset($_GET['id'])) {
     }
 
 } else {
-    if ($success != '') {
-        $error = $success;
-    }
-
     if ($error != false) {
         $quipp->js['onload'] .= 'alertBox("fail", "' . $error . '");';
     }
