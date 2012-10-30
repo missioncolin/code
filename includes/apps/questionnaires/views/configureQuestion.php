@@ -94,10 +94,45 @@ if ($this instanceof Quipp) {
     else if (isset($_POST["submitEditQs"])) {
     
 	    /* Update edited questions from pre-existing job and questionnaire */
-	    echo $_POST["submitEditQs"]; 
-	    
+/* 	    header('Location: /applications?success=Job+edited=successfully'); */
+
+		if ($_GET['editStep'] == 2) {
+			
+			$editedQuestions = array();
+			
+			foreach ($_POST as $id=>$value) {
+				if (strpos($id, "QvalALPHQuestion") != false) {
+					$questionIDs = explode("_", $id); 
+					$editedQuestions[$questionIDs[1]] = $value;
+				}
+			}
+		}
+
+		if ($_GET['editStep'] == 3) {
+
+			// Unseralize array passed with all questions
+			$serializedEdits = $_REQUEST["editedQuestions"]; 
+			$editedQuestions = unserialize(stripslashes($serializedEdits));  	
+			
+			foreach ($_POST as $id=>$value) {
+				if (strpos($id, "QvalALPHQuestion") != false) {
+					$questionIDs = explode("_", $id); 
+					$editedQuestions[$questionIDs[1]] = $value;
+					
+				}
+			}
+			
+			print_r($editedQuestions);
+			//**** Process all of that stuff here ****//
+			
+			
+			
+			
+		}	    
     }
 
+
+    // GENERAL MANAGEMENT FROM ANY PAGE REDIRECTING TO CONFIGURE-QUESTION
     if (isset($_GET['qnrID'])) {
         $getQuestionnaireDetailsQS = sprintf("SELECT * FROM tblQuestionnaires WHERE hrUserID = '%d' AND sysOpen = '1' AND sysActive = '1' AND itemID='%d' ", $_SESSION['userID'], $_GET['qnrID']);
         $getQuestionnairesDetailsQry = $db->query($getQuestionnaireDetailsQS);
@@ -385,10 +420,10 @@ if ($this instanceof Quipp) {
     
     // EDIT an existing questionnaire 
     else {
-
+	    
 	    ?>
 	    <h4>Edit Questions for Job: <?php echo $qnr['label']; ?></h4>
-	    <form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post">
+	    <form action="/configure-question?editStep=<?php echo $_GET['editStep'] + 1; ?>&jobID=125&qnrID=197" method="post">
         <table id="configure" class="simpleTable">
 	    
 	    <?php
@@ -464,24 +499,57 @@ if ($this instanceof Quipp) {
 					 // Type not set - or ERROR!
 					 $qType = "Undefined";
 				 }
-				
-				?>
-			
-				<tr>
-			    	<td width="30%"><label for="RQvalALPHQuestion_<?php echo $qID; ?>">Question Type: <?php echo $qType; ?></label></td>
-					<td><input type="text" name="RQvalALPHQuestion_<?php echo $qID; ?>" id="RQvalALPHQuestion_<?php echo $qID; ?>_input" value="<?php echo $qLabel; ?>"/></td> 
-					<td width="5%"><a href="#" id="<?php echo $qID; ?>" class="removeQuestion"> x</a></td>
-				</tr>
-				<?php
+
+				if ($_GET['editStep'] == 1) {
+					// Display slider questions	
+					if (strcmp($qType, "Slider") == 0) { ?>
+						<tr>
+					    	<td width="30%"><label for="RQvalALPHQuestion_<?php echo $qID; ?>">Question Type: <?php echo $qType; ?></label></td>
+							<td><input type="text" name="RQvalALPHQuestion_<?php echo $qID; ?>" id="RQvalALPHQuestion_<?php echo $qID; ?>_input" value="<?php echo $qLabel; ?>"/></td> 
+							<td width="5%"><a href="#" id="<?php echo $qID; ?>" class="removeQuestion"> x</a></td>
+						</tr>								
+					<?php
+					}
+					else { 
+						continue;
+					}
+				}
+				else {
+
+					// Display video questions
+					if (strcmp($qType, "Video") == 0) { ?>
+						<tr>
+					    	<td width="30%"><label for="RQvalALPHQuestion_<?php echo $qID; ?>">Question Type: <?php echo $qType; ?></label></td>
+							<td><input type="text" name="RQvalALPHQuestion_<?php echo $qID; ?>" id="RQvalALPHQuestion_<?php echo $qID; ?>_input" value="<?php echo $qLabel; ?>"/></td> 
+							<td width="5%"><a href="#" id="<?php echo $qID; ?>" class="removeQuestion"> x</a></td>
+						</tr>								
+					<?php
+					}
+					else { 
+						continue;
+					}
+					
+				}
 			}
 			
 			// Insert submit/edit/continue button
 			?>
 			<td colspan="100">
                 <div class="submitWrap">
+                <?php 			
+					// Serialize the array & pass to step 2
+					if ($_GET['editStep'] == 2) {
+						
+						$serializedEdits = serialize($editedQuestions); 
+					?>
+						<input type="hidden" name="editedQuestions" value='<?php echo $serializedEdits; ?>'/>	
+					
+					<?php
+					}
+					?>
                   <input type="hidden" name="submitEditQs" value="true"/>
               	  <a name="edit-question" class="btn grey" href="/edit-job?id=<?php echo $_GET['jobID']; ?>" >Back</a>                   
-              	  <input type="submit" value="Edit" name="submit-question-edits" class="btn" />
+              	  <input type="submit" value="<?php echo ($_GET['editStep'] == 1) ? "Save & Continue" : "Save"; ?>" name="submit-question-edits" class="btn" />
                 </div>
             </td>
 			

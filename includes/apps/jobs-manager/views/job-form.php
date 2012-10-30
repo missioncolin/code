@@ -115,7 +115,7 @@ if ($edit == true && !isset($_GET['id'])) {
     } else {
     	// Get questionnaire by ID
     	
-        header('Location: /configure-question?jobID='.$_GET['id'].'&qnrID='.$questionnaireID);
+        header('Location: /configure-question?editStep=1&jobID='.$_GET['id'].'&qnrID='.$questionnaireID);
     }
 
 } else {
