@@ -15,7 +15,7 @@ if (time() < strtotime($datePosted) || $status == 'inactive') {
     $quipp->js['onload'] .= 'alertBox("fail", "No job found");';
 
 } elseif (time() > strtotime($dateExpires)) {
-    $quipp->js['onload'] .= 'alertBox("fail", "We\'re sorry, this job posting has expred");';
+    $quipp->js['onload'] .= 'alertBox("fail", "We\'re sorry, this job posting has expired");';
 
 } elseif ($j->hasApplied($_GET['job'])) {
     
