@@ -94,6 +94,20 @@ class JobManager {
         if ($this->db->error()) {
             return $this->db->error();
         }
+        else {
+	        
+	        // Update Questionnaire label as well 
+	        $qQry = sprintf("UPDATE tblQuestionnaires SET `label`='%s', `sysDateLastMod`='%s' WHERE itemID='%d'",
+            $this->db->escape($post['RQvalALPHTitle']),
+            $this->db->escape($post['RQvalDATEDate_Posted']),
+            (int)$post['RQvalNUMBQuestionnaire']);
+            $this->db->query($qQry);
+            
+            if ($this->db->error()) {
+	            return $this->db->error();
+            }
+        }
+        
         return $this->userID;
     }
     
@@ -453,7 +467,113 @@ class JobManager {
 		} //end if num row > 0
 	   } //end if resource
 	   return $qsArr;
-    }    
+    }
+            
+     /** Returns array of all questions by jobID
+     *  returns false if none exist
+     *  @return array
+    **/
+    public function getAllQuestions($jobID) {
+	    
+	    $qsArr = array();
+	    $selectQQry = sprintf("SELECT question.itemID AS 'questionID', question.label AS 'label' 
+	    		FROM tblQuestions question INNER JOIN tblQuestionnaires questionnaire ON question.questionnaireID = questionnaire.itemID
+	    		INNER JOIN tblJobs jobs ON jobs.questionnaireID = question.questionnaireID
+	    		WHERE jobs.itemID = '%d'", $jobID);
+	    $selectQRS = $this->db->query($selectQQry);
+	    
+	    if (is_resource($selectQRS)) {
+		    
+		    if ($this->db->num_rows($selectQRS) > 0) {
+			    while ($selectQ = $this->db->fetch_assoc($selectQRS)) {
+				    $qsArr[$selectQ['questionID']] = $selectQ['label'];
+			    }
+		    }
+		    else {
+			    // No questions
+			    return false;
+		    }
+	    }
+	    else {
+		    // No questions
+		    return false;
+	    }
+	    
+	    return $qsArr;
+    }
+    
+    /** Returns question type by questionID
+    *	@return string
+    **/
+    public function getQuestionType($questionID) {
+	    
+	    $selectQQry = sprintf("SELECT type FROM tblQuestions where itemID='%d'", (int)$questionID); 
+	    $selectQRS = $this->db->query($selectQQry);
+	    
+	    if (is_resource($selectQRS)) {
+		    if ($this->db->num_rows($selectQRS) > 0) {
+			    $selectQType = $this->db->fetch_assoc($selectQRS);
+				
+				switch ($selectQType['type'])  {
+					
+					case 1:
+						return "radio";
+						break;
+						
+					case 2:
+						return "checkbox";
+						break;
+					
+					case 3:
+						return "slider";
+						break;
+					
+					case 4:
+						return "video";
+						break;
+					
+					case 5:
+						return "file";
+						break;
+				}
+	
+		    }
+		    else {
+			    // No type specified
+			    return false;
+		    }
+	    }
+	  else {
+		  // No type specified or ID does not exist
+		  return false; 
+	  }
+	    
+    }
+    
+    /* Get questionnaire ID with param JobID 
+     * @return int
+     */
+    public function getQuestionnaireID($jobID) {
+	    
+	    $getQIdQry = sprintf("SELECT questionnaireID FROM tblJobs WHERE itemID='%d'", (int)$jobID);
+	    $getQIdRS = $this->db->query($getQIdQry);
+	    
+	    if (is_resource($getQIdRS)) {
+		    if ($this->db->num_rows($getQIdRS) > 0) {
+			    $getQId = $this->db->fetch_assoc($getQIdRS);
+			    return $getQId['questionnaireID'];
+			}
+			else {
+				// Not specified
+				return false;
+			}
+	    }
+	    else {
+		    // Not specified/error
+		    return false;
+	    }
+    }
+    
     
     public function setJobViewed($jobID){
 	    $setJobViewedQry = "UPDATE tblJobs set hasBeenViewed = 1 WHERE itemID = '".$jobID."'";

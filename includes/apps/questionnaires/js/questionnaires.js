@@ -190,6 +190,14 @@ $('.removeDropDown').live('click', function() {
 	return false;
 });
 
+/* Remove an edited question from form */
+$('.removeQuestion').live('click', function() {
+	
+	$(this).closest('tr').remove();
+	
+});
+	
+
 var clearPopUp = function(){
     $('#confirm').fadeOut();
     $('.popUp h2').empty();
