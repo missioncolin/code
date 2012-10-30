@@ -62,6 +62,12 @@
 </table>
 <a href="javascript:window.print();" class="btn green">Print</a>
 <?php
+if(isset($_GET['redirect']) && is_numeric($_GET['redirect'])){
+	print "<a href=\"/new-job-info?jobID=".$_GET['redirect']."\" class=\"btn\" style=\"margin-right:10px;\">Return to Job Activation Page</a>";
+} 
+
+?>
+<?php
     if (isset($_GET['req'])){
         $qryData = explode(" ",$_GET['req']);
         switch($qryData[0]){

@@ -27,7 +27,12 @@
     if (!empty($_POST)) {
         $charge = $credits->charge((int)$_POST['credits'], $_POST['stripeToken'], $user);
         if (is_int($charge)) {
-            header('Location: /invoice?id=' . $charge.(!empty($_POST['referrer']) ? '&req='.str_replace(' ','+',$_POST['referrer']) : ''));
+            if(isset($_REQUEST['redirect']) && (is_numeric($_REQUEST['redirect']))){
+	            $redirect = "&redirect=".$_REQUEST['redirect'];
+            }else{
+	            $redirect = "";
+            }
+            header('Location: /invoice?id=' . $charge.(!empty($_POST['referrer']) ? '&req='.str_replace(' ','+',$_POST['referrer']) : '').$redirect);
         }
     }
     
@@ -91,11 +96,11 @@
          
           <div class="form-row">
         <label for="Billing_Address">Address</label>
-        <input type="text" id="Billing_Address" name="Billing_Address" class="half left" placeholder="Address" value="<?php echo $post["Billing_Address"]["value"];?>" required="required"/>
+        <input type="text" id="Billing_Address" name="Billing_Address" class="half left" placeholder="Address" value="<?php //echo $post["Billing_Address"]["value"];?>" required="required"/>
         <label for="Billing_City">City</label>
-        <input type="text" id="Billing_City" name="Billing_City" class="half" placeholder="City" value="<?php echo $post["Billing_City"]["value"];?>" required="required"/>
+        <input type="text" id="Billing_City" name="Billing_City" class="half" placeholder="City" value="<?php echo $post["Company_City"]["value"];?>" required="required"/>
         <label for="Billing_Postal_Code">Postal Code/Zip Code</label>
-        <input type="text" id="Billing_Postal_Code" name="Billing_Postal_Code" class="half" placeholder="Postal Code" value="<?php echo $post["Billing_Postal_Code"]["value"];?>" required="required"/>
+        <input type="text" id="Billing_Postal_Code" name="Billing_Postal_Code" class="half" placeholder="Postal Code" value="<?php echo $post["Company_Postal_Code"]["value"];?>" required="required"/>
         
           </div>
            <div class="form-row">

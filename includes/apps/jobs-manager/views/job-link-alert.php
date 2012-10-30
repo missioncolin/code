@@ -8,14 +8,15 @@ require dirname(__DIR__) . '/JobManager.php';
 $j = new JobManager($db, $_SESSION['userID']);
 $quipp->js['footer'][] = "/includes/apps/jobs-manager/js/jobs-manager.js";
 
-echo alert_box('Your job has been created. Before you can collect applicant information, the job must be activated. One (1) credit will be deducted from your account. You currently have '.$user->info['Job Credits'].' credits.', 3);
+if ($user->info['Job Credits'] == 0) { $buyLink = "<a href=\"/buy-job-credits\">Buy Credits Now</a>";}else{$buyLink = "";}
+echo alert_box('Your job has been created. Before you can collect applicant information, the job must be activated. One (1) credit will be deducted from your account. You currently have '.$user->info['Job Credits'].' credits. ' . $buyLink, 3);
 ?>
 
 
 <br/> <br/>
 Paste this link into your job ad: 
 <br/>
-<span style="font-weight:bolder;"><?php echo $_SERVER['SERVER_NAME']."/apply/".$_GET['jobID'];?></span>
+<span style="font-weight:bolder; font-size:larger;"><?php echo $_SERVER['SERVER_NAME']."/apply/".$_GET['jobID'];?></span>
 
 <br/>
 <div class="successAlert"></div>
@@ -25,7 +26,7 @@ if($user->info['Job Credits'] > 0){
 	//echo "<a href=\"\" data-job=\"".$_GET['jobID']."\" data-expiry=\"".$job["dateExpires"]."\" class=\"btn activate grey\">Use 1 Credit to Activate Now</a>";
 	echo "<a href=\"\" data-job=\"".$_GET['jobID']."\" class=\"btn reactivateLanding grey\">Use 1 Credit to Activate Now</a>";
 }else{
-	echo "<a href=\"buy-job-credits\" class=\"btn red\">Buy Credits</a>"; 
+	echo "<a href=\"buy-job-credits&redirect=".$_GET['jobID']."\" class=\"btn red\">Buy Credits to Activate Job</a>"; 
 }
 ?>
 
