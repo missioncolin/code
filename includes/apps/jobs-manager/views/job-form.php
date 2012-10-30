@@ -23,6 +23,8 @@ if (!empty($_POST)) {
             $error = $message;        
         } else {
         
+        	if ($_POST['RQvalNUMBQuestionnaire'] == 0) {
+	        	
 /*             if ((int)$_POST['RQvalNUMBQuestionnaire'] == 0 && isset($_POST['RQvalALPHNew_Questionnaire']) && !empty($_POST['RQvalALPHNew_Questionnaire'])){ */
 /*             if ((int)$_POST['RQvalNUMBQuestionnaire'] == 0){ */
                 $_POST['RQvalNUMBQuestionnaire'] = $q->createQuestionnaire($_POST['RQvalALPHTitle'], $_SESSION['userID']);
@@ -34,6 +36,13 @@ if (!empty($_POST)) {
                     $error = 'Your questionnaire could not be created. Please retry or use a previously created questionnaire.';
                 }
 /*             } */
+            }
+            else {
+	            
+	            // Get questionnaire ID for this job to edit
+	            $questionnaireID = $j->getQuestionnaireID($_GET['id']); 
+                	
+            }
             
             if (isset($_POST['id']) && (int)$_POST['id'] > 0 && $j->canEdit($_POST['id'])) {
                 // edit
@@ -65,10 +74,12 @@ if (!empty($_POST)) {
     }
 }
 
+
 $edit = false;
 if ($this->info['systemName'] == 'edit-job') {
    $edit = true;
 }
+
 
 if (isset($_GET['step'])) {
         
@@ -102,7 +113,9 @@ if ($edit == true && !isset($_GET['id'])) {
             header('Location: /applications?success=Job+created=successfully');
         }
     } else {
-        header('Location: /applications?success=Job+edited=successfully');
+    	// Get questionnaire by ID
+    	
+        header('Location: /configure-question?jobID='.$_GET['id'].'&qnrID='.$questionnaireID);
     }
 
 } else {
@@ -146,11 +159,12 @@ if (empty($questionnaires)) {
         
         echo '<strong>You must <a href="/questionnaires">create a questionnaire</a> first</strong>';
     } else 
-*/if ((int)$user->info['Job Credits'] == 0) {
+*/if (($edit == false) && (int)$user->info['Job Credits'] == 0) {
         echo '<strong>You do not have a sufficiant amount of job credits to create a new job. Please <a href="/buy-job-credits?req=createnew">purchase more job credits</a> to continue.</strong>';
         
     } else {
     ?>
+    
     <form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post">
         <table class="simpleTable singleHeader">
             <thead>
@@ -162,7 +176,7 @@ if (empty($questionnaires)) {
                 <tr>
                     <td width="30%"><label for="title">Job Title</label></td>
                     <td><input type="text" name="RQvalALPHTitle" id="title" placeholder="Job Title" value="<?php echo $title; ?>"  required/></td>
-                    <input type="hidden" name="RQvalNUMBQuestionnaire" id="questionnaire" value="0">
+                    <input type="hidden" name="RQvalNUMBQuestionnaire" id="questionnaire" value="<?php echo ($edit == true) ? $questionnaireID : 0; ?>"/>
                 </tr>
              <!--   <tr>
                     <td><label for="link">Job Link</label></td>
@@ -195,6 +209,7 @@ if (empty($questionnaires)) {
                     <td><input type="text" name="RQvalALPHNew_Questionnaire" id="newQuestionnaire" disabled="disabled" placeholder="Questionnaire Title" /></td>
                 </tr>
 -->
+
             </tbody>
         </table>
         

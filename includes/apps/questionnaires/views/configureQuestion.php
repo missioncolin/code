@@ -9,15 +9,16 @@ if ($this instanceof Quipp) {
     if (!isset($_GET['action'])) {
         $_GET['action'] = "new";
     }
-    if (!empty($_POST) && isset($_POST["configure-question"]) ) {
-
+    
+    /// MANAGEMENT OF NEWLY CREATED QUESTIONNAIRES
+    if (!empty($_POST) && isset($_POST["configure-question"]) && !isset($_POST["submitEditQs"]) ) {
+	    
         if (validate_form($_POST)) {
-
+	        echo "In _POST";
             switch ($_GET['action']) {
 
             case 'new':
             
-                
                 if (is_array($_POST['RQvalALPHQuestions'])) {
                     
                     foreach($_POST['RQvalALPHQuestions'] as $label) {
@@ -38,6 +39,7 @@ if ($this instanceof Quipp) {
                 $success = 1;
 
                 break;
+                
             case 'edit':
                 $qry = sprintf("UPDATE tblQuestions SET label = '%s', type = '%d' WHERE itemID = '%d'",
                     $db->escape(strip_tags($_POST['RQvalALPHQuestion'])),
@@ -47,9 +49,7 @@ if ($this instanceof Quipp) {
                 
                 break;
             }
-
-
-
+            
             if ($_GET['action'] == "new") {
                 $_POST['qsnID'] = $db->insert_id();
             }
@@ -88,6 +88,14 @@ if ($this instanceof Quipp) {
         } else {
             $error_message = "Error: Please review the following fields:<ul>$message</ul>";
         }
+    }
+    
+    // MANAGEMENT OF EDITED PRE-EXISTING QUESTIONNAIRES 
+    else if (isset($_POST["submitEditQs"])) {
+    
+	    /* Update edited questions from pre-existing job and questionnaire */
+	    echo $_POST["submitEditQs"]; 
+	    
     }
 
     if (isset($_GET['qnrID'])) {
@@ -165,10 +173,13 @@ if ($this instanceof Quipp) {
         }
         
     }
-
-?>
-    <h4>New Job: <?php echo $qnr['label']; ?></h4>
-    <form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post">
+    ?>
+    
+    <!--- IF 'STEP' is set to a particular step, display the create a new question wizard; else, edit ! --->
+    <?php if (isset($_GET['step'])) { ?>
+	    
+	    <h4>New Job: <?php echo $qnr['label']; ?></h4>
+	    <form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post">
         <table id="configure" class="simpleTable">
             <?php 
             if (isset($_GET['step']) && $_GET['step'] == 2){
@@ -198,7 +209,7 @@ if ($this instanceof Quipp) {
             <?php
             }
             
-            else if (isset($_GET['step']) && $_GET['step'] == '4') {
+           /*  else if (isset($_GET['step']) && $_GET['step'] == '5') { */
             
             	// Display all questions from this questionnaire for this job
             	// with editable text boxes
@@ -232,7 +243,7 @@ if ($this instanceof Quipp) {
             	
            <?php	
 */
-            }
+       /*      } */
             
             else if (isset($_GET['step']) && $_GET['step'] == '3') { ?>
             <tr>
@@ -272,7 +283,8 @@ if ($this instanceof Quipp) {
                     <input type="hidden" id="RQvalNUMBType" name="RQvalNUMBType" value="<?php echo $type; ?>" />
                 </td>
             </tr>
-            <?php } else { ?>
+   <?php } 
+   else { ?>
             <tr>
                 <td><label>Question</label></td>
                 <td colspan="2"><input size="80" type="text" name="RQvalALPHQuestion" id="RQvalALPHQuestion" value="<?php echo (isset($_POST['RQvalALPHQuestion'])) ? $_POST['RQvalALPHQuestion'] : ''; ?>" /	></td>
@@ -367,6 +379,119 @@ if ($this instanceof Quipp) {
         <input type="hidden" name="qsnID" id="qsnID" value="<?php echo (isset($_GET['qsnID'])) ? $_GET['qsnID'] : 0; ?>" />
     </form>
 
+    <?php 
+    
+    } 
+    
+    // EDIT an existing questionnaire 
+    else {
+
+	    ?>
+	    <h4>Edit Questions for Job: <?php echo $qnr['label']; ?></h4>
+	    <form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post">
+        <table id="configure" class="simpleTable">
+	    
+	    <?php
+			
+			$allQuestions = array();
+			$selectQQry = sprintf("SELECT question.itemID AS 'questionID', question.label AS 'label' 
+			FROM tblQuestions question INNER JOIN tblQuestionnaires questionnaire ON question.questionnaireID = questionnaire.itemID
+			INNER JOIN tblJobs jobs ON jobs.questionnaireID = question.questionnaireID
+			WHERE jobs.itemID = '%d'", $_GET['jobID']);
+			$selectQRS = $db->query($selectQQry);
+	    
+		    if (is_resource($selectQRS)) {
+			    
+			    if ($db->num_rows($selectQRS) > 0) {
+				    while ($selectQ = $db->fetch_assoc($selectQRS)) {
+					    $allQuestions[$selectQ['questionID']] = $selectQ['label'];
+				    }
+			    }
+			    else {
+				    // No questions
+				    echo "<tr><td>No Questions To Edit.</td></tr>";
+			    }
+		    }
+		    else {
+			    // No questions
+			    echo "<tr><td>No Questions To Edit.</td></tr>";
+		    }
+			
+			
+			foreach ($allQuestions as $qID => $qLabel) {
+				
+				// Get type of question by question ID
+				// THESE ARE ENCAPSULATED IN JOBMANAGER.PHP
+				// (But can't access them w/o a jobmanager object...
+				$selectQQry = sprintf("SELECT type FROM tblQuestions where itemID='%d'", (int)$qID); 
+				$selectQRS = $db->query($selectQQry);
+				$qType = "";
+				
+			    if (is_resource($selectQRS)) {
+				    if ($db->num_rows($selectQRS) > 0) {
+					    $selectQType = $db->fetch_assoc($selectQRS);
+						
+						switch ($selectQType['type'])  {
+							
+							case 1:
+								$qType = "Radio";
+								break;
+								
+							case 2:
+								$qType = "Checkbox";
+								break;
+							
+							case 3:
+								$qType = "Slider";
+								break;
+							
+							case 4:
+								$qType = "Video";
+								break;
+							
+							case 5:
+								$qType = "File";
+								break;
+						}
+			
+				    }
+				    else {
+				    	// Type not set!
+					    $qType = "Undefined";
+				    }
+				 }
+				 else {
+					 // Type not set - or ERROR!
+					 $qType = "Undefined";
+				 }
+				
+				?>
+			
+				<tr>
+			    	<td width="30%"><label for="RQvalALPHQuestion_<?php echo $qID; ?>">Question Type: <?php echo $qType; ?></label></td>
+					<td><input type="text" name="RQvalALPHQuestion_<?php echo $qID; ?>" id="RQvalALPHQuestion_<?php echo $qID; ?>_input" value="<?php echo $qLabel; ?>"/></td> 
+					<td width="5%"><a href="#" id="<?php echo $qID; ?>" class="removeQuestion"> x</a></td>
+				</tr>
+				<?php
+			}
+			
+			// Insert submit/edit/continue button
+			?>
+			<td colspan="100">
+                <div class="submitWrap">
+                  <input type="hidden" name="submitEditQs" value="true"/>
+              	  <a name="edit-question" class="btn grey" href="/edit-job?id=<?php echo $_GET['jobID']; ?>" >Back</a>                   
+              	  <input type="submit" value="Edit" name="submit-question-edits" class="btn" />
+                </div>
+            </td>
+			
+			<?php					
+	
+    }
+    ?>
+    </table>
+    </form>
+	 
     <script type="text/javascript">
 
     </script>
