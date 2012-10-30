@@ -116,6 +116,7 @@ if ($edit == true && !isset($_GET['id'])) {
     $datePosted      = date('Y-m-d');
     $dateExpires     = date('Y-m-d', strtotime('+2 months'));
     $questionnaireID = 0;
+    $status 		= 'inactive';
 
     if ($edit == true) {
         list($title, $link, $dateExpires, $datePosted, $questionnaireID, $status) = $j->getJob($_GET['id']);               
@@ -128,6 +129,7 @@ if ($edit == true && !isset($_GET['id'])) {
         $datePosted      = (isset($_POST['RQvalDATEDate_Posted'])) ? $_POST['RQvalDATEDate_Posted'] : $datePosted;
         $dateExpires     = (isset($_POST['RQvalDATEDate_Expires'])) ? $_POST['RQvalDATEDate_Expires'] : $dateExpires;
         $questionnaireID = (isset($_POST['RQvalNUMBQuestionnaire'])) ? $_POST['RQvalNUMBQuestionnaire'] : $questionnaireID;    
+        $status 	    = (isset($_POST['RQvalALPHActive'])) ? $_POST['RQvalALPHActive'] : $status;
     }
 
 /* display the form if:
@@ -147,9 +149,9 @@ if (empty($questionnaires)) {
         echo '<strong>You must <a href="/questionnaires">create a questionnaire</a> first</strong>';
     } else 
 */if ((int)$user->info['Job Credits'] == 0) {
-        echo '<strong>You do not have a sufficiant amount of job credits to create a new job. Please <a href="/buy-job-credits?req=createnew">purchase more job credits</a> to continue.</strong>';
+        echo '<strong>You current have 0 job credits. You can create a job, but you must add credits to your account before your job can be published. To do that now, please <a href="/buy-job-credits?req=createnew">purchase more job credits</a>.</strong><br/>';
         
-    } else {
+    } 
     ?>
     <form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post">
         <table class="simpleTable singleHeader">
@@ -204,10 +206,8 @@ if (empty($questionnaires)) {
         <input type="hidden" name="RQvalDATEDate_Posted" value="<?php echo $datePosted; ?>"/>
         <input type="hidden" name="RQvalDATEDate_Expires" value="<?php echo $dateExpires; ?>"/>
         <input type="hidden" name="id" value="<?php echo (isset($_GET['id']) && $edit == true) ? (int)$_GET['id'] : 0; ?>" />
-        <input type="submit" value="<?php echo ($edit == true) ? 'Edit' : 'Create &amp; Continue'; ?>" class="btn green" />
+        <input type="hidden" name="RQvalALPHActive" value="<?php echo $status; ?>"/>
+        <input type="submit" value="Create &amp; Continue" class="btn green" />
     </form>
-    <?php
-    }
-    ?>
 </section>
 <?php } ?>

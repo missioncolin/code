@@ -60,7 +60,6 @@ class JobManager {
             (int)$this->userID,
             $this->db->escape($post['RQvalALPHTitle']),
             $this->db->escape($post['RQvalWEBSLink']),
-            //$this->db->escape($post['RQvalDATEDate_Expires']),
             date("Y-m-d", strtotime('+2 months')),
             $this->db->escape($post['RQvalDATEDate_Posted']),
             (int)$post['RQvalNUMBQuestionnaire'],
@@ -79,7 +78,8 @@ class JobManager {
      * @return bool
      */
     public function editJob($post) {
-        $active = (isset($post['active']) && $post['active'] == 'on') ? 'active' : 'inactive';
+    	print_r($post);
+        $active = (isset($post['RQvalALPHActive']) && $post['RQvalALPHActive'] == 'active') ? 'active' : 'inactive';
         $qry = sprintf("UPDATE tblJobs SET `title`='%s', `link`='%s', `dateExpires`='%s', `datePosted`='%s', `questionnaireID`='%d', `sysStatus`='%s' WHERE itemID='%d' AND userID='%d'",
             $this->db->escape($post['RQvalALPHTitle']),
             $this->db->escape($post['OPvalWEBSLink']),
