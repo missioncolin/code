@@ -144,7 +144,8 @@ function ajaxFunction() {
 	//Send a request:
 	// 1. Specify URL of server-side script that will be used in Ajax app
 	// 2. Use send function to send request
-	ajaxRequest.open("GET", "http://kristina.140b.git.resolutionim.com/includes/apps/jobs-manager/ajax/process-slider.php?sliderValue=" + sliderValueString + "&jobID=" + jobID + "&page=" + page + "&userID=" + userID, true); // make a relative path
+	var parameters = 
+	ajaxRequest.open("GET", "/includes/apps/jobs-manager/ajax/process-slider.php?sliderValue=" + sliderValueString + "&jobID=" + jobID + "&page=" + page + "&userID=" + userID, true); // make a relative path
 	ajaxRequest.send();
 	
 }
