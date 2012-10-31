@@ -220,11 +220,10 @@ class Questionnaire
     public function editQuestion($questionID, $label) {
         
         
-         if (!empty($title) && (int) $userID > 0) {
+         if (!empty($label) && (int)$_SESSION['userID'] > 0) {
             $qry = sprintf("UPDATE tblQuestions SET label = '%s' WHERE itemID = '%d'",
-               $this->db->escape(strip_tags($title)),
-                (int) $questionID
-                );
+               $this->db->escape(strip_tags($label)),
+                (int) $questionID);
             $res = $this->db->query($qry);
             
             if ($this->db->error() == 0 && $this->db->affected_rows($res) == 1) {
@@ -246,9 +245,9 @@ class Questionnaire
     public function createQuestion($questionnaireID, $typeID = 3) {
         
         
-         if (!empty($title) && (int) $userID > 0) {
+         if (!empty($label) && (int) $userID > 0) {
             $qry = sprintf("INSERT INTO tblQuestions (questionnaireID, label, type, sysOpen, sysActive) VALUES ('%d', '', '%d', '1', '1')",
-               $this->db->escape(strip_tags($title)),
+               $this->db->escape(strip_tags($label)),
                 (int) $questionnaireID,
                 (int) $typeID
                 );
@@ -270,14 +269,14 @@ class Questionnaire
      * @param int questionID
      * @return bool
      */
-    public function deleteQuestion($questionID) {
+    public function deleteQuestion($questionID, $questionnaireID) {
         
         
         // check to see if the questionnaire is in use
                 
         $qry = sprintf("SELECT itemID FROM tblQuestionnaires WHERE hrUserID = '%d' AND itemID = '%d' AND isUsed = '0' AND sysOpen = '1' AND sysActive = '1'", 
             (int) $_SESSION['userID'],
-            (int) $this->getQuestionnaireID($questionID));
+            (int) $questionnaireID);
         $res = $this->db->query($qry);
         
         if ($this->db->valid($res) && $this->db->num_rows($res) > 0) {

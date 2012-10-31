@@ -222,7 +222,7 @@ if (empty($questionnaires)) {
         <input type="hidden" name="RQvalDATEDate_Expires" value="<?php echo $dateExpires; ?>"/>
         <input type="hidden" name="id" value="<?php echo (isset($_GET['id']) && $edit == true) ? (int)$_GET['id'] : 0; ?>" />
         <input type="hidden" name="RQvalALPHActive" value="<?php echo $status; ?>"/>
-        <input type="submit" value="Create &amp; Continue" class="btn green" />
+        <input type="submit" value="<?php echo ($edit == true) ? 'Save &amp Continue' : 'Create &amp Continue'; ?>" class="btn green" />
     </form>
 </section>
 <?php } ?>

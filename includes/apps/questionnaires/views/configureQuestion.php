@@ -1,6 +1,53 @@
 <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
 <script src="http://code.jquery.com/ui/1.9.0/jquery-ui.js"></script>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.0/themes/base/jquery-ui.css" />
+
+<script>
+
+function ajaxFunction(questionnaireID, inputAction, questionID, typeID, label) {
+	
+	var ajaxRequest;
+	
+	try {
+		
+		// Handles Opera, Firefox, Safari, Chrome
+		ajaxRequest = new XMLHttpRequest();
+		
+	} catch(e) {
+		// Handles IE...
+		try {
+			ajaxRequest = new ActiveXObject("Msxml2.XMLHTTP");
+		} catch(e) {
+			try {
+				ajaxRequest = new ActiveXObject("Microsoft.XMLHTTP");
+			} catch(e) {
+				alert("There has been an error.");
+				return false;
+			}
+		}
+	}
+	
+	// Receive data
+	ajaxRequest.onreadystatechange = function(){
+		if(ajaxRequest.readyState == 4){
+			console.log(ajaxRequest.responseText);
+		}
+	}
+	
+	//Send a request:
+	// 1. Specify URL of server-side script that will be used in Ajax app
+	// 2. Use send function to send request
+	var parameters = "questionnaireID=" + questionnaireID + "&action=" + inputAction + "&questionID=" + questionID + "&typeID=" + typeID + "&label=" + label; 
+	ajaxRequest.open("POST", "/includes/apps/questionnaires/ajax/gateway.php", true); 			
+	ajaxRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");	
+	ajaxRequest.send(parameters);
+	
+}
+
+</script>
+
+
+
 <?php
 
 if ($this instanceof Quipp) {
@@ -102,8 +149,7 @@ if ($this instanceof Quipp) {
 			
 			foreach ($_POST as $id=>$value) {
 				if (strpos($id, "QvalALPHQuestion") != false) {
-					$questionIDs = explode("_", $id); 
-					$editedQuestions[$questionIDs[1]] = $value;
+					$editedQuestions[$id] = $value;
 				}
 			}
 		}
@@ -116,17 +162,25 @@ if ($this instanceof Quipp) {
 			
 			foreach ($_POST as $id=>$value) {
 				if (strpos($id, "QvalALPHQuestion") != false) {
-					$questionIDs = explode("_", $id); 
-					$editedQuestions[$questionIDs[1]] = $value;
+					$editedQuestions[$id] = $value;
 					
 				}
 			}
-			
-			print_r($editedQuestions);
+
 			//**** Process all of that stuff here ****//
+			foreach ($editedQuestions as $id=>$label) {
 			
+				$explodedId = explode("_", $id);   // then actual $id = $explodedId[1], action = $explodedId[2])
+				?>
+				
+				<script> ajaxFunction(<?php echo $_GET['qnrID']; ?>, <?php echo "\"".$explodedId[2]."\""; ?>, <?php echo $explodedId[1]; ?>, <?php echo "\"".$explodedId[3]."\""; ?>, <?php echo "\"".$label."\""; ?>); </script>
+				<?php
+			}
 			
-			
+			?>
+			<a name="edit-question" class="btn" href="/applications?success=Job+edited=successfully" >Back to Job List</a>
+
+			<?php
 			
 		}	    
     }
@@ -419,7 +473,7 @@ if ($this instanceof Quipp) {
     } 
     
     // EDIT an existing questionnaire 
-    else {
+    else if ($_GET['editStep'] == 1 || $_GET['editStep'] == 2) {
 	    
 	    ?>
 	    <h4>Edit Questions for Job: <?php echo $qnr['label']; ?></h4>
@@ -432,7 +486,7 @@ if ($this instanceof Quipp) {
 			$selectQQry = sprintf("SELECT question.itemID AS 'questionID', question.label AS 'label' 
 			FROM tblQuestions question INNER JOIN tblQuestionnaires questionnaire ON question.questionnaireID = questionnaire.itemID
 			INNER JOIN tblJobs jobs ON jobs.questionnaireID = question.questionnaireID
-			WHERE jobs.itemID = '%d'", $_GET['jobID']);
+			WHERE jobs.itemID = '%d' AND question.sysOpen = '1' AND question.sysActive='1'", $_GET['jobID']);
 			$selectQRS = $db->query($selectQQry);
 	    
 		    if (is_resource($selectQRS)) {
@@ -452,6 +506,7 @@ if ($this instanceof Quipp) {
 			    echo "<tr><td>No Questions To Edit.</td></tr>";
 		    }
 			
+			$finalID = 0;
 			
 			foreach ($allQuestions as $qID => $qLabel) {
 				
@@ -461,6 +516,8 @@ if ($this instanceof Quipp) {
 				$selectQQry = sprintf("SELECT type FROM tblQuestions where itemID='%d'", (int)$qID); 
 				$selectQRS = $db->query($selectQQry);
 				$qType = "";
+				
+				$finalID = $qID; // will eventually be set to last ID
 				
 			    if (is_resource($selectQRS)) {
 				    if ($db->num_rows($selectQRS) > 0) {
@@ -505,7 +562,7 @@ if ($this instanceof Quipp) {
 					if (strcmp($qType, "Slider") == 0) { ?>
 						<tr>
 					    	<td width="30%"><label for="RQvalALPHQuestion_<?php echo $qID; ?>">Question Type: <?php echo $qType; ?></label></td>
-							<td><input type="text" name="RQvalALPHQuestion_<?php echo $qID; ?>" id="RQvalALPHQuestion_<?php echo $qID; ?>_input" value="<?php echo $qLabel; ?>"/></td> 
+							<td><input type="text" class="<?php echo $qID; ?>" name="RQvalALPHQuestion_<?php echo $qID; ?>_edit_3" value="<?php echo $qLabel; ?>"/></td> 
 							<td width="5%"><a href="#" id="<?php echo $qID; ?>" class="removeQuestion"> x</a></td>
 						</tr>								
 					<?php
@@ -520,7 +577,7 @@ if ($this instanceof Quipp) {
 					if (strcmp($qType, "Video") == 0) { ?>
 						<tr>
 					    	<td width="30%"><label for="RQvalALPHQuestion_<?php echo $qID; ?>">Question Type: <?php echo $qType; ?></label></td>
-							<td><input type="text" name="RQvalALPHQuestion_<?php echo $qID; ?>" id="RQvalALPHQuestion_<?php echo $qID; ?>_input" value="<?php echo $qLabel; ?>"/></td> 
+							<td><input type="text" class="<?php echo $qID; ?>" name="RQvalALPHQuestion_<?php echo $qID; ?>_edit_4" value="<?php echo $qLabel; ?>"/></td> 
 							<td width="5%"><a href="#" id="<?php echo $qID; ?>" class="removeQuestion"> x</a></td>
 						</tr>								
 					<?php
@@ -548,8 +605,9 @@ if ($this instanceof Quipp) {
 					}
 					?>
                   <input type="hidden" name="submitEditQs" value="true"/>
-              	  <a name="edit-question" class="btn grey" href="/edit-job?id=<?php echo $_GET['jobID']; ?>" >Back</a>                   
+<!--               	  <a name="edit-question" class="btn grey" href="/edit-job?id=<?php echo $_GET['jobID']; ?>" >Back</a>  -->                  
               	  <input type="submit" value="<?php echo ($_GET['editStep'] == 1) ? "Save & Continue" : "Save"; ?>" name="submit-question-edits" class="btn" />
+              	  <?php echo ($_GET['editStep'] == 1) ? "<a href='#' data-type='3' data-id='".$finalID."' class='addEditQuestion'> Add New Question</a>" : "<a href='#' data-type='4' data-id='".$finalID."' class='addEditQuestion'> Add New Question</a>";?>
                 </div>
             </td>
 			

@@ -6,6 +6,8 @@ totalCountDD.push(1);
 totalCountQ = new Array();
 totalCountQ.push(1);
 
+editCount = 0;
+
 $("#RQvalNUMBType").change(function () {
     if ($(this).val() == 1 || $(this).val() == 2) {
         $("tr.option-row").show();
@@ -75,7 +77,28 @@ $('.add').live('click', function() {
     return false;
 });
 
+// Add an extra question to the edit page
+$('.addEditQuestion').click(function () {
+	
+	editCount = editCount + 1;
+	
+	var thisID = $(this).data('id') + editCount;
+	
+	if ($(this).data('type') == 3) {
+		
+		$('<tr><td width="30%"><label for="RQvalALPHQuestion_' + thisID + '">Question Type: Slider</label></td><td><input type="text" class="' + thisID + '" name="RQvalALPHQuestion_' + thisID + '_new_3" value=""/></td><td width="5%"><a href="#" id="' + thisID + '" class="removeQuestion"> x</a></td></tr>').insertBefore($(this).closest('tr').parent());
+		
+	}
+	
+	else {
+		
+		$('<tr><td width="30%"><label for="RQvalALPHQuestion_' + thisID + '">Question Type: Video</label></td><td><input type="text" class="' + thisID + '" name="RQvalALPHQuestion_' + thisID + '_new_4" value=""/></td><td width="5%"><a href="#" id="' + thisID + '" class="removeQuestion"> x</a></td></tr>').insertBefore($(this).closest('tr').parent());
+		
+	}
 
+
+	
+});
 
 $('.delete').click(function (e) {
     e.preventDefault();
@@ -193,7 +216,9 @@ $('.removeDropDown').live('click', function() {
 /* Remove an edited question from form */
 $('.removeQuestion').live('click', function() {
 	
-	$(this).closest('tr').remove();
+	// Hides input and sets action as DELETE for this question
+	$("input."+$(this).attr('id') + "'").attr('name', 'RQvalALPHQuestion_' + $(this).attr('id') + '_delete');
+	$(this).closest('tr').hide();
 	
 });
 	
