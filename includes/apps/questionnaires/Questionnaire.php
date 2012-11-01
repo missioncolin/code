@@ -242,13 +242,13 @@ class Questionnaire
      * @param int typeID
      * @return bool
      */
-    public function createQuestion($questionnaireID, $typeID = 3) {
+    public function createQuestion($questionnaireID, $typeID = 3, $label) {
         
         
-         if (!empty($label) && (int) $userID > 0) {
-            $qry = sprintf("INSERT INTO tblQuestions (questionnaireID, label, type, sysOpen, sysActive) VALUES ('%d', '', '%d', '1', '1')",
-               $this->db->escape(strip_tags($label)),
+         if (!empty($label) && (int)$_SESSION['userID'] > 0) {
+            $qry = sprintf("INSERT INTO tblQuestions (questionnaireID, label, type, sysOpen, sysActive) VALUES ('%d', '%s', '%d', '1', '1')",
                 (int) $questionnaireID,
+               $this->db->escape(strip_tags($label)),
                 (int) $typeID
                 );
             $res = $this->db->query($qry);

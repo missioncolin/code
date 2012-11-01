@@ -155,7 +155,7 @@ if ($this instanceof Quipp) {
 		}
 
 		if ($_GET['editStep'] == 3) {
-
+			
 			// Unseralize array passed with all questions
 			$serializedEdits = $_REQUEST["editedQuestions"]; 
 			$editedQuestions = unserialize(stripslashes($serializedEdits));  	
@@ -477,23 +477,23 @@ if ($this instanceof Quipp) {
 	    
 	    ?>
 	    <h4>Edit Questions for Job: <?php echo $qnr['label']; ?></h4>
-	    <form action="/configure-question?editStep=<?php echo $_GET['editStep'] + 1; ?>&jobID=125&qnrID=197" method="post">
+	    <form action="/configure-question?editStep=<?php echo $_GET['editStep'] + 1; ?>&jobID=<?php echo $_GET['jobID']; ?>&qnrID=<?php echo $_GET['qnrID']; ?>" method="post">
         <table id="configure" class="simpleTable">
 	    
 	    <?php
 			
+			// Return all questions corresponding to the questionnaire in the database
 			$allQuestions = array();
-			$selectQQry = sprintf("SELECT question.itemID AS 'questionID', question.label AS 'label' 
-			FROM tblQuestions question INNER JOIN tblQuestionnaires questionnaire ON question.questionnaireID = questionnaire.itemID
-			INNER JOIN tblJobs jobs ON jobs.questionnaireID = question.questionnaireID
-			WHERE jobs.itemID = '%d' AND question.sysOpen = '1' AND question.sysActive='1'", $_GET['jobID']);
+			$selectQQry = sprintf("SELECT * FROM tblQuestions WHERE questionnaireID = '%d' AND sysOpen = '1' AND sysActive='1'", $_GET['qnrID']);
 			$selectQRS = $db->query($selectQQry);
 	    
+			
+			
 		    if (is_resource($selectQRS)) {
 			    
 			    if ($db->num_rows($selectQRS) > 0) {
 				    while ($selectQ = $db->fetch_assoc($selectQRS)) {
-					    $allQuestions[$selectQ['questionID']] = $selectQ['label'];
+					    $allQuestions[$selectQ['itemID']] = $selectQ['label'];
 				    }
 			    }
 			    else {
@@ -507,7 +507,7 @@ if ($this instanceof Quipp) {
 		    }
 			
 			$finalID = 0;
-			
+
 			foreach ($allQuestions as $qID => $qLabel) {
 				
 				// Get type of question by question ID
@@ -561,9 +561,9 @@ if ($this instanceof Quipp) {
 					// Display slider questions	
 					if (strcmp($qType, "Slider") == 0) { ?>
 						<tr>
-					    	<td width="30%"><label for="RQvalALPHQuestion_<?php echo $qID; ?>">Question Type: <?php echo $qType; ?></label></td>
-							<td><input type="text" class="<?php echo $qID; ?>" name="RQvalALPHQuestion_<?php echo $qID; ?>_edit_3" value="<?php echo $qLabel; ?>"/></td> 
-							<td width="5%"><a href="#" id="<?php echo $qID; ?>" class="removeQuestion"> x</a></td>
+					    	<td width="30%"><label for="RQvalALPHQuestion_<?php echo $qID; ?>">How Many Years Experience...</label></td>
+							<td><input type="text" class="<?php echo $qID; ?>" name="RQvalALPHQuestion_<?php echo $qID; ?>_edit_3" value="<?php echo $qLabel; ?>"/></td><br>
+							<td width="5%"><a href="#" data-type="3" id="<?php echo $qID; ?>" class="removeQuestion"> x</a></td>
 						</tr>								
 					<?php
 					}
@@ -576,9 +576,9 @@ if ($this instanceof Quipp) {
 					// Display video questions
 					if (strcmp($qType, "Video") == 0) { ?>
 						<tr>
-					    	<td width="30%"><label for="RQvalALPHQuestion_<?php echo $qID; ?>">Question Type: <?php echo $qType; ?></label></td>
-							<td><input type="text" class="<?php echo $qID; ?>" name="RQvalALPHQuestion_<?php echo $qID; ?>_edit_4" value="<?php echo $qLabel; ?>"/></td> 
-							<td width="5%"><a href="#" id="<?php echo $qID; ?>" class="removeQuestion"> x</a></td>
+					    	<td width="30%"><label for="RQvalALPHQuestion_<?php echo $qID; ?>">Question</label></td>
+							<td><input type="text" class="<?php echo $qID; ?>" name="RQvalALPHQuestion_<?php echo $qID; ?>_edit_4" value="<?php echo $qLabel; ?>"/><br><select class="DefaultQs_<?php echo $qID; ?>" name="Generic Questions" style="width:400px;"><option>Optionally select a default question.</option><option value="fiveYearPlan">What are your goals and objectives for the next five years?</option><option value="careerGoals">How do you plan to achieve your career goals?</option><option value="rewarding">What do you find most rewarding in your career?</option><option value="chooseCareer">Why did you choose the career for which you are in?</option><option value="strengthWeakness">What are your strengths, weaknesses, and interests?</option><option value="professorDescribe">How do you think a friend or professor who knows you well would describe you?</option><option value="difficultPerson">Describe how you handle working with a difficult person?</option><option value="greatestEffort">What motivates you to put forth your greatest effort? Describe a situation in which you did so.</option><option value="evaluateSuccess">How do you determine or evaluate success?</option><option value="contributionOrganization">In what ways do you think you can make a contribution to our organization?</option><option value="contributionProject">Describe a contribution you have made to a project on which you worked.</option><option value="successfulManager">What qualities should a successful manager/leader/supervisor/etc. possess?</option><option value="occasionDisagree">Describe how you handle an occasion when you disagree with a supervisor\'s decision?</option><option value="threeAccomplishments">What two or three accomplishments have given you the most satisfaction? Why?</option><option value="workEnvironment">In what kind of work environment are you most comfortable?</option><option value="underPressure">How do you work under pressure?</option><option value="teamEnvironment">What role do you best fit in when working in a team environment? Why?</option><option value="seekPosition">Why did you decide to seek a position with our organization?</option><option value="threeImporatnt">What two or three things would be most important to you in your job?</option><option value="evaluateOrganization">What criteria are you using to evaluate the organization for which you hope to work?</option><option value="relocationConstraints">How would you view needing to relocate for the job? Do you have any constraints on relocation?</option><option value="travelAmount">Are you comfortable with the amount of travel this job requires?</option><option value="sixMonths">Are you willing to spend at least six months as a trainee?</option></select></td> 
+							<td width="5%"><a href="#" data-type="4" id="<?php echo $qID; ?>" class="removeQuestion"> x</a></td>
 						</tr>								
 					<?php
 					}
