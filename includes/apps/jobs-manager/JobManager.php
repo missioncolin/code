@@ -649,5 +649,38 @@ class JobManager {
 	    return $appVisibility;	    
 	
 	}
+	
+	    /**
+    *  Returns array of users to display based on 
+    *  values in the name input box
+    *  format of return array: Array([0]=>[userID])
+    *  @return int array
+    **/
+    
+    public function getNameMatches($searchVal, $jobID, $offset = 0, $display = 10000) {
+	    
+	$applicants = array();
+	$searchString = "%".$searchVal."%";
+	
+	$qry = sprintf("SELECT DISTINCT a.userID AS 'userID' 
+		FROM tblApplications a 
+		INNER JOIN sysUGFValues v ON  a.userID = v.userID 
+		WHERE a.jobID = %d AND v.fieldID IN (1,2) AND v.value LIKE '%s'
+		LIMIT %d, %d", 
+		(int)$jobID,
+		$searchString,
+		$offset,
+		$display);
+	$res = $this->db->query($qry);
+	
+	if ($this->db->valid($res)) {
+		while ($a = $this->db->fetch_assoc($res)) {
+			$applicants[$a['userID']] = $a['userID'];            
+		}
+	}
+	return $applicants;
+	
+     }
+	
 	    
 } ?>

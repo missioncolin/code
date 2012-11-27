@@ -101,6 +101,46 @@ $(function() {
 		    // Display value of slider & send to process-slider.php
 			$( "#amount" + count[1]).html( $( this ).slider( "value" ) );        
 	});
+	
+	
+	$('.name-search').keyup(function() {
+		//nameSearch(this);
+		var that = this;
+		var origValue = $(this).val();
+		var value = origValue.replace("'", "");
+		
+		console.log("called:"+value);
+				
+				
+		$( "#apps" ).fadeOut(100);
+		$.ajax({
+			type: "GET",
+			url: "/includes/apps/jobs-manager/ajax/name-search.php",
+			data: {
+				'searchKeyword' : value, 
+				'jobID' : jobID, 
+				'page' : page, 
+				'userID' : userID
+				},
+				dataType: "text",
+				success: function(msg){
+				//we need to check if the value is the same
+					if (value==$(that).val()) {
+						console.log(msg);
+						//Receiving the result of search here
+						var ajaxDisplay = document.getElementById('apps');
+		
+						if (ajaxDisplay != null) {
+							ajaxDisplay.innerHTML = msg;
+							$( "#apps" ).fadeIn(100);
+						}
+					}
+				}
+		});			
+
+	});
+	
+	
 });
 
 
@@ -150,6 +190,10 @@ function ajaxFunction() {
 	
 }
 
+//function nameSearch(){
+//	alert("namesearch()!");
+//}
+
 
 </script>
 
@@ -192,6 +236,16 @@ function ajaxFunction() {
 
 ?>
 
+<!--Name search box-->
+<!--searches first name or last name-->
+<?php
+	echo alert_box('Use the following input box to search for an applicant by first or last name. Applicant who fit this restriction will be displayed.', 3);
+	echo "<div>";
+	echo "First or Last Name:<br/>";
+	echo "<input id=\"name-search\" class=\"name-search\" type=\"text\">";
+	echo "</div>";
+	echo "<div>&nbsp;</div>";
+?>
 
 
 <section id="applicantList">
