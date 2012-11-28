@@ -662,7 +662,7 @@ class JobManager {
 	$applicants = array();
 	$searchString = "%".$searchVal."%";
 	
-	$qry = sprintf("SELECT DISTINCT a.userID AS 'userID' 
+	$qry = sprintf("SELECT DISTINCT a.userID, a.itemID, a.jobID, a.grade, a.sysDateInserted 
 		FROM tblApplications a 
 		INNER JOIN sysUGFValues v ON  a.userID = v.userID 
 		WHERE a.jobID = %d AND v.fieldID IN (1,2) AND v.value LIKE '%s'
@@ -671,16 +671,44 @@ class JobManager {
 		$searchString,
 		$offset,
 		$display);
+ 
 	$res = $this->db->query($qry);
 	
 	if ($this->db->valid($res)) {
 		while ($a = $this->db->fetch_assoc($res)) {
-			$applicants[$a['userID']] = $a['userID'];            
+			$applicants[$a['userID']] = $a;            
 		}
 	}
 	return $applicants;
 	
      }
+     
+    public function getNameMatchCount($searchVal, $jobID) {
+	    
+	   $applicants = array();
+	   $searchString = "%".$searchVal."%";
+	
+	   $qry = sprintf("SELECT DISTINCT a.userID, a.itemID, a.jobID, a.grade, a.sysDateInserted 
+		FROM tblApplications a 
+		INNER JOIN sysUGFValues v ON  a.userID = v.userID 
+		WHERE a.jobID = %d AND v.fieldID IN (1,2) AND v.value LIKE '%s'", 
+		(int)$jobID,
+		$searchString);
+ 
+	   $res = $this->db->query($qry);
+	
+	   if (is_resource($res)) {
+	          if ($this->db->num_rows($res) > 0){
+	          	return $this->db->num_rows($res);
+	          }else{
+		          return 0;
+	          }
+          }else{
+	          return 0;
+          }
+
+	
+	}
 	
 	    
 } ?>

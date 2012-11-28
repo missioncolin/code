@@ -7,20 +7,23 @@ require dirname(__DIR__) . '/JobManager.php';
 $searchVal = $_GET['searchKeyword'];
 $userID = $_GET['userID'];
 $jobID = $_GET['jobID'];
-$page = $_GET['page'];
 
 
 $j = new JobManager($db, $userID);
 
-$offset  = 0;
-$page    = 1;
-$display = 10;
+$display = 2;
+$page = 1;
+
+if (isset($_GET['page'])) {
+    $page   = (int) $_GET['page'];
+    $offset = ($page - 1) * $display;
+}
 
 $applicants = $j->getApplicants((int)$jobID, $offset, $display);
 $nameMatches = array();
 
 if (!empty($applicants)) {
-	$nameMatches = $j->getNameMatches($searchVal, $jobID);
+	$nameMatches = $j->getNameMatches($searchVal, $jobID, $offset, $display);
 	?>
 
 	<table>

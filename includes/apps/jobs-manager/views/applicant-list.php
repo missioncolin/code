@@ -12,6 +12,7 @@ if (isset($_GET['sliderValue'])) {
 }
 */
 
+
 require dirname(__DIR__) . '/JobManager.php';
 
 $ajaxFile = dirname(__DIR__) . '/ajax/process-slider.php';
@@ -21,8 +22,9 @@ $j = new JobManager($db, $_SESSION['userID']);
 // Variables to pass for processing
 $userID = $_SESSION['userID'];
 $jobID = $_GET['job'];
+$searchString = null;
+$urlString = "";
 
-$total      = $j->totalApplicants($jobID);
 
 
 // Stores all user year questions to define sliders
@@ -30,7 +32,8 @@ $qIDs = array();
 
 $offset  = 0;
 $page    = 1;
-$display = 10;
+$display = 2;
+
 
 $currentSlider = array(); // [questionID]=>[sliderInput]
 
@@ -39,7 +42,21 @@ if (isset($_GET['page'])) {
     $offset = ($page - 1) * $display;
 }
 
-$applicants = $j->getApplicants((int)$jobID, $offset, $display);
+if(isset($_REQUEST['name-search']) && strlen($_REQUEST['name-search']) > 0 ){
+	$searchString = $_REQUEST['name-search'];
+}
+
+if ($searchString != null){
+	$applicants = $j->getNameMatches($searchString, (int)$jobID, $offset, $display);
+	$total      = $j->getNameMatchCount($searchString, (int)$jobID);
+	$urlString  = "&amp;name-search=".$searchString;
+}else{
+	$applicants = $j->getApplicants((int)$jobID, $offset, $display); //no search criteria
+	$total      = $j->totalApplicants($jobID);
+}
+
+
+
 $allYearQuestions = $j->getYearsOfExperienceQuestions($_GET['job']);
 
 
@@ -52,6 +69,7 @@ var sliderValueString; // Stores joined array of slider values
 var page = <?php echo $page;?>;
 var jobID = <?php echo $jobID;?>;
 var userID = <?php echo $userID;?>;
+var offset = <?php echo $offset ?>;
 
 // Initialize all sliders
 for (var i = 0; i < <?php echo count($allYearQuestions);?>; i++) {
@@ -64,7 +82,7 @@ ajaxFunction();
 $(function() {
     
     //ajaxFunction();
-	$('div[id^="slider-"]').each(function() {
+	/*$('div[id^="slider-"]').each(function() {
 	
 		$(this).slider({
 		    range: "max",
@@ -88,8 +106,6 @@ $(function() {
 				sliderValueString = sliderValues.join(",");
 				console.log(sliderValues);
 				ajaxFunction();	
-			
-				/* ajaxFunction(); */
 	
 		    }
 		    
@@ -100,10 +116,10 @@ $(function() {
 		    
 		    // Display value of slider & send to process-slider.php
 			$( "#amount" + count[1]).html( $( this ).slider( "value" ) );        
-	});
+	});*/
 	
 	
-	$('.name-search').keyup(function() {
+	/*$('.name-search').keyup(function() {
 		//nameSearch(this);
 		var that = this;
 		var origValue = $(this).val();
@@ -120,7 +136,8 @@ $(function() {
 				'searchKeyword' : value, 
 				'jobID' : jobID, 
 				'page' : page, 
-				'userID' : userID
+				'userID' : userID, 
+				'offset' : offset
 				},
 				dataType: "text",
 				success: function(msg){
@@ -138,7 +155,7 @@ $(function() {
 				}
 		});			
 
-	});
+	});*/
 	
 	
 });
@@ -184,9 +201,9 @@ function ajaxFunction() {
 	//Send a request:
 	// 1. Specify URL of server-side script that will be used in Ajax app
 	// 2. Use send function to send request
-	var parameters = 
-	ajaxRequest.open("GET", "/includes/apps/jobs-manager/ajax/process-slider.php?sliderValue=" + sliderValueString + "&jobID=" + jobID + "&page=" + page + "&userID=" + userID, true); // make a relative path
-	ajaxRequest.send();
+	//var parameters = 
+	//ajaxRequest.open("GET", "/includes/apps/jobs-manager/ajax/process-slider.php?sliderValue=" + sliderValueString + "&jobID=" + jobID + "&page=" + page + "&userID=" + userID+"&offset="+offset, true); // make a relative path
+	//ajaxRequest.send();
 	
 }
 
@@ -196,7 +213,7 @@ function ajaxFunction() {
 
 
 </script>
-
+<form action="./applicant-list?job=<?php echo $_REQUEST['job']?>" id="searchForm" method="post">
 <!-- Slider for each question -->
 <!-- get question's question -->
 <?php 
@@ -227,7 +244,7 @@ function ajaxFunction() {
 		echo "<span id=\"amount".$i."\"></span>";
 		
 		//Display slider for this ID
-		echo "<div id=\"slider-".$i."\"></div>";
+		echo "<div id=\"slider-".$i."\">SLIDER COMMENTED OUT - SEE CODE</div>";
 		echo "</li>";
 		$i++;
 		
@@ -239,13 +256,20 @@ function ajaxFunction() {
 <!--Name search box-->
 <!--searches first name or last name-->
 <?php
-	echo alert_box('Use the following input box to search for an applicant by first or last name. Applicant who fit this restriction will be displayed.', 3);
 	echo "<div>";
-	echo "First or Last Name:<br/>";
-	echo "<input id=\"name-search\" class=\"name-search\" type=\"text\">";
+	echo "Search By Name:<br/>";
+	echo "<input id=\"name-search\" name=\"name-search\" type=\"text\"><input type=\"submit\" value=\"Search\" class=\"btn\" style=\"margin-left:10px;\">";
 	echo "</div>";
+	if ($searchString != null){
+		echo "Searched For: ".$searchString;
+	}
 	echo "<div>&nbsp;</div>";
 ?>
+
+<input type="hidden" id="jobID" name="jobID" value="<?php echo $_REQUEST['jobID']; ?>">
+<input type="hidden" id="page" name="page" value="<?php echo $_REQUEST['page']; ?>">
+</form> 
+
 
 
 <section id="applicantList">
@@ -257,11 +281,51 @@ function ajaxFunction() {
             <th>Applicant Grade</th>
         </tr>
     </table>
-    <div id="apps"></div>
+    <div id="apps">
+    <table>
+    <?php 
+	foreach ($applicants as $a) {   
+		
+		$applicant = new User($db, $a['userID']);
+		
+		$colours = array(
+			'recommend' => 'green',
+			'average'   => 'yellow',
+			'nq'        => 'red'
+		);
+		
+		$class = $colours[$a['grade']];
+		?>
+
+		<tr id="newUser">
+			<td>
+				<div class="imgWrap">
+					<a href="/applications-detail?application=<?php echo $a['itemID']; ?>"><img src="http://www.gravatar.com/avatar/<?php echo md5(strtolower(trim($applicant->info['Email']))); ?>?d=<?php echo urlencode('http://' . $_SERVER['HTTP_HOST'] . '/themes/Intervue/img/profilePicExample.jpg'); ?>&s=83" alt="<?php echo $applicant->info['First Name'] . " " . $applicant->info['Last Name']; ?>" /></a>
+		
+				</div>	
+				<a href="/applications-detail?application=<?php echo $a['itemID']; ?>"><strong><?php echo $applicant->info['First Name'] . " " . $applicant->info['Last Name']; ?></strong></a><br>
+				<span><?php echo date('F jS, Y', strtotime($a['sysDateInserted'])); ?></span>
+			</td>
+			<td>
+				<h2><?php echo $j->getApplicantRating($a['itemID']); ?><br />
+					<a href="/applications-detail?application=<?php echo $a['itemID']; ?>">Rating Details</a>
+				</h2>
+			</td>
+			<td><a class="btn <?php echo $class; ?>"><?php echo $a['grade']; ?></a></td>
+		</tr>
+
+		<?php
+	
+	} 
+    
+    
+    ?>	        
+    </table>
+    </div>
 
 
     <div class="pagination">
-        <?php echo pagination($total, $display, $page, '/applicant-list?job=' . (int)$_GET['job'] . '&amp;page=', false); ?>
+        <?php echo pagination($total, $display, $page, '/applicant-list?job=' . (int)$_GET['job'] .$urlString.'&amp;page=', false); ?>
     </div>
 
 </section>

@@ -17,14 +17,16 @@ $sliderValues = explode(",", $sliderVal);
 
 $userID = $_GET['userID'];
 $jobID = $_GET['jobID'];
-$page = $_GET['page'];
-
 
 $j = new JobManager($db, $userID);
 
-$offset  = 0;
-$page    = 1;
-$display = 10;
+$display = 2;
+$page = 1;
+
+if (isset($_GET['page'])) {
+    $page   = (int) $_GET['page'];
+    $offset = ($page - 1) * $display;
+}
 
 $currentSlider = array(); // [questionID]=>[sliderInput]
 
