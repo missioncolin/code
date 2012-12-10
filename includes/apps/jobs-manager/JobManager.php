@@ -311,23 +311,40 @@ class JobManager {
     public function getApplicantRating($applicationID){
         //total from values column in tblanswers
         $points = 0;
+        $exp = array();
         
-        // sum the total years of experience
-        $qry = sprintf("SELECT SUM(a.value) as value
-            FROM tblAnswers AS a
+        // for each question get years of experience, and ideal value
+        $qry = sprintf("SELECT a.value as value, q.label, q.idealValue
+            FROM tblAnswers AS a             
+            INNER JOIN tblQuestions as q ON a.questionID = q.itemID
             WHERE a.applicationID='%d'
-            AND questionID IN (SELECT itemID FROM tblQuestions WHERE type='3' AND sysOpen='1' AND sysActive='1')
+            AND a.questionID IN (SELECT itemID FROM tblQuestions WHERE type='3' AND sysOpen='1' AND sysActive='1')
             AND a.sysOpen='1'
-            AND a.sysActive='1'
-            GROUP BY a.applicationID",
+            AND a.sysActive='1'",
                 (int)$applicationID);
         $res = $this->db->query($qry);
-        
+
         if ($this->db->valid($res)) {
-            $tmp = $this->db->fetch_assoc($res);
-            $points += (int)$tmp['value'];
+            while ($tmp = $this->db->fetch_assoc($res)) {
+		        $exp[] = $tmp;
+			}
         }
+               
+        // Calculate points for slider values based on yrs exp
+        foreach ($exp as $index => $info) {
+        	
+        	// If the ideal value is greater than the
+        	// user's entered experience value, subtract 2
+        	// from the user's point count
+        	if ((int)$info['value'] < (int)$info['idealValue']) {
+	        	$points -= 2;
+        	}
+        	else {
+	        	$points += (int)$info['value'];
+        	}
         
+        }
+               
         //total from options - radio
         $radioQry = sprintf("SELECT SUM(o.value) AS 'value'
             FROM tblAnswers AS a
@@ -629,9 +646,8 @@ class JobManager {
 	    // For each applicant check whether applicant's answer is
 		// greater than or equal to the selected value on the slider for this question
 	    foreach ($allApplicants as $applicantID=>$infoArray) {
-
+		    
 			$answer = $this->getAnswer($applicantID, $jobID, $questionID);
-
 			// If an answer exists, check whether within range
 			if ($answer >= 0) {		
 			
@@ -650,7 +666,100 @@ class JobManager {
 	
 	}
 	
-	    /**
+	
+	/** Returns all information
+	  * regarding a passed array
+	  * of applicant IDs
+	  * @return array
+	**/
+	public function getApplicantInfo($applicantList, $jobID) {
+        
+        $applicants = array();
+        $allApplicants = join(',', $applicantList);
+
+        $qry = sprintf("SELECT *
+            FROM tblApplications
+        	WHERE  userID IN (%s) 
+        	AND jobID = '%d'", 
+               $allApplicants, 
+        	   (int)$jobID);
+        	   
+        $res = $this->db->query($qry);
+        
+        if ($this->db->valid($res)) {
+            while ($a = $this->db->fetch_assoc($res)) {
+                $applicants[$a['userID']] = $a;            
+            }
+        }
+        return $applicants;
+    }
+
+
+	/**
+	* Returns array of users to display
+	* in total, based on slider input
+	* criteria 
+	* @return array
+	**/
+	
+	public function getSliderMatches($allYearQuestions, $allApplicants, $sliderValueInput, $jobID) {
+					
+		$y = 0;
+
+		$visibleAppsByQ = array();
+		$totalQs = array();
+
+		$sliderVals = explode(',', $sliderValueInput);
+		
+		foreach ($allYearQuestions as $questionID=>$desc) {
+
+				if (count($sliderVals) < 2) {
+					$sliderVal = $sliderVals[0];
+				}
+				else {
+					$sliderVal = $sliderValues[$y];			
+				}
+				
+				
+				//Add array of visible applicants to list for all questions --> format: [53]=>[[0]=>[userID]];
+				$visibleAppsByQ[$questionID] = $this->getApplicantVisibility($sliderVal, $jobID, $questionID, $allApplicants); 
+								
+				foreach ($visibleAppsByQ as $questionID=>$userArray) {
+					$visibleAppsByQ[$questionID] = $userArray;
+					
+				}
+				
+				$y++;
+		}
+		
+		
+		// Find intersection of all question visibility arrays so that 
+		// ex, if Q53 has 103, 102 and Q52 has 103
+		// final array of visibile applicants will be 103.
+		// If only one question, just print it
+		
+		if (count($visibleAppsByQ) > 1) {
+			
+			$visibleList = call_user_func_array('array_intersect', $visibleAppsByQ);
+			foreach ($visibleList as $key=>$value) {
+				$finalVisibleList[] = $value;
+			}
+			
+		}	
+		else {
+			$visibleList = $visibleAppsByQ;
+			foreach ($visibleList as $key=>$value) {
+				$finalVisibleList = $value;
+			}
+		}
+		
+		// For each user ID that fits the criteria, return the applicant
+		// info as implemented with the default 'all applicants'
+		return $this->getApplicantInfo($finalVisibleList, $jobID);
+		
+	}
+	
+	/**
     *  Returns array of users to display based on 
     *  values in the name input box
     *  format of return array: Array([0]=>[userID])

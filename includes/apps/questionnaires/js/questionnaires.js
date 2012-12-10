@@ -80,7 +80,7 @@ $('.add').live('click', function() {
     totalCountQ.push($count);
     console.log(totalCountQ);
     
-    $('<tr><td>' + $label + '</td><td colspan="2"><input size="75" type="text" name="RQvalALPHQuestions[]" id="RQvalALPHQuestion_' + $count + '" placeholder="Required Skill" value="" /><br><a href="#" data-count="' + $count + '" data-label="' + $label + '" class="add">Add Another Question</a><a href="#" data-count="' + $count + '" class="removeSkillQ">&nbsp;x</a></td></tr>').insertAfter($(this).parent().parent());
+    $('<tr><td>' + $label + '</td><td colspan="2"><input size="75" type="text" name="RQvalALPHQuestions[]" id="RQvalALPHQuestion_' + $count + '" placeholder="Required Skill" value="" /></br></br><input size="10" type="text" name="idealValues[]" id="idealValue_' + $count + '" placeholder="Ideal years of experience" value=""/><a href="#" data-count="' + $count + '" data-label="' + $label + '" class="add">Add Another Question</a><a href="#" data-count="' + $count + '" class="removeSkillQ">&nbsp;x</a></td></tr>').insertAfter($(this).parent().parent());
     $(this).remove();
     return false;
 });
@@ -94,7 +94,7 @@ $('.addEditQuestion').click(function () {
 	
 	if ($(this).data('type') == 3) {
 		
-		$('<tr><td width="30%"><label for="RQvalALPHQuestion_' + thisID + '">How Many Years Experience..</label></td><td><input type="text" class="' + thisID + '" name="RQvalALPHQuestion_' + thisID + '_new_3" value=""/></td><td width="5%"><a href="#" data-type="3" id="' + thisID + '" class="removeQuestion"> x</a></td></tr>').insertBefore($(this).closest('tr').parent());
+		$('<tr><td width="30%"><label for="RQvalALPHQuestion_' + thisID + '">How Many Years Experience...</label></td><td><input type="text" class="' + thisID + '" name="RQvalALPHQuestion_' + thisID + '_new_3" value=""/></td><input size="10" type="text" name="idealValues[]" id="idealValue_' + thisID + '" placeholder="Ideal years of experience" value=""/><td width="5%"><a href="#" data-type="3" id="' + thisID + '" class="removeQuestion"> x</a></td></tr>').insertBefore($(this).closest('tr').parent());
 		
 	}
 	
@@ -137,7 +137,8 @@ $('.removeSkillQ').live('click', function() {
 		$('#RQvalALPHQuestion_' + $count).remove();
 
 	    $label = $(this).data('label');
-	    $('<input size="75" type="text" name="RQvalALPHQuestions[]" id="RQvalALPHQuestion_' + $count + '" placeholder="Required Skill" value="" />').insertBefore($(this));
+	    $('<input size="75" type="text" name="RQvalALPHQuestions[]" id="RQvalALPHQuestion_' + $count + '" placeholder="Required Skill" value="" />' + 
+	      '<input size="10" type="text" name="idealValues[]" id="idealValue_' + $count + '" placeholder="Ideal years of experience" value=""/>').insertBefore($(this));
 		
 	}
 	
@@ -148,9 +149,10 @@ $('.removeSkillQ').live('click', function() {
 		totalCountQ.splice(totalCountQ.indexOf($count), 1);
 
 		$('#RQvalALPHQuestion_' + $count).remove();
+		$('#idealValue_' + $count).remove();
 		$(this).closest('tr').remove();
 		$(this).closest('td').remove();
-		$('<a href="#" data-count="' + $count + '" class="add">Add Another Question</a>').insertAfter($('#RQvalALPHQuestion_' + (totalCountQ[totalCountQ.length - 1])));
+		$('<a href="#" data-count="' + $count + '" class="add">Add Another Question</a>').insertAfter($('#idealValue_' + (totalCountQ[totalCountQ.length - 1])));
 		$(this).remove();
 		
 	}
@@ -161,6 +163,7 @@ $('.removeSkillQ').live('click', function() {
 		
 		// If not at end, just remove 'add' since likely doesn't have an 'add' link anyways
 		$('#RQvalALPHQuestion_' + $count).remove();
+		$('#idealValue_' + $count).remove();
 		$(this).closest('tr').remove();
 		$(this).closest('td').remove();
 		$(this).remove();

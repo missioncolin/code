@@ -68,29 +68,38 @@ if ($this instanceof Quipp) {
             
                 if (is_array($_POST['RQvalALPHQuestions'])) {
                     
-                    foreach($_POST['RQvalALPHQuestions'] as $label) {
-                        $qry = sprintf("INSERT INTO tblQuestions (label, type, questionnaireID ) VALUES('%s', '%d', '%d')",
-                            $db->escape(strip_tags($label)),
-                            (int) $_POST['RQvalNUMBType'],
-                            (int) $_GET['qnrID']);
-                        $db->query($qry);
-                    }
+                    $i = 0;
+                    while( $i < count($_POST['RQvalALPHQuestions'])) {
+                        
+	                        $qry = sprintf("INSERT INTO tblQuestions (label, type, questionnaireID, idealValue ) VALUES('%s', '%d', '%d', '%d')",
+	                            $db->escape(strip_tags($_POST['RQvalALPHQuestions'][$i])),
+	                            (int) $_POST['RQvalNUMBType'],
+	                            (int) $_GET['qnrID'],
+	                            (int) $_POST['idealValues'][$i]);
+	                        $db->query($qry);
+	                        
+	                        $i += 1;
+                       
+                     }
                     
                 } else {
-                    $qry = sprintf("INSERT INTO tblQuestions (label, type, questionnaireID ) VALUES('%s', '%d', '%d')",
+                    $qry = sprintf("INSERT INTO tblQuestions (label, type, questionnaireID, idealValue ) VALUES('%s', '%d', '%d', '%d')",
                         $db->escape(strip_tags($_POST['RQvalALPHQuestion'])),
                         (int) $_POST['RQvalNUMBType'],
-                        (int) $_GET['qnrID']);
+                        (int) $_GET['qnrID'],
+                        (int) $_POST['idealValues']);
                     $db->query($qry);
+                        
                 }
                 $success = 1;
 
                 break;
                 
             case 'edit':
-                $qry = sprintf("UPDATE tblQuestions SET label = '%s', type = '%d' WHERE itemID = '%d'",
+                $qry = sprintf("UPDATE tblQuestions SET label = '%s', type = '%d', idealValue = '%d' WHERE itemID = '%d'",
                     $db->escape(strip_tags($_POST['RQvalALPHQuestion'])),
                     (int) $_POST['RQvalNUMBType'],
+                    (int) $_POST['idealValue'],
                     (int) $_GET['qsnID']);
                 $db->query($qry);
                 
@@ -289,6 +298,7 @@ if ($this instanceof Quipp) {
                 <td><label><?php echo $label; ?></label></td> 
                 <td colspan="2">
                     <input size="75" type="text" name="RQvalALPHQuestions[]" id="RQvalALPHQuestion_1" placeholder="Required Skill" value="<?php echo (isset($_POST['RQvalALPHQuestion'][0])) ? $_POST['RQvalALPHQuestion'][0] : ''; ?>" /> 
+                    <input size="10" type="text" name="idealValues[]" id="idealValue_1" placeholder="Ideal years of experience" value="<?php echo (isset($_POST['idealValues'][0])) ? $_POST['idealValues'][0] : ''; ?>"/>
                     <br><a href="#" data-count="1" data-label="<?php echo $label; ?>" class="add">Add Another Question</a>
                     <a href="#" data-count="1" class="removeSkillQ">&nbsp;x</a>
                     <input type="hidden" id="RQvalNUMBType" name="RQvalNUMBType" value="<?php echo $type; ?>" />
@@ -573,7 +583,7 @@ if ($this instanceof Quipp) {
 				}
 				else {
 
-					// Display video questions
+					// Display video questions with drop down option
 					if (strcmp($qType, "Video") == 0) { ?>
 						<tr>
 					    	<td width="30%"><label for="RQvalALPHQuestion_<?php echo $qID; ?>">Question</label></td>
