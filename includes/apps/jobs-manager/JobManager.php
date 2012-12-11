@@ -824,5 +824,13 @@ class JobManager {
 	
 	}
 	
+	
+	/** Return answer for years of experience question using private method **/
+	public function getYearsOfExperienceAnswers($applicantID, $jobID, $questionID) {
+		
+		return $this->getAnswer($applicantID, $jobID, $questionID);
+		
+	}
+	
 	    
 } ?>

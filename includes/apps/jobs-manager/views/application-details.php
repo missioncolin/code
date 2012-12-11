@@ -66,9 +66,23 @@ $quipp->js['footer'][] = "/includes/apps/jobs-manager/js/jobs-manager.js";
             <a href="#" data-application="<?php echo $_GET['application']; ?>" data-grade="recommend" class="grade btn <?php echo ($application['grade'] == 'recommend') ? 'green' : 'black'; ?>">Recommend</a>
             <a href="#" data-application="<?php echo $_GET['application']; ?>" data-grade="average" class="grade btn <?php echo ($application['grade'] == 'average') ? 'yellow' : 'black'; ?>">Average</a>
             <a href="#" data-application="<?php echo $_GET['application']; ?>" data-grade="nq" class="grade btn <?php echo ($application['grade'] == 'nq') ? 'red' : 'black'; ?>">NQ</a>
-        </div>
+        </div>	
     </div>
-    
+  
+    <div>
+        <!------------ ***** THIS IS THE NEW DATA ADDED, TO BE STYLED ****** ----------------->
+        <!---- get years of exp questions and answers in one area ---->
+		<?php echo $applicant->info['First Name']."'s Work Experience"; ?></br>
+			
+			<b>Skill : Years of Experience</b></br>			
+			<?php foreach ($j->getYearsOfExperienceQuestions($application['jobID']) as $id=>$label) { ?>
+			
+				<?php echo $label; ?> :
+	        	<?php echo $j->getYearsofExperienceAnswers($application['userID'], $application['jobID'], $id); ?> years</br>
+			
+			<?php } ?>				
+	</div>
+    	
     <div id="submissions">
         <div id="toolbar">
             <a class="left btn2" href="applicant-list?job=<?php echo $application['jobID']; ?>">Back to List</a>
