@@ -71,8 +71,10 @@ else if ($sliderParam != null) {
 	$urlSlider  = "&amp;slider-val=".$_REQUEST['slider-val'];
 
 }
+
+/* No search criteria or slider query */
 else{
-	$applicants = $j->getApplicants((int)$jobID, $offset, $display); //no search criteria
+	$applicants = $j->getApplicants((int)$jobID, $offset, $display);
 	$total      = $j->totalApplicants($jobID);
 }
 
@@ -216,7 +218,11 @@ $(function() {
 	
 });
 
+/********* end jquery UI functionality ***********/
+
 </script>
+
+
 <form name="sliderForm" action="./applicant-list?job=<?php echo $_REQUEST['job']?>" method="get">
 <!-- Slider for each question -->
 <!-- get question's question -->
