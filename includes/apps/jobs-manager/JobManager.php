@@ -710,8 +710,9 @@ class JobManager {
 
 		$visibleAppsByQ = array();
 		$totalQs = array();
-
-		$sliderVals = explode(',', $sliderValueInput);
+		$finalVisibleList = array();
+		
+		$sliderVals = explode('_', $sliderValueInput);
 		
 		foreach ($allYearQuestions as $questionID=>$desc) {
 
@@ -719,9 +720,8 @@ class JobManager {
 					$sliderVal = $sliderVals[0];
 				}
 				else {
-					$sliderVal = $sliderValues[$y];			
-				}
-				
+					$sliderVal = $sliderVals[$y];			
+				}				
 				
 				//Add array of visible applicants to list for all questions --> format: [53]=>[[0]=>[userID]];
 				$visibleAppsByQ[$questionID] = $this->getApplicantVisibility($sliderVal, $jobID, $questionID, $allApplicants); 

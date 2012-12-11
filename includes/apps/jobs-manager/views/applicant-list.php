@@ -95,7 +95,7 @@ var sliderString = '<?php echo isset($_REQUEST['slider-val']) ? $_REQUEST['slide
 var masterSlider = '<?php echo isset($_REQUEST['master-val']) ? $_REQUEST['master-val'] : '0'; ?>'
 
 if (sliderString != '0') {
-	var sliderVals = sliderString.split(',');	
+	var sliderVals = sliderString.split('_');	
 }
 
 else {
@@ -130,7 +130,7 @@ $(function() {
 	$('div[id^="slider-"]').each(function() {
 		
 		var count = String(this.id).split("-");	
-		console.log(count);
+
 		if (masterSlider != 0) {
 			var thisValue = masterSlider; 
 		}
@@ -142,6 +142,7 @@ $(function() {
 		}
 		
 		$(this).slider({
+			animate: true,
 		    range: "max",
 		    min: 0,
 		    max: 20,
@@ -150,6 +151,7 @@ $(function() {
 		    slide: function( event, ui ) {	    	
 		        $( "#amount" + count[1]).html( ui.value );
 		        $( "#apps" ).fadeOut(100);
+				
 		    },
 		    // When user stops sliding, update applicant list
 		    stop: function( event, ui ) {
@@ -157,41 +159,24 @@ $(function() {
 		        sliderValues[count[1]] = ui.value;
 		        // Create string from values
 				// and submit to process-slider.php
-				sliderValueString = sliderValues.join(",");
+				sliderValueString = sliderValues.join("_");
 								
 				// Set hidden value to slider number
 				$("#slider-val").val(sliderValueString);
-				console.log($("#slider-val").val());
 				document.sliderForm.submit();
 		    }
 		    
 	    });
 		    
-		    console.log($(this).slider("value"));
 		    // Get id number value 
 		    var count = String(this.id).split("-");
 		    
 		    // Display value of slider & send to process-slider.php
 			$( "#amount" + count[1]).html( $( this ).slider( "value" ) );        
 	});
-	
-	/* Master Slider */
-	
-/*
-	$('div#master-slider').bind('slide', function() {
-		
-		var masterVal = $(this).slider('option', 'value');
-		
-		$('div[id^="slider-"]').each('slide', function() {
-				
-			$(this).slider('option', 'value', masterVal);
-			
-		});
-	
-	});
-*/
-	
+
 	$('div#master-slider').slider({
+		animate: true,
 	    range: "max",
 	    min: 0,
 	    max: 20,
@@ -204,9 +189,14 @@ $(function() {
 	        $( "#master-amount").html( ui.value );
 	        $( "#apps" ).fadeOut(100);
 	        
-	        // Set slider for all other sliders
-			$('div[id^="slider-"]').live('each', function() {
-				$(this).val(ui.value);
+	        // Set other sliders as master slider slides		        
+	        $('.sliders').each(function() {
+			
+		       $(this).slider('option', 'value', ui.value);
+			   // Get id number value 
+			    var count = String(this.id).split("-");			    
+			    // Display value of slider & send to process-slider.php
+				$( "#amount" + count[1]).html( $( this ).slider( "value" ) );  
 			});
 			
 	    },
@@ -264,7 +254,7 @@ $(function() {
 		//Apply range for ID
 		echo "<span id=\"amount".$i."\"></span>";
 		//Display slider for this ID
-		echo "<div id=\"slider-".$i."\"></div>";
+		echo "<div class=\"sliders\" id=\"slider-".$i."\"></div>";
 		echo "</li>";
 		$i++;
 		
