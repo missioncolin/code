@@ -5,14 +5,6 @@
 
 <?php
 
-/*
-if (isset($_GET['sliderValue'])) {
-	$sliderVal = $_GET['sliderValue'];
-	echo $sliderVal;
-}
-*/
-
-
 require dirname(__DIR__) . '/JobManager.php';
 
 $ajaxFile = dirname(__DIR__) . '/ajax/process-slider.php';
@@ -21,21 +13,30 @@ $j = new JobManager($db, $_SESSION['userID']);
 
 // Variables to pass for processing
 $userID = $_SESSION['userID'];
-$jobID = $_GET['job'];
+$jobID = $_REQUEST['job'];
 $searchString = null;
 $urlString = "";
-
-
+$urlSlider = "";
+$sliderParam = null;
+$urlMaster = "";
 
 // Stores all user year questions to define sliders
 $qIDs = array();
 
 $offset  = 0;
 $page    = 1;
-$display = 2;
+$display = 1;
 
+$allYearQuestions = $j->getYearsOfExperienceQuestions($_GET['job']);
 
-$currentSlider = array(); // [questionID]=>[sliderInput]
+/* Check whether sliders have been changed/set */
+if (isset($_REQUEST['slider-val'])) {
+	$sliderParam = $_REQUEST['slider-val'];
+}
+
+if (isset($_REQUEST['master-val']) && $_REQUEST['master-val'] != 0) {
+	$sliderParam = $_REQUEST['master-val'];
+}
 
 if (isset($_GET['page'])) {
     $page   = (int) $_GET['page'];
@@ -50,19 +51,36 @@ if ($searchString != null){
 	$applicants = $j->getNameMatches($searchString, (int)$jobID, $offset, $display);
 	$total      = $j->getNameMatchCount($searchString, (int)$jobID);
 	$urlString  = "&amp;name-search=".$searchString;
-}else{
+}
+else if ($sliderParam != null) {
+
+	/* Get all applicants arranged so that pagination
+	 * will actually work -- gets all applicants to pass to the function
+	 * to get all slider matches, and then displays only those within the offset/display
+	 * variables
+	*/
+	$allApplicants = $j->getApplicants((int)$jobID, 0, 1000);
+	$visibleApps = $j->getSliderMatches($allYearQuestions, $allApplicants, $sliderParam, $jobID);
+	$applicants = $j->getApplicantInfo($visibleApps, (int)$jobID, $offset, $display);
+	
+	/* Total applicants that fit the criteria */
+	$total = count($visibleApps);
+	
+	/* Set up pagination url */
+	$urlMaster = "&amp;master-val=".$_REQUEST['master-val'];
+	$urlSlider  = "&amp;slider-val=".$_REQUEST['slider-val'];
+
+}
+else{
 	$applicants = $j->getApplicants((int)$jobID, $offset, $display); //no search criteria
 	$total      = $j->totalApplicants($jobID);
 }
 
-
-
-$allYearQuestions = $j->getYearsOfExperienceQuestions($_GET['job']);
-
-
 ?>
 
 <script>
+
+/******** Handles all of the slider functionality ********/
 
 var sliderValues = new Array(); // Stores each slider value as updated
 var sliderValueString; // Stores joined array of slider values
@@ -71,149 +89,145 @@ var jobID = <?php echo $jobID;?>;
 var userID = <?php echo $userID;?>;
 var offset = <?php echo $offset ?>;
 
-// Initialize all sliders
-for (var i = 0; i < <?php echo count($allYearQuestions);?>; i++) {
-	sliderValues.push(0);  
+/* Prep for slider values if pre-existing */
+var sliderString = '<?php echo isset($_REQUEST['slider-val']) ? $_REQUEST['slider-val'] : '0'; ?>';
+
+var masterSlider = '<?php echo isset($_REQUEST['master-val']) ? $_REQUEST['master-val'] : '0'; ?>'
+
+if (sliderString != '0') {
+	var sliderVals = sliderString.split(',');	
 }
 
-sliderValueString = sliderValues.join(",");
-ajaxFunction();	
+else {
+	var sliderVals = 0;
+}
+
+
+// Initialize all sliders
+for (var i = 0; i < <?php echo count($allYearQuestions);?>; i++) {
+	if (sliderVals != 0) {
+	
+		/* If count of array is > 1, not master */
+		if (sliderVals.length > 1) {
+			sliderValues.push(sliderVals[i]);  
+		}
+		/* Apply master value to each slider */
+		else {
+			sliderValues.push(sliderVals[0]);
+		}
+
+	}
+	/* Sliders haven't been set; default to 0 */
+	else {
+		sliderValues.push(0);
+	}
+}
 
 $(function() {
     
+    
     //ajaxFunction();
-	/*$('div[id^="slider-"]').each(function() {
-	
+	$('div[id^="slider-"]').each(function() {
+		
+		var count = String(this.id).split("-");	
+		console.log(count);
+		if (masterSlider != 0) {
+			var thisValue = masterSlider; 
+		}
+		else if (sliderValues.len != 0) {
+			var thisValue = sliderValues[count[1]];
+		}
+		else {
+			var thisValue = 0;
+		}
+		
 		$(this).slider({
 		    range: "max",
 		    min: 0,
 		    max: 20,
-		    value: 0,
+		    value: Number(thisValue),
 		    // Each slide updates value label
-		    slide: function( event, ui ) {
-		    	var count = String(this.id).split("-");		    	
+		    slide: function( event, ui ) {	    	
 		        $( "#amount" + count[1]).html( ui.value );
 		        $( "#apps" ).fadeOut(100);
 		    },
 		    // When user stops sliding, update applicant list
 		    stop: function( event, ui ) {
 		        //Store value of ID to store slider value
-		        var count = String(this.id).split("-");	
 		        sliderValues[count[1]] = ui.value;
-		        
 		        // Create string from values
 				// and submit to process-slider.php
 				sliderValueString = sliderValues.join(",");
-				console.log(sliderValues);
-				ajaxFunction();	
-	
+								
+				// Set hidden value to slider number
+				$("#slider-val").val(sliderValueString);
+				console.log($("#slider-val").val());
+				document.sliderForm.submit();
 		    }
 		    
-		    });
+	    });
 		    
+		    console.log($(this).slider("value"));
 		    // Get id number value 
 		    var count = String(this.id).split("-");
 		    
 		    // Display value of slider & send to process-slider.php
 			$( "#amount" + count[1]).html( $( this ).slider( "value" ) );        
-	});*/
+	});
 	
+	/* Master Slider */
 	
-	/*$('.name-search').keyup(function() {
-		//nameSearch(this);
-		var that = this;
-		var origValue = $(this).val();
-		var value = origValue.replace("'", "");
+/*
+	$('div#master-slider').bind('slide', function() {
 		
-		console.log("called:"+value);
-				
-				
-		$( "#apps" ).fadeOut(100);
-		$.ajax({
-			type: "GET",
-			url: "/includes/apps/jobs-manager/ajax/name-search.php",
-			data: {
-				'searchKeyword' : value, 
-				'jobID' : jobID, 
-				'page' : page, 
-				'userID' : userID, 
-				'offset' : offset
-				},
-				dataType: "text",
-				success: function(msg){
-				//we need to check if the value is the same
-					if (value==$(that).val()) {
-						console.log(msg);
-						//Receiving the result of search here
-						var ajaxDisplay = document.getElementById('apps');
+		var masterVal = $(this).slider('option', 'value');
 		
-						if (ajaxDisplay != null) {
-							ajaxDisplay.innerHTML = msg;
-							$( "#apps" ).fadeIn(100);
-						}
-					}
-				}
-		});			
-
-	});*/
+		$('div[id^="slider-"]').each('slide', function() {
+				
+			$(this).slider('option', 'value', masterVal);
+			
+		});
 	
+	});
+*/
+	
+	$('div#master-slider').slider({
+	    range: "max",
+	    min: 0,
+	    max: 20,
+	    value: Number('<?php echo isset($_REQUEST['master-val']) ? $_REQUEST['master-val'] : '0'; ?>'),
+	    create: function( event, ui ) {
+		    $( "#master-amount").html( $( this ).slider( "value" ) );   
+	    },
+	    // Each slide updates value label
+	    slide: function( event, ui ) {   	
+	        $( "#master-amount").html( ui.value );
+	        $( "#apps" ).fadeOut(100);
+	        
+	        // Set slider for all other sliders
+			$('div[id^="slider-"]').live('each', function() {
+				$(this).val(ui.value);
+			});
+			
+	    },
+	    // When user stops sliding, update applicant list
+	    stop: function( event, ui ) {
+							
+			// Set hidden value to slider number
+			$("#master-val").val(ui.value);
+			// Display value of slider & send to process-slider.php
+			$( "#master-amount").html( $( this ).slider( "value" ) );   
+			
+			document.sliderForm.submit();
+	    }
+	    
+    });
+	        
 	
 });
 
-
-function ajaxFunction() {
-	
-	var ajaxRequest;
-	
-	try {
-		
-		// Handles Opera, Firefox, Safari, Chrome
-		ajaxRequest = new XMLHttpRequest();
-		
-	} catch(e) {
-		// Handles IE...
-		try {
-			ajaxRequest = new ActiveXObject("Msxml2.XMLHTTP");
-		} catch(e) {
-			try {
-				ajaxRequest = new ActiveXObject("Microsoft.XMLHTTP");
-			} catch(e) {
-				alert("There has been an error.");
-				return false;
-			}
-		}
-	}
-	
-	// Receive data
-	ajaxRequest.onreadystatechange = function() {
-	if (ajaxRequest.readyState == 4) // Ready to receive {
-
-		var ajaxDisplay = document.getElementById('apps');
-		
-		if (ajaxDisplay != null) {
-		
-			ajaxDisplay.innerHTML = ajaxRequest.responseText;
-			$( "#apps" ).fadeIn(100);
-		}			
-
-	}
-	
-	//Send a request:
-	// 1. Specify URL of server-side script that will be used in Ajax app
-	// 2. Use send function to send request
-	//var parameters = 
-	//ajaxRequest.open("GET", "/includes/apps/jobs-manager/ajax/process-slider.php?sliderValue=" + sliderValueString + "&jobID=" + jobID + "&page=" + page + "&userID=" + userID+"&offset="+offset, true); // make a relative path
-	//ajaxRequest.send();
-	
-}
-
-//function nameSearch(){
-//	alert("namesearch()!");
-//}
-
-
 </script>
-<form action="./applicant-list?job=<?php echo $_REQUEST['job']?>" id="searchForm" method="post">
+<form name="sliderForm" action="./applicant-list?job=<?php echo $_REQUEST['job']?>" method="get">
 <!-- Slider for each question -->
 <!-- get question's question -->
 <?php 
@@ -232,6 +246,13 @@ function ajaxFunction() {
 	
 	echo alert_box('Use the following '.$sliders.' to select an inclusive minimum number of years for '.$qStr.'. Applicants who fit '.$theseStr.' will be displayed.', 3);
 	echo "<ul class='sliderList'>";
+	
+	printf("%s", "Master Slider  ");
+	/*** Master Slider ***/
+	echo "<span id=\"master-amount\"></span>";
+	//Display slider for this ID
+	echo "<div id=\"master-slider\"></div><br>";
+
 	$i = 0;
 	foreach ($allYearQuestions as $id=>$desc) {
 	
@@ -242,9 +263,8 @@ function ajaxFunction() {
 		
 		//Apply range for ID
 		echo "<span id=\"amount".$i."\"></span>";
-		
 		//Display slider for this ID
-		echo "<div id=\"slider-".$i."\">SLIDER COMMENTED OUT - SEE CODE</div>";
+		echo "<div id=\"slider-".$i."\"></div>";
 		echo "</li>";
 		$i++;
 		
@@ -252,7 +272,15 @@ function ajaxFunction() {
 	echo "</ul>";
 
 ?>
+<input type="hidden" id="master-val" name="master-val" value="0">
+<input type="hidden" id="slider-val" name="slider-val" value="0">
+<input type="hidden" id="jobID" name="job" value="<?php echo $_REQUEST['job']; ?>">
+<!-- everytime the slider is moved, reset page to the first page so that you don't get an 'empty' notice -->
+<input type="hidden" id="page" name="page" value="1">
+</form>
 
+
+<form action="./applicant-list?job=<?php echo $_REQUEST['job']?>" id="searchForm" method="post">
 <!--Name search box-->
 <!--searches first name or last name-->
 <?php
@@ -266,7 +294,7 @@ function ajaxFunction() {
 	echo "<div>&nbsp;</div>";
 ?>
 
-<input type="hidden" id="jobID" name="jobID" value="<?php echo $_REQUEST['jobID']; ?>">
+<input type="hidden" id="jobID" name="job" value="<?php echo $_REQUEST['job']; ?>">
 <input type="hidden" id="page" name="page" value="<?php echo $_REQUEST['page']; ?>">
 </form> 
 
@@ -284,38 +312,50 @@ function ajaxFunction() {
     <div id="apps">
     <table>
     <?php 
-	foreach ($applicants as $a) {   
+    if (!empty($applicants)) {
+		foreach ($applicants as $a) {   
+			
+			$applicant = new User($db, $a['userID']);
+			
+			$colours = array(
+				'recommend' => 'green',
+				'average'   => 'yellow',
+				'nq'        => 'red'
+			);
+			
+			$class = $colours[$a['grade']];
+			?>
+	
+			<tr id="newUser">
+				<td>
+					<div class="imgWrap">
+						<a href="/applications-detail?application=<?php echo $a['itemID']; ?>"><img src="http://www.gravatar.com/avatar/<?php echo md5(strtolower(trim($applicant->info['Email']))); ?>?d=<?php echo urlencode('http://' . $_SERVER['HTTP_HOST'] . '/themes/Intervue/img/profilePicExample.jpg'); ?>&s=83" alt="<?php echo $applicant->info['First Name'] . " " . $applicant->info['Last Name']; ?>" /></a>
+			
+					</div>	
+					<a href="/applications-detail?application=<?php echo $a['itemID']; ?>"><strong><?php echo $applicant->info['First Name'] . " " . $applicant->info['Last Name']; ?></strong></a><br>
+					<span><?php echo date('F jS, Y', strtotime($a['sysDateInserted'])); ?></span>
+				</td>
+				<td>
+					<h2><?php echo $j->getApplicantRating($a['itemID']); ?><br />
+						<a href="/applications-detail?application=<?php echo $a['itemID']; ?>">Rating Details</a>
+					</h2>
+				</td>
+				<td><a class="btn <?php echo $class; ?>"><?php echo $a['grade']; ?></a></td>
+			</tr>
+			
+			<?php
 		
-		$applicant = new User($db, $a['userID']);
-		
-		$colours = array(
-			'recommend' => 'green',
-			'average'   => 'yellow',
-			'nq'        => 'red'
-		);
-		
-		$class = $colours[$a['grade']];
-		?>
-
+		}
+	}
+	else {
+	?>	
 		<tr id="newUser">
 			<td>
-				<div class="imgWrap">
-					<a href="/applications-detail?application=<?php echo $a['itemID']; ?>"><img src="http://www.gravatar.com/avatar/<?php echo md5(strtolower(trim($applicant->info['Email']))); ?>?d=<?php echo urlencode('http://' . $_SERVER['HTTP_HOST'] . '/themes/Intervue/img/profilePicExample.jpg'); ?>&s=83" alt="<?php echo $applicant->info['First Name'] . " " . $applicant->info['Last Name']; ?>" /></a>
-		
-				</div>	
-				<a href="/applications-detail?application=<?php echo $a['itemID']; ?>"><strong><?php echo $applicant->info['First Name'] . " " . $applicant->info['Last Name']; ?></strong></a><br>
-				<span><?php echo date('F jS, Y', strtotime($a['sysDateInserted'])); ?></span>
+				No users fit this criteria
 			</td>
-			<td>
-				<h2><?php echo $j->getApplicantRating($a['itemID']); ?><br />
-					<a href="/applications-detail?application=<?php echo $a['itemID']; ?>">Rating Details</a>
-				</h2>
-			</td>
-			<td><a class="btn <?php echo $class; ?>"><?php echo $a['grade']; ?></a></td>
 		</tr>
-
-		<?php
-	
+		
+	<?php
 	} 
     
     
@@ -325,7 +365,7 @@ function ajaxFunction() {
 
 
     <div class="pagination">
-        <?php echo pagination($total, $display, $page, '/applicant-list?job=' . (int)$_GET['job'] .$urlString.'&amp;page=', false); ?>
+        <?php echo pagination($total, $display, $page, '/applicant-list?job=' . (int)$_GET['job'] . $urlString . $urlSlider . $urlMaster . '&amp;page=', false); ?>
     </div>
 
 </section>

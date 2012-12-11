@@ -672,7 +672,7 @@ class JobManager {
 	  * of applicant IDs
 	  * @return array
 	**/
-	public function getApplicantInfo($applicantList, $jobID) {
+	public function getApplicantInfo($applicantList, $jobID, $offset = 0, $display = 1000) {
         
         $applicants = array();
         $allApplicants = join(',', $applicantList);
@@ -680,9 +680,11 @@ class JobManager {
         $qry = sprintf("SELECT *
             FROM tblApplications
         	WHERE  userID IN (%s) 
-        	AND jobID = '%d'", 
+        	AND jobID = '%d' LIMIT %d, %d", 
                $allApplicants, 
-        	   (int)$jobID);
+        	   (int)$jobID, 
+        	   $offset,
+        	   $display);
         	   
         $res = $this->db->query($qry);
         
@@ -753,9 +755,12 @@ class JobManager {
 			}
 		}
 		
+		// Return all users that fit criteria
+		return $finalVisibleList;
+		
 		// For each user ID that fits the criteria, return the applicant
-		// info as implemented with the default 'all applicants'
-		return $this->getApplicantInfo($finalVisibleList, $jobID);
+		// info as implemented with the default 'all applicants
+/* 		return $this->getApplicantInfo($finalVisibleList, $jobID, $offset, $display); */
 		
 	}
 	
