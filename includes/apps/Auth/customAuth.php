@@ -70,7 +70,7 @@ class customAuth extends Auth{
 
 				$_SESSION['userID'] = $RS['itemID'];
 				$_SESSION['canEditPageContent'] = true;
-				$_SESSION['myKey']  = $myKey = md5($username . date("r") . rand(1, 999999999));
+				$_SESSION['myKey']  = md5($username . date("r") . rand(1, 999999999));
 
 				
 				$qry = sprintf("UPDATE sysUsers SET myKey = '%s', lastLoginDate = %s WHERE itemID = '%d';",

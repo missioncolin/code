@@ -5,9 +5,15 @@ if ($this INSTANCEOF Quipp){
     $submitted = false;
     require_once(dirname(__DIR__)."/Forms.php");
     $frms = new Forms($db);
-    $provs  = $db->query("SELECT `itemID`, `provName` FROM `sysProvince` WHERE countryID IN (38, 213) ORDER BY `countryID`, `provName`");
+    //$provs  = $db->query("SELECT `itemID`, `provName` FROM `sysProvince` WHERE countryID IN (38, 213) ORDER BY `countryID`, `provName`");
     
-    $meta   = $frms->getMetaFieldsByGroup('hr-managers');
+    //$meta   = $frms->getMetaFieldsByGroup('hr-managers');
+    $meta = array(
+        array("fieldLabel" => "Email", "validationCode" => "RQvalMAIL"),
+        array("fieldLabel" => "Job Credits", "validationCode" => ""),
+        array("fieldLabel" => "password", "validationCode" => "RQvalALPH")
+    );
+        
     $post   = array();
     foreach($meta as $fields){
         $post[str_replace(" ","_",$fields["fieldLabel"])] = array("code" => $fields["validationCode"], "value" => "", "label" => $fields["fieldLabel"]);
@@ -44,21 +50,22 @@ if ($this INSTANCEOF Quipp){
         
         if (validate_form($validate)){
             $valid = true;
+            unset($post[2]); //don't want to pass this to createUserAccount
         }
-        if (empty($_POST["password"]) || empty($_POST["confirmPassword"]) || ($db->escape($_POST["password"], true) !== $db->escape($_POST["confirmPassword"], true))){            
+     /*   if (empty($_POST["password"]) || empty($_POST["confirmPassword"]) || ($db->escape($_POST["password"], true) !== $db->escape($_POST["confirmPassword"], true))){            
             $message = (empty($message)) ?"<li>Password is required and must match the Password Confirmation</li>" : $message . "<li>Password is required and must match the Password Confirmation</li>";
             $valid = false;
-        }
-        if (isset($_FILES["Company_Logo"]) && ($_FILES["Company_Logo"]["error"] != 0 && $_FILES["Company_Logo"]["error"] != 4)){
+        }*/
+     /*   if (isset($_FILES["Company_Logo"]) && ($_FILES["Company_Logo"]["error"] != 0 && $_FILES["Company_Logo"]["error"] != 4)){
             
            $valid = false;
            $message = (empty($message)) ?"<li>".$uploadErrors[$_FILES["Company_Logo"]["error"]]."</li>" : $message . "<li>".$uploadErrors[$_FILES["Company_Logo"]["error"]]."</li>";
-        }
+        }*/
         if ($valid == true){
             $message = "";
             //create user account
             //get ID and create 1) folder - check for images and upload
-            if (0 !== ($userID = $frms->createUserAccount($post, $_POST["password"], 'hr-managers'))){
+            /*if (0 !== ($userID = $frms->createUserAccount($post, $_POST["password"], 'hr-managers'))){
                 $root = dirname(dirname(dirname(dirname(__DIR__))))."/uploads/profiles";
                 mkdir($root."/".$userID);
                 mkdir($root."/".$userID."/med");
@@ -72,6 +79,9 @@ if ($this INSTANCEOF Quipp){
             }
             else{
                 $valid = false;
+            }*/
+            if (0 === ($userID = $frms->createUserAccount($post, $_POST["password"], 'hr-managers'))){
+                $valid = false;
             }
         }
         
@@ -79,7 +89,7 @@ if ($this INSTANCEOF Quipp){
 ?>
 <section id="hrSignup">
     
-    <div id="card" class="box">
+    <!--<div id="card" class="box">
         <div class="heading">
             <h2>
                 HR Signup<br />
@@ -104,7 +114,7 @@ if ($this INSTANCEOF Quipp){
                 <p>Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Nullam quis risus eget urna mollis ornare vel eu leo. Donec id elit non mi porta gravida at</p>
             </li>
         </ul>
-    </div>
+    </div>-->
 <?php
     if ($submitted == true && $valid == true){
         //auto login
@@ -113,14 +123,29 @@ if ($this INSTANCEOF Quipp){
     else{
 ?>
 
-    <div id="form">
+    <div id="signupBox">
 <?php
         if (!empty($message)){
             echo alert_box("The following must be completed in order to create your account: <ul>".$message."</ul>", 2);
         }
-        include_once(__DIR__."/hr-form-fields.php");
+        //include_once(__DIR__."/hr-form-fields.php");
 ?>
-
+    <form method="post" enctype="multipart/form-data" action="<?php echo $_SERVER["REQUEST_URI"];?>" id="loginBoxForm">
+        <h2>Create Account</h2>
+        <div class="inputs">
+        <label for="Email">Email</label>
+        <input type="text" id="Email" name="Email" class="full" value="<?php echo $post["Email"]["value"];?>" required="required"/>
+        </div>
+        <div class="inputs">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" class="full" required="required"/>
+        </div>
+        <!--<label for="confirmPassword">Re-Type Password</label>
+        <input type="password" id="confirmPassword" name="confirmPassword" class="full bottom" placeholder="Re-Type Password" required="required" />-->
+        <div>
+            <div><input type="submit" value="Go to Step 2" class="btn" name="sbmt-hr-signup" /></div>
+        </div>
+    </form>
     </div>
 <?php
     }
