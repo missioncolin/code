@@ -176,7 +176,7 @@ $('.delete').click(function (e) {
 $('.removeSkillQ').live('click', function() {
 	
 	$count = $(this).data('count');
-
+	$label = $(this).data('label');
 	
 	// If at first question, replace whatever is here with an option to create a new question
 	// otherwise, just stick the 'add question' to the previous 	
@@ -199,7 +199,7 @@ $('.removeSkillQ').live('click', function() {
 		$('#idealValue_' + $count).remove();
 		$(this).closest('tr').remove();
 		$(this).closest('td').remove();
-		$('<a href="#" data-count="' + $count + '" class="add">Add Another Question</a>').insertAfter($('#idealSlider_' + (totalCountQ[totalCountQ.length - 1])));
+		$('<a href="#" data-count="1" data-label="How many years experience…" class="add">Add Another Question</a>').insertAfter($('#idealSlider_' + (totalCountQ[totalCountQ.length - 1])));
 		$(this).remove();
 		
 	}
