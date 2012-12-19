@@ -110,6 +110,10 @@ $quipp->js['footer'][] = "/includes/apps/jobs-manager/js/jobs-manager.js";
 			
 			<?php } ?>				
        </dl>
+       <div id="resumeCoverLetter">
+            <a href="#" class="grade btn black"><img src="/themes/Intervue/img/resumeIcon.png" alt="" />Resume</a>
+            <a href="#" class="grade btn black"><img src="/themes/Intervue/img/coverLetterIcon.png" alt="" />Cover Letter</a>
+        </div>
 	</div>
     	
     <div id="submissions">      

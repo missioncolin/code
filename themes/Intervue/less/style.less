@@ -1893,7 +1893,7 @@ table.simpleTable td.total {
     text-overflow: inherit;
 }
 
-#applicantProfile #grade {
+#applicantProfile #grade, #applicantProfile #resumeCoverLetter {
     float: left;
     clear: both;
     width: 100%;
@@ -1907,8 +1907,14 @@ table.simpleTable td.total {
     margin: 25px 0;
 }
 
-#grade .btn {
+#grade .btn, #resumeCoverLetter .btn {
     margin: 0 0px 15px 5px;
+}
+
+#resumeCoverLetter .btn img {
+    position: relative;
+    top: -3px;
+    margin-right: 10px;
 }
 
 #grade h3 + .btn {
