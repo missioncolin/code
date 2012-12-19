@@ -4,7 +4,7 @@
 
 <script>
 
-function ajaxFunction(questionnaireID, inputAction, questionID, typeID, label) {
+function ajaxFunction(questionnaireID, inputAction, questionID, typeID, label, idealVal) {
 	
 	var ajaxRequest;
 	
@@ -37,7 +37,7 @@ function ajaxFunction(questionnaireID, inputAction, questionID, typeID, label) {
 	//Send a request:
 	// 1. Specify URL of server-side script that will be used in Ajax app
 	// 2. Use send function to send request
-	var parameters = "questionnaireID=" + questionnaireID + "&action=" + inputAction + "&questionID=" + questionID + "&typeID=" + typeID + "&label=" + label; 
+	var parameters = "questionnaireID=" + questionnaireID + "&action=" + inputAction + "&questionID=" + questionID + "&typeID=" + typeID + "&label=" + label + "&idealValue=" + idealVal; 
 	ajaxRequest.open("POST", "/includes/apps/questionnaires/ajax/gateway.php", true); 			
 	ajaxRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");	
 	ajaxRequest.send(parameters);
@@ -59,6 +59,8 @@ if ($this instanceof Quipp) {
     
     /// MANAGEMENT OF NEWLY CREATED QUESTIONNAIRES
     if (!empty($_POST) && isset($_POST["configure-question"]) && !isset($_POST["submitEditQs"]) ) {
+	    
+	    print_r($_POST);
 	    
         if (validate_form($_POST)) {
 	        echo "In _POST";
@@ -96,14 +98,17 @@ if ($this instanceof Quipp) {
                 break;
                 
             case 'edit':
-                $qry = sprintf("UPDATE tblQuestions SET label = '%s', type = '%d', idealValue = '%d' WHERE itemID = '%d'",
+
+            	
+                $qry = sprintf("UPDATE tblQuestions SET label = '%s', type = '%d' WHERE itemID = '%d'",
                     $db->escape(strip_tags($_POST['RQvalALPHQuestion'])),
                     (int) $_POST['RQvalNUMBType'],
-                    (int) $_POST['idealValue'],
                     (int) $_GET['qsnID']);
-                $db->query($qry);
+                $db->query($qry); 
                 
                 break;
+
+
             }
             
             if ($_GET['action'] == "new") {
@@ -156,11 +161,17 @@ if ($this instanceof Quipp) {
 			
 			$editedQuestions = array();
 			
+			$y = 0;
 			foreach ($_POST as $id=>$value) {
+				
 				if (strpos($id, "QvalALPHQuestion") != false) {
 					$editedQuestions[$id] = $value;
+					$editedQuestions[$y] = $_POST['idealValues'][$y];
+					$y += 1;
 				}
+				
 			}
+			
 		}
 
 		if ($_GET['editStep'] == 3) {
@@ -168,24 +179,41 @@ if ($this instanceof Quipp) {
 			// Unseralize array passed with all questions
 			$serializedEdits = $_REQUEST["editedQuestions"]; 
 			$editedQuestions = unserialize(stripslashes($serializedEdits));  	
-			
+						
 			foreach ($_POST as $id=>$value) {
 				if (strpos($id, "QvalALPHQuestion") != false) {
 					$editedQuestions[$id] = $value;
-					
+
 				}
 			}
-
+			
+			$y = 0; 
+			
 			//**** Process all of that stuff here ****//
 			foreach ($editedQuestions as $id=>$label) {
 			
+				
+				
 				$explodedId = explode("_", $id);   // then actual $id = $explodedId[1], action = $explodedId[2])
+				
+				
+				if (strpos($id, "_3") != false) {
+					/* Sending slider ideal values  to ajax */
+					$idealVal = $editedQuestions[$y];
+					$y += 1;
+				}
+				else {
+					$idealVal = 0;
+				}
+				
 				?>
 				
-				<script> ajaxFunction(<?php echo $_GET['qnrID']; ?>, <?php echo "\"".$explodedId[2]."\""; ?>, <?php echo $explodedId[1]; ?>, <?php echo "\"".$explodedId[3]."\""; ?>, <?php echo "\"".$label."\""; ?>); </script>
+				<script> ajaxFunction(<?php echo $_GET['qnrID']; ?>, <?php echo "\"".$explodedId[2]."\""; ?>, <?php echo $explodedId[1]; ?>, <?php echo "\"".$explodedId[3]."\""; ?>, <?php echo "\"".$label."\""; ?>, <?php echo "\"".$idealVal."\""; ?>); </script>
 				<?php
 			}
 			
+			            
+            	
 			?>
 			<a name="edit-question" class="btn" href="/applications?success=Job+edited=successfully" >Back to Job List</a>
 
@@ -297,9 +325,10 @@ if ($this instanceof Quipp) {
                 <tr>
                 <td><label><?php echo $label; ?></label></td> 
                 <td colspan="2">
-                    <input size="75" type="text" name="RQvalALPHQuestions[]" id="RQvalALPHQuestion_1" placeholder="Required Skill" value="<?php echo (isset($_POST['RQvalALPHQuestion'][0])) ? $_POST['RQvalALPHQuestion'][0] : ''; ?>" /> 
-                    <input size="10" type="text" name="idealValues[]" id="idealValue_1" placeholder="Ideal years of experience" value="<?php echo (isset($_POST['idealValues'][0])) ? $_POST['idealValues'][0] : ''; ?>"/>
-                    <br><a href="#" data-count="1" data-label="<?php echo $label; ?>" class="add">Add Another Question</a>
+                    <input size="75" type="text" name="RQvalALPHQuestions[]" id="RQvalALPHQuestion_1" placeholder="Required Skill" value="<?php echo (isset($_POST['RQvalALPHQuestion'][0])) ? $_POST['RQvalALPHQuestion'][0] : ''; ?>" /></br></br><label for="idealSlider">Ideal Years of Experience  </label><span id="idealValue_1">0</span>
+                    <input size="10" name="idealValues[]" type="hidden" id="hiddenIdealValue_1" value="<?php echo (isset($_POST['idealValues'][0])) ? $_POST['idealValues'][0] : '0'; ?>"/></br>
+                    <div class="idealSlider" id="idealSlider_1" data-count="1" data-value="0"></div></br>
+                    <a href="#" data-count="1" data-label="<?php echo $label; ?>" class="add">Add Another Question</a>
                     <a href="#" data-count="1" class="removeSkillQ">&nbsp;x</a>
                     <input type="hidden" id="RQvalNUMBType" name="RQvalNUMBType" value="<?php echo $type; ?>" />
                 </td>
@@ -523,12 +552,12 @@ if ($this instanceof Quipp) {
 				// Get type of question by question ID
 				// THESE ARE ENCAPSULATED IN JOBMANAGER.PHP
 				// (But can't access them w/o a jobmanager object...
-				$selectQQry = sprintf("SELECT type FROM tblQuestions where itemID='%d'", (int)$qID); 
+				$selectQQry = sprintf("SELECT type, idealValue FROM tblQuestions where itemID='%d'", (int)$qID); 
 				$selectQRS = $db->query($selectQQry);
 				$qType = "";
 				
 				$finalID = $qID; // will eventually be set to last ID
-				
+
 			    if (is_resource($selectQRS)) {
 				    if ($db->num_rows($selectQRS) > 0) {
 					    $selectQType = $db->fetch_assoc($selectQRS);
@@ -569,10 +598,15 @@ if ($this instanceof Quipp) {
 
 				if ($_GET['editStep'] == 1) {
 					// Display slider questions	
-					if (strcmp($qType, "Slider") == 0) { ?>
-						<tr>
+					if (strcmp($qType, "Slider") == 0) { 
+						
+						$idealVal = $selectQType['idealValue'];
+
+					?>
+						<tr>						
 					    	<td width="30%"><label for="RQvalALPHQuestion_<?php echo $qID; ?>">How Many Years Experience...</label></td>
-							<td><input type="text" class="<?php echo $qID; ?>" name="RQvalALPHQuestion_<?php echo $qID; ?>_edit_3" value="<?php echo $qLabel; ?>"/></td><br>
+							<td><input type="text" class="<?php echo $qID; ?>" name="RQvalALPHQuestion_<?php echo $qID; ?>_edit_3" value="<?php echo $qLabel; ?>"/>
+							</br></br><label for="idealSlider">Ideal Years of Experience  </label><span id="idealValue_<?php echo $qID; ?>"><?php echo $idealVal; ?></span><input size="10" name="idealValues[]" type="hidden" id="hiddenIdealValue_<?php echo $qID; ?>" value="<?php echo $idealVal; ?>"/></br><div class="idealSlider" id="idealSlider_<?php echo $qID; ?>" data-count="<?php echo $qID; ?>" data-value="<?php echo $idealVal; ?>"></div></td><br>
 							<td width="5%"><a href="#" data-type="3" id="<?php echo $qID; ?>" class="removeQuestion"> x</a></td>
 						</tr>								
 					<?php
