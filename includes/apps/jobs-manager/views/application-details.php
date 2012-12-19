@@ -14,13 +14,39 @@ $quipp->js['footer'][] = "/includes/apps/jobs-manager/js/jobs-manager.js";
 
 ?>
 
+<div id="toolbar">
+    
+    <?php
+        $applicants = $j->getApplicants($application['jobID']);
+        
+        $keys    = array_keys($applicants);
+        $current = array_search($application['userID'], $keys);
+        
+        $prev = '';
+        $next = '';
+        if (isset($keys[$current - 1])) {
+            $prev = $applicants[$keys[$current - 1]];
+        }
+        if (isset($keys[$current + 1])) {
+            $next = $applicants[$keys[$current + 1]];
+        }
+                    
+        ?>
+    
+    <span class="left">
+        <?php if ($prev != '') { ?><a href="/applications-detail?application=<?php echo $prev['itemID']; ?>">&larr; Prev</a><?php } ?></span>
+    <h4><a href="applicant-list?job=<?php echo $application['jobID']; ?>">Back to List</a></h4>
+    <span class="right">
+        <?php if ($next != '') { ?><a href="/applications-detail?application=<?php echo $next['itemID']; ?>">Next &rarr;</a><?php } ?>
+    </span>
+</div>
 
 <section id="applicantProfile">
 
     <div id="card" class="box">
         <div class="heading">
-            <h2><?php echo $application['rating'];?><br /><a href="#">Rating Details</a></h2>
-            <a href="mailto:<?php echo $applicant->info['Email']; ?>" class="btn">Contact Applicant</a>
+            <h2><?php echo $applicant->info['First Name']." " . $applicant->info['Last Name'];?></h2>
+            <a href="mailto:<?php echo $applicant->info['Email']; ?>" class="btn"><img src="/themes/Intervue/img/contactIcon.png" alt="" /></a>
         </div>
         <div class="cutout">
             <div class="profilePic"><img src="http://www.gravatar.com/avatar/<?php echo md5(strtolower(trim($applicant->info['Email']))); ?>?d=<?php echo urlencode('http://' . $_SERVER['HTTP_HOST'] . '/themes/Intervue/img/profilePicExample.jpg'); ?>&s=126" alt="" /></div>
@@ -62,53 +88,33 @@ $quipp->js['footer'][] = "/includes/apps/jobs-manager/js/jobs-manager.js";
             </dd>
         </dl>
         <div id="grade">
-            <h3>Grade Applicant</h3>
-            <a href="#" data-application="<?php echo $_GET['application']; ?>" data-grade="recommend" class="grade btn <?php echo ($application['grade'] == 'recommend') ? 'green' : 'black'; ?>">Recommend</a>
-            <a href="#" data-application="<?php echo $_GET['application']; ?>" data-grade="average" class="grade btn <?php echo ($application['grade'] == 'average') ? 'yellow' : 'black'; ?>">Average</a>
-            <a href="#" data-application="<?php echo $_GET['application']; ?>" data-grade="nq" class="grade btn <?php echo ($application['grade'] == 'nq') ? 'red' : 'black'; ?>">NQ</a>
+            <a href="#" data-application="<?php echo $_GET['application']; ?>" data-grade="recommend" class="grade btn green">Top Candidate</a>
+            <a href="#" data-application="<?php echo $_GET['application']; ?>" data-grade="average" class="grade btn blue">Has Potential</a>
         </div>	
     </div>
   
-    <div>
-        <!------------ ***** THIS IS THE NEW DATA ADDED, TO BE STYLED ****** ----------------->
-        <!---- get years of exp questions and answers in one area ---->
-		<?php echo $applicant->info['First Name']."'s Work Experience"; ?></br>
-			
-			<b>Skill : Years of Experience</b></br>			
-			<?php foreach ($j->getYearsOfExperienceQuestions($application['jobID']) as $id=>$label) { ?>
-			
-				<?php echo $label; ?> :
-	        	<?php echo $j->getYearsofExperienceAnswers($application['userID'], $application['jobID'], $id); ?> years</br>
-			
-			<?php } ?>				
-	</div>
-    	
-    <div id="submissions">
-        <div id="toolbar">
-            <a class="left btn2" href="applicant-list?job=<?php echo $application['jobID']; ?>">Back to List</a>
-            <h4><span>Reviewing: </span><?php echo $applicant->info['First Name']." " . $applicant->info['Last Name'];?></h4>
-            <span class="right">
-                
-                <?php
-                $applicants = $j->getApplicants($application['jobID']);
-                
-                $keys    = array_keys($applicants);
-                $current = array_search($application['userID'], $keys);
-                
-                $prev = '';
-                $next = '';
-                if (isset($keys[$current - 1])) {
-                    $prev = $applicants[$keys[$current - 1]];
-                }
-                if (isset($keys[$current + 1])) {
-                    $next = $applicants[$keys[$current + 1]];
-                }
-                            
-                ?>
-                <?php if ($prev != '') { ?><a href="/applications-detail?application=<?php echo $prev['itemID']; ?>" class="btn2 green">Prev</a><?php } if ($prev != '' && $next != '') { ?><?php } if ($next != '') { ?> <a href="/applications-detail?application=<?php echo $next['itemID']; ?>" class="btn2 green">Next</a><?php } ?>
-            </span>
+    <div id="work-experience" class="box">
+        <div class="heading">
+            <h2>Work Experience</h2>
         </div>
         
+        <dl>
+        <!------------ ***** THIS IS THE NEW DATA ADDED, TO BE STYLED ****** ----------------->
+        <!---- get years of exp questions and answers in one area ---->
+			
+			<dt><b>Skill</b></dt><dd><b>Years of Experience</b></dd>			
+			<?php foreach ($j->getYearsOfExperienceQuestions($application['jobID']) as $id=>$label) { ?>
+			
+				<?php echo "<dt>" . $label . "</dt>"; ?>
+	        	<?php echo "<dd>" . $j->getYearsofExperienceAnswers($application['userID'], $application['jobID'], $id); ?> years</dd>
+			
+			<?php } ?>				
+       </dl>
+	</div>
+    	
+    <div id="submissions">      
+    
+        <h2>Intervue Answers</h2>
         
         <?php
 

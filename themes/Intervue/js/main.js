@@ -8,7 +8,8 @@ $(document).ready(function() {
         pager:  '#testimonialNav' 
     });
     
-    $(window).scroll(function() {
+    /*
+$(window).scroll(function() {
         var a=$(window).scrollTop();
         if(a > 280) {
             $('#card').addClass('fixed');
@@ -16,6 +17,10 @@ $(document).ready(function() {
             $('#card').removeClass('fixed');
         }
     });
+*/
+
+    $('.credits #credit_2').next('label').append('<span class="saleTag">Save<br />10%</span>');
+    $('.credits #credit_3').next('label').append('<span class="saleTag">Save<br />25%</span>');
     
     $('#companyLogo').customFileInput();
     $('.datepicker').datepicker({dateFormat: 'yy-mm-dd'});

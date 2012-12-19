@@ -162,7 +162,7 @@ if (empty($questionnaires)) {
         echo '<strong>You must <a href="/questionnaires">create a questionnaire</a> first</strong>';
     } else 
 */if ((int)$user->info['Job Credits'] == 0) {
-        echo '<strong>You current have 0 job credits. You can create a job, but you must add credits to your account before your job can be published. To do that now, please <a href="/buy-job-credits?req=createnew">purchase more job credits</a>.</strong><br/>';
+        echo '<p><strong>You current have 0 job credits. You can create a job, but you must add credits to your account before your job can be published. To do that now, please <a href="/buy-job-credits?req=createnew">purchase more job credits</a>.</strong></p>';
         
     } 
     ?>

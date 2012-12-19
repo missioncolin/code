@@ -169,7 +169,8 @@
             </select>
         </div>
     
-    </div>
     <input type="submit" class="submit-button btn green" value="Submit Payment" />
+    
+    </div>
     <input type="hidden" name="referrer" value="<?php echo (isset($_GET['req']) ? $_GET['req'] : '');?>" />
 </form>

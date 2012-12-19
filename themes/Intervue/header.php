@@ -39,10 +39,11 @@
             <div id="tools">
             
                 <?php if (isset($user->groups['hr-managers'])) { ?>
-                    <div id="loggedInButtons">
-                        <a href="/buy-job-credits"><?php echo $user->info['Job Credits'];  echo ( $user->info['Job Credits'] == 1 ? ' Credit': ' Credits'); ?></a> //
-                        <a href="/profile">Profile</a>
-                    </div>
+                    <ul id="social">
+                        <li><a class="icon linkedIn" href="http://www.linkedin.com/company/2723868?trk=tyah" target="_blank">LinkedIn</a></li>
+                        <li><a class="icon facebook" href="http://www.facebook.com/Intervue?fref=ts" target="_blank">Facebook</a></li>
+                        <li><a class="icon twitter" href="https://twitter.com/Intervuetweets" target="_blank">Twitter</a></li>
+                    </ul>
                 <?php } else { ?>
                     <ul id="social">
                         <li><a class="icon linkedIn" href="http://www.linkedin.com/company/2723868?trk=tyah" target="_blank">LinkedIn</a></li>
@@ -62,7 +63,7 @@
                 if (isset($user->groups['hr-managers'])) {
                 	print $nav->build_nav($nav->get_nav_items_under_bucket('managerHeader', 0));
                 } else {
-                    print $nav->build_nav($nav->get_nav_items_under_bucket('primary'), true, true);
+                    print $nav->build_nav($nav->get_nav_items_under_bucket('managerHeader', 0));
                 }
                 ?>
             </nav>

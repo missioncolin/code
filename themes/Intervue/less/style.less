@@ -499,7 +499,7 @@ td {
    ========================================================================== */ 
    
 body {
-    background: url(img/bg.jpg) repeat;
+    /* background: url(img/bg.jpg) repeat; */
     color: @base3;
     font-size: 16px;
     line-height: 26px;
@@ -653,8 +653,8 @@ header {
     background: #FFF;
     width: 100%;
     border-top: 3px solid @accent;
-    border-bottom: 1px solid #CCC;
-    padding-bottom: 120px;
+    /* border-bottom: 1px solid #CCC; */
+    padding-bottom: 40px;
 }
 
 #home header {
@@ -662,12 +662,12 @@ header {
 }
 
 header > div {
-    background: url(img/headerLine.png) repeat-x 0 162px;
+    /* background: url(img/headerLine.png) repeat-x 0 162px; */
 }
 
 .logo {
     float: left;
-    margin: 55px 0 0;
+    margin: 40px 0 0;
     background: #FFF;
     padding-right: 25px;
 }
@@ -728,13 +728,17 @@ nav {
 
 nav ul {
     list-style: none;
-    margin: 110px 0 0;
+    margin: 80px 0 0;
     padding: 0;
 }
 
 nav li {
     display: inline-block;
-    margin: 0 0 0 35px;
+    margin: 0 0 0 28px;
+}
+
+nav li:first-child {
+    margin-left: 0;
 }
 
 nav a {
@@ -915,7 +919,7 @@ nav a:hover {
 
 #steps, .payment-errors, #steps.errorMessage {
     list-style: none;
-    margin: -35px 0 30px;
+    margin: 0 0 30px;
     padding: 0;
     background: #FFF;
     border: 1px solid darken(@borders, 10%);
@@ -1106,11 +1110,11 @@ a:hover.btn2.green, input:hover.btn2.green {
     width: 100%;
 }
 
-#card.box {
+#card.box, work-experience.box {
     padding: 0;
 }
 
-#card ul {
+#card ul, #work-experience ul {
     margin: 0;
     padding: 0;
     list-style: none;
@@ -1119,7 +1123,7 @@ a:hover.btn2.green, input:hover.btn2.green {
     .box-sizing();
 }
 
-#card li {
+#card li, #work-experience li {
     margin: 0;
     padding: 15px 15px 10px;
     border-top: 1px solid @darkBorders;
@@ -1133,10 +1137,21 @@ a:hover.btn2.green, input:hover.btn2.green {
     margin: 25px 0 20px 20px;
 }
 
-#card + .btn {
+#card + .btn, #work-experience + .btn {
     width: 100%;
     margin: 20px 0 0;
     .box-sizing();
+}
+
+#applicantProfile .box .heading h2 {
+    font-size: 22px;
+    line-height: 22px;
+    margin: 10px;
+}
+
+.box .heading .btn {
+    margin: 5px;
+    padding: 3px 10px 5px;
 }
 
 /*Forms------------------------------------------------------------------------ */
@@ -1259,10 +1274,6 @@ form textarea:focus {
 
 /*Templates------------------------------------------------------------------- */
 
-.main, #steps.hide + .main {
-    margin: -50px 0 0;
-}
-
 #home .main, #home #steps.hide + .main {
     margin: 0;
 }
@@ -1363,7 +1374,7 @@ form textarea:focus {
     position: relative;
 }
 
-#pricingOptions .btn span {
+#pricingOptions .btn span, .credits .saleTag {
 	width: 42px;
 	height: 33px;
 	background: #CA2626;
@@ -1379,6 +1390,7 @@ form textarea:focus {
 	font-size: 11px;
 	line-height: 13px;
 	padding-top: 9px;
+	color: #FFF;
 	font-family: "proxima-nova",sans-serif;
 }
 
@@ -1580,10 +1592,12 @@ table .slider {
     font-weight: 400;
 }
 
-.pagination.top {
+.pagination.top, .pagination.top .pagination {
 	margin: 0;
-	position: absolute;
-	top: -90px;
+}
+
+.pagination.top .pagination {
+    margin-bottom: 30px;
 }
 
 .pagination a, .pagination span {
@@ -1757,7 +1771,7 @@ table.simpleTable td.total {
     width: 100%;
 }
 
-#applicantProfile #card {
+#applicantProfile #card, #applicantProfile #work-experience {
     float: left;    
     width: 40.62%;
     padding: 0;
@@ -1766,43 +1780,40 @@ table.simpleTable td.total {
     .border-radius(3px);
 }
 
-#applicantProfile #card.fixed {
+#applicantProfile #card {
+    margin: 0 60px;
+}
+
+#applicantProfile #card.fixed, #applicantProfile #work-experience.fixed {
     position: fixed;
     top: 80px;
     width: 389px;
 } 
 
-#card .heading {
+#card .heading, #work-experience .heading {
     background: @base2;
     float: left;
     width: 100%;
     .border-radius(3px 3px 0 0);
 }
 
-#card .cutout {
+#card .cutout, #work-experience .cutout {
     position: absolute;
     left: -68px;
-    top: 140px;
-    background: url(img/bg.jpg) repeat;
-    padding: 5px;
-    .border-radius(100px);
-    border-right: 1px solid #b7b7b7;
-    border-top: 1px solid #b7b7b7;
-    .rotate(50deg);
+    top: 65px;
 }
 
-#card .profilePic {
+#card .profilePic, #work-experience .profilePic {
     width: 126px;
-    height: 126px;
-    .border-radius(68px);
+    height: 91px;
+    .border-radius(3px);
     background: #FFF;
     padding: 5px;
     .box-shadow(0, 1px, 5px, rgba(0,0,0,0.3));
-    .rotate(-50deg);
+    overflow: hidden;
 }
 
-#card .profilePic img {
-    .border-radius(68px);
+#card .profilePic img, #work-experience .profilePic img {
     width: 126px;
 }
 
@@ -1837,14 +1848,14 @@ table.simpleTable td.total {
     margin: 35px 20px 20px 0;
 }
 
-#applicantProfile .heading h2 {
-    margin-bottom: 0;
-}
-
 #applicantProfile dl {
     float: left;
     width: 74%;
-    margin: 30px 0 30px 100px;
+    margin: 20px 0 20px 100px;
+}
+
+#applicantProfile #work-experience dl {
+    margin: 20px 0 20px 50px;
 }
 
 #applicantProfile dt {
@@ -1852,6 +1863,10 @@ table.simpleTable td.total {
     width: 85px;
     color: lighten(@base, 30%);
     clear: left;
+}
+
+#applicantProfile #work-experience dt {
+    color: @base3;
 }
 
 #applicantProfile dd {
@@ -1873,10 +1888,9 @@ table.simpleTable td.total {
     float: left;
     clear: both;
     width: 100%;
-    background: #f4f4f4;
     text-align: center;
+    margin: 10px 0 0;
     .border-radius(0 0 3px 3px);
-    border-top: 1px solid #b7b7b7;
 }
 
 #grade h3 {
@@ -1893,22 +1907,30 @@ table.simpleTable td.total {
 }
 
 #applicantProfile #submissions {
-    float: right;
-    width: 52.08%;
-    margin: 25px 0 0;
+    float: left;
+    clear: both;
+    width: 100%;
+    margin: 0 0 0;
 }
 
 #steps.hide + .main #applicantProfile #submissions {
-    margin: 100px 0 0;
+    margin: 40px 0 0;
 }
 
-#submissions #toolbar, #colB #toolbar {
+#submissions h2 {
+    padding-bottom: 15px;
+    border-bottom: 1px solid @borders;
+    margin-bottom: 20px;
+}
+
+#toolbar, #colB #toolbar {
     float: left;
     width: 100%;
     text-align: center;
     border-bottom: 1px solid @borders;   
-    margin: 0 0 30px;
-    padding: 0 0 20px;
+    border-top: 1px solid @borders;
+    margin: 0 0 50px;
+    padding: 20px 0;
 }
 
 #toolbar .left {
@@ -1997,7 +2019,7 @@ table.simpleTable td.total {
     top: -15px;
 }
 
-#hrSignup #card {
+#hrSignup #card, #hrSignup #work-experience {
     float: left;    
     width: 40.62%;
     padding: 0;
@@ -2006,7 +2028,7 @@ table.simpleTable td.total {
     .border-radius(3px);
 }
 
-#hrSignup #card h4 {
+#hrSignup #card h4, #hrSignup #work-experience h4 {
     margin: 5px 0 0;
 }
 
@@ -2351,7 +2373,7 @@ ul.sliderList li .ui-slider {
     width: 100%;
     float: left;
     text-align: center;
-    margin-bottom: 60px;
+    margin-bottom: 30px;
 }
 
 .credits label {
@@ -2430,11 +2452,25 @@ ul.sliderList li .ui-slider {
     background: @accent;
     border: 1px solid darken(@accent, 10%);
     color: #FFF;
-    width: 60%;
-    margin: 0 auto;
-    clear: both;
+    width: 48%;
+    margin: 0;
+    float: left;
     .border-radius(3px);
     padding: 10px 0;
+}
+
+.creditCardForm + .creditCardForm {
+    float: right;
+}
+
+.creditCardForm #Billing_Country {
+    max-width: 100%;
+}
+
+.creditCardForm input[type="submit"] {
+    float: left;
+    width: 100%;
+    margin: 30px 0 -80px;
 }
 
 .creditCardForm .heading.form-row {
@@ -2491,10 +2527,6 @@ form .creditCardForm input[type="text"]#cvc {
     clear: both;
     display: block;
     font-size: 16px;
-}
-
-.creditCardForm + .creditCardForm {
-    margin-top: 30px;
 }
 
 /*Forgot Password------------------------------------------------------------- */
