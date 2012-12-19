@@ -222,6 +222,7 @@ $(function() {
 
 </script>
 
+<section id="applicant-list-sidebar">
 
 <form name="sliderForm" action="./applicant-list?job=<?php echo $_REQUEST['job']?>" method="get">
 <!-- Slider for each question -->
@@ -282,7 +283,7 @@ $(function() {
 <?php
 	echo "<div>";
 	echo "Search By Name:<br/>";
-	echo "<input id=\"name-search\" name=\"name-search\" type=\"text\"><input type=\"submit\" value=\"Search\" class=\"btn\" style=\"margin-left:10px;\">";
+	echo "<input id=\"name-search\" name=\"name-search\" type=\"text\"><br /><input type=\"submit\" value=\"Search\" class=\"btn\" style=\"margin-top: 5px;\">";
 	echo "</div>";
 	if ($searchString != null){
 		echo "Searched For: ".$searchString;
@@ -294,6 +295,7 @@ $(function() {
 <input type="hidden" id="page" name="page" value="<?php echo $_REQUEST['page']; ?>">
 </form> 
 
+</section>
 
 
 <section id="applicantList">

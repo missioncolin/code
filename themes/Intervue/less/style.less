@@ -1007,7 +1007,7 @@ a.btn, input.btn {
     font-style: normal;
     font-weight: 600;
     text-transform: uppercase;
-    padding: 10px 30px;
+    padding: 6px 20px;
     .border-radius(3px);
     display: inline-block;
     text-decoration: none;
@@ -1258,7 +1258,7 @@ form textarea {
     font-family: "freight-sans-pro",sans-serif;
     font-style: normal;
     font-weight: 400;
-    padding: 8px;
+    padding: 6px;
     .border-radius(3px);
     .transition(all, 0.3s, linear);
 }
@@ -1501,7 +1501,7 @@ tr:last-child td:last-child {
 
 td {
     text-align: center;
-    padding: 40px 0;
+    padding: 10px;
     font-size: 18px;
     line-height: 24px;
     border-right: 1px solid @darkBorders;
@@ -1514,7 +1514,7 @@ td:first-child {
 }
 
 th {
-    padding: 25px 0;
+    padding: 10px 0;
     background: @base2;
     color: #FFF;
 }
@@ -1700,21 +1700,26 @@ table.simpleTable td.total {
 
 /*Applicant List -------------------------------------------------------------- */
 
-#applicantList {
+#applicant-list-sidebar {
     float: left;
-    width: 100%;
+    width: 24%;
+}
+
+#applicantList {
+    float: right;
+    width: 74%;
     border-bottom: 1px solid #b7b7b7;
 }
 
 #applicantList td:first-child {
     text-align: left;
-    padding: 40px 0 40px 90px;  
+    padding: 10px;  
     width: 35%;
 }
 
 #applicantList th:first-child {
     text-align: left;
-    padding: 25px 0 25px 90px;  
+    padding: 10px;  
     width: 35%;
 }
 
@@ -1757,7 +1762,7 @@ table.simpleTable td.total {
 
 #hrListJobs th:first-child {
     text-align: left;
-    padding: 25px 0 25px 30px;  
+    padding: 10px;
 }
 
 #hrListJobs .activate {
@@ -2294,7 +2299,7 @@ ul.sliderList {
 }
 ul.sliderList li {
 	float: left; 
-	width: 30%;
+	width: 100%;
 	margin: 0 5% 20px 0;
 }
 ul.sliderList li.noMargins {
@@ -2313,6 +2318,8 @@ ul.sliderList li span {
 ul.sliderList li .ui-slider {
 	margin-top: 10px !important;
 }
+
+#master-slider.ui-widget-content { background: #ffffff url(/images/ui-bg_flat_75_ffffff_40x100_master.png) 50% 50% repeat-x; }
 
 /*Contact Form-------------------------------------------------------------------- */
 
