@@ -60,10 +60,13 @@ $(document).ready(function() {
 	       totalCountQ.push(count);
 		   console.log(totalCountQ);
 		   
-            $('<tr><td>' + label + '</td><td colspan="2"><input size="75" type="text" name="RQvalALPHQuestions[]" id="RQvalALPHQuestion_' + count + '" placeholder="Required Skill" value="" /></br></br><input size="10" type="text" name="idealValues[]" id="idealValue_' + count + '" placeholder="Ideal years of experience" value=""/><a href="#" data-count="' + count + '" data-label="' + label + '" class="add">Add Another Question</a><a href="#" data-count="' + count + '" class="removeSkillQ">&nbsp;x</a></td></tr>').insertAfter($('a.add').last().parent().parent());
+            $('<tr><td>' + label + '</td><td colspan="2"><input size="75" type="text" name="RQvalALPHQuestions[]" id="RQvalALPHQuestion_' + count + '" placeholder="Required Skill" value="" /></br></br><label for="idealSlider">Ideal Years of Experience  </label><span id="idealValue_' + count + '">0</span><input size="10" name="idealValues[]" type="hidden" id="hiddenIdealValue_' + count + '" value=""/></br><div class="idealSlider" id="idealSlider_' + count + '" data-count="' + count + '"></div></br><a href="#" data-count="' + count + '" data-label="' + label + '" class="add">Add Another Question</a><a href="#" data-count="' + count + '" class="removeSkillQ">&nbsp;x</a></td></tr>').insertAfter($('a.add').last().parent().parent());
             $('a.add').first().remove();
             $('input:text').last().focus();
+            $("#idealSlider_" + count).trigger('initIdealSlider'); 
             return false;
+            
+            
 	    }
     });
     

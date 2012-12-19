@@ -14,9 +14,19 @@ print_r($_POST);
 if ($j->canEdit($_POST['questionnaireID'])) {
 	
     if($_POST['action'] == "new") {
-       print $j->createQuestion($_POST['questionnaireID'], $_POST['typeID'], $_POST['label']);    
+        $newID = $j->createQuestion($_POST['questionnaireID'], $_POST['typeID'], $_POST['label']);    
+        print $newID;
+       /* Set ideal values */
+		$idealValQry = sprintf("UPDATE tblQuestions SET idealValue = '%d' WHERE itemID = '%d'", (int)$_POST['idealValue'], (int)$newID); 
+		$db->query($idealValQry); 	
+       
     } elseif($_POST['action'] == "edit") {
       print $j->editQuestion($_POST['questionID'], $_POST['label']); 
+
+		/* Set ideal values */
+		$idealValQry = sprintf("UPDATE tblQuestions SET idealValue = '%d' WHERE itemID = '%d'", (int)$_POST['idealValue'], (int)$_POST['questionID']); 
+		$db->query($idealValQry); 				
+					
     } elseif($_POST['action'] == "delete") {
       print $j->deleteQuestion($_POST['questionID'], $_POST['questionnaireID']);
     } else {

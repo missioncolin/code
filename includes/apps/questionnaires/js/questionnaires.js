@@ -8,6 +8,7 @@ totalCountQ.push(1);
 
 editCount = 0;
 
+    
 $("#RQvalNUMBType").change(function () {
     if ($(this).val() == 1 || $(this).val() == 2) {
         $("tr.option-row").show();
@@ -55,9 +56,51 @@ $(".slider").each(function () {
     });
 });
 
-// Add a new dropdown question 
-$('.add_dropdown_q').live('click', function() { 
+/* Initialize first slider */
+$('div[id^="idealSlider_"]').each( function() {
+
+	$(this).slider({
+        range: "max",
+        min: 0,
+        max: 50,
+        value: $(this).data('value'),
+        slide: function( event, ui ) {
+            $( "#idealValue_" + $(this).data('count') ).html( ui.value );
+        },
+        stop: function (event, ui) {
+	        /* Set visible slider count and hidden value to POST */
+		    $( "#idealValue_" + $(this).data('count') ).html( ui.value );
+		    $( "#hiddenIdealValue_" + $(this).data('count') ).val( ui.value );
+        }
+    });
     
+
+});
+
+/* Accesses sliders for ideal slider input */
+$('div[id^="idealSlider_"]').live('initIdealSlider', function () {
+   
+    var count = $(this).data('count');
+    var value = $(this).data('value');
+    
+    $(this).slider({
+        range: "max",
+        min: 0,
+        max: 50,
+        value: value,
+        slide: function( event, ui ) {
+            $( "#idealValue_" + count ).html( ui.value );
+        },
+        stop: function (event, ui) {
+	        /* Set visible slider count and hidden value to POST */
+		    $( "#idealValue_" + count ).html( ui.value );
+		    $( "#hiddenIdealValue_" + count ).val( ui.value );
+        }
+    });
+});
+
+// Add a new dropdown question 
+$('.add_dropdown_q').live('click', function() {     
 
     $count = +$(this).data('count') + 1;
     totalCountDD.push($count);
@@ -78,10 +121,12 @@ $('.add').live('click', function() {
     $label = $(this).data('label');
     
     totalCountQ.push($count);
-    console.log(totalCountQ);
     
-    $('<tr><td>' + $label + '</td><td colspan="2"><input size="75" type="text" name="RQvalALPHQuestions[]" id="RQvalALPHQuestion_' + $count + '" placeholder="Required Skill" value="" /></br></br><input size="10" type="text" name="idealValues[]" id="idealValue_' + $count + '" placeholder="Ideal years of experience" value=""/><a href="#" data-count="' + $count + '" data-label="' + $label + '" class="add">Add Another Question</a><a href="#" data-count="' + $count + '" class="removeSkillQ">&nbsp;x</a></td></tr>').insertAfter($(this).parent().parent());
+    $('<tr><td>' + $label + '</td><td colspan="2"><input size="75" type="text" name="RQvalALPHQuestions[]" id="RQvalALPHQuestion_' + $count + '" placeholder="Required Skill" value="" /></br></br><label for="idealSlider">Ideal Years of Experience  </label><span id="idealValue_' + $count + '">0</span><input size="10" name="idealValues[]" type="hidden" id="hiddenIdealValue_' + $count + '" value=""/></br><div class="idealSlider" id="idealSlider_' + $count + '" data-count="' + $count + '" data-value="0"></div></br><a href="#" data-count="' + $count + '" data-label="' + $label + '" class="add">Add Another Question</a><a href="#" data-count="' + $count + '" class="removeSkillQ">&nbsp;x</a></td></tr>').insertAfter($(this).parent().parent());
     $(this).remove();
+    
+    /* Trigger the new slider */
+    $("#idealSlider_" + $count).trigger('initIdealSlider'); 
     return false;
 });
 
@@ -94,8 +139,11 @@ $('.addEditQuestion').click(function () {
 	
 	if ($(this).data('type') == 3) {
 		
-		$('<tr><td width="30%"><label for="RQvalALPHQuestion_' + thisID + '">How Many Years Experience...</label></td><td><input type="text" class="' + thisID + '" name="RQvalALPHQuestion_' + thisID + '_new_3" value=""/></td><input size="10" type="text" name="idealValues[]" id="idealValue_' + thisID + '" placeholder="Ideal years of experience" value=""/><td width="5%"><a href="#" data-type="3" id="' + thisID + '" class="removeQuestion"> x</a></td></tr>').insertBefore($(this).closest('tr').parent());
-		
+		$('<tr><td width="30%"><label for="RQvalALPHQuestion_' + thisID + '">How Many Years Experience...</label></td><td><input type="text" class="' + thisID + '" name="RQvalALPHQuestion_' + thisID + '_new_3" value=""/></br></br><label for="idealSlider">Ideal Years of Experience  </label><span id="idealValue_' + thisID + '">0</span><input size="10" name="idealValues[]" type="hidden" id="hiddenIdealValue_' + thisID + '" value=""/></br><div class="idealSlider" id="idealSlider_' + thisID + '" data-count="' + thisID + '" data-value="0"></div></br><td width="5%"><a href="#" data-type="3" id="' + thisID + '" class="removeQuestion"> x</a></td></tr>').insertBefore($(this).closest('tr').parent());
+	
+	/* Trigger the new slider */
+    $("#idealSlider_" + thisID).trigger('initIdealSlider'); 
+    	
 	}
 	
 	else {
@@ -133,12 +181,11 @@ $('.removeSkillQ').live('click', function() {
 	// If at first question, replace whatever is here with an option to create a new question
 	// otherwise, just stick the 'add question' to the previous 	
 	if (totalCountQ.length == 1) {
-		console.log(totalCountQ);
-		$('#RQvalALPHQuestion_' + $count).remove();
 
+		$('#RQvalALPHQuestion_' + $count).attr('value', "");
+		$('#idealSlider_' + $count).slider({value: 0});
+		$('#idealValue_' + $count).html(0);
 	    $label = $(this).data('label');
-	    $('<input size="75" type="text" name="RQvalALPHQuestions[]" id="RQvalALPHQuestion_' + $count + '" placeholder="Required Skill" value="" />' + 
-	      '<input size="10" type="text" name="idealValues[]" id="idealValue_' + $count + '" placeholder="Ideal years of experience" value=""/>').insertBefore($(this));
 		
 	}
 	
@@ -152,13 +199,12 @@ $('.removeSkillQ').live('click', function() {
 		$('#idealValue_' + $count).remove();
 		$(this).closest('tr').remove();
 		$(this).closest('td').remove();
-		$('<a href="#" data-count="' + $count + '" class="add">Add Another Question</a>').insertAfter($('#idealValue_' + (totalCountQ[totalCountQ.length - 1])));
+		$('<a href="#" data-count="' + $count + '" class="add">Add Another Question</a>').insertAfter($('#idealSlider_' + (totalCountQ[totalCountQ.length - 1])));
 		$(this).remove();
 		
 	}
 	else {
 		
-		console.log(totalCountQ);
 		totalCountQ.splice(totalCountQ.indexOf($count), 1);
 		
 		// If not at end, just remove 'add' since likely doesn't have an 'add' link anyways
