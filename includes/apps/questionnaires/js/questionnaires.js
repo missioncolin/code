@@ -122,7 +122,7 @@ $('.add').live('click', function() {
     
     totalCountQ.push($count);
     
-    $('<tr><td>' + $label + '</td><td colspan="2"><input size="75" type="text" name="RQvalALPHQuestions[]" id="RQvalALPHQuestion_' + $count + '" placeholder="Required Skill" value="" /></br></br><div class="experienceSlider"><label for="idealSlider">Ideal Years of Experience  </label><span id="idealValue_' + $count + '">0</span><input size="10" name="idealValues[]" type="hidden" id="hiddenIdealValue_' + $count + '" value=""/></br><div class="idealSlider" id="idealSlider_' + $count + '" data-count="' + $count + '" data-value="0"></div></div></br><a href="#" data-count="' + $count + '" data-label="' + $label + '" class="add btn blue">Add Another Question</a><a href="#" data-count="' + $count + '" class="removeSkillQ btn red">&nbsp;x</a></td></tr>').insertAfter($(this).parent().parent());
+    $('<tr><td>' + $label + '</td><td colspan="2"><input size="75" type="text" name="RQvalALPHQuestions[]" id="RQvalALPHQuestion_' + $count + '" placeholder="Required Skill" value="" /></br></br><div class="experienceSlider"><label for="idealSlider">Ideal Years of Experience  </label><span id="idealValue_' + $count + '">0</span><input size="10" name="idealValues[]" type="hidden" id="hiddenIdealValue_' + $count + '" value=""/></br><div class="idealSlider" id="idealSlider_' + $count + '" data-count="' + $count + '" data-value="0"></div></div></br><a href="#" data-count="' + $count + '" data-label="' + $label + '" class="add btn blue">Add Another Question</a><a href="#" data-count="' + $count + '" class="removeSkillQ btn red">&nbsp;x</a></td></tr>').insertAfter($(this).closest('tr'));
     $(this).remove();
     
     /* Trigger the new slider */
