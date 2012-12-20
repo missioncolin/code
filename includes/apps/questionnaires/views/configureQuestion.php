@@ -406,8 +406,8 @@ if ($this instanceof Quipp) {
 						<option value="travelAmount">Are you comfortable with the amount of travel this job requires?</option>
 						<option value="sixMonths">Are you willing to spend at least six months as a trainee?</option>
 					</select>    
-					<a href="#" data-count="1" class="removeDropDown">&nbsp;x</a>
-                <br><a href="#" data-count="1" data-label="<?php echo $label; ?>" class="add_dropdown_q">Add Another Question</a>
+					<a href="#" data-count="1" class="removeDropDown btn red">&nbsp;x</a>
+                <br><a href="#" data-count="1" data-label="<?php echo $label; ?>" class="add_dropdown_q btn blue">Add Another Question</a>
                     <input type="hidden" id="RQvalNUMBType" name="RQvalNUMBType" value="<?php echo $type; ?>" />
                 </td>
             </tr>
