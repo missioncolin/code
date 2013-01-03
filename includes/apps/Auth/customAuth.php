@@ -90,7 +90,7 @@ class customAuth extends Auth{
     				        	header("Location:http://". $_SERVER['SERVER_NAME'] . "/profile");
     				        	die('Redirecting (applicant good, no cf)...');
     				        }else{
-	    				       header("Location:http://". $_SERVER['SERVER_NAME'] . "/profile?created=true");
+	    				       header("Location:http://". $_SERVER['SERVER_NAME'] . "/applications");
     				        	die('Redirecting (applicant good, no cf)...');
     				        }
     				        break;
