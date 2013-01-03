@@ -77,20 +77,21 @@ if ($this INSTANCEOF Quipp){
             echo alert_box("The following must be completed in order to create your account: <ul>".$message."</ul>", 2);
         }
 ?>
-    <form method="post" enctype="multipart/form-data" action="<?php echo $_SERVER["REQUEST_URI"];?>" id="loginBoxForm">
-        <h2>Create Account</h2>
-        <div class="inputs">
-        <label for="Email">Email</label>
-        <input type="text" id="Email" name="Email" class="full" value="<?php echo $post["Email"]["value"];?>" required="required"/>
-        </div>
-        <div class="inputs">
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password" class="full" required="required"/>
-        </div>
-        <div>
-            <div><input type="submit" value="Go to Step 2" class="btn" name="sbmt-hr-signup" /></div>
-        </div>
-    </form>
+	    <form method="post" enctype="multipart/form-data" action="<?php echo $_SERVER["REQUEST_URI"];?>" id="loginBoxForm">
+	        <h2>Create Account</h2>
+	        <div class="inputs">
+	        <label for="Email">Email</label>
+	        <input type="text" id="Email" name="Email" class="full" value="<?php echo $post["Email"]["value"];?>" required="required"/>
+	        </div>
+	        <div class="inputs">
+	        <label for="password">Password</label>
+	        <input type="password" id="password" name="password" class="full" required="required"/>
+	        </div>
+	        <div>
+	            <div><input type="submit" value="Go" class="btn" name="sbmt-hr-signup" /></div>
+	        </div>
+	        <div class="clearfix"></div>
+	    </form>
     </div>
 <?php
     }
