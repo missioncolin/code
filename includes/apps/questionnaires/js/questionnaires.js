@@ -62,7 +62,7 @@ $('div[id^="idealSlider_"]').each( function() {
 	$(this).slider({
         range: "max",
         min: 0,
-        max: 50,
+        max: 30,
         value: $(this).data('value'),
         slide: function( event, ui ) {
             $( "#idealValue_" + $(this).data('count') ).html( ui.value );
@@ -86,7 +86,7 @@ $('div[id^="idealSlider_"]').live('initIdealSlider', function () {
     $(this).slider({
         range: "max",
         min: 0,
-        max: 50,
+        max: 30,
         value: value,
         slide: function( event, ui ) {
             $( "#idealValue_" + count ).html( ui.value );
@@ -122,7 +122,7 @@ $('.add').live('click', function() {
     
     totalCountQ.push($count);
     
-    $('<tr><td>' + $label + '</td><td colspan="2"><div class="sliderText"><input size="75" type="text" name="RQvalALPHQuestions[]" id="RQvalALPHQuestion_' + $count + '" placeholder="Required Skill" value="" /></div><div class="experienceSlider"><label for="idealSlider">Ideal Years of Experience  </label><span id="idealValue_' + $count + '">0</span><input size="10" name="idealValues[]" type="hidden" id="hiddenIdealValue_' + $count + '" value=""/></br><div class="idealSlider" id="idealSlider_' + $count + '" data-count="' + $count + '" data-value="0"></div></div><a href="#" data-count="' + $count + '" class="removeSkillQ btn red">&nbsp;x</a><a href="#" data-count="' + $count + '" data-label="' + $label + '" class="add btn blue">Add Another Question</a></td></tr>').insertAfter($(this).closest('tr'));
+    $('<tr><td>' + $label + '</td><td colspan="2"><div class="sliderText"><input size="75" type="text" name="RQvalALPHQuestions[]" id="RQvalALPHQuestion_' + $count + '" placeholder="Required Skill" value="" /></div><div class="experienceSlider"><label for="idealSlider">Ideal Years of Experience  </label><span id="idealValue_' + $count + '">15</span><input size="10" name="idealValues[]" type="hidden" id="hiddenIdealValue_' + $count + '" value=""/></br><div class="idealSlider" id="idealSlider_' + $count + '" data-count="' + $count + '" data-value="15"></div></div><a href="#" data-count="' + $count + '" class="removeSkillQ btn red">x</a><a href="#" data-count="' + $count + '" data-label="' + $label + '" class="add btn blue">Add Another Question</a></td></tr>').insertAfter($(this).closest('tr'));
     $(this).remove();
     
     /* Trigger the new slider */

@@ -324,9 +324,9 @@ if ($this instanceof Quipp) {
                 <tr>
                 <td><label><?php echo $label; ?></label></td> 
                 <td colspan="2">
-                    <div class="sliderText"><input size="75" type="text" name="RQvalALPHQuestions[]" id="RQvalALPHQuestion_1" placeholder="Required Skill" value="<?php echo (isset($_POST['RQvalALPHQuestion'][0])) ? $_POST['RQvalALPHQuestion'][0] : ''; ?>" /></div><div class="experienceSlider"><label for="idealSlider">Ideal Years of Experience  </label><span id="idealValue_1">0</span>
-                    <input size="10" name="idealValues[]" type="hidden" id="hiddenIdealValue_1" value="<?php echo (isset($_POST['idealValues'][0])) ? $_POST['idealValues'][0] : '0'; ?>"/></br>
-                    <div class="idealSlider" id="idealSlider_1" data-count="1" data-value="0"></div></div>
+                    <div class="sliderText"><input size="75" type="text" name="RQvalALPHQuestions[]" id="RQvalALPHQuestion_1" placeholder="Required Skill" value="<?php echo (isset($_POST['RQvalALPHQuestion'][0])) ? $_POST['RQvalALPHQuestion'][0] : ''; ?>" /></div><div class="experienceSlider"><label for="idealSlider">Ideal Years of Experience  </label><span id="idealValue_1">15</span>
+                    <input size="10" name="idealValues[]" type="hidden" id="hiddenIdealValue_1" value="<?php echo (isset($_POST['idealValues'][0])) ? $_POST['idealValues'][0] : '15'; ?>"/></br>
+                    <div class="idealSlider" id="idealSlider_1" data-count="1" data-value="15"></div></div>
                     <a href="#" data-count="1" class="removeSkillQ btn">x</a>
                     <a href="#" data-count="1" data-label="<?php echo $label; ?>" class="add btn blue">Add Another Question</a>
                     <input type="hidden" id="RQvalNUMBType" name="RQvalNUMBType" value="<?php echo $type; ?>" />
@@ -649,7 +649,7 @@ if ($this instanceof Quipp) {
 					?>
                   <input type="hidden" name="submitEditQs" value="true"/>
 <!--               	  <a name="edit-question" class="btn grey" href="/edit-job?id=<?php echo $_GET['jobID']; ?>" >Back</a>  -->                  
-              	  <input type="submit" value="<?php echo ($_GET['editStep'] == 1) ? "Save & Continue" : "Save"; ?>" name="submit-question-edits" class="btn" />
+              	  <input type="submit" value="<?php echo ($_GET['editStep'] == 1) ? "Save & Continue" : "Save"; ?>" name="submit-question-edits" class="btn noEnterSubmit" />
               	  <?php echo ($_GET['editStep'] == 1) ? "<a href='#' data-type='3' data-id='".$finalID."' class='addEditQuestion'> Add New Question</a>" : "<a href='#' data-type='4' data-id='".$finalID."' class='addEditQuestion'> Add New Question</a>";?>
                 </div>
             </td>
