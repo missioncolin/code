@@ -65,7 +65,7 @@ $(window).scroll(function() {
 	       totalCountQ.push(count);
 		   console.log(totalCountQ);
 		   
-            $('<tr><td>' + label + '</td><td colspan="2"><input size="75" type="text" name="RQvalALPHQuestions[]" id="RQvalALPHQuestion_' + count + '" placeholder="Required Skill" value="" /></br></br><label for="idealSlider">Ideal Years of Experience  </label><span id="idealValue_' + count + '">0</span><input size="10" name="idealValues[]" type="hidden" id="hiddenIdealValue_' + count + '" value=""/></br><div class="idealSlider" id="idealSlider_' + count + '" data-count="' + count + '"></div></br><a href="#" data-count="' + count + '" data-label="' + label + '" class="add">Add Another Question</a><a href="#" data-count="' + count + '" class="removeSkillQ">&nbsp;x</a></td></tr>').insertAfter($('a.add').last().parent().parent());
+            $('<tr><td>' + label + '</td><td colspan="2"><div class="sliderText"><input size="75" type="text" name="RQvalALPHQuestions[]" id="RQvalALPHQuestion_' + count + '" placeholder="Required Skill" value="" /></div><div class="experienceSlider"><label for="idealSlider">Ideal Years of Experience  </label><span id="idealValue_' + count + '">0</span><input size="10" name="idealValues[]" type="hidden" id="hiddenIdealValue_' + count + '" value=""/></br><div class="idealSlider" id="idealSlider_' + count + '" data-count="' + count + '"></div></div><a href="#" data-count="' + count + '" class="removeSkillQ btn">x</a></br><a href="#" data-count="' + count + '" data-label="' + label + '" class="add btn blue">Add Another Question</a></td></tr>').insertAfter($('a.add').last().parent().parent());
             $('a.add').first().remove();
             $('input:text').last().focus();
             $("#idealSlider_" + count).trigger('initIdealSlider'); 
@@ -74,6 +74,14 @@ $(window).scroll(function() {
             
 	    }
     });
+    
+    $( ".idealSlider" ).slider({ value: 25, max: 30 });
+    
+    $('.noEnterSubmit').keypress(function(e){
+	    if ( e.which == 13 ) return false;
+	    //or...
+	    if ( e.which == 13 ) e.preventDefault();
+	});
     
 });
 function alertBox(liClass, message){

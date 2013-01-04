@@ -1,6 +1,5 @@
 <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
 <script src="http://code.jquery.com/ui/1.9.0/jquery-ui.js"></script>
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.0/themes/base/jquery-ui.css" />
 
 <script>
 
@@ -303,7 +302,7 @@ if ($this instanceof Quipp) {
     
     <!--- IF 'STEP' is set to a particular step, display the create a new question wizard; else, edit ! --->
     <?php if (isset($_GET['step'])) { ?>
-	    
+    <div class="colASplit">
 	    <h4>New Job: <?php echo $qnr['label']; ?></h4>
 	    <form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post">
         <table id="configure" class="simpleTable">
@@ -328,7 +327,7 @@ if ($this instanceof Quipp) {
                     <div class="sliderText"><input size="75" type="text" name="RQvalALPHQuestions[]" id="RQvalALPHQuestion_1" placeholder="Required Skill" value="<?php echo (isset($_POST['RQvalALPHQuestion'][0])) ? $_POST['RQvalALPHQuestion'][0] : ''; ?>" /></div><div class="experienceSlider"><label for="idealSlider">Ideal Years of Experience  </label><span id="idealValue_1">0</span>
                     <input size="10" name="idealValues[]" type="hidden" id="hiddenIdealValue_1" value="<?php echo (isset($_POST['idealValues'][0])) ? $_POST['idealValues'][0] : '0'; ?>"/></br>
                     <div class="idealSlider" id="idealSlider_1" data-count="1" data-value="0"></div></div>
-                    <a href="#" data-count="1" class="removeSkillQ btn red">&nbsp;x</a>
+                    <a href="#" data-count="1" class="removeSkillQ btn">x</a>
                     <a href="#" data-count="1" data-label="<?php echo $label; ?>" class="add btn blue">Add Another Question</a>
                     <input type="hidden" id="RQvalNUMBType" name="RQvalNUMBType" value="<?php echo $type; ?>" />
                 </td>
@@ -406,7 +405,7 @@ if ($this instanceof Quipp) {
 						<option value="travelAmount">Are you comfortable with the amount of travel this job requires?</option>
 						<option value="sixMonths">Are you willing to spend at least six months as a trainee?</option>
 					</select>    
-					<a href="#" data-count="1" class="removeDropDown btn red" id="removeDD_1">&nbsp;x</a>
+					<a href="#" data-count="1" class="removeDropDown btn" id="removeDD_1">x</a>
                 <br><a href="#" data-count="1" data-label="<?php echo $label; ?>" class="add_dropdown_q btn blue">Add Another Question</a>
                     <input type="hidden" id="RQvalNUMBType" name="RQvalNUMBType" value="<?php echo $type; ?>" />
                 </td>
@@ -496,7 +495,7 @@ if ($this instanceof Quipp) {
                 <td colspan="2">
                     <div class="submitWrap">
                     	<a name="configure-question" class="btn grey" href="/configure-question?qnrID=<?php echo $_REQUEST['qnrID']; ?>" >Reset</a>
-                        <input type="submit" value="Save<?php if (isset($_GET['step']) && ($_GET['step'] == '2' || $_GET['step'] == '3')) { echo ' &amp; continue'; } ?>" name="configure-question" class="btn" />
+                        <input type="submit" value="Save<?php if (isset($_GET['step']) && ($_GET['step'] == '2' || $_GET['step'] == '3')) { echo ' &amp; continue'; } ?>" name="configure-question" class="btn noEnterSubmit" />
                   </div>
                 </td>
             </tr>
@@ -661,7 +660,7 @@ if ($this instanceof Quipp) {
     ?>
     </table>
     </form>
-	 
+	</div><!-- colASplit -->
     <script type="text/javascript">
 
     </script>

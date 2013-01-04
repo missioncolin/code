@@ -1826,6 +1826,12 @@ table.simpleTable td.total {
     width: 126px;
 }
 
+#card .profilePic .imgWrapper {
+	width: 126px;
+	height: 91px;
+	overflow: hidden;
+}
+
 .heading h2 {
     float: left;
     color: #FFF;
@@ -1876,6 +1882,7 @@ table.simpleTable td.total {
 
 #applicantProfile #work-experience dt {
     color: @base3;
+    width: 120px;
 }
 
 #applicantProfile dd {
@@ -1887,11 +1894,17 @@ table.simpleTable td.total {
     text-overflow: ellipsis;
 }
 
+#applicantProfile #work-experience dd {
+	width: 166px;
+}
+
 #applicantProfile dd.dontCut {
     overflow: visible;
     white-space: normal;
     text-overflow: inherit;
 }
+
+
 
 #applicantProfile #grade, #applicantProfile #resumeCoverLetter {
     float: left;
@@ -2310,10 +2323,13 @@ ul.sliderList {
 	list-style: none;
 	clear: both;
 }
+ul.sliderList #master-slider {
+	margin-bottom: 8px;
+}
 ul.sliderList li {
 	float: left; 
 	width: 100%;
-	margin: 0 5% 20px 0;
+	margin: 0 5% 8px 0;
 }
 ul.sliderList li.noMargins {
 	margin-right: 0;
@@ -2329,7 +2345,7 @@ ul.sliderList li span {
 }
 
 ul.sliderList li .ui-slider {
-	margin-top: 10px !important;
+	margin-top: 2px !important;
 }
 
 #master-slider.ui-widget-content { background: #ffffff url(/images/ui-bg_flat_75_ffffff_40x100_master.png) 50% 50% repeat-x; }
@@ -2340,23 +2356,23 @@ ul.sliderList li .ui-slider {
 	margin-top: -7px;
 }
 
-a.removeSkillQ.btn.red {
-	padding: 2px 10px 2px 5px;
+a.removeSkillQ.btn, a.removeDropDown.btn  {
+	background: @base2;
+	padding: 5px 7px;
 	display: inline-block;
-	width: 10px;
-	height: 24px;
+	font-size: 10px;
+	line-height: 10px;
 	float: left;
 	margin-left: 15px;
-	margin-top: 5px;
+	margin-top: 8px;
+	.border-radius(50px);
 }
-
-a.removeDropDown.btn.red {
-	padding: 2px 10px 2px 5px;
-	display: inline-block;
-	width: 10px;
-	height: 24px;
-	margin-left: 15px;
-	margin-top: 5px;
+a.removeDropDown.btn {
+	float: none;
+	margin: 8px 0 0 5px;
+}
+a.removeSkillQ.btn:hover, a.removeDropDown.btn:hover {
+	background: @accent3;
 }
 
 a.add.btn.blue {
@@ -2444,7 +2460,6 @@ a.add_dropdown_q.btn.blue {
 }
 
 /*Buy Credits------------------------------------------------------------- */
-
 
 #payment-form .credits {
     width: 100%;
@@ -2616,6 +2631,30 @@ form .creditCardForm input[type="text"]#cvc {
     .border-radius(3px);
 }
 
+
+.colASplit {
+	float: left;
+	width: 78%;
+}
+.colASplit h4 {
+	margin-top: 0;
+}
+.colASplit .sliderText {
+	width: 56%;
+}
+.colASplit .experienceSlider {
+	width: 32%;
+}
+#configure-question .alertBoxFunctionWarn, #new-job-info .alertBoxFunctionWarn, #create-job .alertBoxFunctionWarn {
+	float: right;
+	width: 20%;
+}
+#new-job-info .copyAndPaste {
+	background: @borders;
+	padding: 8px 15px;
+	font-weight: 700;
+}
+#new-job-info table.simpleTable td { text-align: center; }
 
 /* =============================================================================
    Footer

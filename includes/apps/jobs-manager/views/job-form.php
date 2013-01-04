@@ -153,6 +153,7 @@ if ($edit == true && !isset($_GET['id'])) {
  */
 ?>
 <section id="jobManagerEdit">
+	<div class="colASplit">
     
     <?php
     
@@ -166,7 +167,6 @@ if (empty($questionnaires)) {
         
     } 
     ?>
-    
     <form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="post">
         <table class="simpleTable singleHeader">
             <thead>
@@ -224,5 +224,6 @@ if (empty($questionnaires)) {
         <input type="hidden" name="RQvalALPHActive" value="<?php echo $status; ?>"/>
         <input type="submit" value="<?php echo ($edit == true) ? 'Save &amp Continue' : 'Create &amp Continue'; ?>" class="btn green" />
     </form>
+    </div> <!-- colASplit -->
 </section>
 <?php } ?>

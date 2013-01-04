@@ -248,7 +248,7 @@ $(function() {
 	/*** Master Slider ***/
 	echo "<span id=\"master-amount\"></span>";
 	//Display slider for this ID
-	echo "<div id=\"master-slider\"></div><br>";
+	echo "<div id=\"master-slider\"></div>";
 
 	$i = 0;
 	foreach ($allYearQuestions as $id=>$desc) {
