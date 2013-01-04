@@ -122,7 +122,7 @@ $quipp->js['footer'][] = "/includes/apps/jobs-manager/js/jobs-manager.js";
         
         <?php
 
-        include dirname(dirname(__DIR__)) . '/questionnaires/views/renderAnswers.php';
+        include dirname(dirname(__DIR__)) . '/questionnaires/views/renderVideoAnswers.php';
         ?>
 
     </div>

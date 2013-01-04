@@ -25,7 +25,7 @@ $qIDs = array();
 
 $offset  = 0;
 $page    = 1;
-$display = 1;
+$display = 10;
 
 $allYearQuestions = $j->getYearsOfExperienceQuestions($_GET['job']);
 
