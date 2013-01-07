@@ -9,7 +9,7 @@ $j = new JobManager($db, $_SESSION['userID']);
 $quipp->js['footer'][] = "/includes/apps/jobs-manager/js/jobs-manager.js";
 
 if ($user->info['Job Credits'] == 0) { $buyLink = "<a href=\"/buy-job-credits\">Buy Credits Now</a>";}else{$buyLink = "";}
-echo alert_box('<h2>Tips</h2><p>Job links are active for 60 days</p><p>Cut and paste this into your job posting on any site</p><p>Your job link will be available in the My Jobs page</p><p>To learn how to incorporate your job <a href="">Click here</a></p> '.$user->info['Job Credits'].' credits. ' . $buyLink, 3);
+echo alert_box('<h2>Tips</h2><p>Job links are active for 60 days</p><p>Cut and paste this into your job posting on any site</p><p>Your job link will be available in the My Jobs page</p><p>To learn how to incorporate your job <a href="/how-it-works">Click here</a></p> '.$user->info['Job Credits'].' credits. ' . $buyLink, 3);
 ?>
 
 <div class="colASplit">
