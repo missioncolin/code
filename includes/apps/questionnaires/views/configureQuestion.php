@@ -289,10 +289,10 @@ if ($this instanceof Quipp) {
         switch($_GET['step']) {
             
             case '2':
-                echo alert_box('On this page you can create a list of skills the job requires.  When the applicant applies they will enter the years of experience they have in each skill. Intervue will use this information to rank applicants. Note: Pressing the Tab button on your keyboard will create another question field and hitting Enter will submit the form.', 3);
+                echo alert_box('<h2>Tips</h2><p>When applying the applicant will be shown this list and enter the years experience they have in each skill</p><p>The information can be used to compare and rate applications.', 3);
                 break;
             case '3':
-                echo alert_box('On this page you can ask questions that will be answered by the applicant using their webcam during the application process.  Below is a list of generic questions in the dropdown menu or you can create your own questions specific to this job.', 3);
+                echo alert_box('<h2>Tips</h2><p>Choose a question from the drop down menu or add your own questions</p><p>The answers will be recorded by the applicant using their web cam</p><p>Watch the answers from the applicants profile</p><p>Each question has a 2 minute limit</p>', 3);
                 break;
             
         }

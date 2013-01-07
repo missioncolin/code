@@ -86,7 +86,7 @@ if (isset($_GET['step'])) {
     switch($_GET['step']) {
         
         case '1':
-            echo alert_box('On this page you can create a new job, begin by providing a job title. Then create a new set of questions specific to this job.', 3);
+            echo alert_box('<h2>Tips</h2><p>The job title will be shown to the applicant during the application process</p><p>The job title will be incorporated into the intervue link</p>', 3);
             break;
         
     }

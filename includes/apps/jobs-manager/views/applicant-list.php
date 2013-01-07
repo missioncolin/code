@@ -241,7 +241,7 @@ $(function() {
 		$qStr = "this question";
 	}
 	
-	echo alert_box('Use the following '.$sliders.' to select an inclusive minimum number of years for '.$qStr.'. Applicants who fit '.$theseStr.' will be displayed.', 3);
+	echo alert_box('<h2>Tips</h2>Use the following '.$sliders.' to select an inclusive minimum number of years for '.$qStr.'. Applicants who fit '.$theseStr.' will be displayed.', 3);
 	echo "<ul class='sliderList'>";
 	
 	printf("%s", "Master Slider  ");

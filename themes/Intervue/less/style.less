@@ -549,7 +549,7 @@ header > div, #container, footer > div {
 
 /* =============================================================================
    Alert Boxes
-   ========================================================================== */
+   ========================================================================= */
 
 .alertBoxFunctionGood, .alertBoxFunctionBad, .alertBoxFunctionWarn, .alertBoxFunctionEmpty {
     width: 100%;
@@ -576,10 +576,30 @@ header > div, #container, footer > div {
 }
 
 .alertBoxFunctionWarn {
-	background-color:#FFFDD5;
-	border: 1px solid #FDCA52;
+	position: relative;
+	background-color:@base2;
+	border: 1px solid #000;
+	color: #FFF;
 }
 
+.alertBoxFunctionWarn h2 {
+	padding: 0 0 10px 36px;
+	color: #FFF;
+}
+.alertBoxFunctionWarn h2:before {
+	content: '?';
+	position: absolute;
+	width: 8px;
+	height: 30px;
+	line-height: 30px;
+	padding: 0 11px;
+	background: #FFF;
+	left: 10px;
+	top: 15px;
+	.border-radius(30px);
+	color: @base2;
+	font-size: 24px;
+}
 .alertBoxFunctionEmpty {
 	background-color:#F5F5F5;
 	border: 1px solid #E5E5E5;
@@ -589,6 +609,10 @@ header > div, #container, footer > div {
 .alertBoxFunctionGood a, .alertBoxFunctionBad a, .alertBoxFunctionWarn a, .alertBoxFunctionEmpty a { color:#0000FF; }
 .alertBoxFunctionGood a:hover, .alertBoxFunctionBad a:hover, .alertBoxFunctionWarn a:hover, .alertBoxFunctionEmpty a:hover { color:#0000FF; }
 .alertBoxFunctionGood div, .alertBoxFunctionBad div, .alertBoxFunctionWarn div, .alertBoxFunctionEmpty div { width: 100% !important; }
+
+.alertBoxFunctionWarn a {
+	color: lighten(@accent, 20%);
+}
 
 #confirm{
     width: 100%;
@@ -2030,7 +2054,7 @@ table.simpleTable td.total {
 
 /*HR Signup------------------------------------------------------------------ */
 
-#hr-signup #steps, #profile #steps { display: none; }
+#profile #steps { display: none; }
 
 #hrSignup {
     float: left;
