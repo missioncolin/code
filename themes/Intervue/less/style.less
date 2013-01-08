@@ -549,7 +549,7 @@ header > div, #container, footer > div {
 
 /* =============================================================================
    Alert Boxes
-   ========================================================================= */
+   ========================================================================*/
 
 .alertBoxFunctionGood, .alertBoxFunctionBad, .alertBoxFunctionWarn, .alertBoxFunctionEmpty {
     width: 100%;
@@ -577,14 +577,12 @@ header > div, #container, footer > div {
 
 .alertBoxFunctionWarn {
 	position: relative;
-	background-color:@base2;
-	border: 1px solid #000;
-	color: #FFF;
+	background-color: lighten(@borders, 10%);
+	border: 1px solid @darkBorders;
 }
 
 .alertBoxFunctionWarn h2 {
 	padding: 0 0 10px 36px;
-	color: #FFF;
 }
 .alertBoxFunctionWarn h2:before {
 	content: '?';
@@ -593,11 +591,11 @@ header > div, #container, footer > div {
 	height: 30px;
 	line-height: 30px;
 	padding: 0 11px;
-	background: #FFF;
+	background: @base2;
 	left: 10px;
 	top: 15px;
 	.border-radius(30px);
-	color: @base2;
+	color: lighten(@borders, 10%);
 	font-size: 24px;
 }
 .alertBoxFunctionEmpty {
@@ -610,9 +608,6 @@ header > div, #container, footer > div {
 .alertBoxFunctionGood a:hover, .alertBoxFunctionBad a:hover, .alertBoxFunctionWarn a:hover, .alertBoxFunctionEmpty a:hover { color:#0000FF; }
 .alertBoxFunctionGood div, .alertBoxFunctionBad div, .alertBoxFunctionWarn div, .alertBoxFunctionEmpty div { width: 100% !important; }
 
-.alertBoxFunctionWarn a {
-	color: lighten(@accent, 20%);
-}
 
 #confirm{
     width: 100%;
@@ -941,7 +936,7 @@ nav a:hover {
 
 /*Steps----------------------------------------------------------------------- */
 
-#steps, .payment-errors, #steps.errorMessage {
+#steps, #stepsNew, .payment-errors, #steps.errorMessage {
     list-style: none;
     margin: 0 0 30px;
     padding: 0;
@@ -961,15 +956,15 @@ nav a:hover {
     margin: 15px 0 30px;
 }
 
-#steps.hide {
+#steps.hide, #stepsNew.hide {
     display: none;
 }
 
-#steps li {
+#steps li, #stepsNew li {
     display: inline-block;
 }
 
-#steps .current, #steps .alert {
+#steps .current, #steps .alert, #stepsNew .current {
     color: @base2;
 }
 
@@ -977,7 +972,7 @@ nav a:hover {
     float: right;
 }
 
-#steps span, .payment-errors span, #steps.errorMessage span {
+#steps span, #stepsNew span, .payment-errors span, #steps.errorMessage span {
     font-family: "proxima-nova",sans-serif;
     font-style: normal;
     font-weight: 700;
@@ -993,11 +988,15 @@ nav a:hover {
     float: left;
 }
 
-#steps .current span {
+#stepsNew span {
+	margin: 0 10px 0 8px;
+}
+
+#steps .current span, #stepsNew .current span {
     background: @accent;
 }
 
-#steps .success span {
+#steps .success span, #stepsNew .success span {
     background: url(img/checkIcon.png) no-repeat center @accent2;
     margin-bottom: -6px;
 }
@@ -1007,7 +1006,7 @@ nav a:hover {
     margin-bottom: -6px;
 }
 
-#steps li:first-child span, .payment-errors span {
+#steps li:first-child span, #stepsNew li:first-child span, .payment-errors span {
     margin-left: 0;
 }
 

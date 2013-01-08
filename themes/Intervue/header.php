@@ -74,12 +74,21 @@
     
     <section id="container" <?php if ($meta['body_id'] == 'home') { print 'class="home"'; } ?>>
     
+        <ul id="stepsNew"<?php if (!isset($_GET['step'])) { ?> class="hide"<?php } ?>>
+            <?php if (isset($_GET['step'])) { ?>
+            <li<?php if ($_GET['step'] == '1') { ?> class="current"<?php } ?>><span>1</span>Create Account</li>
+            <li<?php if ($_GET['step'] == '2') { ?> class="current"<?php } ?>><span>2</span>Name Your Job</li>
+            <li<?php if ($_GET['step'] == '3') { ?> class="current"<?php } ?>><span>3</span>Add Skills and Work Experience</li>
+            <li<?php if ($_GET['step'] == '4') { ?> class="current"<?php } ?>><span>4</span>Add intervue Questions</li>
+            <li<?php if ($_GET['step'] == '5') { ?> class="current"<?php } ?>><span>5</span>Activate Link</li>
+            <?php } ?>
+        </ul>
         <ul id="steps"<?php if (!isset($_GET['step'])) { ?> class="hide"<?php } ?>>
             <?php if (isset($_GET['step'])) { ?>
-            <li<?php if ($_GET['step'] == '1') { ?> class="current"<?php } ?>><span>1</span>Create a Job</li>
-            <li<?php if ($_GET['step'] == '2') { ?> class="current"<?php } ?>><span>2</span>Add Years of Experience Questions</li>
-            <li<?php if ($_GET['step'] == '3') { ?> class="current"<?php } ?>><span>3</span>Add Intervue Questions</li>
-            <li<?php if ($_GET['step'] == '4') { ?> class="current"<?php } ?>><span>4</span>Complete</li>
+            <li<?php if ($_GET['step'] == '2') { ?> class="current"<?php } ?>><span>1</span>Name Your Job</li>
+            <li<?php if ($_GET['step'] == '3') { ?> class="current"<?php } ?>><span>2</span>Add Skills and Work Experience</li>
+            <li<?php if ($_GET['step'] == '4') { ?> class="current"<?php } ?>><span>3</span>Add intervue Questions</li>
+            <li<?php if ($_GET['step'] == '5') { ?> class="current"<?php } ?>><span>4</span>Activate Link</li>
             <?php } ?>
         </ul>
 
