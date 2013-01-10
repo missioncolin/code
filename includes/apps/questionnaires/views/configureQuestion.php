@@ -300,6 +300,10 @@ if ($this instanceof Quipp) {
     }
     ?>
     
+    
+	<!--- Prevent submission of form on enter press --->
+    <body OnKeyPress="return disableKeyPress(event)">
+    
     <!--- IF 'STEP' is set to a particular step, display the create a new question wizard; else, edit ! --->
     <?php if (isset($_GET['step'])) { ?>
     <div class="colASplit">

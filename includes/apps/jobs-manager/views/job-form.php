@@ -153,6 +153,10 @@ if ($edit == true && !isset($_GET['id'])) {
  */
 ?>
 <section id="jobManagerEdit">
+	
+	<!--- Prevent submission of form on enter press --->
+    <body OnKeyPress="return disableKeyPress(event)">
+    
 	<div class="colASplit">
     
     <?php
