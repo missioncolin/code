@@ -66,7 +66,7 @@ if ($this INSTANCEOF Quipp){
 <?php
     if ($submitted == true && $valid == true){
         //auto login
-        $auth->login($post["Email"]["value"], $_POST["password"]);        
+        $auth->login($post["Email"]["value"], $_POST["password"], true);     // set to true to redirect to create job    
     }
     else{
 ?>
