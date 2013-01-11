@@ -302,8 +302,9 @@ $(function() {
 
     <table>
         <tr>
-            <th>Applicant Details</th>
             <th>Intervue Rating</th>
+            <th>Picture</th>
+            <th>Details</th>
             <th>Applicant Grade</th>
         </tr>
     </table>
@@ -326,17 +327,21 @@ $(function() {
 	
 			<tr id="newUser">
 				<td>
-					<div class="imgWrap">
-						<a href="/applications-detail?application=<?php echo $a['itemID']; ?>"><img src="http://www.gravatar.com/avatar/<?php echo md5(strtolower(trim($applicant->info['Email']))); ?>?d=<?php echo urlencode('http://' . $_SERVER['HTTP_HOST'] . '/themes/Intervue/img/profilePicExample.jpg'); ?>&s=83" alt="<?php echo $applicant->info['First Name'] . " " . $applicant->info['Last Name']; ?>" /></a>
-			
-					</div>	
-					<a href="/applications-detail?application=<?php echo $a['itemID']; ?>"><strong><?php echo $applicant->info['First Name'] . " " . $applicant->info['Last Name']; ?></strong></a><br>
-					<span><?php echo date('F jS, Y', strtotime($a['sysDateInserted'])); ?></span>
-				</td>
-				<td>
 					<h2><?php echo $j->getApplicantRating($a['itemID']); ?><br />
 						<a href="/applications-detail?application=<?php echo $a['itemID']; ?>">Rating Details</a>
 					</h2>
+				</td>
+				<td>[Picture]</td>
+				<td>
+					<div class="imgWrap">
+						<a href="/applications-detail?application=<?php echo $a['itemID']; ?>"><img src="http://www.gravatar.com/avatar/<?php echo md5(strtolower(trim($applicant->info['Email']))); ?>?d=<?php echo urlencode('http://' . $_SERVER['HTTP_HOST'] . '/themes/Intervue/img/profilePicExample.jpg'); ?>&s=83" alt="<?php echo $applicant->info['First Name'] . " " . $applicant->info['Last Name']; ?>" /></a>
+					</div>	
+					<a href="/applications-detail?application=<?php echo $a['itemID']; ?>"><strong><?php echo $applicant->info['First Name'] . " " . $applicant->info['Last Name']; ?></strong></a><br>
+					<span>CITY</span><br/>
+					<span>555-555-5555</span><br/>
+					<span><?php echo $applicant->info['Email']; ?></span><br/>
+					<span><?php echo date('M jS', strtotime($a['sysDateInserted'])); ?></span>
+					
 				</td>
 				<td><a class="btn <?php echo $class; ?>"><?php echo $a['grade']; ?></a></td>
 			</tr>
