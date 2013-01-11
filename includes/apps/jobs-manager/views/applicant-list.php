@@ -304,11 +304,12 @@ $(function() {
             <th>Intervue Rating</th>
             <th>Picture</th>
             <th>Details</th>
-            <th>Applicant Grade</th>
+            <th>Resume</th>
+            <th>Cover Letter</th>
+            <th>Video Answers</th>
+            <th>Rate Applicant</th>
         </tr>
-    </table>
     <div id="apps">
-    <table>
     <?php 
     if (!empty($applicants)) {
     
@@ -344,11 +345,15 @@ $(function() {
 						<a href="/applications-detail?application=<?php echo $a['itemID']; ?>">Rating Details</a>
 					</h2>
 				</td>
-				<td>[Picture]</td>
 				<td>
 					<div class="imgWrap">
-						<a href="/applications-detail?application=<?php echo $a['itemID']; ?>"><img src="http://www.gravatar.com/avatar/<?php echo md5(strtolower(trim($applicant->info['Email']))); ?>?d=<?php echo urlencode('http://' . $_SERVER['HTTP_HOST'] . '/themes/Intervue/img/profilePicExample.jpg'); ?>&s=83" alt="<?php echo $applicant->info['First Name'] . " " . $applicant->info['Last Name']; ?>" /></a>
+						<a href="/applications-detail?application=<?php echo $a['itemID']; ?>">
+							<img src="http://www.gravatar.com/avatar/<?php echo md5(strtolower(trim($applicant->info['Email']))); ?>?d=<?php echo urlencode('http://' . $_SERVER['HTTP_HOST'] . '/themes/Intervue/img/profilePicExample.jpg'); ?>&s=83" alt="<?php echo $applicant->info['First Name'] . " " . $applicant->info['Last Name']; ?>" />
+						</a>
 					</div>	
+					
+				</td>
+				<td>
 					<a href="/applications-detail?application=<?php echo $a['itemID']; ?>"><strong><?php echo $applicant->info['First Name'] . " " . $applicant->info['Last Name']; ?></strong></a><br>
 					<span>CITY</span><br/>
 					<span>555-555-5555</span><br/>
@@ -356,7 +361,19 @@ $(function() {
 					<span><?php echo date('M jS', strtotime($a['sysDateInserted'])); ?></span>
 					
 				</td>
-				<td><a class="btn <?php echo $class; ?>"><?php echo $a['grade']; ?></a></td>
+				<td>
+				       <a href="#" class="grade btn black"><img src="/themes/Intervue/img/resumeIcon.png" alt="" />Resume</a>
+				</td>
+				<td>
+					<a href="#" class="grade btn black"><img src="/themes/Intervue/img/coverLetterIcon.png" alt="" />Cover Letter</a>
+				</td>
+				<td>
+					<span><a href="#">Video Answers</a></span>
+				</td>
+				<td>
+					<a class="btn <?php echo $class; ?>"><?php echo $a['grade']; ?></a>
+				</td>
+			
 			</tr>
 			
 			<?php
