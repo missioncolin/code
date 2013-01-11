@@ -29,13 +29,24 @@ $display = 10;
 
 $allYearQuestions = $j->getYearsOfExperienceQuestions($_GET['job']);
 
+/* Checking to see whether we're back at the main list from the filtered candidates */
+
+if (isset($_SESSION['sliderParams'])) {
+	$_REQUEST['slider-val'] = $_SESSION['sliderParams'];
+}
+
+if (isset($_SESSION['masterSlider'])) {
+	$_REQUEST['master-val'] = $_SESSION['masterSlider'];
+}
 /* Check whether sliders have been changed/set */
 if (isset($_REQUEST['slider-val'])) {
 	$sliderParam = $_REQUEST['slider-val'];
+	$_SESSION['sliderParams'] = $sliderParam;
 }
 
 if (isset($_REQUEST['master-val']) && $_REQUEST['master-val'] != 0) {
 	$sliderParam = $_REQUEST['master-val'];
+	$_SESSION['masterSlider'] = $sliderParam;
 }
 
 if (isset($_GET['page'])) {
