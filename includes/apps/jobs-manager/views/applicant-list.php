@@ -357,9 +357,10 @@ $(function() {
 					</h2>
 				</td>
 				<td>
-					<div class="imgWrap">
+					<!--<div class="imgWrap">-->
+					<div class="imgWrapList">
 						<a href="/applications-detail?application=<?php echo $a['itemID']; ?>">
-							<img src="http://www.gravatar.com/avatar/<?php echo md5(strtolower(trim($applicant->info['Email']))); ?>?d=<?php echo urlencode('http://' . $_SERVER['HTTP_HOST'] . '/themes/Intervue/img/profilePicExample.jpg'); ?>&s=83" alt="<?php echo $applicant->info['First Name'] . " " . $applicant->info['Last Name']; ?>" />
+							<img style="width:85px;" src="http://www.gravatar.com/avatar/<?php echo md5(strtolower(trim($applicant->info['Email']))); ?>?d=<?php echo urlencode('http://' . $_SERVER['HTTP_HOST'] . '/themes/Intervue/img/profilePicExample.jpg'); ?>&s=83" alt="<?php echo $applicant->info['First Name'] . " " . $applicant->info['Last Name']; ?>" />
 						</a>
 					</div>	
 					
