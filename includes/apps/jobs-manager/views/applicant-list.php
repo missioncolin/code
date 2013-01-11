@@ -127,7 +127,6 @@ for (var i = 0; i < <?php echo count($allYearQuestions);?>; i++) {
 
 $(function() {
     
-    
     //ajaxFunction();
 	$('div[id^="slider-"]').each(function() {
 		
@@ -311,6 +310,20 @@ $(function() {
     <table>
     <?php 
     if (!empty($applicants)) {
+    
+    	/* Store and serialize array of applicants */
+    	$visList = array();
+    	
+    	foreach ($applicants as $a) {
+	    	$visList[] = $a['itemID'];
+    	}
+    	
+    	/* Serialize the array of visible applicants */
+    	$serList = serialize($visList);
+		
+		/* Store in a session to be received by app detail view */
+		$_SESSION['filterList'] = $serList;
+		
 		foreach ($applicants as $a) {   
 			
 			$applicant = new User($db, $a['userID']);

@@ -1,3 +1,8 @@
+<script>
+
+	console.log("here");
+</script>
+
 <?php 
 
 global $quipp;
@@ -10,6 +15,38 @@ $j = new JobManager($db, $_SESSION['userID']);
 $application = $j->getApplication($_GET['application']);
 $applicant = new User($db, $application['userID']);
 
+
+/* Retrieve filtered data */
+if (isset($_SESSION['filterList'])) {
+	$filteredList = array();
+	$filteredList = unserialize($_SESSION['filterList']);
+}
+
+$currentID = array_search($_GET['application'], $filteredList);
+
+/* Select out this applicant's id from filtered list and determine index */
+if ($currentID !== false) {
+	
+	$currentID = array_search($_GET['application'], $filteredList);
+	
+	if ($currentID >= 1 && isset($filteredList[$currentID - 1])) {
+		$prev = $currentID - 1;
+	}
+	else {
+		$prev = '';
+	}
+	
+	if (isset($filteredList[$currentID + 1])) {
+		$next = $currentID + 1;
+
+	}
+	else {
+		$next = '';
+	}
+
+
+}
+
 $quipp->js['footer'][] = "/includes/apps/jobs-manager/js/jobs-manager.js";
 
 ?>
@@ -18,7 +55,8 @@ $quipp->js['footer'][] = "/includes/apps/jobs-manager/js/jobs-manager.js";
     
     <?php
         $applicants = $j->getApplicants($application['jobID']);
-        
+ /*
+       
         $keys    = array_keys($applicants);
         $current = array_search($application['userID'], $keys);
         
@@ -30,14 +68,17 @@ $quipp->js['footer'][] = "/includes/apps/jobs-manager/js/jobs-manager.js";
         if (isset($keys[$current + 1])) {
             $next = $applicants[$keys[$current + 1]];
         }
-                    
+*/
+        
+        
+        
         ?>
     
     <span class="left">
-        <?php if ($prev != '') { ?><a href="/applications-detail?application=<?php echo $prev['itemID']; ?>">&larr; Prev</a><?php } ?></span>
+        <?php if ($prev !== '') { ?><a href="/applications-detail?application=<?php echo $filteredList[$prev]; ?>">&larr; Prev</a><?php } ?></span>
     <h4><a href="applicant-list?job=<?php echo $application['jobID']; ?>">Back to List</a></h4>
     <span class="right">
-        <?php if ($next != '') { ?><a href="/applications-detail?application=<?php echo $next['itemID']; ?>">Next &rarr;</a><?php } ?>
+        <?php if ($next !== '') { ?><a href="/applications-detail?application=<?php echo $filteredList[$next]; ?>">Next &rarr;</a><?php } ?>
     </span>
 </div>
 
