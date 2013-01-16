@@ -332,12 +332,12 @@ $(function() {
     <p>Viewing applicants<?php if (isset($jobInfo['title'])){ echo " for <strong>" . $jobInfo['title'] . "</strong>"; }?></p>
     <table>
         <tr>
-            <th>Intervue Rating</th>
+            <th><!--Intervue -->Rating</th>
             <th>Picture</th>
             <th>Details</th>
             <th>Resume</th>
-            <th>Cover Letter</th>
-            <th>Video Answers</th>
+            <th class="coverLetter">Cover Letter</th>
+            <th>Video<!-- Answers--></th>
             <th>Rate Applicant</th>
         </tr>
     <div id="apps">
@@ -399,13 +399,13 @@ $(function() {
 					
 				</td>
 				<td>
-				       <a href="#" class="grade btn black"><img src="/themes/Intervue/img/resumeIcon.png" alt="" /></a>
+				       <a href="#" class="grade btn lightGrey"><img src="/themes/Intervue/img/resumeIconDark.png" alt="" /></a>
 				</td>
 				<td>
-					<a href="#" class="grade btn black"><img src="/themes/Intervue/img/coverLetterIcon.png" alt="" /></a>
+					<a href="#" class="grade btn lightGrey"><img src="/themes/Intervue/img/coverLetterIconDark.png" alt="" /></a>
 				</td>
 				<td>
-					<a href="#" class="grade btn black"><img src="/themes/Intervue/img/coverLetterIcon.png" alt="" /></a>
+					<a href="#" class="grade btn lightGrey playBtn"><img src="/themes/Intervue/img/playBtn.png" alt="" /></a>
 				</td>
 				<td>
 					<a href="#" class="btn green">Top Candidate</a>

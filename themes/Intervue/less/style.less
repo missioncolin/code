@@ -1064,7 +1064,11 @@ a.btn.grey, input.btn.grey {
     background: lighten(@base, 10%);
 }
 
-a:hover.btn.grey, input:hover.btn.grey {
+a.btn.lightGrey, input.btn.lightGrey {
+    background: lighten(@base, 30%);
+}
+
+a:hover.btn.grey, input:hover.btn.grey, a:hover.btn.lightGrey, input:hover.btn.lightGrey {
     background: @base;
 }
 
@@ -1538,8 +1542,8 @@ td:first-child {
 
 th {
     padding: 10px 0;
-    background: @base2;
-    color: #FFF;
+    background-color: lighten(@borders, 10%);
+	border-bottom: 1px solid @darkBorders;
 }
 
 table .imgWrap {
@@ -1554,13 +1558,7 @@ table .imgWrap {
     .border-radius(42px);
 }
 
-#applicantList table .imgWrap {
-    display: none;
-}
-
-#applicantList table .imgWrapList {
-	width: 85px;
-}
+#applicantList table .imgWrap { display: none; }
 
 table .imgWrap img {
     .border-radius(42px);
@@ -1568,7 +1566,7 @@ table .imgWrap img {
 }
 
 table h2 {
-    margin: 0 20px;
+    margin: 0 /*20px*/;
     font-size: 44px;
     font-family: "proxima-nova",sans-serif;
     font-style: normal;
@@ -1666,9 +1664,9 @@ table .slider {
 table.simpleTable {
     background: #FFF;
     .box-shadow(0);
-    .border-radius(0);
+    .border-radius(3px);
     border: 1px solid @darkBorders;
-    border-collapse: collapse;
+    /*border-collapse: collapse;*/
 }
 
 table.simpleTable td, table.simpleTable th {
@@ -1679,9 +1677,9 @@ table.simpleTable td, table.simpleTable th {
     text-align: left;
 }
 
-table.simpleTable th {
+/*table.simpleTable th {
     border: 1px solid transparent;
-}
+}*/
 
 table.simpleTable .btn {
     top: 0;
@@ -1711,7 +1709,7 @@ form table input + input {
 }
 
 /*Invoice*/
-table.simpleTable tr td { border-right: 1px solid @darkBorders; }
+/*table.simpleTable tr td { border-right: 1px solid @darkBorders; }*/
 table.simpleTable tr.subTotal { background-color: #f5f5f5; }
 table.simpleTable tr.tax { background-color: #fafafa;  }
 table.simpleTable tr.finalTotal, table.simpleTable tr.subTotal:hover, table.simpleTable tr.tax:hover { background-color: lighten(@accent, 41%); }
@@ -1733,26 +1731,35 @@ table.simpleTable td.total {
 
 #applicant-list-sidebar {
     float: left;
-    width: 24%;
+    width: 19%;
 }
 
 #applicantList {
     float: right;
-    width: 74%;
+    width: 77%;
     border-bottom: 1px solid #b7b7b7;
 }
 
+#applicantList table { border: 1px solid @darkBorders; }
+#applicantList h2 { font-size: 30px; line-height: 16px; }
+#applicantList table h2 a { font-size: 14px; line-height: 0; }
+#applicantList th { padding: 8px 0; line-height: 18px; }
+#applicantList td { font-size: 14px; line-height: 18px; border-right: none; }
+
 #applicantList td:first-child {
-    text-align: left;
-    padding: 10px;  
-    width: 35%;
+    padding: 10px 0px;  
+    /*width: 35%;*/
+    border-left: none;
 }
 
 #applicantList th:first-child {
-    text-align: left;
-    padding: 10px;  
-    width: 35%;
+    padding: 0px;  
+   /* width: 35%;*/
 }
+
+#applicantList table .btn.green, #applicantList table .btn.yellow { width: 110px; margin: 0 0 4px 0; padding: 6px 15px; }
+#applicantList table .imgWrapList { width: 65px; }
+#applicantList table .imgWrapList img { width: 65px !important; }
 
 #applicantList .tablesorter th.header{
 	cursor: pointer;
@@ -1767,6 +1774,10 @@ table.simpleTable td.total {
 #applicantList .tablesorter th.headerSortDown{
 	background: url(/images/layout/downArrow.png) no-repeat right #212121;
 }
+
+a.btn.lightGrey.playBtn { padding: 0; }
+
+th.coverLetter { width: 100px; }
 
 /*HR Applications List ---------------------------------------------------------- */
 
@@ -2362,14 +2373,14 @@ ul.sliderList li.noMargins {
 	margin-right: 0;
 }
 
-ul.sliderList li span {
+/*ul.sliderList li span {
 	float: right;
 	padding: 1px 10px;
 	background: @accent;
 	color: #FFF;
 	margin-top: -2px;
 	.border-radius(30px);
-}
+}*/
 
 ul.sliderList li .ui-slider {
 	margin-top: 2px !important;
