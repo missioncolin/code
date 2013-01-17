@@ -137,7 +137,7 @@ if ($this instanceof Quipp) {
                 header("Location: /configure-question?step=3&qnrID=".$_GET['qnrID'].'&jobID='.$_GET['jobID']);
             } elseif (isset($_GET['step']) && $_GET['step'] == '3') {
                 //header("Location: /applications");
-                header("Location: /new-job-info?jobID=".$_GET['jobID']);
+                header("Location: /new-job-info?jobID=".$_GET['jobID']."&step=4");
                 //rediect to confirmation page and explanation page instead
                // header("Location: /questionnaire-complete?qnrID=".$_GET['qnrID']);
             } else {

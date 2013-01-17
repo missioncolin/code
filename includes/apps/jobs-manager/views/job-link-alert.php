@@ -5,6 +5,11 @@ global $user;
 
 require dirname(__DIR__) . '/JobManager.php';
 
+if (isset($_SESSION['newReg'])) {
+
+	unset($_SESSION['newReg']);
+}
+
 $j = new JobManager($db, $_SESSION['userID']);
 $quipp->js['footer'][] = "/includes/apps/jobs-manager/js/jobs-manager.js";
 
