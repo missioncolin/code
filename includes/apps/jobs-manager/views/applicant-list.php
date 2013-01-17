@@ -399,10 +399,10 @@ $(function() {
 					
 				</td>
 				<td>
-				       <a href="#" class="grade btn lightGrey"><img src="/themes/Intervue/img/resumeIconDark.png" alt="" /></a>
+				       <a href="#" class="grade btn lightGrey lessPad"><img src="/themes/Intervue/img/resumeIconDark.png" alt="" /></a>
 				</td>
 				<td>
-					<a href="#" class="grade btn lightGrey"><img src="/themes/Intervue/img/coverLetterIconDark.png" alt="" /></a>
+					<a href="#" class="grade btn lightGrey lessPad"><img src="/themes/Intervue/img/coverLetterIconDark.png" alt="" /></a>
 				</td>
 				<td>
 					<a href="#" class="grade btn lightGrey playBtn"><img src="/themes/Intervue/img/playBtn.png" alt="" /></a>
