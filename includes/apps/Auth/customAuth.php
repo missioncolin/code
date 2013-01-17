@@ -99,6 +99,7 @@ class customAuth extends Auth{
     				        	header("Location:http://". $_SERVER['SERVER_NAME'] . "/applications");
     				        	die('Redirecting (applicant good, no cf)...');
     				        } else {
+    				        	$_SESSION['newReg'] = 1;
     				            header("Location:http://". $_SERVER['SERVER_NAME'] . "/create-job?step=1");
     				            die('Redirecting (applicant good, no cf)...');
     				        }

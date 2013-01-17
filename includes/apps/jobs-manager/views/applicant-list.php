@@ -31,32 +31,53 @@ $allYearQuestions = $j->getYearsOfExperienceQuestions($_GET['job']);
 
 /* Checking to see whether we're back at the main list from the filtered candidates */
 
-if (isset($_SESSION['sliderParams'])) {
-	$_REQUEST['slider-val'] = $_SESSION['sliderParams'];
+/* If visiting for the first time */
+if (isset($_SESSION['sliderParams']) && !isset($_REQUEST['backToList']) && !isset($_REQUEST['slider-val'])) {
+	unset($_SESSION['sliderParams']);
+	unset($_SESSION['masterSlider']);
+	unset($_SESSION['setMaster']);
 }
 
-if (isset($_SESSION['masterSlider'])) {
-	$_REQUEST['master-val'] = $_SESSION['masterSlider'];
-}
 /* Check whether sliders have been changed/set */
-if (isset($_REQUEST['slider-val'])) {
+if (isset($_REQUEST['slider-val'])  && strlen($_REQUEST['slider-val']) > 0) {
 	$sliderParam = $_REQUEST['slider-val'];
 	$_SESSION['sliderParams'] = $sliderParam;
+	unset($_SESSION['setMaster']);
 }
 
+/* If master value has been set - store the value in the session in case the page is left */
 if (isset($_REQUEST['master-val']) && $_REQUEST['master-val'] != 0) {
 	$sliderParam = $_REQUEST['master-val'];
 	$_SESSION['masterSlider'] = $sliderParam;
+	$_SESSION['setMaster'] = 1;
 }
+
+/* Check whether sessions are still in place from details page */
+if (isset($_SESSION['sliderParams']) && isset($_REQUEST['backToList'])) {
+	$_REQUEST['slider-val'] = $_SESSION['sliderParams'];
+	$sliderParam = $_SESSION['sliderParams'];
+}
+
+/* Handles master slider setting other sliders */
+if (isset($_SESSION['masterSlider']) && isset($_REQUEST['backToList']) && isset($_SESSION['setMaster'])) {
+	$_REQUEST['master-val'] = $_SESSION['masterSlider'];
+	$sliderParam = $_SESSION['masterSlider'];
+}
+else if (isset($_SESSION['masterSlider']) && isset($_REQUEST['backToList']) && !isset($_SESSION['setMaster'])) {
+	$_REQUEST['master-val'] = 0;
+}
+
 
 if (isset($_GET['page'])) {
     $page   = (int) $_GET['page'];
     $offset = ($page - 1) * $display;
 }
 
-if(isset($_REQUEST['name-search']) && strlen($_REQUEST['name-search']) > 0 ){
+if (isset($_REQUEST['name-search']) && strlen($_REQUEST['name-search']) > 0 ){
 	$searchString = $_REQUEST['name-search'];
 }
+
+
 
 if ($searchString != null){
 	$applicants = $j->getNameMatches($searchString, (int)$jobID, $offset, $display);
@@ -302,7 +323,9 @@ $(function() {
 ?>
 
 <input type="hidden" id="jobID" name="job" value="<?php echo $_REQUEST['job']; ?>">
-<input type="hidden" id="page" name="page" value="<?php echo $_REQUEST['page']; ?>">
+<!-- <input type="hidden" id="page" name="page" value="<?php echo $_REQUEST['page']; ?>"> -->
+<input type="hidden" id="page" name="page" value="<?php echo $page; ?>">
+
 </form> 
 
 </section>
