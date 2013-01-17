@@ -19,6 +19,7 @@ $urlString = "";
 $urlSlider = "";
 $sliderParam = null;
 $urlMaster = "";
+$jobTitle = "";
 
 // Stores all user year questions to define sliders
 $qIDs = array();
@@ -28,6 +29,7 @@ $page    = 1;
 $display = 10;
 
 $allYearQuestions = $j->getYearsOfExperienceQuestions($_GET['job']);
+$jobInfo = $j->getJob($jobID);
 
 /* Checking to see whether we're back at the main list from the filtered candidates */
 
@@ -255,6 +257,41 @@ $(function() {
 
 <section id="applicant-list-sidebar">
 
+<!-- search by name-->
+<form action="./applicant-list?job=<?php echo $_REQUEST['job']?>" id="searchForm" method="post">
+<!--Name search box-->
+<!--searches first name or last name-->
+<?php
+	echo "<div>";
+	echo "Search By Name:<br/>";
+	echo "<input id=\"name-search\" name=\"name-search\" type=\"text\"><br /><input type=\"submit\" value=\"Search\" class=\"btn\" style=\"margin-top: 5px;\">";
+	echo "</div>";
+	if ($searchString != null){
+		echo "Searched For: ".$searchString;
+	}
+	echo "<div>&nbsp;</div>";
+?>
+
+<input type="hidden" id="jobID" name="job" value="<?php echo $_REQUEST['job']; ?>">
+<!-- Page was request variable with "index not found" but it's being set above, is this right?--> 
+<input type="hidden" id="page" name="page" value="<?php echo $page; ?>"> 
+</form> 
+
+<!--select list-->
+<form action="./applicant-list?job=<?php echo $_REQUEST['job']?>" id="selectForm" method="get">
+	<div> 
+		Select</br>
+		<input type="checkbox" name="selectFilter" value="topCandidate" id="topCandidate"><label for="topCandidate"> Top Candidates</label></br>
+		<input type="checkbox" name="selectFilter" value="hasPotential" id="hasPotential"><label for="hasPotential"> Has Potential</label></br>
+		<input type="checkbox" name="selectFilter" value="meetsSkills" id="meetsSkills"><label for="meetsSkills"> Meets Required Skills</label></br>
+		<input type="checkbox" name="selectFilter" value="unviewed" id="unviewed"><label for="unviewed"> Unviewed Applicant</label></br>
+	</div>
+
+</form>
+
+
+
+<!-- sliders -->
 <form name="sliderForm" action="./applicant-list?job=<?php echo $_REQUEST['job']?>" method="get">
 <!-- Slider for each question -->
 <!-- get question's question -->
@@ -272,7 +309,8 @@ $(function() {
 		$qStr = "this question";
 	}
 	
-	echo alert_box('<h2>Tips</h2>Use the following '.$sliders.' to select an inclusive minimum number of years for '.$qStr.'. Applicants who fit '.$theseStr.' will be displayed.', 3);
+	//tips box removed at request of client
+	//echo alert_box('<h2>Tips</h2>Use the following '.$sliders.' to select an inclusive minimum number of years for '.$qStr.'. Applicants who fit '.$theseStr.' will be displayed.', 3);
 	echo "<ul class='sliderList'>";
 	
 	printf("%s", "Master Slider  ");
@@ -308,39 +346,19 @@ $(function() {
 </form>
 
 
-<form action="./applicant-list?job=<?php echo $_REQUEST['job']?>" id="searchForm" method="post">
-<!--Name search box-->
-<!--searches first name or last name-->
-<?php
-	echo "<div>";
-	echo "Search By Name:<br/>";
-	echo "<input id=\"name-search\" name=\"name-search\" type=\"text\"><br /><input type=\"submit\" value=\"Search\" class=\"btn\" style=\"margin-top: 5px;\">";
-	echo "</div>";
-	if ($searchString != null){
-		echo "Searched For: ".$searchString;
-	}
-	echo "<div>&nbsp;</div>";
-?>
-
-<input type="hidden" id="jobID" name="job" value="<?php echo $_REQUEST['job']; ?>">
-<!-- <input type="hidden" id="page" name="page" value="<?php echo $_REQUEST['page']; ?>"> -->
-<input type="hidden" id="page" name="page" value="<?php echo $page; ?>">
-
-</form> 
-
 </section>
 
 
 <section id="applicantList">
-
+    <p>Viewing applicants<?php if (isset($jobInfo['title'])){ echo " for <strong>" . $jobInfo['title'] . "</strong>"; }?></p>
     <table>
         <tr>
-            <th>Intervue Rating</th>
+            <th><!--Intervue -->Rating</th>
             <th>Picture</th>
             <th>Details</th>
             <th>Resume</th>
-            <th>Cover Letter</th>
-            <th>Video Answers</th>
+            <th class="coverLetter">Cover Letter</th>
+            <th>Video<!-- Answers--></th>
             <th>Rate Applicant</th>
         </tr>
     <div id="apps">
@@ -364,6 +382,10 @@ $(function() {
 			
 			$applicant = new User($db, $a['userID']);
 			
+			//get applicant info fields 
+			if (isset($applicant->info["Phone Number"]))	{$phone = $applicant->info["Phone Number"]."<br/>";}	else	{$phone = "";}  
+			if (isset($applicant->info["Company City"]))	{$city = $applicant->info["Company City"]."<br/>"; }	else	{$city = "";}
+			
 			$colours = array(
 				'recommend' => 'green',
 				'average'   => 'yellow',
@@ -371,6 +393,7 @@ $(function() {
 			);
 			
 			$class = $colours[$a['grade']];
+			
 			?>
 	
 			<tr id="newUser">
@@ -390,23 +413,25 @@ $(function() {
 				</td>
 				<td>
 					<a href="/applications-detail?application=<?php echo $a['itemID']; ?>"><strong><?php echo $applicant->info['First Name'] . " " . $applicant->info['Last Name']; ?></strong></a><br>
-					<span>CITY</span><br/>
-					<span>555-555-5555</span><br/>
+					<span><?php echo $city; ?></span>
+					<span><?php echo $phone; ?></span>
 					<span><?php echo $applicant->info['Email']; ?></span><br/>
 					<span><?php echo date('M jS', strtotime($a['sysDateInserted'])); ?></span>
 					
 				</td>
 				<td>
-				       <a href="#" class="grade btn black"><img src="/themes/Intervue/img/resumeIcon.png" alt="" />Resume</a>
+				       <a href="#" class="grade btn lightGrey"><img src="/themes/Intervue/img/resumeIconDark.png" alt="" /></a>
 				</td>
 				<td>
-					<a href="#" class="grade btn black"><img src="/themes/Intervue/img/coverLetterIcon.png" alt="" />Cover Letter</a>
+					<a href="#" class="grade btn lightGrey"><img src="/themes/Intervue/img/coverLetterIconDark.png" alt="" /></a>
 				</td>
 				<td>
-					<span><a href="#">Video Answers</a></span>
+					<a href="#" class="grade btn lightGrey playBtn"><img src="/themes/Intervue/img/playBtn.png" alt="" /></a>
 				</td>
 				<td>
-					<a class="btn <?php echo $class; ?>"><?php echo $a['grade']; ?></a>
+					<a href="#" class="btn green">Top Candidate</a>
+					<a href="#" class="btn yellow">Has Potential</a>
+					
 				</td>
 			
 			</tr>
