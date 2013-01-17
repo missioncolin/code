@@ -1,4 +1,4 @@
-<a href="/hr-signup" id="priceCallout" class="btn green">First Job is Free! <span>Sign Up Today!</span></a>
+<a href="/hr-signup?hr-step=1" id="priceCallout" class="btn green">First Job is Free! <span>Sign Up Today!</span></a>
 
 <ul id="pricingOptions">
     <li>

@@ -80,7 +80,7 @@
 <!--         <ul id="stepsNew"<?php if (!isset($_GET['step'])) { ?> class="hide"<?php } ?>> -->
 
 		 <!---- Handles breadcrumb for newly registered users ---->
-       	 <ul id="stepsNew"<?php if (!isset($_SESSION['newReg'])) { ?> class="hide"<?php } ?>>
+       	 <ul id="stepsNew"<?php if ($_GET['p'] != 'hr-signup' && !isset($_SESSION['newReg'])) { ?> class="hide"<?php } ?>>
             <?php if (isset($_GET['step']) || in_array($_GET['p'], $signUpPages)) { ?>
             <li<?php if ($_GET['p'] == 'hr-signup') { ?> class="current"<?php } ?>><span>1</span>Create Account</li>
             <li<?php if (isset($_GET['step']) && $_GET['step'] == '1') { ?> class="current"<?php } ?>><span>2</span>Name Your Job</li>
