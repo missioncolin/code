@@ -410,7 +410,7 @@ if ($this instanceof Quipp) {
 						<option value="sixMonths">Are you willing to spend at least six months as a trainee?</option>
 					</select>    
 					<a href="#" data-count="1" class="removeDropDown btn" id="removeDD_1">x</a>
-                <br><a href="#" data-count="1" data-label="<?php echo $label; ?>" class="add_dropdown_q btn blue">Add Another Skill</a>
+                <br><a href="#" data-count="1" data-label="<?php echo $label; ?>" class="add_dropdown_q btn blue">Add Another Question</a>
                     <input type="hidden" id="RQvalNUMBType" name="RQvalNUMBType" value="<?php echo $type; ?>" />
                 </td>
             </tr>
