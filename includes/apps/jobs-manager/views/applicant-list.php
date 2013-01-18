@@ -429,8 +429,8 @@ $(function() {
 					<a href="/applications-detail?application=<?php echo $a['itemID']; ?>"><strong><?php echo $applicant->info['First Name'] . " " . $applicant->info['Last Name']; ?></strong></a><br>
 					<span><?php echo $city; ?></span>
 					<span><?php echo $phone; ?></span>
-					<span><?php echo $applicant->info['Email']; ?></span><br/>
-					<span><?php echo date('M jS', strtotime($a['sysDateInserted'])); ?></span>
+					<span><a href="mailto:<?php echo $applicant->info['Email']; ?>"><?php echo $applicant->info['Email']; ?></a></span><br/>
+					<!--<span><?php echo date('M jS', strtotime($a['sysDateInserted'])); ?></span>-->
 					
 				</td>
 				<td>
