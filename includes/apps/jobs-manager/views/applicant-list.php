@@ -23,6 +23,9 @@ $sliderParam = null;
 $urlMaster = "";
 $jobTitle = "";
 
+$recommendColour = "green";
+$averageColour = "yellow";
+
 // Stores all user year questions to define sliders
 $qIDs = array();
 
@@ -397,9 +400,13 @@ $(function() {
 			//);
 			
 			//$class = $colours[$a['grade']];
-			
-			//$recommendColour
-			//$averageColour
+			if ($a['grade'] == "recommend"){
+				$recommendColour = "green";
+				$averageColour = "black";
+			}else if ($a['grade'] == "average"){
+				$recommendColour = "black";
+				$averageColour = "yellow";
+			}
 			
 			?>
 	
@@ -437,8 +444,8 @@ $(function() {
 				</td>
 				<td>
 				<div id="grade">
-					<a href="#" data-application="<?php echo $a['itemID']; ?>" data-grade="recommend" class="grade btn green">Top Candidate</a>
-				       <a href="#" data-application="<?php echo $a['itemID']; ?>" data-grade="average" class="grade btn yellow">Has Potential</a>
+					<a href="#" data-application="<?php echo $a['itemID']; ?>" data-grade="recommend" class="grade btn <?php echo $recommendColour; ?>">Top Candidate</a>
+				       <a href="#" data-application="<?php echo $a['itemID']; ?>" data-grade="average" class="grade btn <?php echo $averageColour; ?>">Has Potential</a>
             			</div>
 					
 				</td>
