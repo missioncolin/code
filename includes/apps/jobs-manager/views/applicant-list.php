@@ -5,6 +5,8 @@
 
 <?php
 
+global $quipp;
+
 require dirname(__DIR__) . '/JobManager.php';
 
 $ajaxFile = dirname(__DIR__) . '/ajax/process-slider.php';
@@ -111,6 +113,8 @@ else{
 	$applicants = $j->getApplicants((int)$jobID, $offset, $display);
 	$total      = $j->totalApplicants($jobID);
 }
+
+$quipp->js['footer'][] = "/includes/apps/jobs-manager/js/jobs-manager.js";
 
 ?>
 
@@ -386,13 +390,16 @@ $(function() {
 			if (isset($applicant->info["Phone Number"]))	{$phone = $applicant->info["Phone Number"]."<br/>";}	else	{$phone = "";}  
 			if (isset($applicant->info["Company City"]))	{$city = $applicant->info["Company City"]."<br/>"; }	else	{$city = "";}
 			
-			$colours = array(
-				'recommend' => 'green',
-				'average'   => 'yellow',
-				'nq'        => 'red'
-			);
+			//$colours = array(
+			//	'recommend' => 'green',
+			//	'average'   => 'yellow',
+			//	'nq'        => 'red'
+			//);
 			
-			$class = $colours[$a['grade']];
+			//$class = $colours[$a['grade']];
+			
+			//$recommendColour
+			//$averageColour
 			
 			?>
 	
@@ -426,11 +433,13 @@ $(function() {
 					<a href="#" class="grade btn lightGrey lessPad"><img src="/themes/Intervue/img/coverLetterIconDark.png" alt="" /></a>
 				</td>
 				<td>
-					<a href="#" class="grade btn lightGrey playBtn"><img src="/themes/Intervue/img/playBtn.png" alt="" /></a>
+					<a href="/applications-detail?application=<?php echo $a['itemID']; ?>" class="grade btn lightGrey playBtn"><img src="/themes/Intervue/img/playBtn.png" alt="" /></a>
 				</td>
 				<td>
-					<a href="#" class="btn green">Top Candidate</a>
-					<a href="#" class="btn yellow">Has Potential</a>
+				<div id="grade">
+					<a href="#" data-application="<?php echo $a['itemID']; ?>" data-grade="recommend" class="grade btn green">Top Candidate</a>
+				       <a href="#" data-application="<?php echo $a['itemID']; ?>" data-grade="average" class="grade btn yellow">Has Potential</a>
+            			</div>
 					
 				</td>
 			
