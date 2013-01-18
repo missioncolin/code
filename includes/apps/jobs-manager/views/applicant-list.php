@@ -406,7 +406,7 @@ $(function() {
 			<tr id="newUser">
 				<td>
 					<h2><?php echo $j->getApplicantRating($a['itemID']); ?><br />
-						<a href="/applications-detail?application=<?php echo $a['itemID']; ?>">Rating Details</a>
+						<a href="/applications-detail?application=<?php echo $a['itemID']; ?>"><img src="../../../../themes/Intervue/img/intervueIcon.png" alt="intervueIcon" title="View Applicant Details" width="40" height="28" /></a>
 					</h2>
 				</td>
 				<td>
