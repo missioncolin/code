@@ -84,7 +84,7 @@
             <?php if (isset($_GET['step']) || in_array($_GET['p'], $signUpPages)) { ?>
             <li<?php if ($_GET['p'] == 'hr-signup') { ?> class="current"<?php } ?>><span>1</span>Create Account</li>
             <li<?php if (isset($_GET['step']) && $_GET['step'] == '1') { ?> class="current"<?php } ?>><span>2</span>Name Your Job</li>
-            <li<?php if (isset($_GET['step']) && $_GET['step'] == '2') { ?> class="current"<?php } ?>><span>3</span>Add Skills and Work Experience</li>
+            <li<?php if (isset($_GET['step']) && $_GET['step'] == '2') { ?> class="current"<?php } ?>><span>3</span>Add Required Skills and Experience</li>
             <li<?php if (isset($_GET['step']) && $_GET['step'] == '3') { ?> class="current"<?php } ?>><span>4</span>Add intervue Questions</li>
             <li<?php if (isset($_GET['step']) && $_GET['step'] == '4') { ?> class="current"<?php } ?>><span>5</span>Activate Link</li>
             <?php } ?>
@@ -94,7 +94,7 @@
         <ul id="steps"<?php if (isset($_SESSION['newReg'])) { ?> class="hide"<?php } ?>>
             <?php if (isset($_GET['step'])) { ?>
             <li<?php if ($_GET['step'] == '1') { ?> class="current"<?php } ?>><span>1</span>Name Your Job</li>
-            <li<?php if ($_GET['step'] == '2') { ?> class="current"<?php } ?>><span>2</span>Add Skills and Work Experience</li>
+            <li<?php if ($_GET['step'] == '2') { ?> class="current"<?php } ?>><span>2</span>Add Required Skills and Experience</li>
             <li<?php if ($_GET['step'] == '3') { ?> class="current"<?php } ?>><span>3</span>Add intervue Questions</li>
             <li<?php if ($_GET['step'] == '4') { ?> class="current"<?php } ?>><span>4</span>Activate Link</li>
             <?php } ?>

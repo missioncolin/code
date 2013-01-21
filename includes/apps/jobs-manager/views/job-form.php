@@ -175,13 +175,12 @@ if (empty($questionnaires)) {
         <table class="simpleTable singleHeader">
             <thead>
                 <tr>
-                    <th colspan="5"><?php echo ($edit == true) ? 'Edit' : 'Create'; ?> a Job</th>
+                    <th colspan="4"><?php echo ($edit == true) ? 'Edit your Job' : 'Name Your Job'; ?></th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td width="30%"><label for="title">Job Title</label></td>
-                    <td><input type="text" name="RQvalALPHTitle" id="title" placeholder="Job Title" value="<?php echo $title; ?>"  required/></td>
+                    <td><input type="text" name="RQvalALPHTitle" id="title" placeholder="Example: Administrative Assistant" value="<?php echo $title; ?>"  required/></td>
                     <input type="hidden" name="RQvalNUMBQuestionnaire" id="questionnaire" value="<?php echo ($edit == true) ? $questionnaireID : 0; ?>"/>
                 </tr>
              <!--   <tr>
