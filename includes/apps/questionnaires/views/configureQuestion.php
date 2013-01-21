@@ -320,7 +320,7 @@ if ($this instanceof Quipp) {
             $type  = '4';
 
             if (isset($_GET['step']) && $_GET['step'] == '2') {
-                $label = 'How many years experience&hellip;';
+               $label = 'How many years experience&hellip;';
                 $type  = '3';
                 
                 ?>
@@ -331,6 +331,7 @@ if ($this instanceof Quipp) {
                     <input size="10" name="idealValues[]" type="hidden" id="hiddenIdealValue_1" value="<?php echo (isset($_POST['idealValues'][0])) ? $_POST['idealValues'][0] : '15'; ?>"/></br>
                     <div class="idealSlider" id="idealSlider_1" data-count="1" data-value="15"></div></div>
                     <a href="#" data-count="1" class="removeSkillQ btn">x</a>
+                    <a href="#" data-count="1" data-label="<?php echo $label; ?>" class="add btn blue">Add Another Skill</a>
                     <input type="hidden" id="RQvalNUMBType" name="RQvalNUMBType" value="<?php echo $type; ?>" />
                 </td>
             </tr>
@@ -608,7 +609,7 @@ if ($this instanceof Quipp) {
 
 					?>
 						<tr>						
-					    	<td width="30%"><label for="RQvalALPHQuestion_<?php echo $qID; ?>">How Many Years Experience...</label></td>
+					    	<!--<td width="30%"><label for="RQvalALPHQuestion_<?php echo $qID; ?>">How Many Years Experience...</label></td>-->
 							<td><input type="text" class="<?php echo $qID; ?>" name="RQvalALPHQuestion_<?php echo $qID; ?>_edit_3" value="<?php echo $qLabel; ?>"/>
 							</br></br><label for="idealSlider">Ideal Years of Experience  </label><span id="idealValue_<?php echo $qID; ?>"><?php echo $idealVal; ?></span><input size="10" name="idealValues[]" type="hidden" id="hiddenIdealValue_<?php echo $qID; ?>" value="<?php echo $idealVal; ?>"/></br><div class="idealSlider" id="idealSlider_<?php echo $qID; ?>" data-count="<?php echo $qID; ?>" data-value="<?php echo $idealVal; ?>"></div></td><br>
 							<td width="5%"><a href="#" data-type="3" id="<?php echo $qID; ?>" class="removeQuestion"> x</a></td>

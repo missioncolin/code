@@ -175,7 +175,7 @@ if (empty($questionnaires)) {
         <table class="simpleTable singleHeader">
             <thead>
                 <tr>
-                    <th colspan="4"><?php echo ($edit == true) ? 'Edit your Job' : 'Name Your Job'; ?></th>
+                    <th colspan="5"><?php echo ($edit == true) ? 'Edit' : 'Name'; ?> Your Job</th>
                 </tr>
             </thead>
             <tbody>

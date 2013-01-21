@@ -1731,6 +1731,8 @@ table.simpleTable td.total {
 
 /*Applicant List -------------------------------------------------------------- */
 
+#applicant-list #applicantList { border-bottom: none; }
+
 #applicant-list-sidebar {
     float: left;
     width: 19%;
@@ -1742,11 +1744,12 @@ table.simpleTable td.total {
     border-bottom: 1px solid #b7b7b7;
 }
 
-#applicantList table { border: 1px solid @darkBorders; }
-#applicantList h2 { font-size: 30px; line-height: 16px; }
-#applicantList table h2 a { font-size: 14px; line-height: 0; }
-#applicantList th { padding: 8px; line-height: 18px; }
+#applicantList table { border: none; .box-shadow(0px); }
+#applicantList h2 { display: block; font-size: 30px; line-height: 16px; margin-top: 10px; }
+#applicantList table h2 a { display: block; font-size: 14px; line-height: 0; margin-top: 20px; }
+#applicantList th { padding: 8px; line-height: 18px; border-top: 1px solid @darkBorders; }
 #applicantList td { font-size: 14px; line-height: 18px; border-right: none; }
+#applicantList td strong { font-size: 16px; }
 
 #applicantList td:first-child {
     padding: 10px 0px;  
@@ -1755,10 +1758,14 @@ table.simpleTable td.total {
 }
 
 #applicantList th:first-child {
-    padding: 0px;  
+    padding: 0px 15px;  
+    border-left: 1px solid @darkBorders;
    /* width: 35%;*/
 }
-
+#applicantList th.lastly {
+	border-right: 1px solid @darkBorders;
+}
+#applicantList td:first-child, #applicantList td:last-child { .border-radius(0px); }
 #applicantList table .btn.green, #applicantList table .btn.yellow, #applicantList table .btn.black { width: 110px; margin: 0 0 4px 0; padding: 6px 15px; }
 #applicantList table .imgWrapList { width: 65px; }
 #applicantList table .imgWrapList img { width: 65px !important; }
@@ -2690,12 +2697,14 @@ form .creditCardForm input[type="text"]#cvc {
 	float: right;
 	width: 20%;
 }
+#configure-question .alertBoxFunctionWarn { margin-top: 26px; }
 #new-job-info .copyAndPaste {
 	background: @borders;
 	padding: 8px 15px;
 	font-weight: 700;
 }
 #new-job-info table.simpleTable td { text-align: center; }
+.submitWrap { float: right; }
 
 /* =============================================================================
    Footer
