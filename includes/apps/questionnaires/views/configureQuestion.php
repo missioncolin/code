@@ -320,23 +320,27 @@ if ($this instanceof Quipp) {
             $type  = '4';
 
             if (isset($_GET['step']) && $_GET['step'] == '2') {
-               $label = 'How many years experience&hellip;';
+                $label = 'How many years experience&hellip;';
                 $type  = '3';
                 
+                $placeholders = array( 1 => "Data Entry", 2 => "Sales", 3 => "Budgeting", 4 => "Cold Calling", 5 => "Customer Service" );
+                for($rowCount = 1; $rowCount <= 5; ++$rowCount){ 
                 ?>
-                
                 <tr>
-                <td colspan="2">
-                    <div class="sliderText"><input size="75" type="text" name="RQvalALPHQuestions[]" id="RQvalALPHQuestion_1" placeholder="Required Skill" value="<?php echo (isset($_POST['RQvalALPHQuestion'][0])) ? $_POST['RQvalALPHQuestion'][0] : ''; ?>" /></div><div class="experienceSlider"><label for="idealSlider">Ideal Years of Experience  </label><span id="idealValue_1">15</span>
-                    <input size="10" name="idealValues[]" type="hidden" id="hiddenIdealValue_1" value="<?php echo (isset($_POST['idealValues'][0])) ? $_POST['idealValues'][0] : '15'; ?>"/></br>
-                    <div class="idealSlider" id="idealSlider_1" data-count="1" data-value="15"></div></div>
-                    <a href="#" data-count="1" class="removeSkillQ btn">x</a>
-                    <a href="#" data-count="1" data-label="<?php echo $label; ?>" class="add btn blue">Add Another Skill</a>
-                    <input type="hidden" id="RQvalNUMBType" name="RQvalNUMBType" value="<?php echo $type; ?>" />
-                </td>
-            </tr>
-            
+	                <td colspan="2">
+	                    <div class="sliderText"><input size="75" type="text" name="RQvalALPHQuestions[]" id="RQvalALPHQuestion_<?php echo $rowCount; ?>" placeholder="Example: <?php echo $placeholders[$rowCount]; ?>" value="<?php echo (isset($_POST['RQvalALPHQuestion'][0])) ? $_POST['RQvalALPHQuestion'][0] : ''; ?>" /></div><div class="experienceSlider"><label for="idealSlider">Ideal Years of Experience  </label><span id="idealValue_<?php echo $rowCount; ?>">15</span>
+	                    <input size="10" name="idealValues[]" type="hidden" id="hiddenIdealValue_<?php echo $rowCount; ?>" value="<?php echo (isset($_POST['idealValues'][0])) ? $_POST['idealValues'][0] : '15'; ?>"/></br>
+	                    <div class="idealSlider" id="idealSlider_<?php echo $rowCount; ?>" data-count="<?php echo $rowCount; ?>" data-value="15"></div></div>
+	                    <a href="#" data-count="<?php echo $rowCount; ?>" class="removeSkillQ btn">x</a>
+	                    <?php if (isset($_GET['step']) && $_GET['step'] == 3){
+	                    		echo "<a href=\"#\" data-count=\""+$rowCount+"\" data-label=\"".$label."\" class=\"add btn blue\">Add Another Skill</a>";
+	                    	}
+	                    ?>
+	                    <input type="hidden" id="RQvalNUMBType" name="RQvalNUMBType" value="<?php echo $type; ?>" />
+	                </td>        
+                </tr>    
             <?php
+            	   }
             }
             
            /*  else if (isset($_GET['step']) && $_GET['step'] == '5') { */
@@ -497,8 +501,8 @@ if ($this instanceof Quipp) {
                 <?php } ?>
                 <td colspan="2">
                     <div class="submitWrap">
-                        <?php if(isset($_GET['step']) && isset($_GET['step'])){ ?>
-                             <a href="#" data-count="1" data-label="<?php echo $label; ?>" class="add btn blue">Add Another Skill</a>
+                        <?php if(isset($_GET['step']) && $_GET['step'] == 2 ){ ?>
+                             <a href="#" data-count="<?php echo $rowCount;?>" data-label="<?php echo $label; ?>" class="add btn blue addButtonStep2">Add Another Skill</a>
                     	   <?php } ?>
                     	   <a name="configure-question" class="btn grey" href="/configure-question?qnrID=<?php echo $_REQUEST['qnrID']; ?>" >Reset</a>
                         <input type="submit" value="Save<?php if (isset($_GET['step']) && ($_GET['step'] == '2' || $_GET['step'] == '3')) { echo ' &amp; continue'; } ?>" name="configure-question" class="btn green noEnterSubmit" />

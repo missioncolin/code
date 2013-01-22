@@ -4,7 +4,7 @@ totalCountDD = new Array();
 totalCountDD.push(1);
 
 totalCountQ = new Array();
-totalCountQ.push(1);
+totalCountQ.push(5);
 
 editCount = 0;
 
@@ -117,13 +117,11 @@ $('.add_dropdown_q').live('click', function() {
 // Add slider question
 $('.add').live('click', function() { 
 
-    $count = +$(this).data('count') + 1;
+    $count = document.getElementById('configure').getElementsByTagName("tr").length - 1;
     $label = $(this).data('label');
-    
     totalCountQ.push($count);
     
-    $('<tr><td>' + $label + '</td><td colspan="2"><div class="sliderText"><input size="75" type="text" name="RQvalALPHQuestions[]" id="RQvalALPHQuestion_' + $count + '" placeholder="Required Skill" value="" /></div><div class="experienceSlider"><label for="idealSlider">Ideal Years of Experience  </label><span id="idealValue_' + $count + '">15</span><input size="10" name="idealValues[]" type="hidden" id="hiddenIdealValue_' + $count + '" value=""/></br><div class="idealSlider" id="idealSlider_' + $count + '" data-count="' + $count + '" data-value="15"></div></div><a href="#" data-count="' + $count + '" class="removeSkillQ btn red">x</a><a href="#" data-count="' + $count + '" data-label="' + $label + '" class="add btn blue">Add Another Question</a></td></tr>').insertAfter($(this).closest('tr'));
-    $(this).remove();
+    $('<tr><td colspan="2"><div class="sliderText"><input size="75" type="text" name="RQvalALPHQuestions[]" id="RQvalALPHQuestion_' + $count + '" placeholder="Required Skill" value="" /></div><div class="experienceSlider"><label for="idealSlider">Ideal Years of Experience  </label><span id="idealValue_' + $count + '">15</span><input size="10" name="idealValues[]" type="hidden" id="hiddenIdealValue_' + $count + '" value=""/></br><div class="idealSlider" id="idealSlider_' + $count + '" data-count="' + $count + '" data-value="15"></div></div><a href="#" data-count="' + $count + '" class="removeSkillQ btn red">x</a></td></tr>').insertBefore($(this).closest('tr'));
     
     /* Trigger the new slider */
     $("#idealSlider_" + $count).trigger('initIdealSlider'); 
@@ -177,10 +175,11 @@ $('.removeSkillQ').live('click', function() {
 	
 	$count = $(this).data('count');
 	$label = $(this).data('label');
-	
+	$QsCount = document.getElementById('configure').getElementsByClassName("sliderText").length;
+	log($QsCount + " " + $count);
 	// If at first question, replace whatever is here with an option to create a new question
 	// otherwise, just stick the 'add question' to the previous 	
-	if (totalCountQ.length == 1) {
+	if ($QsCount == 1) {
 
 		$('#RQvalALPHQuestion_' + $count).attr('value', "");
 		$('#idealSlider_' + $count).slider({value: 0});
@@ -190,30 +189,30 @@ $('.removeSkillQ').live('click', function() {
 	}
 	
 	// If at the end of the list, remove and append 'add' link to previous question
-	else if (($count == totalCountQ[totalCountQ.length - 1]) && (totalCountQ.length != 1)){
-		
-		console.log(totalCountQ);
+	//else if (($count == totalCountQ[totalCountQ.length - 1]) && (totalCountQ.length != 1)){
+	if ($QsCount > 1){
+
 		totalCountQ.splice(totalCountQ.indexOf($count), 1);
 
 		$('#RQvalALPHQuestion_' + $count).remove();
 		$('#idealValue_' + $count).remove();
-		$(this).closest('tr').remove();
-		$(this).closest('td').remove();
-		$('<a href="#" data-count="1" data-label="How many years experience…" class="add btn blue">Add Another Question</a>').insertAfter($('#idealSlider_' + (totalCountQ[totalCountQ.length - 1])));
+		//$(this).closest('td').remove();
+		$(this).parent().parent().remove();
+		//$('<a href="#" data-count="1" data-label="How many years experience…" class="add btn blue">Add Another Question</a>').insertAfter($('#idealSlider_' + (totalCountQ[totalCountQ.length - 1])));
 		$(this).remove();
 		
 	}
-	else {
+	/*else {
 		
 		totalCountQ.splice(totalCountQ.indexOf($count), 1);
 		
 		// If not at end, just remove 'add' since likely doesn't have an 'add' link anyways
 		$('#RQvalALPHQuestion_' + $count).remove();
 		$('#idealValue_' + $count).remove();
-		$(this).closest('tr').remove();
 		$(this).closest('td').remove();
+		$(this).closest('tr').remove();
 		$(this).remove();
-	}
+	}*/
 
 	
 	return false;
