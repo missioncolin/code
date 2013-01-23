@@ -48,9 +48,7 @@ if (time() < strtotime($datePosted) || $status == 'inactive') {
 </ul>
 
 <section id="applicantProfile" class="apply">
-
         <?php include __DIR__ . '/render.php'; ?>
-        
 </section>
 <?php
 }
