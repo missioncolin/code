@@ -1821,261 +1821,6 @@ th.coverLetter { width: 100px; }
     width: 130px;
 }
 
-/*Applicant Profile------------------------------------------------------------ */
-
-#applicantProfile {
-    float: left;
-    width: 100%;
-}
-
-#applicantProfile #card, #applicantProfile #work-experience {
-    float: left;    
-    width: 40.62%;
-    padding: 0;
-    position: relative;
-    border: 1px solid #b7b7b7;
-    .border-radius(3px);
-}
-
-#applicantProfile #card {
-    margin: 0 60px;
-}
-
-#applicantProfile #card.fixed, #applicantProfile #work-experience.fixed {
-    position: fixed;
-    top: 80px;
-    width: 389px;
-} 
-
-#card .heading, #work-experience .heading {
-    background: @base2;
-    float: left;
-    width: 100%;
-    .border-radius(3px 3px 0 0);
-}
-
-#card .cutout, #work-experience .cutout {
-    position: absolute;
-    left: -68px;
-    top: 65px;
-}
-
-#card .profilePic, #work-experience .profilePic {
-    width: 126px;
-    height: 91px;
-    .border-radius(3px);
-    background: #FFF;
-    padding: 5px;
-    .box-shadow(0, 1px, 5px, rgba(0,0,0,0.3));
-    overflow: hidden;
-}
-
-#card .profilePic img, #work-experience .profilePic img {
-    width: 126px;
-}
-
-#card .profilePic .imgWrapper {
-	width: 126px;
-	height: 91px;
-	overflow: hidden;
-}
-
-.heading h2 {
-    float: left;
-    color: #FFF;
-    font-size: 44px;
-    font-family: "proxima-nova",sans-serif;
-    font-style: normal;
-    font-weight: 700;
-    text-align: center;
-    margin: 25px 0 10px 20px;
-    line-height: 44px;
-}
-
-#applicantProfile.apply .heading h2 {
-    font-size: 30px;
-    line-height: 30px;
-    text-align: left;
-    margin: 25px 0 25px 20px;
-}
-
-.heading h2 a {
-    font-size: 14px;
-    position: relative;
-    top: -20px;
-    line-height: 14px;
-}
-
-.heading .btn {
-    float: right;
-    margin: 35px 20px 20px 0;
-}
-
-#applicantProfile dl {
-    float: left;
-    width: 74%;
-    margin: 20px 0 20px 100px;
-}
-
-#applicantProfile #work-experience dl {
-    margin: 20px 0 20px 50px;
-}
-
-#applicantProfile dt {
-    float: left;
-    width: 85px;
-    color: lighten(@base, 30%);
-    clear: left;
-}
-
-#applicantProfile #work-experience dt {
-    color: @base3;
-    width: 120px;
-}
-
-#applicantProfile dd {
-    float: left;
-    width: 185px;
-    overflow: hidden;
-    margin: 0;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-}
-
-#applicantProfile #work-experience dd {
-	width: 166px;
-}
-
-#applicantProfile dd.dontCut {
-    overflow: visible;
-    white-space: normal;
-    text-overflow: inherit;
-}
-
-
-
-#applicantProfile #grade, #applicantProfile #resumeCoverLetter {
-    float: left;
-    clear: both;
-    width: 100%;
-    text-align: center;
-    margin: 10px 0 0;
-    .border-radius(0 0 3px 3px);
-}
-
-#grade h3 {
-    text-align: center;
-    margin: 25px 0;
-}
-
-#grade .btn, #resumeCoverLetter .btn {
-    margin: 0 0px 15px 5px;
-}
-
-#resumeCoverLetter .btn img {
-    position: relative;
-    top: -3px;
-    margin-right: 10px;
-}
-
-#grade h3 + .btn {
-    margin-left: 0;
-}
-
-#applicantProfile #submissions {
-    float: left;
-    clear: both;
-    width: 100%;
-    margin: 0 0 0;
-}
-
-#steps.hide + .main #applicantProfile #submissions {
-    margin: 40px 0 0;
-}
-
-#submissions h2 {
-    padding-bottom: 15px;
-    border-bottom: 1px solid @borders;
-    margin-bottom: 20px;
-}
-
-#toolbar, #colB #toolbar {
-    float: left;
-    width: 100%;
-    text-align: center;
-    border-bottom: 1px solid @borders;   
-    border-top: 1px solid @borders;
-    margin: 0 0 50px;
-    padding: 20px 0;
-}
-
-#toolbar .left {
-    float: left;
-}
-
-#toolbar h4 {
-    display: inline;
-    text-transform: capitalize;
-    color: @base;
-    font-weight: 400;
-    margin: 0;
-    float: none;
-    width: auto;
-}
-
-#toolbar h4 span {
-    color: lighten(@base, 30%);
-}
-
-#toolbar .right {
-    float: right;
-}
-
-#applicantProfile ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-#applicantProfile li {
-    position: relative;
-}
-
-#applicantProfile embed {
-    width: 100% !important;
-}
-
-#applicantProfile ul .imgWrap {
-    border: 1px solid @darkBorders;
-    background: #FFF;
-    .border-radius(3px);
-    .box-shadow(1px, 1px, 5px, rgba(0,0,0,0.2));
-    position: relative;
-    overflow: hidden;
-}
-
-#applicantProfile .imgWrap img {
-    width: 100%;
-    .border-radius(3px);
-}
-
-#applicantProfile .imgWrap .video {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin: -15px 0 0 -15px;
-}
-
-#applicantProfile ul h4 {
-    text-transform: capitalize;
-    font-weight: 400;
-    color: @base;
-}
-
-#videoResponses h3, #resumeCoverLetter h3 {
-    margin: 20px 0;
-}
-
 /*HR Signup------------------------------------------------------------------ */
 
 #profile #steps { display: none; }
@@ -2747,6 +2492,317 @@ footer h3 span {
 }
 
 
+/*Applicant Profile------------------------------------------------------------ */
+
+#applicantProfile {
+    float: left;
+    width: 100%;
+}
+
+#applicantProfile #card, #applicantProfile #work-experience {
+    float: left;    
+    width: 40.62%;
+    padding: 0;
+    position: relative;
+    border: 1px solid #b7b7b7;
+    .border-radius(3px);
+}
+
+#applicantProfile #card {
+    margin: 0 60px;
+}
+
+#applicantProfile #card.fixed, #applicantProfile #work-experience.fixed {
+    position: fixed;
+    top: 80px;
+    width: 389px;
+} 
+
+#card .heading, #work-experience .heading {
+    background: @base2;
+    float: left;
+    width: 100%;
+    .border-radius(3px 3px 0 0);
+}
+
+#card .cutout, #work-experience .cutout {
+    position: absolute;
+    left: -68px;
+    top: 65px;
+}
+
+#card .profilePic, #work-experience .profilePic {
+    width: 126px;
+    height: 91px;
+    .border-radius(3px);
+    background: #FFF;
+    padding: 5px;
+    .box-shadow(0, 1px, 5px, rgba(0,0,0,0.3));
+    overflow: hidden;
+}
+
+#card .profilePic img, #work-experience .profilePic img {
+    width: 126px;
+}
+
+#card .profilePic .imgWrapper {
+	width: 126px;
+	height: 91px;
+	overflow: hidden;
+}
+
+.heading h2 {
+    float: left;
+    color: #FFF;
+    font-size: 44px;
+    font-family: "proxima-nova",sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    text-align: center;
+    margin: 25px 0 10px 20px;
+    line-height: 44px;
+}
+
+#applicantProfile.apply .heading h2 {
+    font-size: 15px;
+    line-height: 15px;
+    text-align: left;
+    margin: 25px 0 30px 20px;
+}
+
+.heading h2 a {
+    font-size: 14px;
+    position: relative;
+    top: -20px;
+    line-height: 14px;
+}
+
+.heading .btn {
+    float: right;
+    margin: 35px 20px 20px 0;
+}
+
+#applicantProfile dl {
+    float: left;
+    width: 74%;
+    margin: 20px 0 20px 100px;
+}
+
+#applicantProfile #work-experience dl {
+    margin: 20px 0 20px 50px;
+}
+
+#applicantProfile dt {
+    float: left;
+    width: 85px;
+    color: lighten(@base, 30%);
+    clear: left;
+}
+
+#applicantProfile #work-experience dt {
+    color: @base3;
+    width: 120px;
+}
+
+#applicantProfile dd {
+    float: left;
+    width: 185px;
+    overflow: hidden;
+    margin: 0;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+#applicantProfile #work-experience dd {
+	width: 166px;
+}
+
+#applicantProfile dd.dontCut {
+    overflow: visible;
+    white-space: normal;
+    text-overflow: inherit;
+}
+
+
+
+#applicantProfile #grade, #applicantProfile #resumeCoverLetter {
+    float: left;
+    clear: both;
+    width: 100%;
+    text-align: center;
+    margin: 10px 0 0;
+    .border-radius(0 0 3px 3px);
+}
+
+#grade h3 {
+    text-align: center;
+    margin: 25px 0;
+}
+
+#grade .btn, #resumeCoverLetter .btn {
+    margin: 0 0px 15px 5px;
+}
+
+#resumeCoverLetter .btn img {
+    position: relative;
+    top: -3px;
+    margin-right: 10px;
+}
+
+#grade h3 + .btn {
+    margin-left: 0;
+}
+
+#applicantProfile #submissions {
+    float: left;
+    clear: both;
+    width: 100%;
+    margin: 0 0 0;
+}
+
+#steps.hide + .main #applicantProfile #submissions {
+    margin: 40px 0 0;
+}
+
+#submissions h2 {
+    padding-bottom: 15px;
+    border-bottom: 1px solid @borders;
+    margin-bottom: 20px;
+}
+
+#toolbar, #colB #toolbar {
+    float: left;
+    width: 100%;
+    text-align: center;
+    border-bottom: 1px solid @borders;   
+    border-top: 1px solid @borders;
+    margin: 0 0 50px;
+    padding: 20px 0;
+}
+
+#toolbar .left {
+    float: left;
+}
+
+#toolbar h4 {
+    display: inline;
+    text-transform: capitalize;
+    color: @base;
+    font-weight: 400;
+    margin: 0;
+    float: none;
+    width: auto;
+}
+
+#toolbar h4 span {
+    color: lighten(@base, 30%);
+}
+
+#toolbar .right {
+    float: right;
+}
+
+#applicantProfile ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+#applicantProfile li {
+    position: relative;
+}
+
+#applicantProfile embed {
+    //width: 100% !important;
+}
+
+#applicantProfile ul .imgWrap {
+    border: 1px solid @darkBorders;
+    background: #FFF;
+    .border-radius(3px);
+    .box-shadow(1px, 1px, 5px, rgba(0,0,0,0.2));
+    position: relative;
+    overflow: hidden;
+}
+
+#applicantProfile .imgWrap img {
+    width: 100%;
+    .border-radius(3px);
+}
+
+#applicantProfile .imgWrap .video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -15px 0 0 -15px;
+}
+
+#applicantProfile ul h4 {
+    text-transform: capitalize;
+    font-weight: 400;
+    color: @base;
+}
+
+#videoResponses h3, #resumeCoverLetter h3 {
+    margin: 20px 0;
+}
+
+/* =============================================================================
+   Apply Page
+   ========================================================================== */
+   
+#applicantProfile #card {
+	float: left;
+	margin-right: 0px;
+	width: 382px;
+}   
+   
+.userinfo input[type="text"], .userinfo input[type="password"] {
+	//width: 96%;
+	margin-bottom: 3px;
+}
+
+#applicantProfile #submissions {
+	float: right;
+	width: 485px;
+	clear: none;
+}
+
+#steps.hide + .main #applicantProfile #submissions {
+	margin-top: 0px;
+}
+
+.video-q-holder {
+	width: 100%;
+	clear: both;
+	display: none;
+}
+
+.video-label {
+	width: 100%;
+	display: block;
+	font-family: "freight-sans-pro",sans-serif;
+	color: #000;
+	font-weight: bold;
+	font-size: 18px;
+	margin-bottom: 10px;
+}
+
+.video-flash-holder {
+	width: 100%;
+	text-align: center;
+}
+
+#finalStep {
+	display: none;
+}
+
+.nextbutton {
+	float: right;
+	clear: both;
+	margin-top: 10px;
+}
+
 /* =============================================================================
    Default Login Page (Dark and Light Theme)
    ========================================================================== */
@@ -2991,5 +3047,5 @@ body#login.light #loginBox h2 { background: #333; border-bottom: 1px solid #000;
     h2,
     h3 {
         page-break-after: avoid;
-    }
+    } 
 }

@@ -3,6 +3,8 @@ global $user, $quipp;
 require_once dirname(dirname(__DIR__)) . '/jobs-manager/JobManager.php';
 require_once dirname(__DIR__) . '/Questionnaire.php';
 
+$post   = array();
+
 if (!isset($j) || !$j INSTANCEOF JobManager){
     $j = new JobManager($db, $_SESSION['userID']);
 }
@@ -38,75 +40,17 @@ if (time() < strtotime($datePosted) || $status == 'inactive') {
     $founded    = $user->get_meta('Year Founded', $companyID);
     $size       = $user->get_meta('Company Size', $companyID);
 ?>
+
+<ul id="steps">
+<li class="current"><span>1</span>Contact Information, Resume, and Cover</li>
+<li><span>2</span>Interview Questions</li>
+<li><span>3</span>Submit Application</li>
+</ul>
+
 <section id="applicantProfile" class="apply">
 
-    <div id="card" class="box">
-        <div class="heading">
-            <h2><?php echo $user->get_meta('Company Name', $companyID);?></h2>
-        </div>
-        <div class="cutout">
-            <div class="profilePic"><img src="<?php echo $profileImg;?>" alt="" /></div>
-        </div>
-        <dl>
-            <dt>Location</dt>
-            <dd><?php echo $user->get_meta('Company City', $companyID)." ".$provList[$user->get_meta('Company Province', $companyID)].", ".$countries[$user->get_meta('Company Country', $companyID)];?></dd>
-        <?php
-        if (!empty($industry)){
-        ?>
-            <dt>Industry</dt>
-            <dd><?php echo $industry;?></dd>
-        <?php
-        }
-        if (!empty($website) || !empty($fb) || !empty($linkedIn) || !empty($twitter)){
-        ?>
-            <dt>Links</dt>
-            <dd id="links"><?php 
-                if (!empty($website)){
-                    echo '<a class="icon blog" target="_blank"  href="' . $website . '">Website or Blog</a> ';
-                }
-                if (!empty($fb)){
-                    echo '<a class="icon facebook" target="_blank"  href="http://www.facebook.com/' . $fb . '">Facebook</a> ';
-                }
-                if (!empty($twitter)){
-                    echo '<a class="icon twitter" target="_blank" href="http://twitter.com/' . $twitter . '">Twitter</a> ';
-                }
-                if (!empty($linkedIn)){
-                    echo '<a class="icon linkedin" target="_blank"  href="http://www.linkedin.com/in/' . $linkedIn . '">LinkedIn</a> ';
-                }
-               
-            ?></dd>
-        <?php
-        }
-        if (!empty($founded)){
-        ?>
-            <dt>Founded</dt>
-            <dd><?php echo $founded;?></dd>
-        <?php
-        }
-        if (!empty($size)){
-        ?>
-            <dt>Size</dt>
-            <dd><?php echo $size;?></dd>
-        <?php
-        }
-        ?>
-        <?php
-        if (!empty($bio)){
-        ?>
-            <dt>Bio</dt>
-            <dd class="dontCut"><?php echo $bio;?></dd>
-        <?php
-        }
-        ?>
-    </dl>
-    </div>
-    
-    <div id="submissions">
-        
         <?php include __DIR__ . '/render.php'; ?>
         
-    </div>
-
 </section>
 <?php
 }
