@@ -332,7 +332,7 @@ class JobManager {
         
         if ($exp['totalIdeal'] == 0) {
 	        
-	        $points += ((($exp['totalValue'])/15) * 100);
+	        $points = 100;
 	        
         }
         else {
