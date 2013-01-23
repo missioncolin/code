@@ -1,7 +1,7 @@
 // Stores count of each question to tell 
 // total number of questions added per 'step'
-totalCountDD = new Array();
-totalCountDD.push(1);
+totalCountDD = new Array(1, 2, 3, 4, 5);
+totalCountDD.push(5);
 
 totalCountQ = new Array();
 totalCountQ.push(5);
@@ -121,7 +121,7 @@ $('.add').live('click', function() {
     $label = $(this).data('label');
     totalCountQ.push($count);
     
-    $('<tr><td colspan="2"><div class="sliderText"><input size="75" type="text" name="RQvalALPHQuestions[]" id="RQvalALPHQuestion_' + $count + '" placeholder="Required Skill" value="" /></div><div class="experienceSlider"><label for="idealSlider">Ideal Years of Experience  </label><span id="idealValue_' + $count + '">15</span><input size="10" name="idealValues[]" type="hidden" id="hiddenIdealValue_' + $count + '" value=""/></br><div class="idealSlider" id="idealSlider_' + $count + '" data-count="' + $count + '" data-value="15"></div></div><a href="#" data-count="' + $count + '" class="removeSkillQ btn red">x</a></td></tr>').insertBefore($(this).closest('tr'));
+    $('<tr><td colspan="2"><div class="sliderText"><input size="75" type="text" name="RQvalALPHQuestions[]" id="RQvalALPHQuestion_' + $count + '" placeholder="Example: Data Entry" value="" /></div><div class="experienceSlider"><label for="idealSlider">Ideal Years of Experience  </label><span id="idealValue_' + $count + '">15</span><input size="10" name="idealValues[]" type="hidden" id="hiddenIdealValue_' + $count + '" value=""/></br><div class="idealSlider" id="idealSlider_' + $count + '" data-count="' + $count + '" data-value="15"></div></div><a href="#" data-count="' + $count + '" class="removeSkillQ btn red">x</a></td></tr>').insertBefore($(this).closest('tr'));
     
     /* Trigger the new slider */
     $("#idealSlider_" + $count).trigger('initIdealSlider'); 
@@ -225,6 +225,8 @@ $('.removeDropDown').live('click', function() {
 	$count = $(this).data('count');
 	console.log("Count: " + $count);
 
+	console.log("Total Count: " + totalCountDD);
+	
 	// If at first question, replace whatever is here with an option to create a new question
 	// otherwise, just stick the 'add question' to the previous 	
 	if (totalCountDD.length == 1) {

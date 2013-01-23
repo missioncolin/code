@@ -314,7 +314,7 @@ class JobManager {
         $exp = array();
         
         // for each question get years of experience, and ideal value
-        $qry = sprintf("SELECT a.value as value, q.label, q.idealValue
+        $qry = sprintf("SELECT SUM(a.value) as 'totalValue', SUM(q.idealValue) as 'totalIdeal'
             FROM tblAnswers AS a             
             INNER JOIN tblQuestions as q ON a.questionID = q.itemID
             WHERE a.applicationID='%d'
@@ -325,24 +325,20 @@ class JobManager {
         $res = $this->db->query($qry);
 
         if ($this->db->valid($res)) {
-            while ($tmp = $this->db->fetch_assoc($res)) {
-		        $exp[] = $tmp;
-			}
+            $exp = $this->db->fetch_assoc($res);
         }
-               
-        // Calculate points for slider values based on yrs exp
-        foreach ($exp as $index => $info) {
-        	
-        	// If the ideal value is greater than the
-        	// user's entered experience value, subtract 2
-        	// from the user's point count
-        	if ((int)$info['value'] < (int)$info['idealValue']) {
-	        	$points -= 2;
-        	}
-        	else {
-	        	$points += (int)$info['value'];
-        	}
         
+        /* Logic for rating: Applicant's total years of experience / HR manager's ideal years of experience * 100  */
+        
+        if ($exp['totalIdeal'] == 0) {
+	        
+	        $points = 100;
+	        
+        }
+        else {
+	        
+	        $points += ((($exp['totalValue'])/($exp['totalIdeal'])) * 100);
+	        
         }
                
         //total from options - radio
@@ -374,7 +370,7 @@ class JobManager {
             $points += (int)$tmp['value'];
         }
         
-        return $points;   
+        return round($points);   
     }
     /**
     * Method to re-publish a job. This is done via ajax request
