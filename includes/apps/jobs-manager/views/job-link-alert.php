@@ -21,7 +21,7 @@ if ($user->info['Job Credits'] == 0){
 }else if ($user->info['Job Credits'] > 0){
 	$title = "Activate Your Link";
 	$jobCreditsLine = "<strong>You have " . $user->info['Job Credits'] . " credits</strong>";
-	$buttonLink = "<a href=\"\" class=\"btn activate green\">Activate Link</br>Cost of 1 credit</a>";
+	$buttonLink = "<a href=\"\" class=\"btn activate green\" data-job=\"".$_GET["jobID"]."\">Activate Link</br>Cost of 1 credit</a>";
 } 
 
 
@@ -30,35 +30,66 @@ if ($user->info['Job Credits'] == 0) { $buyLink = "<a href=\"/buy-job-credits\">
 echo alert_box('<h2>Tips</h2><p>Job links are active for 60 days</p><p>Cut and paste this into your job posting on any site</p><p>Your job link will be available in the My Jobs page</p><p>To learn how to incorporate your job <a href="/how-it-works">Click here</a></p> '.$user->info['Job Credits'].' credits. ' . $buyLink, 3);
 ?>
 
+<!--options table--> 
 <div class="colASplit">
-	<table class="simpleTable">
-		<thead>
-			<tr>
-				<th><?php echo $title; ?></th>
-			<tr>		
-		</thead>
-		<tbody>
-			<tr>
-				<td><?php echo $jobCreditsLine; ?></td>
-			</tr>
-			<tr>
-				<td><div class="successAlert"></div>
-				<?php
-					echo $buttonLink;
-				?>
-				&nbsp;<strong>OR</strong>&nbsp; 
-				<a href="applications" class="btn ">Go to my jobs</a></td>
-			</tr>
-		</tbody>
-	</table>
+	<div class="optionsTable">
+		<table class="simpleTable">
+			<thead>
+				<tr>
+					<th><?php echo $title; ?></th>
+				<tr>		
+			</thead>
+			<tbody>
+				<tr>
+					<td><?php echo $jobCreditsLine; ?></td>
+				</tr>
+				<tr>
+					<td><div class="successAlert"></div>
+					<?php
+						echo $buttonLink;
+					?>
+					&nbsp;<strong>OR</strong>&nbsp; 
+					<a href="applications" class="btn ">Go to my jobs</a></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
 </div>
 
-<div id="confirm" style="display:none">
-<div class="popUp">
-<h2></h2>
-<p></p>
-<a class="btn" id="popUpOk">Ok</a>&nbsp;<a class="btn red" id="popUpNo">Cancel</a>
+<!--Link presentation table--> 
+<div class="colASplit">
+	<div class="activeTable" style="display: none;">
+		<table class="simpleTable">
+			<thead>
+				<tr>
+					<th colspan="3">Your Link is Active</th>
+				<tr>		
+			</thead>
+			<tbody>
+				<tr>
+					<td width="33%"></td>
+					<td width="34%"><a href="#" class="btn green">Your Link Is Active</a></td>
+					<td width="33%">Copy and paste this link into your external job posting</td>
+				</tr>
+				<tr>
+					<td colspan="3"><a href="#" class="btn grey"><?php echo $_SERVER['SERVER_NAME']."/apply/".$_GET['jobID']; ?></a></td>
+				</tr>
+				<tr>
+					<td colspan="3"><a href="applications" class="btn ">Go to my jobs</a></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
 </div>
+
+
+
+<div id="confirm" style="display:none">
+	<div class="popUp">
+		<h2></h2>
+		<p></p>
+		<a class="btn" id="popUpOk">Ok</a>&nbsp;<a class="btn red" id="popUpNo">Cancel</a>
+	</div>
 </div>
 
 
