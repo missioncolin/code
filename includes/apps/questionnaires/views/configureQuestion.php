@@ -333,7 +333,7 @@ if ($this instanceof Quipp) {
 	                    <div class="idealSlider" id="idealSlider_<?php echo $rowCount; ?>" data-count="<?php echo $rowCount; ?>" data-value="15"></div></div>
 	                    <a href="#" data-count="<?php echo $rowCount; ?>" class="removeSkillQ btn">x</a>
 	                    <?php if (isset($_GET['step']) && $_GET['step'] == 3){
-	                    		echo "<a href=\"#\" data-count=\""+$rowCount+"\" data-label=\"".$label."\" class=\"add btn blue\">Add Another Skill</a>";
+	                    		echo "<a href=\"#\" data-count=\""+($rowCount - 1)+"\" data-label=\"".$label."\" class=\"add btn blue\">Add Another Skill</a>";
 	                    	}
 	                    ?>
 	                    <input type="hidden" id="RQvalNUMBType" name="RQvalNUMBType" value="<?php echo $type; ?>" />

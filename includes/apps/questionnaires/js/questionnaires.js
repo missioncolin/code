@@ -1,9 +1,8 @@
 // Stores count of each question to tell 
 // total number of questions added per 'step'
 totalCountDD = new Array(1, 2, 3, 4, 5);
-totalCountDD.push(5);
 
-totalCountQ = new Array();
+totalCountQ = new Array(1, 2, 3, 4);
 totalCountQ.push(5);
 
 editCount = 0;
