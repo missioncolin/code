@@ -1,9 +1,8 @@
 // Stores count of each question to tell 
 // total number of questions added per 'step'
-totalCountDD = new Array();
-totalCountDD.push(1);
+totalCountDD = new Array(1, 2, 3, 4, 5);
 
-totalCountQ = new Array();
+totalCountQ = new Array(1, 2, 3, 4);
 totalCountQ.push(5);
 
 editCount = 0;
@@ -121,7 +120,7 @@ $('.add').live('click', function() {
     $label = $(this).data('label');
     totalCountQ.push($count);
     
-    $('<tr><td colspan="2"><div class="sliderText"><input size="75" type="text" name="RQvalALPHQuestions[]" id="RQvalALPHQuestion_' + $count + '" placeholder="Required Skill" value="" /></div><div class="experienceSlider"><label for="idealSlider">Ideal Years of Experience  </label><span id="idealValue_' + $count + '">15</span><input size="10" name="idealValues[]" type="hidden" id="hiddenIdealValue_' + $count + '" value=""/></br><div class="idealSlider" id="idealSlider_' + $count + '" data-count="' + $count + '" data-value="15"></div></div><a href="#" data-count="' + $count + '" class="removeSkillQ btn red">x</a></td></tr>').insertBefore($(this).closest('tr'));
+    $('<tr><td colspan="2"><div class="sliderText"><input size="75" type="text" name="RQvalALPHQuestions[]" id="RQvalALPHQuestion_' + $count + '" placeholder="Example: Data Entry" value="" /></div><div class="experienceSlider"><label for="idealSlider">Ideal Years of Experience  </label><span id="idealValue_' + $count + '">15</span><input size="10" name="idealValues[]" type="hidden" id="hiddenIdealValue_' + $count + '" value=""/></br><div class="idealSlider" id="idealSlider_' + $count + '" data-count="' + $count + '" data-value="15"></div></div><a href="#" data-count="' + $count + '" class="removeSkillQ btn red">x</a></td></tr>').insertBefore($(this).closest('tr'));
     
     /* Trigger the new slider */
     $("#idealSlider_" + $count).trigger('initIdealSlider'); 
@@ -225,6 +224,8 @@ $('.removeDropDown').live('click', function() {
 	$count = $(this).data('count');
 	console.log("Count: " + $count);
 
+	console.log("Total Count: " + totalCountDD);
+	
 	// If at first question, replace whatever is here with an option to create a new question
 	// otherwise, just stick the 'add question' to the previous 	
 	if (totalCountDD.length == 1) {
@@ -295,3 +296,41 @@ var confirmAction = function(title, message){
     $('.popUp p').html(message);
     $('#confirm').fadeIn();
 }
+
+//apply page
+var $activeVideo = 0;
+$('.nextbutton').click(function () {
+	
+	var $comingFrom = $(this).data('section');
+	
+	if ($comingFrom == 'questions') {
+		$(".userinfo").fadeOut();
+		$("#submissions").fadeOut(400, function() {
+			
+			if ($("#video1").is('*')) {
+				$("#video1").fadeIn();
+				$activeVideo = 1;
+			}
+		});
+		
+		$('.current').removeClass().next().addClass('current');
+		
+	} else if ($comingFrom == 'video') {
+		
+		$("#video"+$activeVideo).fadeOut(400, function() {
+			
+			$activeVideo++;
+			
+			if ($("#video"+$activeVideo).is('*')) {
+				$("#video"+$activeVideo).fadeIn();
+			} else {
+				$("#finalStep").fadeIn();
+				$('.current').removeClass().next().addClass('current');
+			}
+		});
+		
+	}
+	
+	
+	
+});

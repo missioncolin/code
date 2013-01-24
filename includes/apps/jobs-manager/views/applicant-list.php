@@ -412,7 +412,7 @@ $(function() {
 	
 			<tr id="newUser">
 				<td>
-					<h2><?php echo $j->getApplicantRating($a['itemID']); ?><br />
+					<h2><?php echo $j->getApplicantRating($a['itemID']); ?>%<br />
 						<a href="/applications-detail?application=<?php echo $a['itemID']; ?>">Details</a>
 					</h2>
 				</td>
