@@ -296,3 +296,41 @@ var confirmAction = function(title, message){
     $('.popUp p').html(message);
     $('#confirm').fadeIn();
 }
+
+//apply page
+var $activeVideo = 0;
+$('.nextbutton').click(function () {
+	
+	var $comingFrom = $(this).data('section');
+	
+	if ($comingFrom == 'questions') {
+		$(".userinfo").fadeOut();
+		$("#submissions").fadeOut(400, function() {
+			
+			if ($("#video1").is('*')) {
+				$("#video1").fadeIn();
+				$activeVideo = 1;
+			}
+		});
+		
+		$('.current').removeClass().next().addClass('current');
+		
+	} else if ($comingFrom == 'video') {
+		
+		$("#video"+$activeVideo).fadeOut(400, function() {
+			
+			$activeVideo++;
+			
+			if ($("#video"+$activeVideo).is('*')) {
+				$("#video"+$activeVideo).fadeIn();
+			} else {
+				$("#finalStep").fadeIn();
+				$('.current').removeClass().next().addClass('current');
+			}
+		});
+		
+	}
+	
+	
+	
+});

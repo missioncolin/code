@@ -29,6 +29,9 @@ if (time() < strtotime($datePosted) || $status == 'inactive') {
 } else {
     $q = new Questionnaire($db, $questionnaireID);
     $quipp->js['footer'][] = "/includes/apps/questionnaires/js/questionnaires.js";
+    
+    $videos = "";
+    $videoCount = 1;
 
     $MIME_TYPES = array(
         'image/jpeg'                    => 'jpg',
@@ -148,17 +151,88 @@ if (time() < strtotime($datePosted) || $status == 'inactive') {
 ?>
 
 <form id="job-form" method="post" action="<?php echo $_SERVER['REQUEST_URI']; ?>" enctype="multipart/form-data">
+    <div id="card" class="box userinfo">
+        <div class="heading">
+            <h2>Enter Your Information</h2>
+        </div>
+        <div class="cutout">
+            <div class="profilePic"><img src="<?php echo $profileImg;?>" alt="" /></div>
+        </div>
+        <!--<dl>
+            <dt>First Name</dt>
+            <dd><input type="text" id="First_Name" name="First_Name" class="full" placeholder="First Name" value="<?php echo $post["First_Name"]["value"];?>" required="required"/></dd>
+            
+            <dt>Last Name</dt>
+            <dd><input type="text" id="Last_Name" name="Last_Name" class="full" placeholder="Last Name" value="<?php echo $post["Last_Name"]["value"];?>" required="required"/></dd>
+
+            <dt>Email</dt>
+            <dd><input type="text" id="Email" name="Email" class="full" placeholder="Email Address" value="<?php echo $post["Email"]["value"];?>" required="required"/></dd>
+
+            <dt>Password</dt>
+            <dd><input type="password" id="password" name="password" class="half left bottom" placeholder="Password" <?php echo (!isset($_SESSION["userID"]) ? 'required="required"' : ''); ?>/></dd>
+            
+            <dt>Re-type</dt>
+            <dd><input type="password" id="confirmPassword" name="confirmPassword" class="half bottom" placeholder="Re-Type Password" <?php echo (!isset($_SESSION["userID"]) ? 'required="required"' : ''); ?>/></dd>
+
+            <dt>Website</dt>
+            <dd><input type="text" id="Website_or_Blog_URL" name="Website_or_Blog_URL" class="half left" placeholder="Website URL" value="<?php echo $post["Website_or_Blog_URL"]["value"];?>"/></dd>
+
+            <dt>Facebook</dt>
+            <dd><input type="text" id="Facebook_Username" name="Facebook_Username" class="half" placeholder="Facebook Username" value="<?php echo $post["Facebook_Username"]["value"];?>"/></dd>
+            
+            <dt>Twitter</dt>
+            <dd><input type="text" id="Twitter_Username" name="Twitter_Username" class="half left bottom" placeholder="Twitter Handle" value="<?php echo $post["Twitter_Username"]["value"];?>"/></dd>
+            
+            <dt>LinkedIn</dt>
+            <dd><input type="text" id="LinkedIn_Username" name="LinkedIn_Username" class="half bottom" placeholder="LinkedIn ID" value="<?php echo $post["LinkedIn_Username"]["value"];?>"/></dd>
+         </dl>-->
+        <dl>
+            <dt>First Name</dt>
+            <dd><input type="text" id="First_Name" name="First_Name" class="full" placeholder="First Name" value="" required="required"/></dd>
+            
+            <dt>Last Name</dt>
+            <dd><input type="text" id="Last_Name" name="Last_Name" class="full" placeholder="Last Name" value="" required="required"/></dd>
+
+            <dt>Email</dt>
+            <dd><input type="text" id="Email" name="Email" class="full" placeholder="Email Address" value="" required="required"/></dd>
+
+            <dt>Password</dt>
+            <dd><input type="password" id="password" name="password" class="half left bottom" placeholder="Password" /></dd>
+            
+            <dt>Re-type</dt>
+            <dd><input type="password" id="confirmPassword" name="confirmPassword" class="half bottom" placeholder="Re-Type Password" /></dd>
+
+            <dt>Website</dt>
+            <dd><input type="text" id="Website_or_Blog_URL" name="Website_or_Blog_URL" class="half left" placeholder="Website URL" value=""/></dd>
+
+            <dt>Facebook</dt>
+            <dd><input type="text" id="Facebook_Username" name="Facebook_Username" class="half" placeholder="Facebook Username" value=""/></dd>
+            
+            <dt>Twitter</dt>
+            <dd><input type="text" id="Twitter_Username" name="Twitter_Username" class="half left bottom" placeholder="Twitter Handle" value=""/></dd>
+            
+            <dt>LinkedIn</dt>
+            <dd><input type="text" id="LinkedIn_Username" name="LinkedIn_Username" class="half bottom" placeholder="LinkedIn ID" value=""/></dd>
+         </dl>
+    </div>
+    
+    <div id="submissions">
     <table class="simpleTable">
     <tr><th><?php echo $title; ?></th></tr>
     <?php
 
     if (is_array($q->questions) && !empty($q->questions)) {
         foreach ($q->questions as $questionID => $question) {
-            echo "<tr>";
-            echo "<td>";
-            echo $question['label'];
-            echo "</td>";
-            echo "</tr>";
+        	
+        	if ($question['type'] != 4) { //If question isn't a video question
+	        	
+		        echo "<tr>";
+	            echo "<td>";
+	            echo $question['label'];
+	            echo "</td>";
+	            echo "</tr>";	
+        	}
+            
 
             echo "<tr>";
             echo "<td>";
@@ -199,17 +273,18 @@ if (time() < strtotime($datePosted) || $status == 'inactive') {
                 break;
 
                 case 4: //video
-
+                	
+                	$videos .= "<div class='video-q-holder' id='video".$videoCount."' data-vidnumber='".$videoCount."'>";
+                	$videos .= "<label class='video-label'>".$question['label']."</label>";
+                	$videos .= "<div class='video-flash-holder'>";
+                	
                     $video   = $db->return_specific_item('', 'tblVideos', 'filename', 0, "jobID='" . (int) $_GET['job'] . "' AND questionID='" . $questionID . "' AND userID='" . (int) $_SESSION['userID'] . "' AND sysOpen='1' AND sysActive='1'") ;
                     $videoID = $db->return_specific_item('', 'tblVideos', 'itemID', 0, "jobID='" . (int) $_GET['job'] . "' AND questionID='" . $questionID . "' AND userID='" . (int) $_SESSION['userID'] . "' AND sysOpen='1'") ;
 
                     if ($video !== 0) {
 
-                    ?>
+                       $videos .= '<embed src="/includes/apps/ams-media/flx/captureModule.swf" quality="high" bgcolor="#000000" width="550" height="400" name="captureModule" FlashVars="reviewFile=<?php echo $video; ?>" align="middle" allowScriptAccess="sameDomain" allowFullScreen="true" type="application/x-shockwave-flash" pluginspage="http://www.adobe.com/go/getflash" />';
 
-                        <embed src="/includes/apps/ams-media/flx/captureModule.swf" quality="high" bgcolor="#000000" width="550" height="400" name="captureModule" FlashVars="reviewFile=<?php echo $video; ?>" align="middle" allowScriptAccess="sameDomain" allowFullScreen="true" type="application/x-shockwave-flash" pluginspage="http://www.adobe.com/go/getflash" />
-
-                    <?php
                     } else {
 
                         if ($videoID == 0) {
@@ -220,11 +295,15 @@ if (time() < strtotime($datePosted) || $status == 'inactive') {
                             $db->query($qry);
                             $videoID = $db->insert_id();
                         }
-                        echo '<embed src="/includes/apps/ams-media/flx/captureModule.swf" quality="high" bgcolor="#000000" width="550" height="400" name="captureModule" FlashVars="itemID=' . $videoID . '&securityKey=' . md5("iLikeSalt" . $videoID) . '" align="middle" allowScriptAccess="sameDomain" allowFullScreen="false" type="application/x-shockwave-flash" pluginspage="http://www.adobe.com/go/getflash" />';
+                        $videos .= '<embed src="/includes/apps/ams-media/flx/captureModule.swf" quality="high" bgcolor="#000000" width="550" height="400" name="captureModule" FlashVars="itemID=' . $videoID . '&securityKey=' . md5("iLikeSalt" . $videoID) . '" align="middle" allowScriptAccess="sameDomain" allowFullScreen="false" type="application/x-shockwave-flash" pluginspage="http://www.adobe.com/go/getflash" />';
 
                     }
 
-                    echo '<input type="hidden" name="' . $questionID . '" value="' . $videoID . '" />';
+                    $videos .= '</div>';
+                    $videos .= '<input type="hidden" name="' . $questionID . '" value="' . $videoID . '" />';
+                    $videos .= '<input type="button" class="btn green nextbutton" value="Next" data-section="video" />';
+                    $videos .= "</div>";
+                    $videoCount++;
 
                 break;
                 case 5: //file
@@ -243,7 +322,15 @@ if (time() < strtotime($datePosted) || $status == 'inactive') {
 
 ?>
     </table>
+    <input type="button" class="btn green nextbutton" value="Next" data-section="questions" />
+    </div>
+    
+    <?php
+    echo($videos);
+    ?>
+    <div id="finalStep">
     <input type="submit" class="btn green" value="Submit" />
+    </div>
 </form>
 <?php
 }
