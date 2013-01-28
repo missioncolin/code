@@ -17,7 +17,8 @@ if (time() < strtotime($datePosted) || $status == 'inactive') {
 } elseif (time() > strtotime($dateExpires)) {
     $quipp->js['onload'] .= 'alertBox("fail", "We\'re sorry, this job posting has expired");';
 
-} elseif ($j->hasApplied($_GET['job'])) {
+} /*
+elseif ($j->hasApplied($_GET['job'])) {
     
     if (isset($_GET['success'])) {
         $quipp->js['onload'] .= 'alertBox("success", "Thank you for applying. Your application has been received.");';
@@ -26,7 +27,8 @@ if (time() < strtotime($datePosted) || $status == 'inactive') {
     }
     include __DIR__ . '/renderAnswers.php';
 
-} else {
+}
+*/ else {
     $q = new Questionnaire($db, $questionnaireID);
     $quipp->js['footer'][] = "/includes/apps/questionnaires/js/questionnaires.js";
     
@@ -57,6 +59,8 @@ if (time() < strtotime($datePosted) || $status == 'inactive') {
 	    	foreach ($_FILES as $f) {
 		    	if ($f['error'] == 0) {
 			    	
+			    	print_r($f);
+			    	
 			    	if (!is_dir(dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications/' . (int) $_GET['job'] . '/' . (int) $_SESSION['userID'])) {
                         mkdir(dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications/' . (int) $_GET['job']);
                         mkdir(dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications/' . (int) $_GET['job'] . '/' . (int) $_SESSION['userID']);
@@ -67,11 +71,10 @@ if (time() < strtotime($datePosted) || $status == 'inactive') {
                         $error = $file;
                     } else {
 
-                        $qry = sprintf("INSERT INTO tblAnswers (applicationID, jobID, userID, questionID, optionID, value, sysDateInserted) VALUES ('%d', '%d', '%d', '%d', '%d', '%s', '%s') ON DUPLICATE KEY UPDATE value='%s', sysDateInserted='%s'",
+                        $qry = sprintf("INSERT INTO tblAnswers (applicationID, jobID, userID, questionID, optionID, value, sysDateInserted) VALUES ('%d', '%d', '%d', '0', '%d', '%s', '%s') ON DUPLICATE KEY UPDATE value='%s', sysDateInserted='%s'",
                             $applicationID,
                             (int) $_GET['job'],
                             (int) $_SESSION['userID'],
-                            (int) '0',
                             '',
                             $file,
                             date('Y-m-d H:i:s'),
@@ -79,11 +82,10 @@ if (time() < strtotime($datePosted) || $status == 'inactive') {
                             date('Y-m-d H:i:s'));
                         $db->query($qry);
                     }
-                    
-		    	}
+                }    
 		    	
 		    	else {
-			    	echo "Error: ".$f['Name']." - ".$f['error']."</br>";
+			    	echo "Error: ".$f['name']." - ".$f['error']."</br>";
 		    	}
 	    	}
     	}
@@ -232,12 +234,29 @@ if (time() < strtotime($datePosted) || $status == 'inactive') {
 
             <dt>Email</dt>
             <dd><input type="text" id="Email" name="Email" class="full" placeholder="Email Address" value="" required="required"/></dd>
+            
+            <dt>Phone</dt>
+            <dd><input type="text" id="Phone_Number" name="Phone_Number" class="full" placeholder="555-555-555" value="" required="required"/></dd>
+            
+            <dt>Address</dt>
+            <dd><input type="text" id="Address" name="Address" class="full" placeholder="Address" value="" required="required"/></dd>
+            
+            <dt>City</dt>
+            <dd><input type="text" id="City" name="City" class="full" placeholder="City" value="" required="required"/></dd>
+            
+            <dt>Province</dt>
+            <dd><input type="text" id="Province" name="Province" class="full" placeholder="Province" value="" required="required"/></dd>
+            
+            <dt>Postal Code</dt>
+            <dd><input type="text" id="Postal_Code" name="Postal_Code" class="full" placeholder="Postal_Code" value="" required="required"/></dd>
 
+<!--
             <dt>Password</dt>
             <dd><input type="password" id="password" name="password" class="half left bottom" placeholder="Password" /></dd>
             
             <dt>Re-type</dt>
             <dd><input type="password" id="confirmPassword" name="confirmPassword" class="half bottom" placeholder="Re-Type Password" /></dd>
+-->
 
             <dt>Website</dt>
             <dd><input type="text" id="Website_or_Blog_URL" name="Website_or_Blog_URL" class="half left" placeholder="Website URL" value=""/></dd>
