@@ -136,6 +136,43 @@ if (time() < strtotime($datePosted) || $status == 'inactive') {
     );
 
     if (!empty($_POST)) {
+    	
+    	if (isset($_FILES['resume']) || isset($_FILES['coverLetter'])) {
+	    	
+	    	foreach ($_FILES as $f) {
+		    	if ($f['error'] == 0) {
+			    	
+			    	if (!is_dir(dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications/' . (int) $_GET['job'] . '/' . (int) $_SESSION['userID'])) {
+                        mkdir(dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications/' . (int) $_GET['job']);
+                        mkdir(dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications/' . (int) $_GET['job'] . '/' . (int) $_SESSION['userID']);
+                    }
+
+                    $file = upload_file(0, dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications/' . (int) $_GET['job'] . '/' . (int) $_SESSION['userID'] . '/', $MIME_TYPES, false, false, false, base_convert(0, 10, 36));
+                    if (substr($file, 0, 8) == '<strong>') {
+                        $error = $file;
+                    } else {
+
+                        $qry = sprintf("INSERT INTO tblAnswers (applicationID, jobID, userID, questionID, optionID, value, sysDateInserted) VALUES ('%d', '%d', '%d', '%d', '%d', '%s', '%s') ON DUPLICATE KEY UPDATE value='%s', sysDateInserted='%s'",
+                            $applicationID,
+                            (int) $_GET['job'],
+                            (int) $_SESSION['userID'],
+                            (int) '0',
+                            '',
+                            $file,
+                            date('Y-m-d H:i:s'),
+                            $file,
+                            date('Y-m-d H:i:s'));
+                        $db->query($qry);
+                    }
+                    
+		    	}
+		    	
+		    	else {
+			    	echo "Error: ".$f['Name']." - ".$f['error']."</br>";
+		    	}
+	    	}
+    	}
+    	
         if (is_array($q->questions) && !empty($q->questions)) {
 
             $qry = sprintf("INSERT INTO tblApplications (jobID, userID, sysDateInserted) VALUES ('%d', '%d', NOW())",
@@ -148,7 +185,7 @@ if (time() < strtotime($datePosted) || $status == 'inactive') {
 
                 // radios
                 if ($question['type'] == '1') {
-
+	                
                     $qry = sprintf("INSERT INTO tblAnswers (applicationID, jobID, userID, questionID, optionID, value, sysDateInserted) VALUES ('%d', '%d', '%d', '%d', '%d', '%s', '%s') ON DUPLICATE KEY UPDATE optionID='%s', sysDateInserted='%s'",
                         $applicationID,
                         (int) $_GET['job'],
@@ -403,13 +440,20 @@ if (time() < strtotime($datePosted) || $status == 'inactive') {
                 break;
 
             }
-            echo "</td>";
-            echo "</tr>";
-
         }
+        
+                    
+        /* Allow users to upload their resumes/CVs */
+        echo "<label for='coverLetter'>Upload Cover Letter: </label><input type='file' name='coverLetter' id='coverLetter'></br>";
+        echo "<label for='resume'>Upload Resume: </label><input type='file' name='resume' id='resume'></br>";
+        echo "</td>";
+        echo "</tr>";
+            
     } else {
         $quipp->js['onload'] .= 'alertBox("fail", "This application has no questions");';
     }
+    
+    
 
 ?>
     </table>
