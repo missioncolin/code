@@ -260,7 +260,7 @@ class JobManager {
     }
         
     /**
-     * Return the total number of jobs
+     * Return the total number of applicants
      * @return int
      */
     public function totalApplicants($jobID) {
