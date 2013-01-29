@@ -8,31 +8,23 @@ $(function () {
         var $this = $(this);
         var react = $(this);
         var linkText = document.createTextNode(location.host+"/apply/"+$jobID);
-        confirmAction("Publish Job?", "Publishing this job will cost one (1) credit");
-        $('.popUp #popUpNo').on('click', clearPopUp);
-        $('.popUp #popUpOk').on('click', function(){
-               var parTD = react.parent();
-               var parTR = react.parents('tr').index();     
+               
+               
+        var parTD = react.parent();
+        var parTR = react.parents('tr').index();     
+		
 		$.post('/reactivate-job', {
 			job: $jobID
 		}, function (data) {
 			  if (data){
-
-				$('.alert').removeClass('fail').addClass('success  ').html('<span></span>Job Re-published Successfully. Your account was debited one (1) credit');
 
 				//show table
 				$(".optionsTable").fadeOut();
 				$(".optionsTable").remove();
 				$(".activeTable").fadeIn();
 			}else{
-				$('.alert').removeClass('success').addClass('fail').html('<span></span>Job not Re-published. '+data);
-			}
-
-			clearPopUp();
-				
+			}				
 		}); 
-     
-       });
     });
     
     var clearPopUp = function(){
