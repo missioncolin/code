@@ -18,8 +18,8 @@ $(function () {
 		}, function (data) {
 			  if (data){
 
-				$('.alert').removeClass('fail').addClass('success  ').html('<span></span>Job Re-published Successfully. Your account was debited one (1) credit');
-
+				$('.alert').removeClass('fail').addClass('success  ').html('<span></span>Job Re-published Successfully. Your account was debited one (1) credit</br>You may access this job at <strong>' + linkText + '</strong>');
+				
 				//show table
 				$(".optionsTable").fadeOut();
 				$(".optionsTable").remove();
