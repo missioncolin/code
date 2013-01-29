@@ -85,7 +85,7 @@ if (isset($_GET['req']) && preg_match('%^reactivate[\s\+](\d+)$%', $_GET['req'],
 <?php
                 }else{
                 	//set button verbiage
-               	 if(ucfirst($job['sysStatus']) == 'Active'){ $btnLabel = "Live - Un-Publish"; }else{ $btnLabel = "Not Live - Publish";}              
+               	 if(ucfirst($job['sysStatus']) == 'Active'){ $btnLabel = "Live - Un-Publish"; }else{ $btnLabel = "Not Live - Activate Link";}              
 ?>
             		<td>
 <?php 
@@ -105,7 +105,7 @@ if (isset($_GET['req']) && preg_match('%^reactivate[\s\+](\d+)$%', $_GET['req'],
 		       		$link = ($user->info['Job Credits'] > 0) ? "" : "/buy-job-credits?req=activate+{$jobID}";
 		       		//$color = ($job['sysStatus'] == 'active') ? 'black' : 'grey';
 		       		//$class = ($user->info['Job Credits'] > 0) ? "green reactivate" : "red buy";
-		       		print "<a href=\"".$link."\" data-job=\"".$jobID."\" data-expiry=\"".$job["dateExpires"]."\" class=\"btn activate grey\">".$btnLabel."</a>";	
+		       		print "<a href=\"".$link."\" data-job=\"".$jobID."\" data-expiry=\"".$job["dateExpires"]."\" class=\"btn activate green\">".$btnLabel."</a>";	
 
 		       		//print "<a href=\"".$link."\" data-job=\"".$jobID."\" class=\"btn ".$class."\">Activate</a>";
 		       	

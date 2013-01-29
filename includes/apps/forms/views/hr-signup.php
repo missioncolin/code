@@ -9,7 +9,8 @@ if ($this INSTANCEOF Quipp){
     $meta = array(
         array("fieldLabel" => "Email", "validationCode" => "RQvalMAIL"),
         array("fieldLabel" => "Job Credits", "validationCode" => ""),
-        array("fieldLabel" => "password", "validationCode" => "RQvalALPH")
+        array("fieldLabel" => "password", "validationCode" => "RQvalALPH"),
+	    array("fieldLabel" => "confirm_password", "validationCode" => "RQvalALPH")
     );
         
     $post   = array();
@@ -34,7 +35,7 @@ if ($this INSTANCEOF Quipp){
         
         $validate = array();
         foreach($post as $field => $nfo){
-            
+           
             $validate[$nfo["code"].$field] = "";
             if (isset($_POST[$field])){
                 $validate[$nfo["code"].$field] = $_POST[$field];
@@ -45,10 +46,17 @@ if ($this INSTANCEOF Quipp){
             }
         }
         
-        
         if (validate_form($validate)){
-            $valid = true;
-            unset($post[2]); //don't want to pass this to createUserAccount
+            
+            if ($post['password']['value'] === $post['confirm_password']['value']) {
+	            $valid = true;
+	            unset($post[2]); //don't want to pass this to createUserAccount
+            }
+            else {
+	            $message = "Your passwords do not match.";
+            }
+
+            
         }
 
         if ($valid == true){
@@ -86,6 +94,10 @@ if ($this INSTANCEOF Quipp){
 	        <div class="inputs">
 	        <label for="password">Password</label>
 	        <input type="password" id="password" name="password" class="full" required="required"/>
+	        </div>
+	        <div class="inputs">
+	        <label for="confirm_password">Confirm </br>Password</label>
+	        <input type="password" id="confirm_password" name="confirm_password" class="full" required="required"/>
 	        </div>
 	        <div>
 	            <div><input type="submit" value="Go" class="btn" name="sbmt-hr-signup" /></div>

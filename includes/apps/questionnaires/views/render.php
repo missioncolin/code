@@ -3,10 +3,93 @@
 global $quipp;
 
 require_once dirname(dirname(__DIR__)) . '/jobs-manager/JobManager.php';
+require_once dirname(dirname(__DIR__)) . '/job-info/JobInfo.php';
 require_once dirname(__DIR__) . '/Questionnaire.php';
 
-if (!isset($j) || !$j INSTANCEOF JobManager){
-    $j = new JobManager($db, $_SESSION['userID']);
+
+
+if (!isset($f) || !$f INSTANCEOF Forms){
+    $f = new Forms($db);
+}
+
+/*
+CREATE A USERRRR -----------------
+*/ 
+
+if(isset($_POST) && !empty($_POST)){  
+    //get values from form 
+    
+    $firstName 		= 	str_replace("'", "", $_POST['First_Name']);
+    $lastName 		= 	str_replace("'", "", $_POST['Last_Name']);
+    $address 		= 	str_replace("'", "", $_POST['Address']);
+    $city 		    = 	str_replace("'", "", $_POST['City']);
+    $postalCode     = 	str_replace("'", "", $_POST['Postal_Code']);
+    $phone 		    = 	str_replace("'", "", $_POST['Phone']);
+    $email  		= 	str_replace("'", "", $_POST['Email']);
+    $confirmEmail 	= 	str_replace("'", "", $_POST['Confirm_Email']);
+    $facebook 		= 	str_replace("'", "", $_POST['Facebook_Username']);
+    $twitter 		= 	str_replace("'", "", $_POST['Twitter_Username']);
+    $linkedIn 		= 	str_replace("'", "", $_POST['LinkedIn_Username']);
+
+
+    $meta = array(
+    	array("fieldLabel" => "First Name", 			"validationCode" => "RQvalALPH"),
+    	array("fieldLabel" => "Last Name", 				"validationCode" => "RQvalALPH"),
+    	array("fieldLabel" => "Company Address", 		"validationCode" => "RQvalALPH"),
+    	array("fieldLabel" => "Company City", 			"validationCode" => "RQvalALPH"),
+    	array("fieldLabel" => "Company Postal Code",	"validationCode" => "RQvalALPH"),
+    	array("fieldLabel" => "Phone Number", 			"validationCode" => "RQvalPHON"),
+    	array("fieldLabel" => "Email", 					"validationCode" => "RQvalMAIL"),
+    	array("fieldLabel" => "Facebook Username", 		"validationCode" => "OPvalALPH"),
+    	array("fieldLabel" => "Twitter Username", 		"validationCode" => "OPvalALPH"),
+    	array("fieldLabel" => "LinkedIn Username", 		"validationCode" => "OPvalALPH")
+
+    );
+    
+    $post   = array();
+    foreach($meta as $fields){
+    	$post[str_replace(" ","_",$fields["fieldLabel"])] = array("code" => $fields["validationCode"], "value" => "", "label" => $fields["fieldLabel"]);
+    }
+    if (isset($_POST["job-form"])){
+    
+        
+        $submitted = true;
+        $valid = false;
+        
+        $validate = array();
+        foreach($post as $field => $nfo){
+            
+            $validate[$nfo["code"].$field] = "";
+            if (isset($_POST[$field])){
+                $validate[$nfo["code"].$field] = $_POST[$field];
+                $post[$field]["value"] = $_POST[$field];
+            }
+            //else if ($field == "Job_Credits"){
+            //    $post[$field]["value"] = "2";
+            //}
+        }
+        
+        
+        if (validate_form($validate)){
+            $valid = true;
+            unset($post[2]); //don't want to pass this to createUserAccount
+        }
+
+        if ($valid == true){
+            $message = "";
+
+            if (0 === ($userID = $frms->createUserAccount($post, NULL, "applicants"))){
+                $valid = false;
+            }
+        } 
+    }
+ }
+/*
+*********************************
+*/
+
+if (!isset($j) || !$j INSTANCEOF JobInfo){
+    $j = new JobInfo($db);
 }
 
 list($title, $link, $dateExpires, $datePosted, $questionnaireID, $status, $companyID) = $j->getJob($_GET['job']);
@@ -17,6 +100,8 @@ if (time() < strtotime($datePosted) || $status == 'inactive') {
 } elseif (time() > strtotime($dateExpires)) {
     $quipp->js['onload'] .= 'alertBox("fail", "We\'re sorry, this job posting has expired");';
 
+/* this doesn't matter any more because they're creating a new account every time. 
+
 } elseif ($j->hasApplied($_GET['job'])) {
     
     if (isset($_GET['success'])) {
@@ -25,7 +110,7 @@ if (time() < strtotime($datePosted) || $status == 'inactive') {
         $quipp->js['onload'] .= 'alertBox("fail", "You have already applied");';
     }
     include __DIR__ . '/renderAnswers.php';
-
+*/
 } else {
     $q = new Questionnaire($db, $questionnaireID);
     $quipp->js['footer'][] = "/includes/apps/questionnaires/js/questionnaires.js";
@@ -51,6 +136,43 @@ if (time() < strtotime($datePosted) || $status == 'inactive') {
     );
 
     if (!empty($_POST)) {
+    	
+    	if (isset($_FILES['resume']) || isset($_FILES['coverLetter'])) {
+	    	
+	    	foreach ($_FILES as $f) {
+		    	if ($f['error'] == 0) {
+			    	
+			    	if (!is_dir(dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications/' . (int) $_GET['job'] . '/' . (int) $_SESSION['userID'])) {
+                        mkdir(dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications/' . (int) $_GET['job']);
+                        mkdir(dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications/' . (int) $_GET['job'] . '/' . (int) $_SESSION['userID']);
+                    }
+
+                    $file = upload_file(0, dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications/' . (int) $_GET['job'] . '/' . (int) $_SESSION['userID'] . '/', $MIME_TYPES, false, false, false, base_convert(0, 10, 36));
+                    if (substr($file, 0, 8) == '<strong>') {
+                        $error = $file;
+                    } else {
+
+                        $qry = sprintf("INSERT INTO tblAnswers (applicationID, jobID, userID, questionID, optionID, value, sysDateInserted) VALUES ('%d', '%d', '%d', '%d', '%d', '%s', '%s') ON DUPLICATE KEY UPDATE value='%s', sysDateInserted='%s'",
+                            $applicationID,
+                            (int) $_GET['job'],
+                            (int) $_SESSION['userID'],
+                            (int) '0',
+                            '',
+                            $file,
+                            date('Y-m-d H:i:s'),
+                            $file,
+                            date('Y-m-d H:i:s'));
+                        $db->query($qry);
+                    }
+                    
+		    	}
+		    	
+		    	else {
+			    	echo "Error: ".$f['Name']." - ".$f['error']."</br>";
+		    	}
+	    	}
+    	}
+    	
         if (is_array($q->questions) && !empty($q->questions)) {
 
             $qry = sprintf("INSERT INTO tblApplications (jobID, userID, sysDateInserted) VALUES ('%d', '%d', NOW())",
@@ -63,7 +185,7 @@ if (time() < strtotime($datePosted) || $status == 'inactive') {
 
                 // radios
                 if ($question['type'] == '1') {
-
+	                
                     $qry = sprintf("INSERT INTO tblAnswers (applicationID, jobID, userID, questionID, optionID, value, sysDateInserted) VALUES ('%d', '%d', '%d', '%d', '%d', '%s', '%s') ON DUPLICATE KEY UPDATE optionID='%s', sysDateInserted='%s'",
                         $applicationID,
                         (int) $_GET['job'],
@@ -193,17 +315,23 @@ if (time() < strtotime($datePosted) || $status == 'inactive') {
             <dt>Last Name</dt>
             <dd><input type="text" id="Last_Name" name="Last_Name" class="full" placeholder="Last Name" value="" required="required"/></dd>
 
+            <dt>Address</dt>
+            <dd><input type="text" id="Address" name="Address" class="full" placeholder="Address" value="" required="required"/></dd>
+            
+            <dt>City</dt>
+            <dd><input type="text" id="City" name="City" class="full" placeholder="City" value="" required="required"/></dd>
+
+            <dt>Postal Code</dt>
+            <dd><input type="text" id="Postal_Code" name="Postal_Code" class="full" placeholder="Postal Code" value="" required="required"/></dd>
+            
+            <dt>Phone</dt>
+            <dd><input type="text" id="Phone" name="Phone" class="full" placeholder="Phone" value="" required="required"/></dd>
+
             <dt>Email</dt>
             <dd><input type="text" id="Email" name="Email" class="full" placeholder="Email Address" value="" required="required"/></dd>
 
-            <dt>Password</dt>
-            <dd><input type="password" id="password" name="password" class="half left bottom" placeholder="Password" /></dd>
-            
-            <dt>Re-type</dt>
-            <dd><input type="password" id="confirmPassword" name="confirmPassword" class="half bottom" placeholder="Re-Type Password" /></dd>
-
-            <dt>Website</dt>
-            <dd><input type="text" id="Website_or_Blog_URL" name="Website_or_Blog_URL" class="half left" placeholder="Website URL" value=""/></dd>
+            <dt>Confirm</dt>
+            <dd><input type="text" id="Confirm_Email" name="Confirm_Email" class="full" placeholder="Confirm Email" value="" required="required"/></dd>
 
             <dt>Facebook</dt>
             <dd><input type="text" id="Facebook_Username" name="Facebook_Username" class="half" placeholder="Facebook Username" value=""/></dd>
@@ -312,13 +440,20 @@ if (time() < strtotime($datePosted) || $status == 'inactive') {
                 break;
 
             }
-            echo "</td>";
-            echo "</tr>";
-
         }
+        
+                    
+        /* Allow users to upload their resumes/CVs */
+        echo "<label for='coverLetter'>Upload Cover Letter: </label><input type='file' name='coverLetter' id='coverLetter'></br>";
+        echo "<label for='resume'>Upload Resume: </label><input type='file' name='resume' id='resume'></br>";
+        echo "</td>";
+        echo "</tr>";
+            
     } else {
         $quipp->js['onload'] .= 'alertBox("fail", "This application has no questions");';
     }
+    
+    
 
 ?>
     </table>
@@ -328,9 +463,10 @@ if (time() < strtotime($datePosted) || $status == 'inactive') {
     <?php
     echo($videos);
     ?>
-    <div id="finalStep">
-    <input type="submit" class="btn green" value="Submit" />
-    </div>
+  <!--  <div id="finalStep">
+    	<input type="submit" class="btn green" value="Submit" />
+    </div>-->
+    <input type="submit">
 </form>
 <?php
 }
