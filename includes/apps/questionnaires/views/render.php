@@ -463,10 +463,9 @@ if (time() < strtotime($datePosted) || $status == 'inactive') {
     <?php
     echo($videos);
     ?>
-  <!--  <div id="finalStep">
+   <div id="finalStep">
     	<input type="submit" class="btn green" value="Submit" />
-    </div>-->
-    <input type="submit">
+    </div>
 </form>
 <?php
 }
