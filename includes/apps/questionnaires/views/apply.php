@@ -1,12 +1,19 @@
 <?php
+
 global $user, $quipp;
-require_once dirname(dirname(__DIR__)) . '/jobs-manager/JobManager.php';
+//require_once dirname(dirname(__DIR__)) . '/jobs-manager/JobManager.php';
+require_once dirname(dirname(__DIR__)) . '/job-info/JobInfo.php';
+require_once dirname(dirname(__DIR__)) . '/forms/Forms.php';
 require_once dirname(__DIR__) . '/Questionnaire.php';
 
 $post   = array();
 
-if (!isset($j) || !$j INSTANCEOF JobManager){
-    $j = new JobManager($db, $_SESSION['userID']);
+if (!isset($j) || !$j INSTANCEOF JobInfo){
+    $j = new JobInfo($db);
+}
+
+if (!isset($f) || !$f INSTANCEOF Forms){
+    $f = new Forms($db);
 }
 
 list($title, $link, $dateExpires, $datePosted, $questionnaireID, $status, $companyID) = $j->getJob($_GET['job']);
@@ -27,7 +34,7 @@ if (time() < strtotime($datePosted) || $status == 'inactive') {
             $provList[$row["itemID"]] = trim($row["provName"]);
         }
     }
-    
+    /*
     $cmpnyImg   = $user->get_meta('Company Logo', $companyID);
     $profileImg = (!empty($cmpnyImg)) ? "/uploads/profiles/".$companyID."/".$cmpnyImg : "http://www.gravatar.com/avatar/305b241d5a8fab92c5f2984f51c155ba?d=http%3A%2F%2Flocalhost%2Fthemes%2FIntervue%2Fimg%2FprofilePicExample.jpg&s=126";
     
@@ -39,6 +46,11 @@ if (time() < strtotime($datePosted) || $status == 'inactive') {
     $twitter    = $user->get_meta('Twitter Username', $companyID);
     $founded    = $user->get_meta('Year Founded', $companyID);
     $size       = $user->get_meta('Company Size', $companyID);
+    */
+
+}
+    
+    
 ?>
 
 <ul id="steps">
@@ -51,5 +63,3 @@ if (time() < strtotime($datePosted) || $status == 'inactive') {
 <section id="applicantProfile" class="apply">
         <?php include __DIR__ . '/render.php'; ?>
 </section>
-<?php
-}

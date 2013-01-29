@@ -174,7 +174,8 @@ if ($this instanceof Quipp) {
 		}
 
 		if ($_GET['editStep'] == 3) {
-			
+		
+        	echo alert_box("<strong>Success!</strong> Your job has been edited!", 1);
 			// Unseralize array passed with all questions
 			$serializedEdits = $_REQUEST["editedQuestions"]; 
 			$editedQuestions = unserialize(stripslashes($serializedEdits));  	

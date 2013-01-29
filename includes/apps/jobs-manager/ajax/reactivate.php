@@ -7,10 +7,9 @@ require dirname(dirname(__DIR__)) . '/credits/Credits.php';
 $j = new JobManager($db, $_SESSION['userID']);
 $jobID = $_REQUEST['job'];
 
-log("try it");
+
 if ($j->canEdit($jobID)) {
     echo $j->reactivate($jobID, $user);    
-    log("reactivate");
-} else {
+ else {
     header('HTTP/1.0 401 Unauthorized');
 }

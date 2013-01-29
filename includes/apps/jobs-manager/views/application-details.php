@@ -47,6 +47,7 @@ if ($currentID !== false) {
 
 }
 
+
 $quipp->js['footer'][] = "/includes/apps/jobs-manager/js/jobs-manager.js";
 
 ?>
@@ -55,6 +56,18 @@ $quipp->js['footer'][] = "/includes/apps/jobs-manager/js/jobs-manager.js";
     
     <?php
         $applicants = $j->getApplicants($application['jobID']);
+
+		//Get user grade
+		
+		if ($application['grade'] == "recommend"){
+			$recommendColour = "green";
+			$averageColour = "black";
+		}else if ($application['grade'] == "average"){
+			$recommendColour = "black";
+			$averageColour = "yellow";
+		}
+
+
  /*
        
         $keys    = array_keys($applicants);
@@ -129,8 +142,8 @@ $quipp->js['footer'][] = "/includes/apps/jobs-manager/js/jobs-manager.js";
             </dd>
         </dl>
         <div id="grade">
-            <a href="#" data-application="<?php echo $_GET['application']; ?>" data-grade="recommend" class="grade btn green">Top Candidate</a>
-            <a href="#" data-application="<?php echo $_GET['application']; ?>" data-grade="average" class="grade btn blue">Has Potential</a>
+            <a href="#" data-application="<?php echo $_GET['application']; ?>" data-grade="recommend" class="grade btn <?php echo $recommendColour; ?>">Top Candidate</a>
+            <a href="#" data-application="<?php echo $_GET['application']; ?>" data-grade="average" class="grade btn <?php echo $averageColour; ?>">Has Potential</a>
         </div>	
     </div>
   
