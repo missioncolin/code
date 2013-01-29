@@ -68,9 +68,6 @@ $quipp->js['footer'][] = "/includes/apps/jobs-manager/js/jobs-manager.js";
 		}
 
 
-
-
-
  /*
        
         $keys    = array_keys($applicants);
