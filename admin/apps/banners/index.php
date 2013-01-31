@@ -33,7 +33,7 @@ $fields[] = array(
 	'dbColName'  => "title",
 	'tooltip'   => "The part that appears in large text",
 	'writeOnce'  => false,
-	'widgetHTML' => "<input style=\"width:300px;\" type=\"text\" class=\"uniform\" id=\"FIELD_ID\" name=\"FIELD_ID\" value=\"FIELD_VALUE\" />",
+	'widgetHTML' => "<input style=\"width:300px;\" type=\"text\" id=\"FIELD_ID\" name=\"FIELD_ID\" value=\"FIELD_VALUE\" />",
 	'valCode'   => "RQvalALPH",
 	'dbValue'   => false,
 	'stripTags'  => true
@@ -44,7 +44,7 @@ $fields[] = array(
 	'dbColName'  => "body_text",
 	'tooltip'   => "The blurb that appears under the title",
 	'writeOnce'  => false,
-	'widgetHTML' => "<textarea style=\"width:400px; height:100px;\" type=\"text\" class=\"uniform\" id=\"FIELD_ID\" name=\"FIELD_ID\">FIELD_VALUE</textarea>",
+	'widgetHTML' => "<textarea style=\"width:400px; height:100px;\" type=\"text\" id=\"FIELD_ID\" name=\"FIELD_ID\">FIELD_VALUE</textarea>",
 	'valCode'   => "RQvalALPH",
 	'dbValue'   => false,
 	'stripTags'  => true
@@ -55,7 +55,7 @@ $fields[] = array(
 	'dbColName'  => "photo",
 	'tooltip'   => "Upload JPG or PNG photos only - must be no larger than 375px x 375px",
 	'writeOnce'  => false,
-	'widgetHTML' => '<input style="width:300px;" type="file" class="uniform" id="FIELD_ID" name="FIELD_ID" value="FIELD_VALUE" />',
+	'widgetHTML' => '<input style="width:300px;" type="file" id="FIELD_ID" name="FIELD_ID" value="FIELD_VALUE" />',
 	'valCode'   => "RQvalALPH",
 	'dbValue'   => false,
 	'fileUpload' => true,
@@ -89,7 +89,7 @@ $fields[] = array(
 	'dbColName'  => "link",
 	'tooltip'   => "A website address this banner will link to",
 	'writeOnce'  => false,
-	'widgetHTML' => "<input style=\"width:400px;\" type=\"text\" class=\"uniform\" id=\"FIELD_ID\" name=\"FIELD_ID\" value=\"FIELD_VALUE\" />",
+	'widgetHTML' => "<input style=\"width:400px;\" type=\"text\" id=\"FIELD_ID\" name=\"FIELD_ID\" value=\"FIELD_VALUE\" />",
 	'valCode'   => "OPvalWEBS",
 	'dbValue'   => false,
 	'stripTags'  => true
@@ -100,7 +100,7 @@ $fields[] = array(
 	'dbColName'  => "buttonLabel",
 	'tooltip'   => "The text for the button (if left blank, no button will appear)",
 	'writeOnce'  => false,
-	'widgetHTML' => "<input style=\"width:400px;\" type=\"text\" class=\"uniform\" id=\"FIELD_ID\" name=\"FIELD_ID\" value=\"FIELD_VALUE\" />",
+	'widgetHTML' => "<input style=\"width:400px;\" type=\"text\" id=\"FIELD_ID\" name=\"FIELD_ID\" value=\"FIELD_VALUE\" />",
 	'valCode'   => "OPvalWEBS",
 	'dbValue'   => false,
 	'stripTags'  => true
@@ -111,7 +111,7 @@ $fields[] = array(
 	'dbColName'  => "sysStatus",
 	'tooltip'   => "Check this to make your banner visible on the website",
 	'writeOnce'  => false,
-	'widgetHTML' => '<input type="checkbox" id="FIELD_ID" name="FIELD_ID" class="uniform" value="active" FIELD_VALUE />',
+	'widgetHTML' => '<input type="checkbox" id="FIELD_ID" name="FIELD_ID" value="active" FIELD_VALUE />',
 	'valCode'   => "",
 	'dbValue'   => false,
 	'stripTags'  => false

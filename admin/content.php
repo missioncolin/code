@@ -167,7 +167,7 @@ if ((isset($navRS) && isset($_GET['new']) && $_GET['new'] == 'link')  || $editTy
 					<td style="width:120px"><label for="linkLabel"><strong>Navigation Label</strong></label></td>
 					<td>
 						
-						<input style="width:300px;" type="text" class="uniform" id="linkLabel" name="linkLabel" value="<?php print $navRS['label']; ?>">
+						<input style="width:300px;" type="text" id="linkLabel" name="linkLabel" value="<?php print $navRS['label']; ?>">
 						<p class="formTip">What your visitors will see in navigation headings</p>
 					</td>
 				</tr>
@@ -175,7 +175,7 @@ if ((isset($navRS) && isset($_GET['new']) && $_GET['new'] == 'link')  || $editTy
 					<td><label for="linkURL"><strong>Navigation URL</strong></label></td>
 					<td>
 						
-						<input style="width:300px;" type="text" class="uniform" id="linkURL" name="linkURL" value="<?php print $navRS['url']; ?>">
+						<input style="width:300px;" type="text" id="linkURL" name="linkURL" value="<?php print $navRS['url']; ?>">
 						<p class="formTip">The web address to link to (don't forget the http://)</p>
 					</td>
 				</tr>
@@ -255,7 +255,7 @@ if ((isset($navRS) && isset($_GET['new']) && $_GET['new'] == 'link')  || $editTy
 				<td>
 				<!-- Specify as Home Page -->
 				Make This Page The Home Page <br />
-					<input id="makeHomepageCheck" type="checkbox" <?php if($pageRS['isHomepage'] == 1) { print "checked=\"checked\""; } elseif($_REQUEST['OPSet_Homepage']) { print "checked=\"checked\""; } ?>/>
+					<input id="makeHomepageCheck" type="checkbox" <?php if($pageRS['isHomepage'] == 1) { print "checked=\"checked\""; } elseif(isset($_REQUEST['OPSet_Homepage'])) { print "checked=\"checked\""; } ?>/>
 				
 					<label for="makeHomepageCheck">This Is The Homepage</label>
 				</td>
@@ -367,12 +367,12 @@ if ((isset($navRS) && isset($_GET['new']) && $_GET['new'] == 'link')  || $editTy
 				</td>
 				<td>
 				Keywords For Search Engines<br />
-				<textarea class="uniform" id="keywordsForSE" style="height:100px;"><?php print $pageRS['pageKeywords']; ?></textarea>
+				<textarea id="keywordsForSE" style="height:100px;"><?php print $pageRS['pageKeywords']; ?></textarea>
 				
 				</td>
 				<td>
 				Description For Search Engines<br />
-				<textarea class="uniform" id="descriptionForSE" style="height:100px;"><?php print $pageRS['pageDescription']; ?></textarea>
+				<textarea id="descriptionForSE" style="height:100px;"><?php print $pageRS['pageDescription']; ?></textarea>
 				
 				</td>
 			</tr>

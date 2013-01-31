@@ -1,23 +1,5 @@
 <?php
 
-function human_str($str){
-	$array = array(
-		'redTableWines'	  => 'Red Table Wines',
-		'whiteTableWines' => 'White Table Wines',
-		'sparklingWine'	  => 'Sparkling Wine',
-		'icewineDesert'	  => 'Icewine/Dessert Wine',
-		'fruitWine'		  => 'Fruit Wine',
-		
-		'fourMileCreek'	   => 'Four Mile Creek',
-		'niagaraLakeshore' => 'Niagara Lakeshore',
-		'niagaraRiver'	   => 'Niagara River',
-		'stDavidsBench'	   => 'St. David’s Bench'
-		);
-	if(isset($array[$str])){
-		return $array[$str];
-	}
-	return false;
-}
 
 /**
  * returns a string with a formatted query string with some values removed
@@ -134,7 +116,7 @@ function alert_box($message, $alertType, $otherIcon = "")
 /**
  * sanitizes a string based on several paramaters
  */
-function clean($string, $cleanHTML = false, $runHTMLentities = false)
+function clean($string, $cleanHTML = false, $runHTMLentities = false, $runHTMLSpecialChars = false)
 {
 
 	if(!is_string($string)) {
@@ -176,6 +158,9 @@ function clean($string, $cleanHTML = false, $runHTMLentities = false)
 		if($runHTMLentities) {
 			$string = htmlentities($string);
 		}
+		if($runHTMLSpecialChars) {
+			$string = htmlspecialchars($string);
+		}
 
 		$string = str_replace($badwordchars, $fixedwordchars, $string);
 
@@ -183,6 +168,7 @@ function clean($string, $cleanHTML = false, $runHTMLentities = false)
 
 		if($runHTMLentities) {
 			$string = htmlentities($string);
+			
 		}
 		$string = str_replace($badwordchars, $fixedwordchars, $string);
 	}
@@ -423,7 +409,7 @@ function get_list($selectName, $whatTable, $whatItem, $whereClause = "WHERE sysO
 	if(empty($selectID)) {
 		$selectID = $selectName; 
 	}
-	$whatToReturn = " <select  class='uniform' " . $extraSelectParam . " id=\"$selectID\" name=\"$selectName\"> ";
+	$whatToReturn = " <select " . $extraSelectParam . " id=\"$selectID\" name=\"$selectName\"> ";
 	
 	if($allOption) { 
 		 $whatToReturn .= "<option value=\"0\">" . $allOption . "</option>"; 
@@ -726,7 +712,7 @@ function _empty($string)
 
 
 
-function upload_file($file, $location, $allowed_mime_types, $thumbnails = false, $randomizeName = false, $overwrite = false)
+function upload_file($file, $location, $allowed_mime_types, $thumbnails = false, $randomizeName = false, $overwrite = false, $rename = false)
 {
 
 	$uploadErrors = array(
@@ -765,7 +751,10 @@ function upload_file($file, $location, $allowed_mime_types, $thumbnails = false,
 	$fileName  = slug($fileName);
 	if($randomizeName === true) {
 		$fileName = substr(md5($fileName . time()), 0, 10);
+	} else if ($rename !== false) {
+    	$fileName = $rename;
 	}
+	
 	if(file_exists($location . $fileName . '.' . $extension) && $overwrite === false) {
 		$i = 1;
 		while (file_exists($location . $fileName . $i . '.' . $extension)) {

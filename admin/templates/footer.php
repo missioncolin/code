@@ -22,7 +22,6 @@
 
 <script type="text/javascript" src="/js/jquery.easing-1.3.pack.js"></script>
 <script type="text/javascript" src="/js/jquery.fancybox-1.3.4.pack.js"></script>
-<script type="text/javascript" src="/js/uniform_js/jquery.uniform.min.js"></script>
 
 <script type="text/javascript" src="/admin/js/jquery.mousewheel.js"></script>
 <script type="text/javascript" src="/admin/js/jquery.jscrollpane.min.js"></script>
@@ -53,8 +52,6 @@ function updateFields(userID) {
         id: userID,
         fields: $('#metaFields input, #metaFields select').serialize(),
         groups: $("input:checkbox.groupForm").serialize()
-    }, function () {
-        $("#metaFields input:checkbox.uniform, #metaFields input:radio.uniform, #metaFields input:file.uniform").uniform();
     });
 }
 
@@ -62,8 +59,6 @@ function updateBundles() {
     $('#metaFields').load('/admin/ajax/buildBundles.php', {
         exchangeID: $('#RQvalALPHExchange').val(),
         bundleID: gup('id')
-    }, function () {
-        $("#metaFields input:checkbox.uniform, #metaFields input:radio.uniform, #metaFields input:file.uniform").uniform();
     });
 }
 
@@ -415,7 +410,6 @@ $(function () {
 	});
 	
 	
-	$("input:checkbox.uniform, input:radio.uniform, input:file.uniform").uniform();
 	
 	$(".hideSection").click(function() {
 		

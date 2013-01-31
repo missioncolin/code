@@ -29,7 +29,7 @@ $fields[] = array(
     'dbColName'  => "adminTitle",
     'tooltip'   => "eg. News Full Story",
     'writeOnce'  => false,
-    'widgetHTML' => "<input style=\"width:300px;\" type=\"text\" class=\"uniform\" id=\"FIELD_ID\" name=\"FIELD_ID\" value=\"FIELD_VALUE\" />",
+    'widgetHTML' => "<input style=\"width:300px;\" type=\"text\" id=\"FIELD_ID\" name=\"FIELD_ID\" value=\"FIELD_VALUE\" />",
     'valCode'   => "RQvalALPH",
     'dbValue'   => false,
     'stripTags' => true
@@ -41,7 +41,7 @@ $fields[] = array(
     'dbColName'  => 'includeOverride',
     'tooltip'   => "/includes/apps/appname/views/viewname.php",
     'writeOnce'  => false,
-    'widgetHTML' => "<input style=\"width:450px;\" type=\"text\" class=\"uniform\" id=\"FIELD_ID\" name=\"FIELD_ID\" value=\"FIELD_VALUE\" />",
+    'widgetHTML' => "<input style=\"width:450px;\" type=\"text\" id=\"FIELD_ID\" name=\"FIELD_ID\" value=\"FIELD_VALUE\" />",
     'valCode'   => "RQvalALPH",
     'dbValue'   => false,
     'stripTags' => true
@@ -52,7 +52,7 @@ $fields[] = array(
     'dbColName'  => 'appAdminLink',
     'tooltip'   => "/admin/apps/appname/index.php",
     'writeOnce'  => false,
-    'widgetHTML' => "<input style=\"width:450px;\" type=\"text\" class=\"uniform\" id=\"FIELD_ID\" name=\"FIELD_ID\" value=\"FIELD_VALUE\" />",
+    'widgetHTML' => "<input style=\"width:450px;\" type=\"text\" id=\"FIELD_ID\" name=\"FIELD_ID\" value=\"FIELD_VALUE\" />",
     'valCode'   => "OPvalALPH",
     'dbValue'   => false,
     'stripTags' => true

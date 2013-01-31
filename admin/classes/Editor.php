@@ -327,7 +327,7 @@ class Editor
 		$res = $db->query("SELECT itemID, " . $fieldName . " FROM " . $tableName . " WHERE sysOpen = '1';");		
 		$arr = array();
 		
-		$toReturn = '<select id="'.$dropdownID.'" name="'.$dropdownID.'" class="uniform">';
+		$toReturn = '<select id="'.$dropdownID.'" name="'.$dropdownID.'">';
 		$theList = '';
 		
 		if ($db->valid($res)) {
@@ -365,7 +365,7 @@ class Editor
 				if ($key !== "Other"){
 					$checked = (in_array($value,$checkedVals))?"checked = \"checked\"":"";
 					$checkList .= "<dd class=\"groupListItem\">";
-					$checkList .= "<input type=\"checkbox\" name=\"".$requireCode.$elementName."[".$key."]"."\" value=\"".$value."\" ".$checked." id=\"".$elementName.$key."\" class=\"uniform\" />";
+					$checkList .= "<input type=\"checkbox\" name=\"".$requireCode.$elementName."[".$key."]"."\" value=\"".$value."\" ".$checked." id=\"".$elementName.$key."\" />";
 					$checkList .= "<label for=\"".$elementName.$key."\">".$value."</label>";
 					$checkList .= "</dd>";
 				}

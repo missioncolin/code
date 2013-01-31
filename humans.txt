@@ -7,8 +7,6 @@
   Site: http://www.brendanfarrgaynor.com
   Twitter: bfarrgaynor
   Location: Centralia, Ontario
-  
-  Test
 
   Partner Accounts and Strategy: Jonathan Kochis
   Site: http://www.jonathankochis.com
@@ -40,13 +38,27 @@
   Twitter: karenlaansoo
   Location: London, Ontario
 
+  Associate/Creative & Technical: Chelsey Orphan
+  Site: http://www.chelseyorphanmedia.com
+  Twitter: chelseyorphan
+  Location: London, Ontario
+  
+  Design & Front-End Development: Evan Fletcher
+  Site: http://evanfletcher.com
+  Twitter: evanfletcher
+  Location: St. Thomas, Ontario
+  
+  Associate/Creative & Technical: Rachel Fee
+  Twitter: rachfee
+  Location: London, Ontario
+
   Associate Project Manager: Stephanie Mohr
   Twitter: semohr
   Location: London, Ontario
   
 
 /* SITE */
-  Last update: 2011-02-10
+  Last update: 2012-09-18
   Language: English
   Doctype: HTML5 with CSS3
   Tools: PHP,MySQL

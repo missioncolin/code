@@ -80,7 +80,7 @@ class Page extends Quipp {
 				$this->info = $db->fetch_assoc($res);
 	
 				// Check Protected
-				if ($this->info['isProtected'] == '1' && $auth->has_permission($db->return_specific_item($this->info['privID'], "sysPrivileges", "systemName")) == false) {
+				if ((int)$this->info['privID'] > 0 && $auth->has_permission($db->return_specific_item($this->info['privID'], "sysPrivileges", "systemName")) == false) {
 					if (isset($_SESSION['userID'])) {
 						$auth->boot_em_out(3);
 					} else {
@@ -333,62 +333,83 @@ class Page extends Quipp {
 	 * Credits: This is a php port from Rafael Lima's original Javascript CSS Browser Selector: http://rafael.adm.br/css_browser_selector
 	 */
 	
-	function body_class($b = array()) {
-		$ua = strtolower($_SERVER['HTTP_USER_AGENT']);		
-
-		$g = 'gecko';
-		$w = 'webkit';
-		$s = 'safari';
+	static function body_class($b = array()) {
+		$ua       = (isset($_SERVER['HTTP_USER_AGENT'])) ? strtolower($_SERVER['HTTP_USER_AGENT']) : 'unknown';		
+        $name     = false;
+        $engine   = false;
+        $version  = false;
+        $platform = false;
+    
+        // browser
+        if(!preg_match('/opera|webtv/i', $ua) && preg_match('/msie\s(\d+)/', $ua, $array)) {
+          $version = $array[1];
+          $name = 'ie';
+          $engine = 'trident';
+        } else if(strstr($ua, 'firefox/3.6')) {
+          $version = 3.6;
+          $name = 'firefox';
+          $engine = 'gecko';
+        } else if (strstr($ua, 'firefox/3.5')) {
+          $version = 3.5;
+          $name = 'firefox';
+          $engine = 'gecko';
+        } else if(preg_match('/firefox\/(\d+)/i', $ua, $array)) {
+          $version = $array[1];
+          $name = 'firefox';
+          $engine = 'gecko';
+        } else if(preg_match('/opera(\s|\/)(\d+)/', $ua, $array)) {
+          $engine = 'presto';
+          $name = 'opera';
+          $version = $array[2];
+        } else if(strstr($ua, 'konqueror')) {
+          $name = 'konqueror';
+          $engine = 'webkit';
+        } else if(strstr($ua, 'iron')) {
+          $name = 'iron';
+          $engine = 'webkit';
+        } else if(strstr($ua, 'chrome')) {
+          $name = 'chrome';
+          $engine = 'webkit';
+          if(preg_match('/chrome\/(\d+)/i', $ua, $array)) { $version = $array[1]; }
+        } else if(strstr($ua, 'applewebkit/')) {
+          $name = 'safari';
+          $engine = 'webkit';
+          if(preg_match('/version\/(\d+)/i', $ua, $array)) { $version = $array[1]; }
+        } else if(strstr($ua, 'mozilla/')) {
+          $engine = 'gecko';
+          $name = 'fx';
+        }
+    
+        // platform
+        if(strstr($ua, 'j2me')) {
+          $platform = 'mobile';
+        } else if(strstr($ua, 'iphone')) {
+          $platform = 'iphone';
+        } else if(strstr($ua, 'ipod')) {
+          $platform = 'ipod';
+        } else if(strstr($ua, 'ipad')) {
+          $platform = 'ipad';
+        } else if(strstr($ua, 'mac')) {
+          $platform = 'mac';
+        } else if(strstr($ua, 'darwin')) {
+          $platform = 'mac';
+        } else if(strstr($ua, 'webtv')) {
+          $platform = 'webtv';
+        } else if(strstr($ua, 'win')) {
+          $platform = 'win';
+        } else if(strstr($ua, 'freebsd')) {
+          $platform = 'freebsd';
+        } else if(strstr($ua, 'x11') || strstr($ua, 'linux')) {
+          $platform = 'linux';
+        }
+    
+        $mobile = ($platform == 'mobile') ? true : false;
+        $iphone = (in_array($platform, array('ipod', 'iphone'))) ? true : false;
+        $ios    = (in_array($platform, array('ipod', 'iphone', 'ipad'))) ? true : false;
+        
+   		return join(' ', array($engine, $name, $name . $version, $platform, join(' ', $b)));
 		
-		// browser
-		if(!preg_match('/opera|webtv/i', $ua) && preg_match('/msie\s(\d)/', $ua, $array)) {
-			$b[] = 'ie ie' . $array[1];
-		} else if(strstr($ua, 'firefox/2')) {
-			$b[] = $g . ' ff2';		
-		} else if(strstr($ua, 'firefox/3.5')) {
-			$b[] = $g . ' ff3 ff3_5';
-		} else if(strstr($ua, 'firefox/3')) {
-			$b[] = $g . ' ff3';
-		} else if(strstr($ua, 'gecko/')) {
-			$b[] = $g;
-		} else if(preg_match('/opera(\s|\/)(\d+)/', $ua, $array)) {
-			$b[] = 'opera opera' . $array[2];
-		} else if(strstr($ua, 'konqueror')) {
-			$b[] = 'konqueror';
-		} else if(strstr($ua, 'chrome')) {
-			$b[] = $w . ' ' . $s . ' chrome';
-		} else if(strstr($ua, 'iron')) {
-			$b[] = $w . ' ' . $s . ' iron';
-		} else if(strstr($ua, 'applewebkit/')) {
-			$b[] = (preg_match('/version\/(\d+)/i', $ua, $array)) ? $w . ' ' . $s . ' ' . $s . $array[1] : $w . ' ' . $s;
-		} else if(strstr($ua, 'mozilla/')) {
-			$b[] = $g;
-		}
-
-		// platform				
-		if(strstr($ua, 'j2me')) {
-			$b[] = 'mobile';
-		} else if(strstr($ua, 'iphone')) {
-			$b[] = 'iphone';		
-		} else if(strstr($ua, 'ipod')) {
-			$b[] = 'ipod';		
-		} else if(strstr($ua, 'mac')) {
-			$b[] = 'mac';		
-		} else if(strstr($ua, 'darwin')) {
-			$b[] = 'mac';		
-		} else if(strstr($ua, 'webtv')) {
-			$b[] = 'webtv';		
-		} else if(strstr($ua, 'win')) {
-			$b[] = 'win';		
-		} else if(strstr($ua, 'freebsd')) {
-			$b[] = 'freebsd';		
-		} else if(strstr($ua, 'x11') || strstr($ua, 'linux')) {
-			$b[] = 'linux';		
-		}
-				
-		return join(' ', $b);
-		
-}
+    }
 
 
 

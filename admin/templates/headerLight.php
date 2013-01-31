@@ -9,7 +9,6 @@
   <meta name="robots" content="noindex,nofollow">
   <link rel="shortcut icon" type="image/png" href="/admin/favicon.png">
   <link rel="apple-touch-icon" href="/admin/apple-touch-icon.png">
-  <link rel="stylesheet" href="/js/uniform_js/css/uniform.aristo2.css">
   <link rel="stylesheet" href="/min/?f=css/style.css,css/admin.css,css/plugins/jquery-ui-1.8.6.css">
  
    <?php 

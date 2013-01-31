@@ -476,32 +476,42 @@ td {
     box-sizing: border-box;
 }
 
+.rotate (@amount: 90deg) {
+    -moz-transform: rotate(@arguments);
+    -webkit-transform: rotate(@arguments);
+    -ms-transform: rotate(@arguments);
+    transform: rotate(@arguments);
+}
+
 @base: #828282;
 @base2: #212123;
+@base3: #525252;
 
 @accent: #34b0e4;
 @accent2: #8cc63e;
+@accent3: #ca2626;
 
 @borders: #d8d8d8;
+@darkBorders: #848484;
 
 /* =============================================================================
    Basics
    ========================================================================== */ 
    
 body {
-    background: url(img/bg.jpg) repeat;
-    color: @base;
+    /* background: url(img/bg.jpg) repeat; */
+    color: @base3;
     font-size: 16px;
     line-height: 26px;
     font-family: "freight-sans-pro",sans-serif;
     font-style: normal;
-    font-weight: 500;
+    font-weight: 400;
 }
 
 h1, h2, h3, h4, h5 { 
     margin: 10px 0; 
     font-style: normal;
-    font-weight: 700; 
+    font-weight: 600; 
     text-transform: uppercase;
     color: @base2;
 }
@@ -536,6 +546,124 @@ header > div, #container, footer > div {
     max-width: 1020px;
 }
 
+
+/* =============================================================================
+   Alert Boxes
+   ========================================================================*/
+
+.alertBoxFunctionGood, .alertBoxFunctionBad, .alertBoxFunctionWarn, .alertBoxFunctionEmpty {
+    width: 100%;
+	padding: 10px;
+	margin: 10px 0;
+	color: #000000;
+	float: left;
+	.box-sizing();
+	.border-radius(3px);
+}
+
+.alertBoxFunctionWarn {
+    margin: 0 0 20px;
+}
+
+.alertBoxFunctionGood {
+	background-color:#D3FFD4;
+	border: 1px solid #55FF49;
+}
+
+.alertBoxFunctionBad {
+	background-color:#FFD4D4;
+	border: 1px solid #FF4A4B;
+}
+
+.alertBoxFunctionWarn {
+	position: relative;
+	background-color: lighten(@borders, 10%);
+	border: 1px solid @darkBorders;
+}
+
+.alertBoxFunctionWarn h2 {
+	padding: 0 0 10px 36px;
+}
+.alertBoxFunctionWarn h2:before {
+	content: '?';
+	position: absolute;
+	width: 8px;
+	height: 30px;
+	line-height: 30px;
+	padding: 0 11px;
+	background: @base2;
+	left: 10px;
+	top: 15px;
+	.border-radius(30px);
+	color: lighten(@borders, 10%);
+	font-size: 24px;
+}
+.alertBoxFunctionEmpty {
+	background-color:#F5F5F5;
+	border: 1px solid #E5E5E5;
+	color:#666666;
+}
+
+.alertBoxFunctionGood a, .alertBoxFunctionBad a, .alertBoxFunctionWarn a, .alertBoxFunctionEmpty a { color:#0000FF; }
+.alertBoxFunctionGood a:hover, .alertBoxFunctionBad a:hover, .alertBoxFunctionWarn a:hover, .alertBoxFunctionEmpty a:hover { color:#0000FF; }
+.alertBoxFunctionGood div, .alertBoxFunctionBad div, .alertBoxFunctionWarn div, .alertBoxFunctionEmpty div { width: 100% !important; }
+
+
+#confirm{
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    margin: 0;
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+.popUp a { cursor:pointer }
+
+.popUp {  
+  position: relative;
+  background: #FFF;
+  top: 50%;
+  left: 50%;
+  margin: -100px 0 0 -250px;
+  width: 500px;
+  padding: 20px;
+  text-align: left;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  -webkit-box-shadow: rgba(0,0,0,0.2) 0px 1px 3px;
+  -moz-box-shadow: rgba(0,0,0,0.2) 0px 1px 3px;
+  box-shadow: rgba(0,0,0,0.6) 0px 0px 20px;
+  text-decoration: none;
+}
+
+.popUp h2 { 
+	float: left; 
+	margin: -20px -20px 0; 
+	background:@accent3; 
+	width: 100%;
+	.border-radius(5px 5px 0 0);
+	padding: 15px 20px;
+	color: #FFF;
+	margin-bottom: 20px;
+}
+
+.popUp.success h2 {
+    background:@accent2;  
+}
+
+.popUp.success strong {
+    font-size: 28px;
+}
+
+.popUp.success input.jobAlertInput {
+    font-size: 34px;
+    margin: 10px 0 0;
+}
+
+.popUp p { margin: 20px 0; }
+
 /* =============================================================================
    Header
    ========================================================================== */
@@ -544,16 +672,21 @@ header {
     background: #FFF;
     width: 100%;
     border-top: 3px solid @accent;
-    border-bottom: 1px solid #CCC;
+    /* border-bottom: 1px solid #CCC; */
+    padding-bottom: 40px;
+}
+
+#home header {
+    padding-bottom: 0;
 }
 
 header > div {
-    background: url(img/headerLine.png) repeat-x 0 162px;
+    /* background: url(img/headerLine.png) repeat-x 0 162px; */
 }
 
 .logo {
     float: left;
-    margin: 55px 0 0;
+    margin: 40px 0 0;
     background: #FFF;
     padding-right: 25px;
 }
@@ -575,12 +708,23 @@ header > div {
     padding: 0;
 }
 
+#tools #loggedInButtons {
+    float: left;
+    margin: 5px 15px 0 0;
+}
+
+#tools #loggedInButtons a {
+    margin: 0 3px;
+}
+
 #social li {
     display: inline-block;
     margin: 0 1px;
 }
 
-#social .icon {
+#links .icon { float: left; margin: 0 1px; }
+
+.icon {
     width: 23px;
     height: 23px;
     .transition(opacity, 0.3s, linear);
@@ -589,6 +733,7 @@ header > div {
 .linkedIn { background: url(img/icons.png) -58px 1px no-repeat; }
 .facebook { background: url(img/icons.png) 0px -31px no-repeat; }
 .twitter { background: url(img/icons.png) -33px 0px no-repeat; }
+.blog { background: url(img/icons.png) -24px -30px no-repeat; }
 
 #social a:hover.icon {
     opacity: 0.8;
@@ -602,19 +747,23 @@ nav {
 
 nav ul {
     list-style: none;
-    margin: 110px 0 0;
+    margin: 80px 0 0;
     padding: 0;
 }
 
 nav li {
     display: inline-block;
-    margin: 0 0 0 35px;
+    margin: 0 0 0 28px;
+}
+
+nav li:first-child {
+    margin-left: 0;
 }
 
 nav a {
     color: @base2;
     font-size: 20px;
-    font-weight: 700;
+    font-weight: 600;
     text-transform: uppercase;
     text-decoration: none;
 }
@@ -642,7 +791,7 @@ nav a:hover {
 #banner li {
     display: block;
     float: right;
-    border: 1px solid #848484;
+    border: 1px solid @darkBorders;
     background: #FFF;
     .border-radius(3px);
     width: 245px;
@@ -654,14 +803,25 @@ nav a:hover {
 }
 
 #banner li > span {
-    display: block;
-    color: #FFF;
-    font-weight: 700;
-    font-size: 21px;
-    line-height: 25px;
-    text-align: center;
-    text-shadow: 1px 1px rgba(0,0,0,0.3);
-    padding-top: 70px;
+	display: block;
+	color: #000;
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 20px;
+	text-align: center;
+	padding-top: 50px;
+}
+
+#banner li > span strong {
+	font-size: 19px;
+}
+
+#banner li > span a {
+    color: #000;
+}
+
+#banner li > span a:hover {
+    color: rgba(255,255,255,0.8);
 }
 
 #banner li:first-child {
@@ -681,17 +841,27 @@ nav a:hover {
 }
 
 #banner h2 {
-    font-weight: 500;
+    font-weight: 400;
     text-transform: capitalize;
-    font-size: 34px;
-    line-height: 40px;
+    font-size: 30px;
+    line-height: 35px;
     float: left;
-    margin: 70px 0 0 240px;
+    margin: 35px 0 0 260px;
+}
+
+.middleBannerText {
+	background: rgba(0, 0, 0, 0.7);
+	height: 71px;
+	margin-top: 190px;
+	padding-top: 13px;
+	color: white;
+	line-height: 20px;
+	text-align: center;
 }
 
 #banner h2 strong {
-    font-weight: 700;
-    font-size: 44px;
+    font-weight: 600;
+    font-size: 35px;
 }
 
 #banner li.middle a {
@@ -764,20 +934,114 @@ nav a:hover {
     text-indent: -9999px;
 }
 
+/*Steps----------------------------------------------------------------------- */
+
+#steps, #stepsNew, .payment-errors, #steps.errorMessage {
+    list-style: none;
+    margin: 0 0 30px;
+    padding: 0;
+    background: #FFF;
+    border: 1px solid darken(@borders, 10%);
+    .border-radius(3px);
+    float: left;
+    width: 100%;
+    padding: 20px;
+    .box-sizing();
+    color: @base;
+    font-weight: bold;
+    .box-shadow(0, 1px, 3px, rgba(0,0,0,0.1));
+}
+
+.payment-errors {
+    margin: 15px 0 30px;
+}
+
+#steps.hide, #stepsNew.hide {
+    display: none;
+}
+
+#steps li, #stepsNew li {
+    display: inline-block;
+}
+
+#stepsNew li {
+	font-size: 15px;
+}
+
+#steps .current, #steps .alert, #stepsNew .current {
+    color: @base2;
+}
+
+#steps li + .alert {
+    float: right;
+}
+
+#steps span, #stepsNew span, .payment-errors span, #steps.errorMessage span {
+    font-family: "proxima-nova",sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    width: 25px;
+    height: 25px;
+    text-align: center;
+    .border-radius(25px);
+    background: @base;
+    display: inline-block;
+    margin: 0 10px 0 25px;
+    color: #FFF;
+    font-size: 14px;
+    float: left;
+}
+
+#stepsNew span {
+	margin: 0 10px 0 8px;
+}
+
+#steps .current span, #stepsNew .current span {
+    background: @accent;
+}
+
+#steps .success span, #stepsNew .success span {
+    background: url(img/checkIcon.png) no-repeat center @accent2;
+    margin-bottom: -6px;
+}
+
+#steps .fail span, .payment-errors .fail span, #steps.errorMessage .fail span {
+    background: url(img/failIcon.png) no-repeat 8px center @accent3;
+    margin-bottom: -6px;
+}
+
+#steps li:first-child span, #stepsNew li:first-child span, .payment-errors span {
+    margin-left: 0;
+}
+
+/* Steps Error Message */
+
+#steps.errorMessage { margin: 0 0 30px; }
+
+#steps.errorMessage .fail { float: left; width: auto; }
+#steps.errorMessage .padMe { float: none; width: auto; padding-left: 70px; }
+#steps.errorMessage .padMe ul { list-style: decimal; font-weight: 400; }
+.payment-errors { display: none; float: left; }
+
+
 /*Btn------------------------------------------------------------------------ */
 
 a.btn, input.btn {
     text-align: center;
     color: #FFF;
     font-size: 14px;
-    font-weight: 700;
+    font-family: "freight-sans-pro",sans-serif;
+    font-style: normal;
+    font-weight: 600;
     text-transform: uppercase;
-    padding: 6px 40px;
+    padding: 6px 20px;
     .border-radius(3px);
     display: inline-block;
     text-decoration: none;
     background: @accent;
     .transition(all, 0.3s, linear);
+    border: none;
+    line-height: 24px;
 }
 
 a:hover.btn, input:hover.btn {
@@ -792,31 +1056,313 @@ a:hover.btn.green, input:hover.btn.green {
     background: darken(@accent2, 10%);
 }
 
+a.btn.black, input.btn.black {
+    background: @base2;
+}
+
+#applicantList a.btn.black {
+	background: lighten(@base2, 60%);
+}
+
+a:hover.btn.black, input:hover.btn.black {
+    background: lighten(@base2, 10%);
+}
+
+a.btn.grey, input.btn.grey {
+    background: lighten(@base, 10%);
+}
+
+a.btn.lightGrey, input.btn.lightGrey {
+    background: lighten(@base, 30%);
+}
+
+a:hover.btn.grey, input:hover.btn.grey, a:hover.btn.lightGrey, input:hover.btn.lightGrey {
+    background: @base;
+}
+
+a.btn.red, input.btn.red {
+    background: @accent3;
+}
+
+a:hover.btn.red, input:hover.btn.red {
+    background: darken(@accent3, 10%);
+}
+
+.btn + .btn {
+    margin-left: 10px;
+}
+
+.activate.btn { width: 54px; }
+
+#new-job-info .activate.btn {
+	width: 100px;
+}
+
+
+a.btn2 {
+	text-align: center;
+    color: #FFF;
+    font-size: 12px;
+    font-family: "freight-sans-pro",sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    text-transform: uppercase;
+    padding: 3px 15px;
+    .border-radius(30px);
+    display: inline-block;
+    text-decoration: none;
+    background: @accent;
+    .transition(all, 0.3s, linear);
+    border: none;
+    line-height: 24px;
+}
+
+a:hover.btn2, input:hover.btn2 {
+    background: darken(@accent, 10%);
+}
+
+a.btn2.green {
+	background: @accent2;
+}
+
+a:hover.btn2.green, input:hover.btn2.green {
+    background: darken(@accent2, 10%);
+}
+
+/*Datepicker-------------------------------------------------------------------- */
+
+.ui-datepicker {
+    display: none !important;
+}
+
 /*Box-------------------------------------------------------------------------- */
 
 .box {
-    border: 1px solid #848484;
+    border: 1px solid @darkBorders;
     background: #FFF;
     .border-radius(3px);
     .box-shadow(1px, 1px, 5px, rgba(0,0,0,0.2));
     padding: 20px 30px;
     line-height: 32px;
     .box-sizing();
+    float: left;
+    width: 100%;
 }
 
-/*Pricing Options------------------------------------------------------------- */
+#card.box, work-experience.box {
+    padding: 0;
+}
+
+#card ul, #work-experience ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    width: 100%;
+    float: left;
+    .box-sizing();
+}
+
+#card li, #work-experience li {
+    margin: 0;
+    padding: 15px 15px 10px;
+    border-top: 1px solid @darkBorders;
+    float: none;
+}
+
+
+.smallHeader .heading h2 {
+    font-size: 24px;
+    text-align: left;
+    margin: 25px 0 20px 20px;
+}
+
+#card + .btn, #work-experience + .btn {
+    width: 100%;
+    margin: 20px 0 0;
+    .box-sizing();
+}
+
+#applicantProfile .box .heading h2 {
+    font-size: 22px;
+    line-height: 22px;
+    margin: 10px;
+}
+
+.box .heading .btn {
+    margin: 5px;
+    padding: 3px 10px 5px;
+}
+
+/*Forms------------------------------------------------------------------------ */
+
+form fieldset {
+    float: left;
+    width: 100%;
+    background: #FFF;
+    .border-radius(3px);
+    border: 1px solid @darkBorders;
+    .box-shadow(1px, 1px, 5px, rgba(0,0,0,0.2));
+    margin: 10px 0;
+}
+
+form fieldset legend {
+    font-size: 16px;
+    color: #000;
+    font-weight: bold;
+    background: #e1e1e1;
+    padding: 15px;
+    width: 100%;
+    .box-sizing();
+    .border-radius(3px 3px 0 0);
+    float: left;
+    border-bottom: 1px solid @darkBorders;
+}
+
+form fieldset label {
+    display: none;
+}
+
+form fieldset input[type="text"],
+form fieldset input[type="email"],
+form fieldset input[type="password"],
+form fieldset input[type="url"],
+form fieldset textarea,
+form fieldset .select {
+    background: #FFF;
+    border: none;
+    border-bottom: 1px solid @darkBorders;
+    font-size: 16px;
+    color: @base3;
+    font-family: "freight-sans-pro",sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    padding: 15px;
+    .box-sizing();
+    float: left;
+    width: 100%;
+    .border-radius(0);
+}
+
+#form fieldset .select {
+    display: inline-block;
+    margin: 0;
+    padding: 13px 15px 12px;
+}
+
+#form fieldset .select.half {
+    width: 50%;
+}
+
+fieldset input:focus, fieldset textarea:focus {
+    outline: none;
+}
+
+form fieldset input.half, form fieldset div.select.half {
+    width: 50%;
+    border-left: 1px solid @borders;
+}
+
+#profileEdit .fifty form fieldset input.half, #profileEdit .fifty form fieldset div.select.half {
+    border-left: 0;
+}
+
+form fieldset input.bottom, form fieldset textarea.bottom, form fieldset div.select.bottom {
+    border-bottom: none;
+    .border-radius(0 0 3px 3px);
+}
+
+#profileEdit .fifty form fieldset input.bottom, #profileEdit .fifty form fieldset textarea.bottom, #profileEdit .fifty form fieldset div.select.bottom {
+    border-bottom: 1px solid @darkBorders;
+    .border-radius(0);
+}
+
+form fieldset input.left { 
+    border-left: none;
+}
+
+fieldset + input[type="submit"] {
+    margin-top: 10px;
+}
+
+form input[type="text"],
+form input[type="email"],
+form input[type="password"],
+form input[type="url"],
+form textarea {
+    background: #FFF;
+    border: none;
+    border: 1px solid @darkBorders;
+    font-size: 16px;
+    color: @base;
+    font-family: "freight-sans-pro",sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    padding: 6px;
+    .border-radius(3px);
+    .transition(all, 0.3s, linear);
+}
+
+form input[type="text"]:focus,
+form input[type="email"]:focus,
+form input[type="password"]:focus,
+form input[type="url"]:focus,
+form textarea:focus {
+    outline: none;
+    border-color: darken(@borders, 20%);
+}
+
+/*Templates------------------------------------------------------------------- */
+
+#home .main, #home #steps.hide + .main {
+    margin: 0;
+}
+
+#steps + .main {
+    margin: 0;
+}
+
+.one-column #colA {
+    width: 100%;
+    float: left;
+}
+
+#home #colA {
+    margin: -50px 0 0;
+}
+
+.two-column #colA {
+    float: left;
+    width: 40.62%;
+}
+
+.two-column #colB {
+    float: right;
+    width: 52.08%;
+    margin: 25px 0 0;
+}
+
+.two-column #steps.hide + .main #colB {
+    margin: 100px 0 0;
+}
+
+#colA h4 {
+    float: left;
+    width: 100%;
+}
+
+/*Pricing Options---------------------------------------------------------- */
 
 #priceCallout {
     position: absolute;
     left: 50%;
-    margin-left: -190px;
+    margin-left: -184px;
     top: -25px;
     font-size: 18px;
     padding: 12px 40px;
 }
 
 #priceCallout span {
-    font-weight: 500;
+    font-weight: 400;
     margin-left: 10px;
 }
 
@@ -826,7 +1372,7 @@ a:hover.btn.green, input:hover.btn.green {
     .box-sizing();
     list-style: none;
     padding: 0;
-    margin: 0;
+    margin: 50px 0 0 0;
     line-height: 32px;
     border: 1px solid @borders;
     .border-radius(3px);
@@ -864,7 +1410,30 @@ a:hover.btn.green, input:hover.btn.green {
 
 #pricingOptions .btn {
     margin: 10px 0 0;
+    position: relative;
 }
+
+#pricingOptions .btn span, .credits .saleTag {
+	width: 42px;
+	height: 33px;
+	background: #CA2626;
+	-moz-border-radius: 40px;
+	-webkit-border-radius: 40px;
+	-ms-border-radius: 40px;
+	border-radius: 40px;
+	display: block;
+	position: absolute;
+	top: -20px;
+	right: -20px;
+	text-align: center;
+	font-size: 11px;
+	line-height: 13px;
+	padding-top: 9px;
+	color: #FFF;
+	font-family: "proxima-nova",sans-serif;
+}
+
+
 
 /*About---------------------------------------------------------------------- */
 
@@ -900,7 +1469,7 @@ a:hover.btn.green, input:hover.btn.green {
 }
 
 #testimonials h4 span {
-    font-weight: 500;
+    font-weight: 400;
     color: @accent;
     float: left;
     margin-top: 4px;
@@ -929,6 +1498,975 @@ a:hover.btn.green, input:hover.btn.green {
     background: @accent;
 }
 
+/*Tables----------------------------------------------------------------- */
+
+table {
+    float: left;
+    width: 100%;
+    background: #FFF;
+    .border-radius(3px);
+    .box-shadow(1px, 1px, 5px, rgba(0,0,0,0.2));
+    list-style: none;
+    border-collapse: separate;
+}
+
+tr {
+    .transition(all, 0.3s, linear);
+}
+
+tr:hover {
+    background: lighten(@accent, 41%);
+}
+
+th:first-child {
+    .border-radius(3px 0 0 0);
+}
+
+th:last-child {
+    .border-radius(0 3px 0 0);
+}
+
+tr:last-child td:first-child {
+    .border-radius(0 0 0 3px);
+}
+
+tr:last-child td:last-child {
+    .border-radius(0 0 3px 0);  
+}
+
+#job-form th:last-child, .singleHeader th:last-child, table.oneTH th {
+    .border-radius(3px 3px 0 0);
+}
+
+td {
+    text-align: center;
+    padding: 10px;
+    font-size: 18px;
+    line-height: 24px;
+    border-right: 1px solid @darkBorders;
+    border-bottom: 1px solid @darkBorders;
+    position: relative;
+}
+
+td:first-child { 
+    border-left: 1px solid @darkBorders;
+}
+
+th {
+    padding: 10px 0;
+    background-color: lighten(@borders, 10%);
+	border-bottom: 1px solid @darkBorders;
+}
+
+table .imgWrap {
+    position: absolute;
+    left: -50px;
+    top: 22px;
+    width: 83px;
+    height: 83px;
+    overflow: hidden;
+    border: 3px solid #FFF;
+    .box-shadow(1px, 0, 5px, rgba(0,0,0,0.3));
+    .border-radius(42px);
+}
+
+#applicantList table .imgWrap { display: none; }
+
+table .imgWrap img {
+    .border-radius(42px);
+    width: 83px;
+}
+
+table h2 {
+    margin: 0 /*20px*/;
+    font-size: 44px;
+    font-family: "proxima-nova",sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    text-align: center;
+    line-height: 22px;
+    position: relative;
+    top: 5px;
+    color: @base;
+}
+
+table h2 a {
+    font-size: 14px;
+}
+
+table .btn {
+    position: relative;
+    top: 4px;
+}
+
+table ~ .btn {
+    float: right;
+    margin: 20px 0 0;
+}
+
+table ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+table li {
+    margin: 5px 0;
+    padding: 0;
+}
+
+table input[type="checkbox"] + label, table input[type="radio"] + label {
+    margin-left: 5px;
+}
+
+table .slider {
+    margin: 10px;
+}
+
+.pagination {
+    float: left;
+    width: 100%;
+    margin: 30px 0;
+    text-align: center;
+    font-family: "proxima-nova",sans-serif;
+    font-style: normal;
+    font-weight: 400;
+}
+
+.pagination.top, .pagination.top .pagination {
+	margin: 0;
+}
+
+.pagination.top .pagination {
+    margin-bottom: 30px;
+}
+
+.pagination a, .pagination span {
+    margin: 0 3px;
+}
+
+.pagination a, .pagination span {
+    background: #FFF;
+    border: 1px solid @borders;
+    width: 30px;
+    height: 27px;
+    text-align: center;
+    padding-top: 3px;
+    .border-radius(50px);
+    display: inline-block;
+}
+
+.pagination a.previous, .pagination a.next, .pagination span.previous, .pagination span.next, .pagination a:hover.previous, .pagination a:hover.next {
+    background: none;
+    border: none;
+    width: auto;
+    margin: 0 10px;
+}
+
+.pagination a:hover {
+    background: darken(#FFF, 5%);
+}
+
+.pagination a.current {
+    background: @accent;
+    color: #FFF;
+    border: 1px solid darken(@accent, 10%);
+}
+
+table.simpleTable {
+    background: #FFF;
+    .box-shadow(0);
+    .border-radius(3px);
+    border: 1px solid @darkBorders;
+    /*border-collapse: collapse;*/
+}
+
+table.simpleTable th { line-height: 16px; }
+
+table.simpleTable td, table.simpleTable th {
+    border: none;
+    border-bottom: 1px solid @darkBorders;
+    padding: 10px;
+    font-size: 16px;
+    text-align: left;
+}
+
+/*table.simpleTable th {
+    border: 1px solid transparent;
+}*/
+
+table.simpleTable .btn {
+    top: 0;
+}
+
+form table input[type="text"],
+form table input[type="email"],
+form table input[type="password"],
+form table input[type="url"],
+form table textarea {
+    background: lighten(@borders, 11%);
+    width: 100%;
+    .box-sizing();
+}
+
+form table input[type="text"]:focus,
+form table input[type="email"]:focus,
+form table input[type="password"]:focus,
+form table input[type="url"]:focus,
+form table textarea:focus {
+    background: #FFF;
+    outline: none;
+}
+
+form table input + input {
+    margin-top: 10px;
+}
+
+/*Invoice*/
+/*table.simpleTable tr td { border-right: 1px solid @darkBorders; }*/
+table.simpleTable tr.subTotal { background-color: #f5f5f5; }
+table.simpleTable tr.tax { background-color: #fafafa;  }
+table.simpleTable tr.finalTotal, table.simpleTable tr.subTotal:hover, table.simpleTable tr.tax:hover { background-color: lighten(@accent, 41%); }
+table.simpleTable td.empty {
+	background:url(img/tile.png);
+	background-color: #FFF;
+}
+table.simpleTable td.total {
+	text-align: right;
+	width: 100px;
+	border-right: 1px solid #d8d8d8;
+}
+
+#jobManagerEdit table.simpleTable tr td:first-child { border-right: none; }
+
+#hrListJobs table.simpleTable tr td { border-right: none; }
+
+/*Applicant List -------------------------------------------------------------- */
+
+#applicant-list #applicantList { border-bottom: none; }
+
+#applicant-list-sidebar {
+    float: left;
+    width: 19%;
+}
+
+#applicantList {
+    float: right;
+    width: 77%;
+    border-bottom: 1px solid #b7b7b7;
+}
+
+#applicantList table { border: none; .box-shadow(0px); }
+#applicantList h2 { display: block; font-size: 30px; line-height: 16px; margin-top: 10px; }
+#applicantList table h2 a { display: block; font-size: 14px; line-height: 0; margin-top: 20px; }
+#applicantList th { padding: 8px; line-height: 18px; border-top: 1px solid @darkBorders; }
+#applicantList td { font-size: 14px; line-height: 18px; border-right: none; }
+#applicantList td strong { font-size: 16px; }
+
+#applicantList td:first-child {
+    padding: 10px 0px;  
+    /*width: 35%;*/
+    border-left: none;
+}
+
+#applicantList th:first-child {
+    padding: 0px 15px;  
+    border-left: 1px solid @darkBorders;
+   /* width: 35%;*/
+}
+#applicantList th.lastly {
+	border-right: 1px solid @darkBorders;
+}
+#applicantList td:first-child, #applicantList td:last-child { .border-radius(0px); }
+#applicantList table .btn.green, #applicantList table .btn.yellow, #applicantList table .btn.black { width: 110px; margin: 0 0 4px 0; padding: 6px 15px; }
+#applicantList table .imgWrapList { width: 65px; }
+#applicantList table .imgWrapList img { width: 65px !important; }
+
+#applicantList .tablesorter th.header{
+	cursor: pointer;
+	position: relative;
+	background: url(/images/layout/fullArrow.png) no-repeat right #212121;
+}
+
+#applicantList .tablesorter th.headerSortUp{
+	background: url(/images/layout/upArrow.png) no-repeat right #212121;
+}
+
+#applicantList .tablesorter th.headerSortDown{
+	background: url(/images/layout/downArrow.png) no-repeat right #212121;
+}
+
+a.btn.lightGrey.playBtn { padding: 0; }
+a.btn.lightGrey.lessPad { padding: 6px 10px; width: 20px; }  
+
+th.coverLetter { width: 100px; }
+
+/*HR Applications List ---------------------------------------------------------- */
+
+#hrListJobs {
+    float: left;
+    width: 100%;
+    border-bottom: 1px solid #b7b7b7;
+    position: relative;
+}
+
+#hrListJobs .newJob, #hrListJobs .buyCredits {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+}
+
+#hrListJobs .buyCredits {
+    right: 207px;
+}
+
+#hrListJobs td:first-child {
+    text-align: left;
+}
+
+#hrListJobs th:first-child {
+    text-align: left;
+    padding: 10px;
+}
+
+#hrListJobs .activate {
+	width: 162px;
+	.border-radius(36px);
+	font-size: 11px;
+	padding: 0px 0px;
+	margin-top: 6px;
+}
+
+/*HR Signup------------------------------------------------------------------ */
+
+#profile #steps { display: none; }
+
+#hrSignup {
+    float: left;
+    width: 100%;
+}
+
+#hrSignup .heading h2 {
+    text-align: left;
+}
+
+.heading h2 span {
+    color: @accent;
+    font-size: 18px;
+    line-height: 18px;
+    position: relative;
+    top: -15px;
+}
+
+#hrSignup #card, #hrSignup #work-experience {
+    float: left;    
+    width: 40.62%;
+    padding: 0;
+    position: relative;
+    border: 1px solid #b7b7b7;
+    .border-radius(3px);
+}
+
+#hrSignup #card h4, #hrSignup #work-experience h4 {
+    margin: 5px 0 0;
+}
+
+#signupBox {
+    width: 52.08%;
+    margin: 25px 0 0 25%;
+    background-color:#FFFFFF;
+    border: 1px solid #CCC;
+    float: left;
+}
+
+
+#signupBox h2{
+    background: #333333;
+    border-bottom: 1px solid black;
+    color: #FFFFFF;
+    font-weight: bold;
+    margin: 0 0 20px;
+    font-size: 20px;
+    padding: 10px 15px;
+    line-height: 26px;
+}
+
+#signupBox div{
+    
+    padding: 10px 15px;
+    float: left;
+    width: 100%;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    
+}
+#signupBox .inputs label {
+    float: left;
+    clear: left;
+    padding: 7px 0;
+}
+
+#signupBox .inputs input {
+    float: right;
+    clear: right;
+    width: 75%;
+}
+
+#signupBox div div {
+    padding: 0;
+    float: right;
+    width: 100%;
+    text-align: right;
+}
+
+#form h3 {
+    border-bottom: 1px solid @borders;   
+    margin: 0 0 30px;
+    padding: 0 0 20px;
+}
+
+#profileEdit #form h3 {
+    background: #000;    
+    color: #FFF;
+    margin: 22px 0 30px;
+    padding: 15px 20px;
+    .border-radius(3px);
+}
+#profileEdit #form h3.profileViewHeading {
+	float: left;
+	width: 94%;
+	background: #FFF;
+	color: @base3;
+	padding: 15px;
+	margin: 22px 0 10px;
+	border: 1px solid @darkBorders;
+    .box-shadow(1px, 1px, 5px, rgba(0,0,0,0.2));
+}
+#profileEdit #form h3 img {
+	float: left;
+	margin-right: 10px;
+}
+#profileEdit #form h3 a {
+	float: left;
+}
+#profileEdit #form h3#applicantProfileEdit {
+    position: relative;
+    padding-left: 80px;
+}
+#profileEdit #form h3#applicantProfileEdit a {
+    float: right;
+}
+h3#applicantProfileEdit .imgWrap {
+    position: absolute;
+    left: -20px;
+    top: -20px;
+    width: 80px;
+    height: 80px;
+    overflow: hidden;
+    border: 3px solid #FFF;
+    .box-shadow(1px, 0, 5px, rgba(0,0,0,0.3));
+    .border-radius(42px);
+}
+
+h3#applicantProfileEdit .imgWrap img {
+    .border-radius(42px);
+    width: 80px;
+}
+#profileEdit #form h3 span {
+	float: left;
+	width: 80%;
+	padding: 18px 0 10px;
+}
+#profileEdit .fifty {
+	float: right;
+	width: 52.08%;
+}
+#profileEdit .fifty .btn {
+	margin-bottom: 10px;
+	width: 88%;
+}
+a.createAJobCallout {
+	position: relative;
+	display: block;
+	padding: 28px 2% 30px;
+	width: 96%;
+	background: @accent;
+	color: #FFF;
+	font-size: 36px;
+	font-weight: 700;
+	text-shadow: 0px 1px 0px #000;
+	.border-radius;
+	.box-shadow(1px, 1px, 5px, rgba(0,0,0,0.2));
+	.transition;
+}
+a.createAJobCallout:after {
+	content: '';
+	position:absolute;
+	width: 110px;
+	height: 100%;
+	background:url(img/bigArrow.png) darken(@accent, 20%);
+	top: 0;
+	right: 0;
+	.border-radius(0 3px 3px 0);
+}
+a.createAJobCallout:hover {
+	background:darken(@accent, 10%);
+}
+.leftColumn {
+	position: relative;
+	float: left;
+	width: 40.62%;
+	margin-top: 20px;
+}
+.leftColumn article {
+	float: left;
+	border: 1px solid @darkBorders;
+	.border-radius;
+	margin-bottom: 20px;
+}
+.leftColumn article img {
+	width: 388px;
+	margin-bottom: 12px;
+}
+.leftColumn article a {
+	display: block;
+	float: left;
+	width: 100%;
+	padding: 0 0 12px;
+	text-align: center;
+	.border-radius(0 0 3px 3px);
+	border-top: none;
+	background: @base2;
+}
+#form div {
+    margin: 0 0 15px;
+    float: left;
+    width: 100%;
+}
+#form div label {
+    color: #000;
+}
+#form div input {
+    display: block;
+    width: 100%;
+    margin: 10px 0;
+}
+#form div ul {
+    margin: 0;
+}
+
+#profileEdit #form div input {
+    margin: 0;
+}
+/*custom upload elements*/
+.customfile-input { 
+    position: absolute; 
+    height: 100px; 
+    cursor: pointer; 
+    background: transparent; 
+    border: 0; 
+    opacity: 0; 
+    -moz-opacity: 0; 
+    filter:progid:DXImageTransform.Microsoft.Alpha(opacity=0); 
+    z-index: 999;  
+}
+
+.customfile-feedback {
+    border: 1px solid @darkBorders;
+    background: #FFF;
+    .border-radius(3px);
+    .box-shadow(1px, 1px, 5px, rgba(0,0,0,0.2));
+    display: block;
+    padding: 10px 15px 10px 130px;
+    font-size: 16px;
+    line-height: 24px;
+}
+
+.customfile {
+    cursor: pointer; 
+    overflow: hidden;
+    position: relative;
+}
+
+#form div.customfile {
+    margin: 5px 0 0;
+}
+
+.customfile-button {
+    text-align: center;
+    color: #FFF;
+    font-size: 14px;
+    font-family: "freight-sans-pro",sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    text-transform: uppercase;
+    padding: 10px 30px;
+    .border-radius(3px 0 0 3px);
+    display: inline-block;
+    text-decoration: none;
+    background: @accent;
+    .transition(all, 0.3s, linear);
+    border: none;
+    line-height: 24px;
+    float: left;
+    position: relative;
+    top: 1px;
+    left: 1px;
+}
+
+.customfile-hover .customfile-button, .customfile-focus .customfile-button {
+    background: darken(@accent, 10%);
+}
+
+.customfile-disabled { opacity: .5; filter:progid:DXImageTransform.Microsoft.Alpha(opacity=0); cursor: default;  }
+
+
+/* Sliders */
+
+ul.sliderList {
+	float: left;
+	width: 100%;
+	margin: 10px 0 20px;
+	padding: 0;
+	list-style: none;
+	clear: both;
+}
+ul.sliderList #master-slider {
+	margin-bottom: 8px;
+}
+ul.sliderList li {
+	float: left; 
+	width: 100%;
+	margin: 0 5% 8px 0;
+}
+ul.sliderList li.noMargins {
+	margin-right: 0;
+}
+
+/*ul.sliderList li span {
+	float: right;
+	padding: 1px 10px;
+	background: @accent;
+	color: #FFF;
+	margin-top: -2px;
+	.border-radius(30px);
+}*/
+
+ul.sliderList li .ui-slider {
+	margin-top: 2px !important;
+}
+
+#master-slider.ui-widget-content { background: #ffffff url(/images/ui-bg_flat_75_ffffff_40x100_master.png) 50% 50% repeat-x; }
+
+.experienceSlider {
+	float: left;
+	width: 30%;
+	margin-top: -7px;
+}
+
+a.removeSkillQ.btn, a.removeDropDown.btn  {
+	background: @base2;
+	padding: 5px 7px;
+	display: inline-block;
+	font-size: 10px;
+	line-height: 10px;
+	float: left;
+	margin-left: 15px;
+	margin-top: 8px;
+	.border-radius(50px);
+}
+a.removeDropDown.btn {
+	float: none;
+	margin: 8px 0 0 5px;
+}
+a.removeSkillQ.btn:hover, a.removeDropDown.btn:hover {
+	background: @accent3;
+}
+
+a.add.btn.blue {
+	display: block;
+	width: 180px;
+	height: 23px;
+	clear: both;
+	margin: 10px 0px 10px 0px;
+	display: block;
+	float: left;
+	padding: 2px 10px 2px 5px;
+}
+
+a.add_dropdown_q.btn.blue {
+	display: block;
+	width: 180px;
+	height: 23px;
+	clear: both;
+	margin: 10px 0px 10px 0px;
+	display: block;
+	float: left;
+	padding: 2px 10px 2px 5px;
+}
+
+.removeSkillQ a:hover{
+	color: white;
+}
+
+.sliderText {
+	width: 60%; 
+	float: left; 
+	margin-right: 30px;
+}
+
+/*Contact Form-------------------------------------------------------------------- */
+
+#contactUs #card {
+    float: left;    
+    width: 40.62%;
+    padding: 0;
+    position: relative;
+    border: 1px solid #b7b7b7;
+    .border-radius(3px);
+}
+
+#contactUs #card h4 {
+    margin: 5px 0 0;
+}
+
+#contactUs #form {
+    float: right;
+    width: 52.08%;
+    margin: 100px 0 0;
+}
+
+#contactUs .heading h2 { 
+    text-align: left;
+}
+
+/*Questionaires--------------------------------------------------------------- */
+
+#questionairesForm input[type="text"] {
+    width: 70%;
+    margin-bottom: 30px;
+    float: left;
+}
+
+#questionairesForm .btn {
+    padding: 6px 30px;
+    float: right;
+    margin: 2px 0 0;
+}
+
+#questionairesForm table + .btn {
+    width: 100%;
+    float: left;
+    margin: 20px 0 0;
+    .box-sizing();
+    padding: 10px 30px;
+}
+
+.noQuestions {
+    float: left;
+    margin: 7px 0 0 0;
+}
+
+/*Buy Credits------------------------------------------------------------- */
+
+#payment-form .credits {
+    width: 100%;
+    float: left;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.credits label {
+    width: auto;
+    padding: 35px 0 0 0;
+    display: inline-block;
+    *display: inline;*zoom: 1;
+    width: 25%;
+    height: 105px;
+    background: #FFF;
+    border: 1px solid darken(@borders, 20%);
+    font-weight: normal;
+    text-align: center;
+    .border-radius(3px);
+    margin: 0 2%;
+    position: relative;
+    cursor: pointer;
+    font-size: 44px;
+    line-height: 44px;
+    font-family: "proxima-nova",sans-serif;
+    font-style: normal;
+    font-weight: 700;
+}
+
+.credits label span {
+    color: @accent;
+    font-size: 18px;
+    position: relative;
+    top: -14px;
+    text-transform: uppercase;
+}
+.credits .creditNumber {
+	display: block;
+	margin-top: 4px;
+}
+
+.credits label:hover {
+    background: lighten(@borders, 10%);
+}
+
+.credits label.selected {
+    background: @accent;
+    border: 1px solid darken(@accent, 10%);
+    color: #FFF;
+}
+
+.credits label.selected span {
+    color: lighten(@accent, 30%);
+}
+
+.credits input[type="radio"] {
+    position: absolute;
+    margin: 110px 0 0 230px;
+    z-index: 99;
+}
+
+#whatAreYouBuying {
+    background: #FFF;
+    border: 1px solid darken(@borders, 10%);
+    .border-radius(3px);
+    width: 60%;
+    padding: 20px;
+    .box-sizing();
+    color: @base; 
+    .box-shadow(0, 1px, 3px, rgba(0,0,0,0.1));
+    margin: 0 auto 30px;
+    clear: both;
+    font-size: 18px;
+}
+
+#whatAreYouBuying strong {
+    color: @accent;
+}
+
+.creditCardForm {
+    background: @accent;
+    border: 1px solid darken(@accent, 10%);
+    color: #FFF;
+    width: 48%;
+    margin: 0;
+    float: left;
+    .border-radius(3px);
+    padding: 10px 0;
+}
+
+.creditCardForm + .creditCardForm {
+    float: right;
+}
+
+.creditCardForm #Billing_Country {
+    max-width: 100%;
+}
+
+.creditCardForm input[type="submit"] {
+    float: left;
+    width: 100%;
+    margin: 30px 0 -80px;
+}
+
+.creditCardForm .heading.form-row {
+    background: darken(@accent, 10%);
+    width: 100%;
+    margin-left: 0;
+}
+
+.creditCardForm h4, #colA .creditCardForm h4 {
+    font-size: 22px;
+    color: #FFF;
+    margin: 20px;
+    position: relative;
+    float: none;
+    width: auto;
+}
+
+.creditCardForm h4 img {
+    position: absolute;
+    right: 0;
+    top: -3px;
+}
+
+.creditCardForm .form-row {
+    width: 40%;
+    margin: 10px 0;
+    display: inline-block;
+    margin-left: 20px;
+}
+
+.creditCardForm label {
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+form .creditCardForm input[type="text"], 
+form .creditCardForm input[type="email"], 
+form .creditCardForm input[type="password"], 
+form .creditCardForm input[type="url"], 
+form .creditCardForm textarea {
+    border: 1px solid darken(@accent, 10%);
+    .box-shadow(inset 0, 1px, 2px, rgba(0,0,0,0.2));
+    width: 100%;
+    .box-sizing();
+}
+
+form .creditCardForm input[type="text"]#cvc {
+    width: 50%;
+}
+
+.creditCardForm + .btn {
+    width: 60%;
+    margin: 30px auto 0;
+    clear: both;
+    display: block;
+    font-size: 16px;
+}
+
+/*Forgot Password------------------------------------------------------------- */
+
+#forgot-password h2 {
+    background: #000;    
+    color: #FFF;
+    margin: 22px 0 20px;
+    padding: 15px 20px;
+    .border-radius(3px);
+}
+
+
+.colASplit {
+	float: left;
+	width: 78%;
+}
+.colASplit h4 {
+	margin-top: 0;
+}
+.colASplit .sliderText {
+	width: 56%;
+}
+.colASplit .experienceSlider {
+	width: 32%;
+}
+#configure-question .alertBoxFunctionWarn, #new-job-info .alertBoxFunctionWarn, #create-job .alertBoxFunctionWarn {
+	float: right;
+	width: 20%;
+}
+#configure-question .alertBoxFunctionWarn { margin-top: 26px; }
+#new-job-info .copyAndPaste {
+	background: @borders;
+	padding: 8px 15px;
+	font-weight: 700;
+}
+#new-job-info table.simpleTable td { text-align: center; }
+.submitWrap { float: right; }
+
 /* =============================================================================
    Footer
    ========================================================================== */
@@ -938,7 +2476,7 @@ footer {
     background: @base2;
     color: #FFF;
     padding: 30px 0;
-    margin: 100px 0 0 0;
+    margin: 50px 0 0 0;
 }
 
 footer h3 {
@@ -949,7 +2487,7 @@ footer h3 {
 }
 
 footer h3 span {
-    font-weight: 500;
+    font-weight: 400;
 }
 
 #footerNav {
@@ -970,20 +2508,411 @@ footer h3 span {
 }
 
 
+/*Applicant Profile------------------------------------------------------------ */
+
+#applicantProfile {
+    float: left;
+    width: 100%;
+}
+
+#applicantProfile #card, #applicantProfile #work-experience {
+    float: left;    
+    width: 40.62%;
+    padding: 0;
+    position: relative;
+    border: 1px solid #b7b7b7;
+    .border-radius(3px);
+}
+
+#applicantProfile #card {
+    margin: 0 60px;
+}
+
+#applicantProfile #card.fixed, #applicantProfile #work-experience.fixed {
+    position: fixed;
+    top: 80px;
+    width: 389px;
+} 
+
+#card .heading, #work-experience .heading {
+    background: @base2;
+    float: left;
+    width: 100%;
+    .border-radius(3px 3px 0 0);
+}
+
+#card .cutout, #work-experience .cutout {
+    position: absolute;
+    left: -68px;
+    top: 65px;
+}
+
+#card .profilePic, #work-experience .profilePic {
+    width: 126px;
+    height: 91px;
+    .border-radius(3px);
+    background: #FFF;
+    padding: 5px;
+    .box-shadow(0, 1px, 5px, rgba(0,0,0,0.3));
+    overflow: hidden;
+}
+
+#card .profilePic img, #work-experience .profilePic img {
+    width: 126px;
+}
+
+#card .profilePic .imgWrapper {
+	width: 126px;
+	height: 91px;
+	overflow: hidden;
+}
+
+.heading h2 {
+    float: left;
+    color: #FFF;
+    font-size: 44px;
+    font-family: "proxima-nova",sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    text-align: center;
+    margin: 25px 0 10px 20px;
+    line-height: 44px;
+}
+
+#applicantProfile.apply .heading h2 {
+    font-size: 15px;
+    line-height: 15px;
+    text-align: left;
+    margin: 25px 0 30px 20px;
+}
+
+.heading h2 a {
+    font-size: 14px;
+    position: relative;
+    top: -20px;
+    line-height: 14px;
+}
+
+.heading .btn {
+    float: right;
+    margin: 35px 20px 20px 0;
+}
+
+#applicantProfile dl {
+    float: left;
+    width: 74%;
+    margin: 20px 0 20px 100px;
+}
+
+#applicantProfile #work-experience dl {
+    margin: 20px 0 20px 50px;
+}
+
+#applicantProfile dt {
+    float: left;
+    width: 85px;
+    color: lighten(@base, 30%);
+    clear: left;
+}
+
+#applicantProfile #work-experience dt {
+    color: @base3;
+    width: 120px;
+}
+
+#applicantProfile dd {
+    float: left;
+    width: 185px;
+    overflow: hidden;
+    margin: 0;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+#applicantProfile #work-experience dd {
+	width: 166px;
+}
+
+#applicantProfile dd.dontCut {
+    overflow: visible;
+    white-space: normal;
+    text-overflow: inherit;
+}
+
+
+
+#applicantProfile #grade, #applicantProfile #resumeCoverLetter {
+    float: left;
+    clear: both;
+    width: 100%;
+    text-align: center;
+    margin: 10px 0 0;
+    .border-radius(0 0 3px 3px);
+}
+
+#grade h3 {
+    text-align: center;
+    margin: 25px 0;
+}
+
+#grade .btn, #resumeCoverLetter .btn {
+    margin: 0 0px 15px 5px;
+}
+
+#resumeCoverLetter .btn img {
+    position: relative;
+    top: -3px;
+    margin-right: 10px;
+}
+
+#grade h3 + .btn {
+    margin-left: 0;
+}
+
+#applicantProfile #submissions {
+    float: left;
+    clear: both;
+    width: 100%;
+    margin: 0 0 0;
+}
+
+#steps.hide + .main #applicantProfile #submissions {
+    margin: 40px 0 0;
+}
+
+#submissions h2 {
+    padding-bottom: 15px;
+    border-bottom: 1px solid @borders;
+    margin-bottom: 20px;
+}
+
+#toolbar, #colB #toolbar {
+    float: left;
+    width: 100%;
+    text-align: center;
+    border-bottom: 1px solid @borders;   
+    border-top: 1px solid @borders;
+    margin: 0 0 50px;
+    padding: 20px 0;
+}
+
+#toolbar .left {
+    float: left;
+}
+
+#toolbar h4 {
+    display: inline;
+    text-transform: capitalize;
+    color: @base;
+    font-weight: 400;
+    margin: 0;
+    float: none;
+    width: auto;
+}
+
+#toolbar h4 span {
+    color: lighten(@base, 30%);
+}
+
+#toolbar .right {
+    float: right;
+}
+
+#applicantProfile ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+#applicantProfile li {
+    position: relative;
+}
+
+#applicantProfile embed {
+    //width: 100% !important;
+}
+
+#applicantProfile ul .imgWrap {
+    border: 1px solid @darkBorders;
+    background: #FFF;
+    .border-radius(3px);
+    .box-shadow(1px, 1px, 5px, rgba(0,0,0,0.2));
+    position: relative;
+    overflow: hidden;
+}
+
+#applicantProfile .imgWrap img {
+    width: 100%;
+    .border-radius(3px);
+}
+
+#applicantProfile .imgWrap .video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -15px 0 0 -15px;
+}
+
+#applicantProfile ul h4 {
+    text-transform: capitalize;
+    font-weight: 400;
+    color: @base;
+}
+
+#videoResponses h3, #resumeCoverLetter h3 {
+    margin: 20px 0;
+}
+
+/* =============================================================================
+   Apply Page
+   ========================================================================== */
+   
+#applicantProfile #card {
+	float: left;
+	margin-right: 0px;
+	width: 382px;
+}   
+   
+.userinfo input[type="text"], .userinfo input[type="password"] {
+	//width: 96%;
+	margin-bottom: 3px;
+}
+
+#applicantProfile #submissions {
+	float: right;
+	width: 485px;
+	clear: none;
+}
+
+#steps.hide + .main #applicantProfile #submissions {
+	margin-top: 0px;
+}
+
+.video-q-holder {
+	width: 100%;
+	clear: both;
+	display: none;
+}
+
+.video-label {
+	width: 100%;
+	display: block;
+	font-family: "freight-sans-pro",sans-serif;
+	color: #000;
+	font-weight: bold;
+	font-size: 18px;
+	margin-bottom: 10px;
+}
+
+.video-flash-holder {
+	width: 100%;
+	text-align: center;
+}
+
+#finalStep {
+	display: none;
+}
+
+.nextbutton {
+	float: right;
+	clear: both;
+	margin-top: 10px;
+}
+
+/* =============================================================================
+   Default Login Page (Dark and Light Theme)
+   ========================================================================== */
+   
+#container.login  {
+    max-width: 450px;
+    margin-top: 80px;
+    margin-bottom: 80px;
+    text-align: center;
+    line-height: 16px;
+}
+
+#loginBox {
+   float: left;
+   width: 100%;
+   padding: 0;
+   text-align: left;
+   margin: 40px 0 0;
+}
+
+#loginBox h2 {
+    font-weight: bold;
+    margin: 0 0 20px;
+    font-size: 20px;
+    padding: 10px 15px;
+    line-height: 26px;
+}
+
+#loginBox div {
+    padding: 10px 15px;
+    float: left;
+    width: 100%;
+    -moz-box-sizing: border-box; 
+    -webkit-box-sizing: border-box; 
+    box-sizing: border-box;
+}
+
+#loginBox .inputs label {
+    float: left;
+    clear: left;
+    padding: 7px 0;
+}
+
+#loginBox .inputs input {
+    float: right;
+    clear: right;
+    width: 75%;
+}
+
+#loginBox .btnStyle {
+    float: right;
+    position: relative;
+    top: -6px;
+    margin-left: 10px;
+}
+
+#loginBox div div {
+    padding: 0;
+    float: right;
+    width: 100%;
+    text-align: right;
+}
+
+#loginBox div div a { float: left; margin: 15px 0 0; }
+#loginBox div div a.btn { float: right; }
+
+/*Dark Theme----------------------------------------------------------------- */ 
+
+body#login.dark { background: #333; }
+body#login.dark #loginBox { background: #FFF; border: 1px solid #000; }
+body#login.dark #loginBox h2 { background: #EFEFEF; border-bottom: 1px solid #CCC; }
+
+/*Light Theme----------------------------------------------------------------- */ 
+
+body#login.light { background: #EFEFEF; }
+body#login.light #loginBox { background: #FFF; border: 1px solid #CCC; }
+body#login.light #loginBox h2 { background: #333; border-bottom: 1px solid #000; color: #FFF; }
+
+
 /* ==|== media queries ======================================================
    EXAMPLE Media Query for Responsive Design.
    This example overrides the primary ('mobile first') styles
-   Modify as content requires.
+   Modify as content requires...
    ========================================================================== */
 
 @media only screen and (min-width: 35em) {
     /* Style adjustments for viewports that meet the condition */
+    
 }
 
 
 
 /* ==|== non-semantic helper classes ========================================
-   Please define your styles before this section.
+   Please define your styles before this section
    ========================================================================== */
 
 /*
@@ -1134,5 +3063,5 @@ footer h3 span {
     h2,
     h3 {
         page-break-after: avoid;
-    }
+    } 
 }

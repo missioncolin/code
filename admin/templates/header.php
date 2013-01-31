@@ -1,41 +1,21 @@
 <?php
 $applications = array(
+	/*"banners" => array(
+		"label" => "Banner Manager",
+		"permissions" => "modifyBanner",
+	),	*/
+	"job-credits" => array(
+		"label" => "Job Credit Pricing",
+		"permissions" => "modifyPricing",
+	),
+	"transactions" => array(
+		"label" => "Transactions",
+		"permissions" => "viewTransactions",
+	),
 	"notification-manager" => array(
 		"label" => "Notification Manager",
 		"permissions" => "modifyNotifications",
-	),
-	"banners" => array(
-		"label" => "Banner Manager",
-		"permissions" => "modifyBanner",
-	),
-	"blog" => array(
-		"label" => "Blog Manager: Public",
-		"permissions" => "modifyBlog",
-	),
-    "doctors-only" => array(
-		"label" => "Blog Manager: Doctors Only",
-		"permissions" => "editorCCOK"
-	),
-	"doctors-subscriptions" => array(
-		"label" => "Subscription Manager: Doctors Only",
-		"permissions" => "editorCCOK"
-	),
-	"testimonials" => array(
-		"label" => "Testimonials",
-		"permissions" => "modifyTestimonials",
-	),
-	"twitter" => array(
-		"label" => "Twitter Accounts",
-		"permissions" => "modifyTwitter"
-	),
-	"http://disqus.com/admin/login/" => array(
-	   "label" => "&#8594; Disqus Comment Admin",
-	   "permissions" => "modifyBlog"
-    ),
-    "https://login.mailchimp.com" => array(
-        "label" => "&#8594; MailChimp",
-        "permissions" => "modifySubscriptions"
-    )
+	)
 );
 
 
@@ -124,7 +104,7 @@ $modifyPages = $auth->has_permission('modifypages');
     <img src="/images/admin/quippBanner.png" alt="Quipp Engine" />
 		<span id="structureControlTitle">
 		
-		<img src="/images/layout/logo.png" alt="Kindersmiles" width="240px" /></span>
+		<img src="/themes/Intervue/img/logo.png" alt="Intervue" width="188px" height="142px"/></span>
 		
 		<div id="navTab">
 			<table>

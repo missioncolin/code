@@ -19,6 +19,10 @@ function __autoload($class) {
 }
 require 'includes.php'; 
 require 'quipp/common.php'; 
+require 'apps/Auth/customAuth.php'; //just for Intervue
+require dirname(__DIR__) . '/vendor/Stripe/lib/Stripe.php';
+Stripe::setApiKey('sk_AohcDYj7BQy2HBUB0eKj3C7l28oWo');
+
 
 $config = require __DIR__ . '/config.php.dist';
 $dbc    = $config['db'];
@@ -44,7 +48,8 @@ $quipp->google = array(
 
 
 
-$auth  = new Auth($db,$quipp);
+//$auth  = new Auth($db,$quipp);
+$auth  = new customAuth($db,$quipp);
 $nav   = new Nav();
 
 if (isset($_SESSION['userID'])) {
@@ -71,9 +76,9 @@ $DRAGGIN['auth']['directory']['ad_password'] = "";
 */
 
 $meta = array(
-	'title' 	   => 'Kinder Smiles',
+	'title' 	   => 'Intervue',
 	'title_append' => ' &bull; Home',
-	'description'  => '',
+	'description'  => 'Intervue',
 	'keywords'	   => '',
 	'lang'		   => 'en',
 	'robots'	   => 'noindex,nofollow',

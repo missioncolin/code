@@ -96,7 +96,7 @@ if(isset($_REQUEST['save']) && $_REQUEST['save'] == "true") {
 									} else { 
 										$checkMe = ""; 
 									} ?>
-											<label><input type="checkbox" class="uniform" name="groups_list[<?php print $grpRS['itemID']; ?>]" id="groups_list[<?php print $grpRS['itemID']; ?>]" value="<?php print $grpRS['itemID']; ?>" <?php print $checkMe; 
+											<label><input type="checkbox" name="groups_list[<?php print $grpRS['itemID']; ?>]" id="groups_list[<?php print $grpRS['itemID']; ?>]" value="<?php print $grpRS['itemID']; ?>" <?php print $checkMe; 
 												?> /> <?php print $grpRS['nameFull']; ?></label>
 								</dd><br/>
 					<?php } 

@@ -28,6 +28,18 @@ class User
 				$this->isAD    = ($tmp['sysIsADUser'] == '1') ? true : false;
 
 			}
+			
+			// get groups the user is a member of
+			$this->groups = array();
+			$gQry = sprintf("SELECT itemID, nameSystem FROM sysUGroups WHERE itemID IN (SELECT groupID FROM sysUGLinks WHERE userID = '%d')", $id);
+			$gRes = $this->db->query($gQry);
+			if($this->db->valid($gRes)) {
+    			while($g = $this->db->fetch_assoc($gRes)) {
+        			$this->groups[$g['nameSystem']] = $g['itemID'];
+    			}
+			}
+    		
+			
 		}
 
 
@@ -38,9 +50,8 @@ class User
 	}
 
 
-	function get_group_memberships($userID = false)
+	public function get_group_memberships($userID = false)
 	{
-
 
 
 	}
@@ -71,16 +82,16 @@ class User
 				//field exists for this user, lets update it
 				$qry = sprintf("UPDATE sysUGFValues SET value='%s' WHERE userID='%d' AND fieldID='%d';",
 					$this->db->escape($value),
-					(int) $this->id,
-					(int) $fieldID);
+					(int)$this->id,
+					(int)$fieldID);
 				$this->db->query($qry);
 
 			} else {
 				//user does not have this value, insert the link first
 
 				$qry = sprintf("INSERT INTO sysUGFValues (userID, fieldID, value, sysStatus, sysOpen) VALUES ('%d', '%d', '%s', 'active', '1');",
-					(int) $userID,
-					(int) $fieldID,
+					(int)$this->id,
+					(int)$fieldID,
 					$this->db->escape($value));
 				$this->db->query($qry);
 
@@ -115,6 +126,7 @@ class User
 			AND v.userID='%d'",
 			$this->db->escape($fieldLabel),
 			(int) $userID);
+			
 		$res = $this->db->query($qry);
 
 		if($this->db->valid($res)) {
@@ -261,7 +273,7 @@ class User
 
 					case "CHCK":
 						$checkMe = (!empty($udRS['value'])) ? ' checked="checked"' : '';						
-						$fieldBuffer = '<input type="checkbox" class="uniform" id="meta[' . $newFormID . ']" name="meta[' . $newFormID . ']" value="1"' . $checkMe . ' />';
+						$fieldBuffer = '<input type="checkbox" id="meta[' . $newFormID . ']" name="meta[' . $newFormID . ']" value="1"' . $checkMe . ' />';
 						break;
 					case "PROV":
 						$fieldBuffer = get_prov_list('meta[' . $newFormID . ']', $udRS['value']);
@@ -269,8 +281,11 @@ class User
 					case "COUN":
 						$fieldBuffer = get_country_list('meta[' . $newFormID . ']', $udRS['value']);
 						break;
+				   case "TEXT":
+						$fieldBuffer = '<textarea id="meta[' . $newFormID . ']" name="meta[' . $newFormID . ']">' . $udRS['value'] . '</textarea>';
+						break;
 					default:
-						$fieldBuffer = '<input type="text" class="uniform" id="meta[' . $newFormID . ']" name="meta[' . $newFormID . ']" value="' . $udRS['value'] . '" />';
+						$fieldBuffer = '<input type="text" id="meta[' . $newFormID . ']" name="meta[' . $newFormID . ']" value="' . $udRS['value'] . '" />';
 						break;
 				}
 								
@@ -303,19 +318,34 @@ class User
 	
 		return $formBuffer;
 	}
-	public function get_assigned_winery_editor_ids($excludeID = false){
-		$where = (intval($excludeID,10) > 0)?"AND adminID <> ".intval($excludeID,10):"";
-		$qry = "SELECT adminID FROM tblWineries WHERE adminID > 0 ".$where;
-		$res = $this->db->query($qry);
-		if ($this->db->valid($res) != false){
-			while ($row = $this->db->fetch_assoc($res)){
-				$ids[] = $row["adminID"];
-			}
-			return $ids;
-		}
-		return false;
-	}
 
+    /**
+     * Change the user's password
+     * @param string
+     * @return bool
+     */
+     
+    public function changePassword($password)
+    {
+        if (empty($password)) {
+            throw new Exception('Password can not be empty');
+        }
+        $stmt = $this->db->query(sprintf("UPDATE sysUsers SET `userIDPassword`= MD5('%s') WHERE itemID='%d'", $password, $this->id));
+        
+        return (boolean)$this->db->affected_rows($stmt);
+    
+    }
+
+
+    /**
+     * Rest the fp hash
+     * @return bool
+     */
+    public function removeHash()
+    {
+        $stmt = $this->db->query(sprintf("UPDATE sysUsers SET `fpHash`= NULL WHERE itemID='%d'", $this->id));
+        return (boolean)$this->db->affected_rows($stmt);
+    }
 }
 
 
