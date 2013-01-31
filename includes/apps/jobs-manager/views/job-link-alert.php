@@ -21,7 +21,7 @@ if ($user->info['Job Credits'] == 0){
 }else if ($user->info['Job Credits'] > 0){
 	$title = "Activate Your Link";
 	$jobCreditsLine = "<strong>You have " . $user->info['Job Credits'] . " credits</strong>";
-	$buttonLink = "<a href=\"\" class=\"btn activate green\" data-job=\"".$_GET["jobID"]."\">Activate Link</br>Cost of 1 credit</a>";
+	$buttonLink = "<a href=\"\" class=\"btn activate green\" data-job=\"".$_GET["jobID"]."\">Activate Link</a>";
 } 
 
 
