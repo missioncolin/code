@@ -964,7 +964,7 @@ nav a:hover {
     display: inline-block;
 }
 
-#hr-signup #stepsNew li {
+#stepsNew li {
 	font-size: 15px;
 }
 
@@ -1093,6 +1093,10 @@ a:hover.btn.red, input:hover.btn.red {
 }
 
 .activate.btn { width: 54px; }
+
+#new-job-info .activate.btn {
+	width: 100px;
+}
 
 
 a.btn2 {
@@ -1511,7 +1515,7 @@ tr {
 }
 
 tr:hover {
-    background: lighten(@accent, 41%);
+    /*background: lighten(@accent, 41%);*/
 }
 
 th:first-child {
@@ -1826,7 +1830,11 @@ th.coverLetter { width: 100px; }
 }
 
 #hrListJobs .activate {
-    width: 168px;
+	width: 162px;
+	.border-radius(36px);
+	font-size: 11px;
+	padding: 0px 0px;
+	margin-top: 6px;
 }
 
 /*HR Signup------------------------------------------------------------------ */
