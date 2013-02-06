@@ -18,8 +18,6 @@ if ($this INSTANCEOF Quipp){
     foreach($meta as $fields){
         $post[str_replace(" ","_",$fields["fieldLabel"])] = array("code" => $fields["validationCode"], "value" => "", "label" => $fields["fieldLabel"]);
     }
-    
-	print_r($post);
         	
     if (isset($_POST["sbmt-hr-signup"])){
     	
