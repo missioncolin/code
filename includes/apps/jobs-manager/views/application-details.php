@@ -1,7 +1,3 @@
-<script>
-
-	console.log("here");
-</script>
 
 <?php 
 
@@ -65,6 +61,9 @@ $quipp->js['footer'][] = "/includes/apps/jobs-manager/js/jobs-manager.js";
 		}else if ($application['grade'] == "average"){
 			$recommendColour = "black";
 			$averageColour = "yellow";
+		}else {
+				$recommendColour = "black";
+				$averageColour = "black";
 		}
 
 

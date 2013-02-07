@@ -62,35 +62,39 @@ if ($this instanceof Quipp) {
 	    print_r($_POST);
 	    
         if (validate_form($_POST)) {
-	        echo "In _POST";
+
             switch ($_GET['action']) {
 
             case 'new':
-            
+                
                 if (is_array($_POST['RQvalALPHQuestions'])) {
                     
                     $i = 0;
                     while( $i < count($_POST['RQvalALPHQuestions'])) {
                         
-	                        $qry = sprintf("INSERT INTO tblQuestions (label, type, questionnaireID, idealValue ) VALUES('%s', '%d', '%d', '%d')",
-	                            $db->escape(strip_tags($_POST['RQvalALPHQuestions'][$i])),
-	                            (int) $_POST['RQvalNUMBType'],
-	                            (int) $_GET['qnrID'],
-	                            (int) $_POST['idealValues'][$i]);
-	                        $db->query($qry);
+                        	if ($_POST['RQvalALPHQuestions'][$i] != '') {
+		                        $qry = sprintf("INSERT INTO tblQuestions (label, type, questionnaireID, idealValue ) VALUES('%s', '%d', '%d', '%d')",
+		                            $db->escape(strip_tags($_POST['RQvalALPHQuestions'][$i])),
+		                            (int) $_POST['RQvalNUMBType'],
+		                            (int) $_GET['qnrID'],
+		                            (int) $_POST['idealValues'][$i]);
+		                        $db->query($qry);
+	                        }
 	                        
 	                        $i += 1;
                        
                      }
                     
                 } else {
-                    $qry = sprintf("INSERT INTO tblQuestions (label, type, questionnaireID, idealValue ) VALUES('%s', '%d', '%d', '%d')",
-                        $db->escape(strip_tags($_POST['RQvalALPHQuestion'])),
-                        (int) $_POST['RQvalNUMBType'],
-                        (int) $_GET['qnrID'],
-                        (int) $_POST['idealValues']);
-                    $db->query($qry);
-                        
+                
+                	if ($_POST['RQvalALPHQuestion'] != '') {
+	                    $qry = sprintf("INSERT INTO tblQuestions (label, type, questionnaireID, idealValue ) VALUES('%s', '%d', '%d', '%d')",
+	                        $db->escape(strip_tags($_POST['RQvalALPHQuestion'])),
+	                        (int) $_POST['RQvalNUMBType'],
+	                        (int) $_GET['qnrID'],
+	                        (int) $_POST['idealValues']);
+	                    $db->query($qry);
+                    }    
                 }
                 $success = 1;
 
@@ -329,7 +333,7 @@ if ($this instanceof Quipp) {
                 ?>
                 <tr>
 	                <td colspan="2">
-	                    <div class="sliderText"><input size="75" type="text" name="RQvalALPHQuestions[]" id="RQvalALPHQuestion_<?php echo $rowCount; ?>" placeholder="Example: <?php echo $placeholders[$rowCount]; ?>" value="<?php echo (isset($_POST['RQvalALPHQuestion'][0])) ? $_POST['RQvalALPHQuestion'][0] : ''; ?>" /></div><div class="experienceSlider"><label for="idealSlider">Ideal Years of Experience  </label><span id="idealValue_<?php echo $rowCount; ?>">15</span>
+	                    <div class="sliderText"><input size="75" type="text" autocomplete="off" name="RQvalALPHQuestions[]" id="RQvalALPHQuestion_<?php echo $rowCount; ?>" placeholder="Example: <?php echo $placeholders[$rowCount]; ?>" value="<?php echo (isset($_POST['RQvalALPHQuestion'][0])) ? $_POST['RQvalALPHQuestion'][0] : ''; ?>" /></div><div class="experienceSlider"><label for="idealSlider">Ideal Years of Experience  </label><span id="idealValue_<?php echo $rowCount; ?>">15</span>
 	                    <input size="10" name="idealValues[]" type="hidden" id="hiddenIdealValue_<?php echo $rowCount; ?>" value="<?php echo (isset($_POST['idealValues'][0])) ? $_POST['idealValues'][0] : '15'; ?>"/></br>
 	                    <div class="idealSlider" id="idealSlider_<?php echo $rowCount; ?>" data-count="<?php echo $rowCount; ?>" data-value="15"></div></div>
 	                    <a href="#" data-count="<?php echo $rowCount; ?>" class="removeSkillQ btn">x</a>
@@ -389,7 +393,7 @@ if ($this instanceof Quipp) {
 		            <tr>
 		                <td><label><?php echo $label; ?></label></td> 
 		                <td colspan="2">
-		                    <input size="75" type="text" name="RQvalALPHQuestions[]" id="RQvalALPHQuestion_<?php echo $i; ?>" placeholder="Select a default question, or create your own." value="<?php echo (isset($_POST['RQvalALPHQuestion'][0])) ? $_POST['RQvalALPHQuestion'][0] : ''; ?>" /> 
+		                    <input size="75" type="text" autocomplete="off" name="RQvalALPHQuestions[]" id="RQvalALPHQuestion_<?php echo $i; ?>" placeholder="Select a default question, or create your own." value="<?php echo (isset($_POST['RQvalALPHQuestion'][0])) ? $_POST['RQvalALPHQuestion'][0] : ''; ?>" /> 
 		                    
 			                <!--- JS dropdown menu ---->
 			                <select class="DefaultQs_<?php echo $i; ?>" name="Generic Questions" style="width:400px;">
@@ -428,7 +432,7 @@ if ($this instanceof Quipp) {
    			<tr>
                 <td><label><?php echo $label; ?></label></td> 
                 <td colspan="2">
-                    <input size="75" type="text" name="RQvalALPHQuestions[]" id="RQvalALPHQuestion_5" placeholder="Select a default question, or create your own." value="<?php echo(isset($_POST['RQvalALPHQuestion'][0])) ? $_POST['RQvalALPHQuestion'][0] : ''; ?>" /> 
+                    <input size="75" autocomplete="off" type="text" name="RQvalALPHQuestions[]" id="RQvalALPHQuestion_5" placeholder="Select a default question, or create your own." value="<?php echo(isset($_POST['RQvalALPHQuestion'][0])) ? $_POST['RQvalALPHQuestion'][0] : ''; ?>" /> 
                     
 	                <!--- JS dropdown menu ---->
 	                <select class="DefaultQs_1" name="Generic Questions" style="width:400px;">
@@ -660,7 +664,7 @@ if ($this instanceof Quipp) {
 					?>
 						<tr>						
 					    	<!--<td width="30%"><label for="RQvalALPHQuestion_<?php echo $qID; ?>">How Many Years Experience...</label></td>-->
-							<td><input type="text" class="<?php echo $qID; ?>" name="RQvalALPHQuestion_<?php echo $qID; ?>_edit_3" value="<?php echo $qLabel; ?>"/>
+							<td><input type="text" autocomplete="off" class="<?php echo $qID; ?>" name="RQvalALPHQuestion_<?php echo $qID; ?>_edit_3" value="<?php echo $qLabel; ?>"/>
 							</br></br><label for="idealSlider">Ideal Years of Experience  </label><span id="idealValue_<?php echo $qID; ?>"><?php echo $idealVal; ?></span><input size="10" name="idealValues[]" type="hidden" id="hiddenIdealValue_<?php echo $qID; ?>" value="<?php echo $idealVal; ?>"/></br><div class="idealSlider" id="idealSlider_<?php echo $qID; ?>" data-count="<?php echo $qID; ?>" data-value="<?php echo $idealVal; ?>"></div></td><br>
 							<td width="5%"><a href="#" data-type="3" id="<?php echo $qID; ?>" class="removeQuestion"> x</a></td>
 						</tr>								
@@ -676,7 +680,7 @@ if ($this instanceof Quipp) {
 					if (strcmp($qType, "Video") == 0) { ?>
 						<tr>
 					    	<td width="30%"><label for="RQvalALPHQuestion_<?php echo $qID; ?>">Question</label></td>
-							<td><input type="text" class="<?php echo $qID; ?>" name="RQvalALPHQuestion_<?php echo $qID; ?>_edit_4" value="<?php echo $qLabel; ?>"/><br><select class="DefaultQs_<?php echo $qID; ?>" name="Generic Questions" style="width:400px;"><option>Optionally select a default question.</option><option value="fiveYearPlan">What are your goals and objectives for the next five years?</option><option value="careerGoals">How do you plan to achieve your career goals?</option><option value="rewarding">What do you find most rewarding in your career?</option><option value="chooseCareer">Why did you choose the career for which you are in?</option><option value="strengthWeakness">What are your strengths, weaknesses, and interests?</option><option value="professorDescribe">How do you think a friend or professor who knows you well would describe you?</option><option value="difficultPerson">Describe how you handle working with a difficult person?</option><option value="greatestEffort">What motivates you to put forth your greatest effort? Describe a situation in which you did so.</option><option value="evaluateSuccess">How do you determine or evaluate success?</option><option value="contributionOrganization">In what ways do you think you can make a contribution to our organization?</option><option value="contributionProject">Describe a contribution you have made to a project on which you worked.</option><option value="successfulManager">What qualities should a successful manager/leader/supervisor/etc. possess?</option><option value="occasionDisagree">Describe how you handle an occasion when you disagree with a supervisor\'s decision?</option><option value="threeAccomplishments">What two or three accomplishments have given you the most satisfaction? Why?</option><option value="workEnvironment">In what kind of work environment are you most comfortable?</option><option value="underPressure">How do you work under pressure?</option><option value="teamEnvironment">What role do you best fit in when working in a team environment? Why?</option><option value="seekPosition">Why did you decide to seek a position with our organization?</option><option value="threeImporatnt">What two or three things would be most important to you in your job?</option><option value="evaluateOrganization">What criteria are you using to evaluate the organization for which you hope to work?</option><option value="relocationConstraints">How would you view needing to relocate for the job? Do you have any constraints on relocation?</option><option value="travelAmount">Are you comfortable with the amount of travel this job requires?</option><option value="sixMonths">Are you willing to spend at least six months as a trainee?</option></select></td> 
+							<td><input type="text" autocomplete="off" class="<?php echo $qID; ?>" name="RQvalALPHQuestion_<?php echo $qID; ?>_edit_4" value="<?php echo $qLabel; ?>"/><br><select class="DefaultQs_<?php echo $qID; ?>" name="Generic Questions" style="width:400px;"><option>Optionally select a default question.</option><option value="fiveYearPlan">What are your goals and objectives for the next five years?</option><option value="careerGoals">How do you plan to achieve your career goals?</option><option value="rewarding">What do you find most rewarding in your career?</option><option value="chooseCareer">Why did you choose the career for which you are in?</option><option value="strengthWeakness">What are your strengths, weaknesses, and interests?</option><option value="professorDescribe">How do you think a friend or professor who knows you well would describe you?</option><option value="difficultPerson">Describe how you handle working with a difficult person?</option><option value="greatestEffort">What motivates you to put forth your greatest effort? Describe a situation in which you did so.</option><option value="evaluateSuccess">How do you determine or evaluate success?</option><option value="contributionOrganization">In what ways do you think you can make a contribution to our organization?</option><option value="contributionProject">Describe a contribution you have made to a project on which you worked.</option><option value="successfulManager">What qualities should a successful manager/leader/supervisor/etc. possess?</option><option value="occasionDisagree">Describe how you handle an occasion when you disagree with a supervisor\'s decision?</option><option value="threeAccomplishments">What two or three accomplishments have given you the most satisfaction? Why?</option><option value="workEnvironment">In what kind of work environment are you most comfortable?</option><option value="underPressure">How do you work under pressure?</option><option value="teamEnvironment">What role do you best fit in when working in a team environment? Why?</option><option value="seekPosition">Why did you decide to seek a position with our organization?</option><option value="threeImporatnt">What two or three things would be most important to you in your job?</option><option value="evaluateOrganization">What criteria are you using to evaluate the organization for which you hope to work?</option><option value="relocationConstraints">How would you view needing to relocate for the job? Do you have any constraints on relocation?</option><option value="travelAmount">Are you comfortable with the amount of travel this job requires?</option><option value="sixMonths">Are you willing to spend at least six months as a trainee?</option></select></td> 
 							<td width="5%"><a href="#" data-type="4" id="<?php echo $qID; ?>" class="removeQuestion"> x</a></td>
 						</tr>								
 					<?php

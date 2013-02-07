@@ -10,16 +10,17 @@ if ($this INSTANCEOF Quipp){
         array("fieldLabel" => "Email", "validationCode" => "RQvalMAIL"),
         array("fieldLabel" => "Job Credits", "validationCode" => ""),
         array("fieldLabel" => "password", "validationCode" => "RQvalALPH"),
-	    array("fieldLabel" => "confirm_password", "validationCode" => "RQvalALPH")
+	    array("fieldLabel" => "confirm_password", "validationCode" => "RQvalALPH"),
+	    array("fieldLabel" => "Company Name", "validationCode" => "RQvalALPH")
     );
         
     $post   = array();
     foreach($meta as $fields){
         $post[str_replace(" ","_",$fields["fieldLabel"])] = array("code" => $fields["validationCode"], "value" => "", "label" => $fields["fieldLabel"]);
     }
+        	
     if (isset($_POST["sbmt-hr-signup"])){
-    
-    
+    	
         $uploadErrors = array(
             0 => "There is no error, the file uploaded with success",
             1 => "The uploaded file exceeds the maximum file size", //php.ini
@@ -81,7 +82,7 @@ if ($this INSTANCEOF Quipp){
 
     <div id="signupBox">
 <?php
-        if (!empty($message)){
+        if (!empty($message)) {
             echo alert_box("The following must be completed in order to create your account: <ul>".$message."</ul>", 2);
         }
 ?>
@@ -89,7 +90,11 @@ if ($this INSTANCEOF Quipp){
 	        <h2>Create Account</h2>
 	        <div class="inputs">
 	        <label for="Email">Email</label>
-	        <input type="text" id="Email" name="Email" class="full" value="<?php echo $post["Email"]["value"];?>" required="required"/>
+	        <input type="text" id="Email" name="Email" class="full" value="<?php echo (isset($post["Email"]["value"])) ? $post["Email"]["value"] : "";?>" required="required"/>
+	        </div>
+	        <div class="inputs">
+	        <label for="Company Name">Company Name</label>
+	        <input type="text" id="Company Name" name="Company Name" class="full" value="<?php echo (isset($post["Company Name"]["value"])) ? $post["Company Name"]["value"] : "";?>" required="required"/>
 	        </div>
 	        <div class="inputs">
 	        <label for="password">Password</label>
@@ -100,7 +105,8 @@ if ($this INSTANCEOF Quipp){
 	        <input type="password" id="confirm_password" name="confirm_password" class="full" required="required"/>
 	        </div>
 	        <div>
-	            <div><input type="submit" value="Go" class="btn" name="sbmt-hr-signup" /></div>
+		        Already a member? <a href="/login">Login here</a>
+	            <div><input type="submit" value="Go" class="btn" name="sbmt-hr-signup" /></div>      
 	        </div>
 	        <div class="clearfix"></div>
 	    </form>

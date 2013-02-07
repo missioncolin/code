@@ -38,6 +38,51 @@ $(function () {
      
        });
     });
+
+
+    $('.activateList').click(function(e) {
+    	 e.preventDefault();
+        var $jobID = $(this).data('job');
+        var $expiry = $(this).data('expiry');
+        var $this = $(this);
+        var react = $(this);
+        var linkText = document.createTextNode(location.host+"/apply/"+$jobID);
+        confirmAction("Publish Job?", "Publishing this job will cost one (1) credit");
+        
+        //client request - "make it green"
+        $('.popUp').removeClass('fail').addClass('success');
+        
+        $('.popUp #popUpNo').on('click', clearPopUp);
+        $('.popUp #popUpOk').on('click', function(){
+               var parTD = react.parent();
+               var parTR = react.parents('tr').index();     
+		$.post('/reactivate-job', {
+			job: $jobID
+		}, function (data) {
+			if (data){
+				var credits = $('#loggedInButtons a:eq(0)').html().match(/^(\d+)\sCredits$/); 
+				if (typeof credits != 'undefined' && credits[1] > 0){
+					var creditHTML = (parseInt(credits[1], 10) - 1)+' Credits';
+					$('#loggedInButtons a:eq(0)').html(creditHTML);
+					$('.alert').removeClass('fail').addClass('success').html('<span></span>Job Re-published Successfully. Your account was debited one (1) credit');				
+					
+					location.reload();
+				}else{
+				//THIS IS NOT WORKING
+					$('.alert').removeClass('success').addClass('fail').html('<span></span>Job not Re-published. '+data);      
+				}
+
+			}else{
+			//THIS IS ALSO NOT WORKING
+				$('.alert').removeClass('success').addClass('fail').html('<span></span>Job not Re-published. '+data);
+			}
+
+			clearPopUp();
+				
+		}); 
+     
+       });
+    });
     
     var clearPopUp = function(){
         $('#confirm').fadeOut();
@@ -268,13 +313,30 @@ $(function () {
     $('.grade').click(function () {
         var $application = $(this).data('application');
         var $grade = $(this).data('grade');
+        
+        if ($(this).attr("class") != 'grade btn black') {
+	        $grade = 'none';
+        }
+        
+        console.log($grade);
+        
         var $this = $(this);
+        
         $.post('/grade-applicant', {
             application: $application,
             grade: $grade
         }, function (response) {
-            $this.siblings().removeClass('green').removeClass('yellow').removeClass('red').addClass('black');
-            $this.removeClass('black').addClass(response);
+	            $this.siblings().removeClass('green').removeClass('yellow').removeClass('red').addClass('black');
+	            
+	            if (response == 'black') {
+		            $this.removeClass('green').removeClass('yellow').removeClass('red');
+		            $this.addClass('black');
+		        }
+		        else {
+			        $this.removeClass('black');
+			        $this.addClass(response);
+		        }
+
         });
     }); 
       
