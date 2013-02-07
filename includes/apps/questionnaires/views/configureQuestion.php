@@ -62,35 +62,39 @@ if ($this instanceof Quipp) {
 	    print_r($_POST);
 	    
         if (validate_form($_POST)) {
-	        echo "In _POST";
+
             switch ($_GET['action']) {
 
             case 'new':
-            
+                
                 if (is_array($_POST['RQvalALPHQuestions'])) {
                     
                     $i = 0;
                     while( $i < count($_POST['RQvalALPHQuestions'])) {
                         
-	                        $qry = sprintf("INSERT INTO tblQuestions (label, type, questionnaireID, idealValue ) VALUES('%s', '%d', '%d', '%d')",
-	                            $db->escape(strip_tags($_POST['RQvalALPHQuestions'][$i])),
-	                            (int) $_POST['RQvalNUMBType'],
-	                            (int) $_GET['qnrID'],
-	                            (int) $_POST['idealValues'][$i]);
-	                        $db->query($qry);
+                        	if ($_POST['RQvalALPHQuestions'][$i] != '') {
+		                        $qry = sprintf("INSERT INTO tblQuestions (label, type, questionnaireID, idealValue ) VALUES('%s', '%d', '%d', '%d')",
+		                            $db->escape(strip_tags($_POST['RQvalALPHQuestions'][$i])),
+		                            (int) $_POST['RQvalNUMBType'],
+		                            (int) $_GET['qnrID'],
+		                            (int) $_POST['idealValues'][$i]);
+		                        $db->query($qry);
+	                        }
 	                        
 	                        $i += 1;
                        
                      }
                     
                 } else {
-                    $qry = sprintf("INSERT INTO tblQuestions (label, type, questionnaireID, idealValue ) VALUES('%s', '%d', '%d', '%d')",
-                        $db->escape(strip_tags($_POST['RQvalALPHQuestion'])),
-                        (int) $_POST['RQvalNUMBType'],
-                        (int) $_GET['qnrID'],
-                        (int) $_POST['idealValues']);
-                    $db->query($qry);
-                        
+                
+                	if ($_POST['RQvalALPHQuestion'] != '') {
+	                    $qry = sprintf("INSERT INTO tblQuestions (label, type, questionnaireID, idealValue ) VALUES('%s', '%d', '%d', '%d')",
+	                        $db->escape(strip_tags($_POST['RQvalALPHQuestion'])),
+	                        (int) $_POST['RQvalNUMBType'],
+	                        (int) $_GET['qnrID'],
+	                        (int) $_POST['idealValues']);
+	                    $db->query($qry);
+                    }    
                 }
                 $success = 1;
 
