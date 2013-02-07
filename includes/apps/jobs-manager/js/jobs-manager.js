@@ -268,13 +268,30 @@ $(function () {
     $('.grade').click(function () {
         var $application = $(this).data('application');
         var $grade = $(this).data('grade');
+        
+        if ($(this).attr("class") != 'grade btn black') {
+	        $grade = 'none';
+        }
+        
+        console.log($grade);
+        
         var $this = $(this);
+        
         $.post('/grade-applicant', {
             application: $application,
             grade: $grade
         }, function (response) {
-            $this.siblings().removeClass('green').removeClass('yellow').removeClass('red').addClass('black');
-            $this.removeClass('black').addClass(response);
+	            $this.siblings().removeClass('green').removeClass('yellow').removeClass('red').addClass('black');
+	            
+	            if (response == 'black') {
+		            $this.removeClass('green').removeClass('yellow').removeClass('red');
+		            $this.addClass('black');
+		        }
+		        else {
+			        $this.removeClass('black');
+			        $this.addClass(response);
+		        }
+
         });
     }); 
       

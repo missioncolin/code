@@ -406,6 +406,9 @@ $(function() {
 			}else if ($a['grade'] == "average"){
 				$recommendColour = "black";
 				$averageColour = "yellow";
+			}else {
+				$recommendColour = "black";
+				$averageColour = "black";
 			}
 			
 			?>

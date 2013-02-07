@@ -288,7 +288,8 @@ class JobManager {
      */
     public function gradeApplicant($applicationID, $grade)
     {
-        if (!in_array($grade, array('recommend', 'average', 'nq'))) {
+    	
+        if (!in_array($grade, array('recommend', 'average', 'nq', 'none'))) {
             return false;
         }
         
@@ -301,7 +302,8 @@ class JobManager {
             $colours = array(
                 'recommend' => 'green',
                 'average'   => 'yellow',
-                'nq'        => 'red'
+                'nq'        => 'red',
+                'none'      => 'black'
             );
             
             return $colours[$grade];
