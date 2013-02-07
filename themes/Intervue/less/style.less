@@ -1057,15 +1057,12 @@ a:hover.btn.green, input:hover.btn.green {
 }
 
 a.btn.black, input.btn.black {
-    background: @base2;
-}
-
-#applicantList a.btn.black {
-	background: lighten(@base2, 60%);
+    /*background: @base2;*/
+    background: lighten(@base2, 60%);
 }
 
 a:hover.btn.black, input:hover.btn.black {
-    background: lighten(@base2, 10%);
+    background: lighten(@base2, 50%);
 }
 
 a.btn.grey, input.btn.grey {
@@ -1077,7 +1074,7 @@ a.btn.lightGrey, input.btn.lightGrey {
 }
 
 a:hover.btn.grey, input:hover.btn.grey, a:hover.btn.lightGrey, input:hover.btn.lightGrey {
-    background: @base;
+    background: lighten(@base2, 50%);
 }
 
 a.btn.red, input.btn.red {
@@ -2515,7 +2512,9 @@ footer h3 span {
     border: 1px solid #b7b7b7;
     .border-radius(3px);
 }
-
+#applications-detail #applicantProfile #work-experience {
+	margin-left: 60px;
+}
 #applicantProfile #card {
     margin: 0 60px;
 }
@@ -2527,17 +2526,27 @@ footer h3 span {
 } 
 
 #card .heading, #work-experience .heading {
-    background: @base2;
+    background-color: lighten(@borders, 10%);
     float: left;
     width: 100%;
     .border-radius(3px 3px 0 0);
+    border-bottom: 1px solid darken(@borders,12%);
 }
-
+#card .heading h2, #work-experience .heading h2 {
+	color: @base2;
+}
 #card .cutout, #work-experience .cutout {
     position: absolute;
     left: -68px;
     top: 65px;
 }
+
+#profile #card .heading {
+	background: #e1e1e1;
+	border: 1px solid @darkBorders;
+	width: 387px;
+}
+#profile #card table { margin-top: -4px; }
 
 #card .profilePic, #work-experience .profilePic {
     width: 126px;
@@ -2774,6 +2783,10 @@ footer h3 span {
 	float: right;
 	width: 485px;
 	clear: none;
+}
+
+#applications-detail #applicantProfile #submissions {
+	width: 100%;
 }
 
 #steps.hide + .main #applicantProfile #submissions {
