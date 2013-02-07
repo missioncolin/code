@@ -180,7 +180,7 @@ if (empty($questionnaires)) {
             </thead>
             <tbody>
                 <tr>
-                    <td><input type="text" name="RQvalALPHTitle" id="title" placeholder="Example: Administrative Assistant" value="<?php echo $title; ?>"  required/></td>
+                    <td><input type="text" autocomplete="off" name="RQvalALPHTitle" id="title" placeholder="Example: Administrative Assistant" value="<?php echo $title; ?>"  required/></td>
                     <input type="hidden" name="RQvalNUMBQuestionnaire" id="questionnaire" value="<?php echo ($edit == true) ? $questionnaireID : 0; ?>"/>
                 </tr>
              <!--   <tr>
