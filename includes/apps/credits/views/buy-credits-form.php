@@ -119,8 +119,8 @@
         <label for="Billing_Country">Country</label>
         <div class="half bottom left select">
         <select name="Billing_Country" id="Billing_Country" class="half bottom" required="required">
-        <option value="38"<?php ($post["Billing_Country"]["value"] == 38 || empty($post["Billing_Country"]["value"]) ? ' selected="selected"':'')?>>Canada</option>
-        <option value="213"<?php ($post["Billing_Country"]["value"] == 213 ? ' selected="selected"':'')?>>United States</option>
+        <option value="38"<?php echo '',  (((isset($post['Billing_Country']['value']) && $post['Billing_Country']['value'] == 38) || empty($post['Billing_Country']['value'])) ? ' selected="selected"':'');?>>Canada</option>
+        <option value="213"<?php echo '', ((isset($post['Billing_Country']['value']) && $post['Billing_Country']['value'] == 213) ? ' selected="selected"':'');?>>United States</option>
         </select>
         </div>
   
