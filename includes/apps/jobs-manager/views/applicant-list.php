@@ -119,6 +119,34 @@ else{
 
 $quipp->js['footer'][] = "/includes/apps/jobs-manager/js/jobs-manager.js";
 
+/* Check whether check boxes are selected now that all of that craziness is done */
+if (isset($_REQUEST['topCandidate']) || isset($_REQUEST['hasPotential'])) {
+	
+	$newApplicants = array();
+	
+	foreach ($applicants as $applicant) {
+		
+		if (isset($_REQUEST['topCandidate'])) {
+
+			if ($applicant['grade'] == 'recommend') {
+				/* remove from visible list */
+				array_push($newApplicants, $applicant);
+			}			
+		}
+		
+		if (isset($_REQUEST['hasPotential'])) {
+		
+			if ($applicant['grade'] == 'average') {
+				/* remove from visible list */
+				array_push($newApplicants, $applicant);
+			}
+		}
+		
+	}
+	
+	//reassign array
+	$applicants = $newApplicants;	
+}
 ?>
 
 <script>
@@ -168,6 +196,12 @@ for (var i = 0; i < <?php echo count($allYearQuestions);?>; i++) {
 
 $(function() {
     
+    /* Handles the check box being selected
+       to filter candidates */
+    $(".check").change(function() {
+	    document.sliderForm.submit();
+    });
+    
     //ajaxFunction();
 	$('div[id^="slider-"]').each(function() {
 		
@@ -205,6 +239,7 @@ $(function() {
 								
 				// Set hidden value to slider number
 				$("#slider-val").val(sliderValueString);
+				$("#master-val").val(0);
 				document.sliderForm.submit();
 		    }
 		    
@@ -285,21 +320,29 @@ $(function() {
 </form> 
 
 <!--select list-->
-<form action="./applicant-list?job=<?php echo $_REQUEST['job']?>" id="selectForm" method="get">
-	<div> 
-		Select</br>
-		<input type="checkbox" name="selectFilter" value="topCandidate" id="topCandidate"><label for="topCandidate"> Top Candidates</label></br>
-		<input type="checkbox" name="selectFilter" value="hasPotential" id="hasPotential"><label for="hasPotential"> Has Potential</label></br>
-		<input type="checkbox" name="selectFilter" value="meetsSkills" id="meetsSkills"><label for="meetsSkills"> Meets Required Skills</label></br>
-		<input type="checkbox" name="selectFilter" value="unviewed" id="unviewed"><label for="unviewed"> Unviewed Applicant</label></br>
-	</div>
+<!--
+<form name="checkForm" action="./applicant-list?job=<?php echo $_REQUEST['job']?>" id="selectForm" method="get">
+	
 
 </form>
+-->
 
 
 
 <!-- sliders -->
 <form name="sliderForm" action="./applicant-list?job=<?php echo $_REQUEST['job']?>" method="get">
+
+	<!-- checkbox selectors -->
+	<div> 
+		Select</br>
+		<input type="checkbox" class="check" name="topCandidate" value="1" id="topCandidate" <?php echo (isset($_REQUEST['topCandidate']) && $_REQUEST['topCandidate'] == 1) ? "checked" : ""; ?>><label for="topCandidate"> Top Candidates</label></br>
+		<input type="checkbox" class="check" name="hasPotential" value="1" id="hasPotential" <?php echo (isset($_REQUEST['hasPotential']) && $_REQUEST['hasPotential'] == 1) ? "checked" : ""; ?>><label for="hasPotential"> Has Potential</label></br>
+<!--
+		<input type="checkbox" class="check" name="selectFilter[2]" value="meetsSkills" id="meetsSkills" <?php echo (isset($_REQUEST['selectFilter']) && in_array('meetsSkills', $_REQUEST['selectFilter'])) ? "checked" : ""; ?>><label for="meetsSkills"> Meets Required Skills</label></br>
+		<input type="checkbox" class="check" name="selectFilter[3]" value="unviewed" id="unviewed" <?php echo (isset($_REQUEST['selectFilter']) && in_array('unviewed', $_REQUEST['selectFilter'])) ? "checked" : ""; ?>><label for="unviewed"> Unviewed Applicant</label></br>
+-->
+	</div>
+	
 <!-- Slider for each question -->
 <!-- get question's question -->
 <?php 
@@ -345,8 +388,8 @@ $(function() {
 	echo "</ul>";
 
 ?>
-<input type="hidden" id="master-val" name="master-val" value="0">
-<input type="hidden" id="slider-val" name="slider-val" value="0">
+<input type="hidden" id="master-val" name="master-val" value="<?php echo isset($_REQUEST['master-val']) ? $_REQUEST['master-val'] : "0"; ?>">
+<input type="hidden" id="slider-val" name="slider-val" value="<?php echo isset($sliderParam) ? $sliderParam : "0"; ?>">
 <input type="hidden" id="jobID" name="job" value="<?php echo $_REQUEST['job']; ?>">
 <!-- everytime the slider is moved, reset page to the first page so that you don't get an 'empty' notice -->
 <input type="hidden" id="page" name="page" value="1">
