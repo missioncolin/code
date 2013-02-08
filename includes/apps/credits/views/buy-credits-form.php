@@ -18,7 +18,7 @@
     
      $provs  = $db->query("SELECT `itemID`, `provName` FROM `sysProvince` WHERE countryID IN (38, 213) ORDER BY `countryID`, `provName`");
      
-     $meta   = $frms->getMetaFieldsByGroup('hr-managers');
+    $meta   = $frms->getMetaFieldsByGroup('hr-managers');
     $post   = array();
     foreach($meta as $fields){
         $post[str_replace(" ","_",$fields["fieldLabel"])] = array("code" => $fields["validationCode"], "value" => $frms->get_meta($fields["fieldLabel"]), "label" => $fields["fieldLabel"]);
@@ -172,5 +172,17 @@
     <input type="submit" class="submit-button btn green" value="Submit Payment" />
     
     </div>
+    <div class="accept-checkboxes">
+    	<div>Note: Job credits do not expire</div>
+    	<div>
+    		Please accept out: <br/>
+	    	<input type="checkbox" id="termsConditions"/>Terms and Conditions <br/>
+	    	<input type="checkbox" id="privacyPolicy"/>Privacy Policy 
+    	</div>
+    	
+    </div>
+
+
+
     <input type="hidden" name="referrer" value="<?php echo (isset($_GET['req']) ? $_GET['req'] : '');?>" />
 </form>

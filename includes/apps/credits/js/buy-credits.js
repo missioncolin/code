@@ -1,21 +1,27 @@
 $("#payment-form").submit(function (event) {
-
-    // disable the submit button to prevent repeated clicks
-    $('.submit-button').attr("disabled", "disabled").attr("class", "btn grey submit-button");
-
-    Stripe.createToken({
-        number: $('.card-number').val(),
-        name: $('.card-name').val(),
-        cvc: $('.card-cvc').val(),
-        exp_month: $('.card-expiry-month').val(),
-        exp_year: $('.card-expiry-year').val()
-    }, stripeResponseHandler);
-
+	//are boxes checked? 
+	if ( $('#termsConditions').is(':checked') && $('#privacyPolicy').is(':checked') )
+	{
+	    // disable the submit button to prevent repeated clicks
+	    $('.submit-button').attr("disabled", "disabled").attr("class", "btn grey submit-button");
+	
+	
+	    //create stripe tokens
+	    Stripe.createToken({
+	        number: $('.card-number').val(),
+	        name: $('.card-name').val(),
+	        cvc: $('.card-cvc').val(),
+	        exp_month: $('.card-expiry-month').val(),
+	        exp_year: $('.card-expiry-year').val()
+	    }, stripeResponseHandler);
+    }else{
+    	alert ( "Please accept both Terms and Conditions and Privacy Policy to continue." );
+    }
     return false;
 });
 
 function stripeResponseHandler(status, response) {
-    if (response.error) {
+    if (response.error) { 
         // show the errors on the form
         $(".payment-errors").fadeIn().html("<div class='fail'><span></span></div>" + response.error.message);
         $(".submit-button").removeAttr("disabled").attr("class", "btn green submit-button");
