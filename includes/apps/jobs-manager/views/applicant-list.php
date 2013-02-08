@@ -120,9 +120,23 @@ else{
 $quipp->js['footer'][] = "/includes/apps/jobs-manager/js/jobs-manager.js";
 
 /* Check whether check boxes are selected now that all of that craziness is done */
-if (isset($_REQUEST['topCandidate']) || isset($_REQUEST['hasPotential'])) {
+if (isset($_REQUEST['topCandidate']) || isset($_REQUEST['hasPotential']) || isset($_SESSION['topCandidate']) || isset($_SESSION['hasPotential'])) {
 	
 	$newApplicants = array();
+	
+	if (isset($_REQUEST['topCandidate'])) {
+		$_SESSION['topCandidate'] = 1;
+	}
+	
+	if (isset($_REQUEST['hasPotential'])) {
+		$_SESSION['hasPotential'] = 1;
+	}
+	if (isset($_SESSION['topCandidate'])) {
+		$_REQUEST['topCandidate'] = 1;
+	}
+	if (isset($_SESSION['hasPotential'])) {
+		$_REQUEST['hasPotential'] = 1;
+	}
 	
 	foreach ($applicants as $applicant) {
 		
@@ -196,6 +210,9 @@ for (var i = 0; i < <?php echo count($allYearQuestions);?>; i++) {
 
 $(function() {
     
+    /* Handles visible links */
+    $("a.appDetails:visited").hide(); 
+        
     /* Handles the check box being selected
        to filter candidates */
     $(".check").change(function() {
@@ -327,8 +344,6 @@ $(function() {
 </form>
 -->
 
-
-
 <!-- sliders -->
 <form name="sliderForm" action="./applicant-list?job=<?php echo $_REQUEST['job']?>" method="get">
 
@@ -455,8 +470,8 @@ $(function() {
 			}
 			
 			?>
-	
-			<tr id="newUser">
+			
+			<tr id="newUser" class="newUser">
 				<td>
 					<h2><?php echo $j->getApplicantRating($a['itemID']); ?>%<br />
 						<a href="/applications-detail?application=<?php echo $a['itemID']; ?>">Details</a>
@@ -472,7 +487,7 @@ $(function() {
 					
 				</td>
 				<td>
-					<a href="/applications-detail?application=<?php echo $a['itemID']; ?>"><strong><?php echo $applicant->info['First Name'] . " " . $applicant->info['Last Name']; ?></strong></a><br>
+					<a href="/applications-detail?application=<?php echo $a['itemID']; ?>" class="appDetails"><strong><?php echo $applicant->info['First Name'] . " " . $applicant->info['Last Name']; ?></strong></a><br>
 					<span><?php echo $city; ?></span>
 					<span><?php echo $phone; ?></span>
 					<span><a href="mailto:<?php echo $applicant->info['Email']; ?>"><?php echo $applicant->info['Email']; ?></a></span><br/>
@@ -496,7 +511,6 @@ $(function() {
 				</td>
 			
 			</tr>
-			
 			<?php
 		
 		}
