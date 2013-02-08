@@ -69,7 +69,8 @@ $(function () {
 					location.reload();
 				}else{
 				//THIS IS NOT WORKING
-					$('.alert').removeClass('success').addClass('fail').html('<span></span>Job not Re-published. '+data);      
+					//$('.alert').removeClass('success').addClass('fail').html('<span></span>Job not Re-published. '+data);      
+					alertBox("fail", "Job not re-published. " + data + ". <a href='buy-job-credits'>Buy Credits?</a>");
 				}
 
 			}else{
