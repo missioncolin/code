@@ -120,7 +120,7 @@ else{
 $quipp->js['footer'][] = "/includes/apps/jobs-manager/js/jobs-manager.js";
 
 /* Check whether check boxes are selected now that all of that craziness is done */
-if (isset($_REQUEST['topCandidate']) || isset($_REQUEST['hasPotential']) || isset($_SESSION['topCandidate']) || isset($_SESSION['hasPotential'])) {
+if ((isset($_REQUEST['topCandidate']) || isset($_REQUEST['hasPotential'])) || (isset($_SESSION['topCandidate']) && isset($_REQUEST['backToList'])) || (isset($_SESSION['hasPotential']) && isset($_REQUEST['backToList']))) {
 	
 	$newApplicants = array();
 	
@@ -131,11 +131,19 @@ if (isset($_REQUEST['topCandidate']) || isset($_REQUEST['hasPotential']) || isse
 	if (isset($_REQUEST['hasPotential'])) {
 		$_SESSION['hasPotential'] = 1;
 	}
-	if (isset($_SESSION['topCandidate'])) {
+	if (isset($_SESSION['topCandidate']) && isset($_REQUEST['backToList'])) {
 		$_REQUEST['topCandidate'] = 1;
 	}
-	if (isset($_SESSION['hasPotential'])) {
+	else {
+		//Unset
+		unset($_SESSION['topCandidate']);
+	}
+	if (isset($_SESSION['hasPotential']) && isset($_REQUEST['backToList'])) {
 		$_REQUEST['hasPotential'] = 1;
+	}
+	else {
+		//Unset
+		unset($_SESSION['topCandidate']);
 	}
 	
 	foreach ($applicants as $applicant) {
