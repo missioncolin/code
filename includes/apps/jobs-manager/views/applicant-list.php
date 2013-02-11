@@ -321,25 +321,6 @@ $(function() {
 
 <section id="applicant-list-sidebar">
 
-<!-- search by name-->
-<form action="./applicant-list?job=<?php echo $_REQUEST['job']?>" id="searchForm" method="post">
-<!--Name search box-->
-<!--searches first name or last name-->
-<?php
-	echo "<div>";
-	echo "Search By Name:<br/>";
-	echo "<input id=\"name-search\" name=\"name-search\" type=\"text\"><br /><input type=\"submit\" value=\"Search\" class=\"btn\" style=\"margin-top: 5px;\">";
-	echo "</div>";
-	if ($searchString != null){
-		echo "Searched For: ".$searchString;
-	}
-	echo "<div>&nbsp;</div>";
-?>
-
-<input type="hidden" id="jobID" name="job" value="<?php echo $_REQUEST['job']; ?>">
-<!-- Page was request variable with "index not found" but it's being set above, is this right?--> 
-<input type="hidden" id="page" name="page" value="<?php echo $page; ?>"> 
-</form> 
 
 <!-- sliders -->
 <form name="sliderForm" action="./applicant-list?job=<?php echo $_REQUEST['job']?>" method="get">
@@ -417,6 +398,26 @@ $(function() {
 
 <section id="applicantList">
     <p>Viewing applicants<?php if (isset($jobInfo['title'])){ echo " for <strong>" . $jobInfo['title'] . "</strong>"; }?></p>
+    
+	<!-- search by name-->
+	<form action="./applicant-list?job=<?php echo $_REQUEST['job']?>" id="searchForm" method="post">
+	<!--Name search box-->
+	<!--searches first name or last name-->
+	<?php
+		echo "<div style=\"float: right; margin-bottom: 10px;\">";
+		echo "Search By Name:";
+		echo "<input id=\"name-search\" name=\"name-search\" type=\"text\" style=\"margin-right: 5px; margin-left: 10px;\"> <input type=\"submit\" value=\"Search\" class=\"btn\" style=\"margin-top: 5px;\">";
+		echo "</div>";
+		if ($searchString != null){
+			echo "<div style=\"float: left; margin-top: 10px;\">Searched For: ".$searchString."</div>";
+		}
+		echo "<div>&nbsp;</div>";
+	?>
+	
+	<input type="hidden" id="jobID" name="job" value="<?php echo $_REQUEST['job']; ?>">
+	<!-- Page was request variable with "index not found" but it's being set above, is this right?--> 
+	<input type="hidden" id="page" name="page" value="<?php echo $page; ?>"> 
+	</form> 
 
     <table>
         <tr>
