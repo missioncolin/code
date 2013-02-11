@@ -326,8 +326,8 @@ $(function() {
 <form name="sliderForm" action="./applicant-list?job=<?php echo $_REQUEST['job']?>" method="get">
 
 	<!-- checkbox selectors -->
-	<div> 
-		Select</br>
+	<div style="margin-bottom: 25px;"> 
+		<label style="margin-bottom: 15px; ">Select Rating</label></br>
 		<input type="checkbox" class="check" name="topCandidate" value="1" id="topCandidate" <?php echo (isset($_REQUEST['topCandidate']) && $_REQUEST['topCandidate'] == 1) ? "checked" : ""; ?>><label for="topCandidate"> Top Candidates</label></br>
 		<input type="checkbox" class="check" name="hasPotential" value="1" id="hasPotential" <?php echo (isset($_REQUEST['hasPotential']) && $_REQUEST['hasPotential'] == 1) ? "checked" : ""; ?>><label for="hasPotential"> Has Potential</label></br>
 <!--
@@ -335,7 +335,6 @@ $(function() {
 		<input type="checkbox" class="check" name="selectFilter[3]" value="unviewed" id="unviewed" <?php echo (isset($_REQUEST['selectFilter']) && in_array('unviewed', $_REQUEST['selectFilter'])) ? "checked" : ""; ?>><label for="unviewed"> Unviewed Applicant</label></br>
 -->
 	</div>
-	<a href="#" class="submitFilter btn green">Filter</a>
 	
 <!-- Slider for each question -->
 <!-- get question's question -->
@@ -355,6 +354,7 @@ $(function() {
 	
 	//tips box removed at request of client
 	//echo alert_box('<h2>Tips</h2>Use the following '.$sliders.' to select an inclusive minimum number of years for '.$qStr.'. Applicants who fit '.$theseStr.' will be displayed.', 3);
+	echo "<label>Select years of experience</label>";
 	echo "<ul class='sliderList'>";
 	
 	printf("%s", "Master Slider  ");
