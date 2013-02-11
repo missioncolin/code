@@ -344,7 +344,7 @@ $(function() {
 
 
 <!-- sliders -->
-<form name="sliderForm" action="./applicant-list?job=<?php echo $_REQUEST['job']?>" method="get">
+<form name="sliderForm" action="./applicant-list?job=<?php echo $_REQUEST['job']?>" method="post">
 
 	<!-- checkbox selectors -->
 	<div style="margin-bottom: 25px;"> 
