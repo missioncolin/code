@@ -51,7 +51,7 @@ if (isset($_REQUEST['slider-val'])  && strlen($_REQUEST['slider-val']) > 0) {
 }
 
 /* If master value has been set - store the value in the session in case the page is left */
-if (isset($_REQUEST['master-val']) && $_REQUEST['master-val'] != 0) {
+if (isset($_REQUEST['master-val']) && $_REQUEST['masterMoved'] == 1) {
 	$sliderParam = $_REQUEST['master-val'];
 	$_SESSION['masterSlider'] = $sliderParam;
 	$_SESSION['setMaster'] = 1;
@@ -264,6 +264,24 @@ $(function() {
 				// Set hidden value to slider number
 				$("#slider-val").val(sliderValueString);
 				$("#master-val").val(0);
+				$("#masterMoved").val(0);
+				console.log(sliderValueString);
+				
+		    },
+		    
+		    // Handles master slider changing
+		    change: function( event, ui ) {
+			    //Store value of ID to store slider value
+		        sliderValues[count[1]] = ui.value;
+		        // Create string from values
+				// and submit to process-slider.php
+				sliderValueString = sliderValues.join("_");
+								
+				// Set hidden value to slider number
+				$("#slider-val").val(sliderValueString);
+				$("#master-val").val(0);
+				
+				console.log(sliderValueString);
 		    }
 		    
 	    });
@@ -287,7 +305,6 @@ $(function() {
 	    // Each slide updates value label
 	    slide: function( event, ui ) {   	
 	        $( "#master-amount").html( ui.value );
-	        $( "#apps" ).fadeOut(100);
 	        
 	        // Set other sliders as master slider slides		        
 	        $('.sliders').each(function() {
@@ -302,9 +319,13 @@ $(function() {
 	    },
 	    // When user stops sliding, update applicant list
 	    stop: function( event, ui ) {
-							
+					
 			// Set hidden value to slider number
 			$("#master-val").val(ui.value);
+			
+			// Set hidden value to signify master slider moved
+			$("#masterMoved").val(1);
+			
 			// Display value of slider & send to process-slider.php
 			$( "#master-amount").html( $( this ).slider( "value" ) );   
 			
@@ -321,32 +342,13 @@ $(function() {
 
 <section id="applicant-list-sidebar">
 
-<!-- search by name-->
-<form action="./applicant-list?job=<?php echo $_REQUEST['job']?>" id="searchForm" method="post">
-<!--Name search box-->
-<!--searches first name or last name-->
-<?php
-	echo "<div>";
-	echo "Search By Name:<br/>";
-	echo "<input id=\"name-search\" name=\"name-search\" type=\"text\"><br /><input type=\"submit\" value=\"Search\" class=\"btn\" style=\"margin-top: 5px;\">";
-	echo "</div>";
-	if ($searchString != null){
-		echo "Searched For: ".$searchString;
-	}
-	echo "<div>&nbsp;</div>";
-?>
-
-<input type="hidden" id="jobID" name="job" value="<?php echo $_REQUEST['job']; ?>">
-<!-- Page was request variable with "index not found" but it's being set above, is this right?--> 
-<input type="hidden" id="page" name="page" value="<?php echo $page; ?>"> 
-</form> 
 
 <!-- sliders -->
-<form name="sliderForm" action="./applicant-list?job=<?php echo $_REQUEST['job']?>" method="get">
+<form name="sliderForm" action="./applicant-list?job=<?php echo $_REQUEST['job']?>" method="post">
 
 	<!-- checkbox selectors -->
-	<div> 
-		Select</br>
+	<div style="margin-bottom: 25px;"> 
+		<label style="margin-bottom: 15px; ">Select Rating</label></br>
 		<input type="checkbox" class="check" name="topCandidate" value="1" id="topCandidate" <?php echo (isset($_REQUEST['topCandidate']) && $_REQUEST['topCandidate'] == 1) ? "checked" : ""; ?>><label for="topCandidate"> Top Candidates</label></br>
 		<input type="checkbox" class="check" name="hasPotential" value="1" id="hasPotential" <?php echo (isset($_REQUEST['hasPotential']) && $_REQUEST['hasPotential'] == 1) ? "checked" : ""; ?>><label for="hasPotential"> Has Potential</label></br>
 <!--
@@ -354,7 +356,6 @@ $(function() {
 		<input type="checkbox" class="check" name="selectFilter[3]" value="unviewed" id="unviewed" <?php echo (isset($_REQUEST['selectFilter']) && in_array('unviewed', $_REQUEST['selectFilter'])) ? "checked" : ""; ?>><label for="unviewed"> Unviewed Applicant</label></br>
 -->
 	</div>
-	<a href="#" class="submitFilter btn green">Filter</a>
 	
 <!-- Slider for each question -->
 <!-- get question's question -->
@@ -374,6 +375,7 @@ $(function() {
 	
 	//tips box removed at request of client
 	//echo alert_box('<h2>Tips</h2>Use the following '.$sliders.' to select an inclusive minimum number of years for '.$qStr.'. Applicants who fit '.$theseStr.' will be displayed.', 3);
+	echo "<label>Select Years of Experience</label>";
 	echo "<ul class='sliderList'>";
 	
 	printf("%s", "Master Slider  ");
@@ -403,6 +405,7 @@ $(function() {
 ?>
 <input type="hidden" id="master-val" name="master-val" value="<?php echo isset($_REQUEST['master-val']) ? $_REQUEST['master-val'] : "0"; ?>">
 <input type="hidden" id="slider-val" name="slider-val" value="<?php echo isset($sliderParam) ? $sliderParam : "0"; ?>">
+<input type="hidden" id="masterMoved" name="masterMoved" value="<?php echo isset($_REQUEST['masterMoved']) ? $_REQUEST['masterMoved'] : "0"; ?>">
 <input type="hidden" id="jobID" name="job" value="<?php echo $_REQUEST['job']; ?>">
 <!-- everytime the slider is moved, reset page to the first page so that you don't get an 'empty' notice -->
 <input type="hidden" id="page" name="page" value="1">
@@ -417,6 +420,26 @@ $(function() {
 
 <section id="applicantList">
     <p>Viewing applicants<?php if (isset($jobInfo['title'])){ echo " for <strong>" . $jobInfo['title'] . "</strong>"; }?></p>
+    
+	<!-- search by name-->
+	<form action="./applicant-list?job=<?php echo $_REQUEST['job']?>" id="searchForm" method="post">
+	<!--Name search box-->
+	<!--searches first name or last name-->
+	<?php
+		echo "<div style=\"float: right; margin-bottom: 10px;\">";
+		echo "Search By Name:";
+		echo "<input id=\"name-search\" name=\"name-search\" type=\"text\" style=\"margin-right: 5px; margin-left: 10px;\"> <input type=\"submit\" value=\"Search\" class=\"btn\" style=\"margin-top: 5px;\">";
+		echo "</div>";
+		if ($searchString != null){
+			echo "<div style=\"float: left; margin-top: 10px;\">Searched For: ".$searchString."</div>";
+		}
+		echo "<div>&nbsp;</div>";
+	?>
+	
+	<input type="hidden" id="jobID" name="job" value="<?php echo $_REQUEST['job']; ?>">
+	<!-- Page was request variable with "index not found" but it's being set above, is this right?--> 
+	<input type="hidden" id="page" name="page" value="<?php echo $page; ?>"> 
+	</form> 
 
     <table>
         <tr>
