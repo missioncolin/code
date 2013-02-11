@@ -110,6 +110,13 @@ a:active {
     outline: 0;
 }
 
+a.submitFilter {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	margin-right: 12px;
+	float: right;
+}
+
 
 /* =============================================================================
    Typography
@@ -1798,6 +1805,14 @@ a.btn.lightGrey.lessPad { padding: 6px 10px; width: 20px; }
 
 th.coverLetter { width: 100px; }
 
+#applicantList a.appDetails:visited, #applicantList table tr.newUser td:first-child a:visited {
+	color: lighten(@accent, 20%);
+}
+
+#hrListJobs td.expiryFallBack {
+	min-width: 205px;
+} 
+
 /*HR Applications List ---------------------------------------------------------- */
 
 #hrListJobs {
@@ -2430,6 +2445,20 @@ form .creditCardForm input[type="text"]#cvc {
     clear: both;
     display: block;
     font-size: 16px;
+}
+
+.accept-checkboxes {
+	float: right;
+	width: 48%;
+	clear: right;
+	margin-top: 70px;
+}
+
+.accept-checkboxes input[type="checkbox"] {
+	margin-right: 10px;
+}
+.accept-checkboxes div:first-child {
+	font-weight: 700;
 }
 
 /*Forgot Password------------------------------------------------------------- */

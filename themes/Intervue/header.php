@@ -69,6 +69,7 @@
                 } else {
                     print $nav->build_nav($nav->get_nav_items_under_bucket('managerHeader', 0));
                 }
+
                 ?>
             </nav>
             <?php  if ($meta['body_id'] == 'home') { include 'includes/apps/banners/views/banners.php'; } ?>
@@ -95,7 +96,7 @@
         </ul>
         
 		<!--   If just creating a new job, use this: --->
-        <ul id="steps"<?php if (isset($_SESSION['newReg'])) { ?> class="hide"<?php } ?>>
+        <ul id="steps"<?php if (isset($_SESSION['newReg']) || $_GET['p'] != 'create-job') { ?> class="hide"<?php } ?>>
             <?php if (isset($_GET['step'])) { ?>
             <li<?php if ($_GET['step'] == '1') { ?> class="current"<?php } ?>><span>1</span>Name Your Job</li>
             <li<?php if ($_GET['step'] == '2') { ?> class="current"<?php } ?>><span>2</span>Add Required Skills and Experience</li>

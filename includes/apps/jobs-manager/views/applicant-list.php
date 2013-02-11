@@ -2,9 +2,7 @@
 <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
 <script src="http://code.jquery.com/ui/1.9.0/jquery-ui.js"></script>
 
-
 <?php
-
 global $quipp;
 
 require dirname(__DIR__) . '/JobManager.php';
@@ -106,7 +104,13 @@ else if ($sliderParam != null) {
 	$total = count($visibleApps);
 	
 	/* Set up pagination url */
-	$urlMaster = "&amp;master-val=".$_REQUEST['master-val'];
+	if (isset($_REQUEST['master-val'])) {
+		$urlMaster = "&amp;master-val=".$_REQUEST['master-val'];
+	}
+	else {
+		$urlMaster = "&amp;master-val=0";
+	}
+	
 	$urlSlider  = "&amp;slider-val=".$_REQUEST['slider-val'];
 
 }
@@ -120,7 +124,7 @@ else{
 $quipp->js['footer'][] = "/includes/apps/jobs-manager/js/jobs-manager.js";
 
 /* Check whether check boxes are selected now that all of that craziness is done */
-if (isset($_REQUEST['topCandidate']) || isset($_REQUEST['hasPotential']) || isset($_SESSION['topCandidate']) || isset($_SESSION['hasPotential'])) {
+if ((isset($_REQUEST['topCandidate']) || isset($_REQUEST['hasPotential'])) || (isset($_SESSION['topCandidate']) && isset($_REQUEST['backToList'])) || (isset($_SESSION['hasPotential']) && isset($_REQUEST['backToList']))) {
 	
 	$newApplicants = array();
 	
@@ -131,11 +135,19 @@ if (isset($_REQUEST['topCandidate']) || isset($_REQUEST['hasPotential']) || isse
 	if (isset($_REQUEST['hasPotential'])) {
 		$_SESSION['hasPotential'] = 1;
 	}
-	if (isset($_SESSION['topCandidate'])) {
+	if (isset($_SESSION['topCandidate']) && isset($_REQUEST['backToList'])) {
 		$_REQUEST['topCandidate'] = 1;
 	}
-	if (isset($_SESSION['hasPotential'])) {
+	else {
+		//Unset
+		unset($_SESSION['topCandidate']);
+	}
+	if (isset($_SESSION['hasPotential']) && isset($_REQUEST['backToList'])) {
 		$_REQUEST['hasPotential'] = 1;
+	}
+	else {
+		//Unset
+		unset($_SESSION['topCandidate']);
 	}
 	
 	foreach ($applicants as $applicant) {
@@ -210,12 +222,7 @@ for (var i = 0; i < <?php echo count($allYearQuestions);?>; i++) {
 
 $(function() {
     
-    /* Handles visible links */
-    $("a.appDetails:visited").hide(); 
-        
-    /* Handles the check box being selected
-       to filter candidates */
-    $(".check").change(function() {
+    $('.submitFilter').click(function() {
 	    document.sliderForm.submit();
     });
     
@@ -257,7 +264,6 @@ $(function() {
 				// Set hidden value to slider number
 				$("#slider-val").val(sliderValueString);
 				$("#master-val").val(0);
-				document.sliderForm.submit();
 		    }
 		    
 	    });
@@ -302,7 +308,6 @@ $(function() {
 			// Display value of slider & send to process-slider.php
 			$( "#master-amount").html( $( this ).slider( "value" ) );   
 			
-			document.sliderForm.submit();
 	    }
 	    
     });
@@ -336,14 +341,6 @@ $(function() {
 <input type="hidden" id="page" name="page" value="<?php echo $page; ?>"> 
 </form> 
 
-<!--select list-->
-<!--
-<form name="checkForm" action="./applicant-list?job=<?php echo $_REQUEST['job']?>" id="selectForm" method="get">
-	
-
-</form>
--->
-
 <!-- sliders -->
 <form name="sliderForm" action="./applicant-list?job=<?php echo $_REQUEST['job']?>" method="get">
 
@@ -357,6 +354,7 @@ $(function() {
 		<input type="checkbox" class="check" name="selectFilter[3]" value="unviewed" id="unviewed" <?php echo (isset($_REQUEST['selectFilter']) && in_array('unviewed', $_REQUEST['selectFilter'])) ? "checked" : ""; ?>><label for="unviewed"> Unviewed Applicant</label></br>
 -->
 	</div>
+	<a href="#" class="submitFilter btn green">Filter</a>
 	
 <!-- Slider for each question -->
 <!-- get question's question -->
@@ -408,6 +406,9 @@ $(function() {
 <input type="hidden" id="jobID" name="job" value="<?php echo $_REQUEST['job']; ?>">
 <!-- everytime the slider is moved, reset page to the first page so that you don't get an 'empty' notice -->
 <input type="hidden" id="page" name="page" value="1">
+
+<!--- secondary slider submit button --->
+<a href="#" class="submitFilter btn green">Filter</a>
 </form>
 
 
@@ -416,6 +417,7 @@ $(function() {
 
 <section id="applicantList">
     <p>Viewing applicants<?php if (isset($jobInfo['title'])){ echo " for <strong>" . $jobInfo['title'] . "</strong>"; }?></p>
+
     <table>
         <tr>
             <th><!--Intervue -->Rating</th>
@@ -471,7 +473,7 @@ $(function() {
 			
 			?>
 			
-			<tr id="newUser" class="newUser">
+			<tr class="newUser">
 				<td>
 					<h2><?php echo $j->getApplicantRating($a['itemID']); ?>%<br />
 						<a href="/applications-detail?application=<?php echo $a['itemID']; ?>">Details</a>
@@ -530,6 +532,7 @@ $(function() {
     ?>	        
     </table>
     </div>
+
 
 
     <div class="pagination">
