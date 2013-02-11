@@ -96,7 +96,7 @@
         </ul>
         
 		<!--   If just creating a new job, use this: --->
-        <ul id="steps"<?php if (isset($_SESSION['newReg']) || $_GET['p'] != 'create-job') { ?> class="hide"<?php } ?>>
+        <ul id="steps"<?php if (isset($_SESSION['newReg']) && ($_GET['p'] != 'create-job' && $_GET['p'] != 'configure-question')) { ?> class="hide"<?php } ?>>
             <?php if (isset($_GET['step'])) { ?>
             <li<?php if ($_GET['step'] == '1') { ?> class="current"<?php } ?>><span>1</span>Name Your Job</li>
             <li<?php if ($_GET['step'] == '2') { ?> class="current"<?php } ?>><span>2</span>Add Required Skills and Experience</li>
