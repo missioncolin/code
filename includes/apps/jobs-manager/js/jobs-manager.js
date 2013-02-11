@@ -59,23 +59,23 @@ $(function () {
 		$.post('/reactivate-job', {
 			job: $jobID
 		}, function (data) {
-			if (data){
-				var credits = $('#loggedInButtons a:eq(0)').html().match(/^(\d+)\sCredits$/); 
-				if (typeof credits != 'undefined' && credits[1] > 0 && credits != null){
-					var creditHTML = (parseInt(credits[1], 10) - 1)+' Credits';
-					$('#loggedInButtons a:eq(0)').html(creditHTML);
-					$('.alert').removeClass('fail').addClass('success').html('<span></span>Job Re-published Successfully. Your account was debited one (1) credit');				
+			if (data == 'success'){
+				var credits = $('#loggedInButtons a:eq(0)').html().match(/^(\d+)\sCredit.*$/); 
+				log(credits);
+				//if (typeof credits != 'undefined' && credits[1] > 0 && typeof credits != 'null' && typeof credits[1] != 'null'){
+				//if (data == 'success')
+				var creditHTML = (parseInt(credits[1], 10) - 1)+' Credits';
+				$('#loggedInButtons a:eq(0)').html(creditHTML);
+				$('.alert').removeClass('fail').addClass('success').html('<span></span>Job Re-published Successfully. Your account was debited one (1) credit');				
 					
-					location.reload();
-				}else{
-				//THIS IS NOT WORKING
-					//$('.alert').removeClass('success').addClass('fail').html('<span></span>Job not Re-published. '+data);      
-					alertBox("fail", "Job not re-published. " + data + ". <a href='buy-job-credits'>Buy Credits?</a>");
-				}
+				location.reload();
+				//}else{
+				//	alertBox("fail", "Job not re-published. " + data + ". <a href='buy-job-credits'>Buy Credits?</a>");
+				//}
 
 			}else{
-			//THIS IS ALSO NOT WORKING
-				$('.alert').removeClass('success').addClass('fail').html('<span></span>Job not Re-published. '+data);
+				//$('.alert').removeClass('success').addClass('fail').html('<span></span>Job not Re-published. '+data);
+				alertBox("fail", "Job not re-published. " + data + ". <a href='buy-job-credits'>Buy Credits?</a>");
 			}
 
 			clearPopUp();
