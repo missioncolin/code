@@ -264,7 +264,7 @@ $(function() {
 				// Set hidden value to slider number
 				$("#slider-val").val(sliderValueString);
 				$("#master-val").val(0);
-				
+				$("#masterMoved").val(0);
 				console.log(sliderValueString);
 				
 		    },
@@ -344,7 +344,7 @@ $(function() {
 
 
 <!-- sliders -->
-<form name="sliderForm" action="./applicant-list?job=<?php echo $_REQUEST['job']?>" method="post">
+<form name="sliderForm" action="./applicant-list?job=<?php echo $_REQUEST['job']?>" method="get">
 
 	<!-- checkbox selectors -->
 	<div style="margin-bottom: 25px;"> 
