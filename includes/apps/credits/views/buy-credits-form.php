@@ -175,7 +175,7 @@
     <div class="accept-checkboxes">
     	<div>Note: Job credits do not expire</div>
     	<div>
-    		Please accept out: <br/>
+    		Please accept our: <br/>
 	    	<input type="checkbox" id="termsConditions"/>Terms and Conditions <br/>
 	    	<input type="checkbox" id="privacyPolicy"/>Privacy Policy 
     	</div>
