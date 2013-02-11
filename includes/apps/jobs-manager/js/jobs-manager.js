@@ -61,7 +61,7 @@ $(function () {
 		}, function (data) {
 			if (data){
 				var credits = $('#loggedInButtons a:eq(0)').html().match(/^(\d+)\sCredits$/); 
-				if (typeof credits != 'undefined' && credits[1] > 0){
+				if (typeof credits != 'undefined' && credits[1] > 0 && credits != null){
 					var creditHTML = (parseInt(credits[1], 10) - 1)+' Credits';
 					$('#loggedInButtons a:eq(0)').html(creditHTML);
 					$('.alert').removeClass('fail').addClass('success').html('<span></span>Job Re-published Successfully. Your account was debited one (1) credit');				

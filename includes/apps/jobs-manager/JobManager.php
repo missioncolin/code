@@ -824,13 +824,24 @@ class JobManager {
 	
 	}
 	
-	
 	/** Return answer for years of experience question using private method **/
 	public function getYearsOfExperienceAnswers($applicantID, $jobID, $questionID) {
 		
 		return $this->getAnswer($applicantID, $jobID, $questionID);
 		
 	}
+	
+	
+	//sets a job to "unviewed"
+	//takes jobID
+	//returns nothing
+	public function setJobUnviewed($jobID){
+		$qry = sprintf("UPDATE tblJobs SET hasBeenViewed = 0 WHERE itemID = %d", 
+		(int)$jobID);
+	
+		$this->db->query($qry);
+	}
+	
 	
 	    
 } ?>

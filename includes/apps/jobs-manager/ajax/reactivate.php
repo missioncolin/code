@@ -9,6 +9,7 @@ $jobID = $_REQUEST['job'];
 
 
 if ($j->canEdit($jobID)) {
+	$j->setJobUnviewed($jobID);
     echo $j->reactivate($jobID, $user);    
  }else {
     header('HTTP/1.0 401 Unauthorized');
