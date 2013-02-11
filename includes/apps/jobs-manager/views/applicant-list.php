@@ -51,7 +51,7 @@ if (isset($_REQUEST['slider-val'])  && strlen($_REQUEST['slider-val']) > 0) {
 }
 
 /* If master value has been set - store the value in the session in case the page is left */
-if (isset($_REQUEST['master-val']) && $_REQUEST['master-val'] != 0) {
+if (isset($_REQUEST['master-val']) && $_REQUEST['masterMoved'] == 1) {
 	$sliderParam = $_REQUEST['master-val'];
 	$_SESSION['masterSlider'] = $sliderParam;
 	$_SESSION['setMaster'] = 1;
@@ -264,6 +264,24 @@ $(function() {
 				// Set hidden value to slider number
 				$("#slider-val").val(sliderValueString);
 				$("#master-val").val(0);
+				
+				console.log(sliderValueString);
+				
+		    },
+		    
+		    // Handles master slider changing
+		    change: function( event, ui ) {
+			    //Store value of ID to store slider value
+		        sliderValues[count[1]] = ui.value;
+		        // Create string from values
+				// and submit to process-slider.php
+				sliderValueString = sliderValues.join("_");
+								
+				// Set hidden value to slider number
+				$("#slider-val").val(sliderValueString);
+				$("#master-val").val(0);
+				
+				console.log(sliderValueString);
 		    }
 		    
 	    });
@@ -287,7 +305,6 @@ $(function() {
 	    // Each slide updates value label
 	    slide: function( event, ui ) {   	
 	        $( "#master-amount").html( ui.value );
-	        $( "#apps" ).fadeOut(100);
 	        
 	        // Set other sliders as master slider slides		        
 	        $('.sliders').each(function() {
@@ -302,9 +319,13 @@ $(function() {
 	    },
 	    // When user stops sliding, update applicant list
 	    stop: function( event, ui ) {
-							
+					
 			// Set hidden value to slider number
 			$("#master-val").val(ui.value);
+			
+			// Set hidden value to signify master slider moved
+			$("#masterMoved").val(1);
+			
 			// Display value of slider & send to process-slider.php
 			$( "#master-amount").html( $( this ).slider( "value" ) );   
 			
@@ -323,7 +344,7 @@ $(function() {
 
 
 <!-- sliders -->
-<form name="sliderForm" action="./applicant-list?job=<?php echo $_REQUEST['job']?>" method="get">
+<form name="sliderForm" action="./applicant-list?job=<?php echo $_REQUEST['job']?>" method="post">
 
 	<!-- checkbox selectors -->
 	<div style="margin-bottom: 25px;"> 
@@ -354,7 +375,7 @@ $(function() {
 	
 	//tips box removed at request of client
 	//echo alert_box('<h2>Tips</h2>Use the following '.$sliders.' to select an inclusive minimum number of years for '.$qStr.'. Applicants who fit '.$theseStr.' will be displayed.', 3);
-	echo "<label>Select years of experience</label>";
+	echo "<label>Select Years of Experience</label>";
 	echo "<ul class='sliderList'>";
 	
 	printf("%s", "Master Slider  ");
@@ -384,6 +405,7 @@ $(function() {
 ?>
 <input type="hidden" id="master-val" name="master-val" value="<?php echo isset($_REQUEST['master-val']) ? $_REQUEST['master-val'] : "0"; ?>">
 <input type="hidden" id="slider-val" name="slider-val" value="<?php echo isset($sliderParam) ? $sliderParam : "0"; ?>">
+<input type="hidden" id="masterMoved" name="masterMoved" value="<?php echo isset($_REQUEST['masterMoved']) ? $_REQUEST['masterMoved'] : "0"; ?>">
 <input type="hidden" id="jobID" name="job" value="<?php echo $_REQUEST['job']; ?>">
 <!-- everytime the slider is moved, reset page to the first page so that you don't get an 'empty' notice -->
 <input type="hidden" id="page" name="page" value="1">
