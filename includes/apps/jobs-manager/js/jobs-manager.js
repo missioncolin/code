@@ -86,11 +86,15 @@ $(function () {
     });
     
     var clearPopUp = function(){
-        $('#confirm').fadeOut();
-        $('.popUp h2').empty();
-        $('.popUp p').empty();
-        $('.popUp #popUpOk').off('click');
-        $('.popUp #popUpNo').off('click');
+        $('#confirm').fadeOut('fast', function() {
+	    	$('.popUp h2').empty();
+	        $('.popUp p').empty();
+	        $('.popUp #popUpOk').off('click');
+	        $('.popUp #popUpNo').off('click'); 
+	        $('.popUp').removeClass('success');
+	        $('.popUp').removeClass('fail');
+	        $('.popUp #popUpNo').show();
+        });
     }
     
     var confirmAction = function(title, message){
@@ -128,8 +132,6 @@ $(function () {
         $('.popUp #popUpNo').hide();
         $('.popUp #popUpOk').on('click', function() {
             clearPopUp();
-            $('.popUp #popUpNo').show();
-            $('.popUp').removeClass('success');
         });
     }
     
