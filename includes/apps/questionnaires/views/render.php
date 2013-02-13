@@ -19,7 +19,7 @@ CREATE A USERRRR -----------------
 if(isset($_POST) && !empty($_POST)){  
     //get values from form 
     
-    $firstName 		= 	str_replace("'", "", $_POST['First_Name']);
+   /* $firstName 		= 	str_replace("'", "", $_POST['First_Name']);
     $lastName 		= 	str_replace("'", "", $_POST['Last_Name']);
     $address 		= 	str_replace("'", "", $_POST['Address']);
     $city 		    = 	str_replace("'", "", $_POST['City']);
@@ -30,7 +30,7 @@ if(isset($_POST) && !empty($_POST)){
     $facebook 		= 	str_replace("'", "", $_POST['Facebook_Username']);
     $twitter 		= 	str_replace("'", "", $_POST['Twitter_Username']);
     $linkedIn 		= 	str_replace("'", "", $_POST['LinkedIn_Username']);
-
+*/
 
     $meta = array(
     	array("fieldLabel" => "First Name", 			"validationCode" => "RQvalALPH"),
@@ -50,7 +50,8 @@ if(isset($_POST) && !empty($_POST)){
     foreach($meta as $fields){
     	$post[str_replace(" ","_",$fields["fieldLabel"])] = array("code" => $fields["validationCode"], "value" => "", "label" => $fields["fieldLabel"]);
     }
-    if (isset($_POST["job-form"])){
+
+    if (isset($_POST)){
     
         
         $submitted = true;
@@ -74,11 +75,9 @@ if(isset($_POST) && !empty($_POST)){
             $valid = true;
             unset($post[2]); //don't want to pass this to createUserAccount
         }
-
         if ($valid == true){
             $message = "";
-
-            if (0 === ($userID = $frms->createUserAccount($post, NULL, "applicants"))){
+            if (0 === ($userID = $f->createUserAccount($post, NULL, "applicants"))){
                 $valid = false;
             }
         } 
@@ -97,6 +96,7 @@ list($title, $link, $dateExpires, $datePosted, $questionnaireID, $status, $compa
 if (time() < strtotime($datePosted) || $status == 'inactive') {
     $quipp->js['onload'] .= 'alertBox("fail", "No job found");';
 
+
 } elseif (time() > strtotime($dateExpires)) {
     $quipp->js['onload'] .= 'alertBox("fail", "We\'re sorry, this job posting has expired");';
 
@@ -112,6 +112,7 @@ if (time() < strtotime($datePosted) || $status == 'inactive') {
     include __DIR__ . '/renderAnswers.php';
 */
 } else {
+
     $q = new Questionnaire($db, $questionnaireID);
     $quipp->js['footer'][] = "/includes/apps/questionnaires/js/questionnaires.js";
     
@@ -137,7 +138,8 @@ if (time() < strtotime($datePosted) || $status == 'inactive') {
 
     if (!empty($_POST)) {
     	
-    	if (isset($_FILES['resume']) || isset($_FILES['coverLetter'])) {
+    	//SAVING OF FILES COMMENTED OUT FOR TESTING
+    /*	if ((isset($_FILES['resume']) && !empty($_FILES['resume'])) || (isset($_FILES['coverLetter'])&& !empty($_FILES['coverLetter']))) {
 	    	
 	    	foreach ($_FILES as $f) {
 		    	if ($f['error'] == 0) {
@@ -171,9 +173,11 @@ if (time() < strtotime($datePosted) || $status == 'inactive') {
 			    	echo "Error: ".$f['Name']." - ".$f['error']."</br>";
 		    	}
 	    	}
-    	}
+    	}*/
     	
-        if (is_array($q->questions) && !empty($q->questions)) {
+    
+    	//SAVE QUESTIONS
+		if (is_array($q->questions) && !empty($q->questions)) {
 
             $qry = sprintf("INSERT INTO tblApplications (jobID, userID, sysDateInserted) VALUES ('%d', '%d', NOW())",
                 (int) $_GET['job'],
@@ -261,7 +265,7 @@ if (time() < strtotime($datePosted) || $status == 'inactive') {
 
             }
             
-            header('Location: /apply/' . (int)$_GET['job'] . '?success');
+           // header('Location: /apply/' . (int)$_GET['job'] . '?success');
         }
 
     }
@@ -272,7 +276,8 @@ if (time() < strtotime($datePosted) || $status == 'inactive') {
 
 ?>
 
-<form id="job-form" method="post" action="<?php echo $_SERVER['REQUEST_URI']; ?>" enctype="multipart/form-data">
+<!--<form id="job-form" method="post" action="<?php //echo $_SERVER['REQUEST_URI']; ?>" enctype="multipart/form-data">-->
+<form id="job-form" method="post">
     <div id="card" class="box userinfo">
         <div class="heading">
             <h2>Enter Your Information</h2>
@@ -316,16 +321,16 @@ if (time() < strtotime($datePosted) || $status == 'inactive') {
             <dd><input type="text" id="Last_Name" name="Last_Name" class="full" placeholder="Last Name" value="" required="required"/></dd>
 
             <dt>Address</dt>
-            <dd><input type="text" id="Address" name="Address" class="full" placeholder="Address" value="" required="required"/></dd>
+            <dd><input type="text" id="Company_Address" name="Company_Address" class="full" placeholder="Company Address" value="" required="required"/></dd>
             
             <dt>City</dt>
-            <dd><input type="text" id="City" name="City" class="full" placeholder="City" value="" required="required"/></dd>
+            <dd><input type="text" id="Company_City" name="Company_City" class="full" placeholder="Company City" value="" required="required"/></dd>
 
             <dt>Postal Code</dt>
-            <dd><input type="text" id="Postal_Code" name="Postal_Code" class="full" placeholder="Postal Code" value="" required="required"/></dd>
+            <dd><input type="text" id="Company_Postal_Code" name="Company_Postal_Code" class="full" placeholder="Company Postal Code" value="" required="required"/></dd>
             
             <dt>Phone</dt>
-            <dd><input type="text" id="Phone" name="Phone" class="full" placeholder="Phone" value="" required="required"/></dd>
+            <dd><input type="text" id="Phone_Number" name="Phone_Number" class="full" placeholder="Phone Number" value="" required="required"/></dd>
 
             <dt>Email</dt>
             <dd><input type="text" id="Email" name="Email" class="full" placeholder="Email Address" value="" required="required"/></dd>
@@ -465,7 +470,7 @@ if (time() < strtotime($datePosted) || $status == 'inactive') {
     ?>
    <div id="finalStep">
     	<input type="submit" class="btn green" value="Submit" />
-    </div>
+    </div> 
 </form>
 <?php
 }
