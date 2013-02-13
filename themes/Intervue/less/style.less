@@ -2553,6 +2553,11 @@ footer h3 span {
     border: 1px solid #b7b7b7;
     .border-radius(3px);
 }
+
+#apply #applicantProfile #card {
+	border: 1px solid @darkBorders;
+}
+
 #applications-detail #applicantProfile #work-experience {
 	margin-left: 60px;
 }
@@ -2572,6 +2577,9 @@ footer h3 span {
     width: 100%;
     .border-radius(3px 3px 0 0);
     border-bottom: 1px solid darken(@borders,12%);
+}
+#apply #card .heading {
+	border-bottom: 1px solid @darkBorders;
 }
 #card .heading h2, #work-experience .heading h2 {
 	color: @base2;
@@ -2627,6 +2635,11 @@ footer h3 span {
     text-align: left;
     margin: 25px 0 30px 20px;
 }
+#apply #applicantProfile.apply .heading h2 {
+	margin: 10px;
+	text-transform: capitalize;
+	color: @base3;
+}
 
 .heading h2 a {
     font-size: 14px;
@@ -2645,6 +2658,10 @@ footer h3 span {
     width: 74%;
     margin: 20px 0 20px 100px;
 }
+#apply #applicantProfile dl {
+	width: 92%;
+	margin: 20px 0 20px 10px;
+}
 
 #applicantProfile #work-experience dl {
     margin: 20px 0 20px 50px;
@@ -2653,7 +2670,7 @@ footer h3 span {
 #applicantProfile dt {
     float: left;
     width: 85px;
-    color: lighten(@base, 30%);
+    color: @base;
     clear: left;
 }
 
@@ -2671,6 +2688,13 @@ footer h3 span {
     text-overflow: ellipsis;
 }
 
+#apply #applicantProfile dd {
+	width: 264px;
+}
+#apply #applicantProfile dl input {
+	width: 250px;
+}
+
 #applicantProfile #work-experience dd {
 	width: 166px;
 }
@@ -2681,6 +2705,9 @@ footer h3 span {
     text-overflow: inherit;
 }
 
+#apply #applicantProfile .cutout {
+	display: none;
+}
 
 
 #applicantProfile #grade, #applicantProfile #resumeCoverLetter {
@@ -2816,13 +2843,14 @@ footer h3 span {
 }   
    
 .userinfo input[type="text"], .userinfo input[type="password"] {
-	//width: 96%;
+	width: 96%;
 	margin-bottom: 3px;
 }
 
-#applicantProfile #submissions {
+#apply #applicantProfile #submissions {
 	float: right;
-	width: 485px;
+	width: 415px;
+	margin-right: 60px !important;
 	clear: none;
 }
 
@@ -2837,6 +2865,11 @@ footer h3 span {
 #applications-detail #steps.hide + .main #applicantProfile #submissions {
 	margin-top: 40px;
 }
+
+#apply #submissions input#coverLetter {
+	margin-bottom: 14px;
+}
+
 .video-q-holder {
 	width: 100%;
 	clear: both;
