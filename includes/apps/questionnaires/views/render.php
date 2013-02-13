@@ -15,8 +15,12 @@ if (!isset($f) || !$f INSTANCEOF Forms){
 /*
 CREATE A USERRRR -----------------
 */ 
-
-if(isset($_POST) && !empty($_POST)){  
+if (isset($_POST['Email']) && isset($_POST['Confirm_Email']) && $_POST['Email'] != $_POST['Confirm_Email']) {
+	
+	$message = "Your email addresses do not match.";
+	
+}
+else if(isset($_POST) && !empty($_POST)){  
     //get values from form 
     
     $firstName 		= 	str_replace("'", "", $_POST['First_Name']);
@@ -35,11 +39,12 @@ if(isset($_POST) && !empty($_POST)){
     $meta = array(
     	array("fieldLabel" => "First Name", 			"validationCode" => "RQvalALPH"),
     	array("fieldLabel" => "Last Name", 				"validationCode" => "RQvalALPH"),
-    	array("fieldLabel" => "Company Address", 		"validationCode" => "RQvalALPH"),
-    	array("fieldLabel" => "Company City", 			"validationCode" => "RQvalALPH"),
-    	array("fieldLabel" => "Company Postal Code",	"validationCode" => "RQvalALPH"),
-    	array("fieldLabel" => "Phone Number", 			"validationCode" => "RQvalPHON"),
+    	array("fieldLabel" => "Address", 				"validationCode" => "RQvalALPH"),
+    	array("fieldLabel" => "City", 					"validationCode" => "RQvalALPH"),
+    	array("fieldLabel" => "Postal Code",			"validationCode" => "RQvalALPH"),
+    	array("fieldLabel" => "Phone",		 			"validationCode" => "RQvalPHON"),
     	array("fieldLabel" => "Email", 					"validationCode" => "RQvalMAIL"),
+    	array("fieldLabel" => "Confirm Email", 			"validationCode" => "RQvalMAIL"),
     	array("fieldLabel" => "Facebook Username", 		"validationCode" => "OPvalALPH"),
     	array("fieldLabel" => "Twitter Username", 		"validationCode" => "OPvalALPH"),
     	array("fieldLabel" => "LinkedIn Username", 		"validationCode" => "OPvalALPH")
@@ -50,39 +55,49 @@ if(isset($_POST) && !empty($_POST)){
     foreach($meta as $fields){
     	$post[str_replace(" ","_",$fields["fieldLabel"])] = array("code" => $fields["validationCode"], "value" => "", "label" => $fields["fieldLabel"]);
     }
-    if (isset($_POST["job-form"])){
     
+/*     if (isset($_POST["job-form"])){ */
+    	
         
-        $submitted = true;
-        $valid = false;
+    $submitted = true;
+    $valid = false;
+    
+    $validate = array();
+    foreach($post as $field => $nfo){
+    
+        $validate[$nfo["code"].$field] = "";
         
-        $validate = array();
-        foreach($post as $field => $nfo){
-            
-            $validate[$nfo["code"].$field] = "";
-            if (isset($_POST[$field])){
-                $validate[$nfo["code"].$field] = $_POST[$field];
-                $post[$field]["value"] = $_POST[$field];
-            }
-            //else if ($field == "Job_Credits"){
-            //    $post[$field]["value"] = "2";
-            //}
+        if (isset($_POST[$field])){
+        	
+            $validate[$nfo["code"].$field] = $_POST[$field];
+            $post[$field]["value"] = $_POST[$field];
         }
-        
-        
-        if (validate_form($validate)){
-            $valid = true;
-            unset($post[2]); //don't want to pass this to createUserAccount
-        }
-
-        if ($valid == true){
-            $message = "";
-
-            if (0 === ($userID = $frms->createUserAccount($post, NULL, "applicants"))){
-                $valid = false;
-            }
-        } 
+        //else if ($field == "Job_Credits"){
+        //    $post[$field]["value"] = "2";
+        //}
     }
+    
+    
+    if (validate_form($validate)){
+        $valid = true;
+        unset($post[2]); //don't want to pass this to createUserAccount
+    }
+    else {
+	    $message = "Please fill in all fields.";
+    }
+
+    if ($valid == true){
+        $message = "";
+
+        if (0 === ($userID = $f->createUserAccount($post, NULL, "applicants"))){
+            $valid = false;
+        }
+    }
+    
+    var_dump($valid); 
+
+/*     } */
+    
  }
 /*
 *********************************
@@ -111,7 +126,15 @@ if (time() < strtotime($datePosted) || $status == 'inactive') {
     }
     include __DIR__ . '/renderAnswers.php';
 */
-} else {
+}  
+/*
+elseif (isset($message) && !empty($message)) {
+
+	$quipp->js['onload'] .= 'alertBox("fail", "'.$message.'");';
+
+}
+*/
+else {
     $q = new Questionnaire($db, $questionnaireID);
     $quipp->js['footer'][] = "/includes/apps/questionnaires/js/questionnaires.js";
     
@@ -135,8 +158,9 @@ if (time() < strtotime($datePosted) || $status == 'inactive') {
 
     );
 
-    if (!empty($_POST)) {
+    if (!empty($_POST) && empty($message)) {
     	
+/*
     	if (isset($_FILES['resume']) || isset($_FILES['coverLetter'])) {
 	    	
 	    	foreach ($_FILES as $f) {
@@ -173,6 +197,7 @@ if (time() < strtotime($datePosted) || $status == 'inactive') {
 	    	}
     	}
     	
+*/
         if (is_array($q->questions) && !empty($q->questions)) {
 
             $qry = sprintf("INSERT INTO tblApplications (jobID, userID, sysDateInserted) VALUES ('%d', '%d', NOW())",
@@ -261,7 +286,7 @@ if (time() < strtotime($datePosted) || $status == 'inactive') {
 
             }
             
-            header('Location: /apply/' . (int)$_GET['job'] . '?success');
+/*             header('Location: /apply/' . (int)$_GET['job'] . '?success'); */
         }
 
     }
@@ -269,16 +294,15 @@ if (time() < strtotime($datePosted) || $status == 'inactive') {
     if (isset($error) && $error != '') {
         $quipp->js['onload'] .= 'alertBox("fail", "' . $error . '");';
     }
-
 ?>
 
-<form id="job-form" method="post" action="<?php echo $_SERVER['REQUEST_URI']; ?>" enctype="multipart/form-data">
+<form id="job-form" name="jobForm" method="post" action="<?php echo $_SERVER['REQUEST_URI']; ?>" enctype="multipart/form-data">
     <div id="card" class="box userinfo">
         <div class="heading">
             <h2>Enter Your Information</h2>
         </div>
         <div class="cutout">
-            <div class="profilePic"><img src="<?php echo $profileImg;?>" alt="" /></div>
+<!--             <div class="profilePic"><img src="<?php echo $profileImg;?>" alt="" /></div> -->
         </div>
         <!--<dl>
             <dt>First Name</dt>
@@ -310,37 +334,37 @@ if (time() < strtotime($datePosted) || $status == 'inactive') {
          </dl>-->
         <dl>
             <dt>First Name</dt>
-            <dd><input type="text" id="First_Name" name="First_Name" class="full" placeholder="First Name" value="" required="required"/></dd>
+            <dd><input type="text" id="First_Name" name="First_Name" class="full" placeholder="First Name" value="<?php echo isset($post['First_Name']) ? $post['First_Name']['value'] : ""; ?>" required="required"/></dd>
             
             <dt>Last Name</dt>
-            <dd><input type="text" id="Last_Name" name="Last_Name" class="full" placeholder="Last Name" value="" required="required"/></dd>
+            <dd><input type="text" id="Last_Name" name="Last_Name" class="full" placeholder="Last Name" value="<?php echo isset($post['Last_Name']) ? $post['Last_Name']['value'] : ""; ?>" required="required"/></dd>
 
             <dt>Address</dt>
-            <dd><input type="text" id="Address" name="Address" class="full" placeholder="Address" value="" required="required"/></dd>
+            <dd><input type="text" id="Address" name="Address" class="full" placeholder="Address" value="<?php echo isset($post['Address']) ? $post['Address']['value'] : ""; ?>" required="required"/></dd>
             
             <dt>City</dt>
-            <dd><input type="text" id="City" name="City" class="full" placeholder="City" value="" required="required"/></dd>
+            <dd><input type="text" id="City" name="City" class="full" placeholder="City" value="<?php echo isset($post['City']) ? $post['City']['value'] : ""; ?>" required="required"/></dd>
 
             <dt>Postal Code</dt>
-            <dd><input type="text" id="Postal_Code" name="Postal_Code" class="full" placeholder="Postal Code" value="" required="required"/></dd>
+            <dd><input type="text" id="Postal_Code" name="Postal_Code" class="full" placeholder="Postal Code" value="<?php echo isset($post['Postal_Code']) ? $post['Postal_Code']['value'] : ""; ?>" required="required"/></dd>
             
             <dt>Phone</dt>
-            <dd><input type="text" id="Phone" name="Phone" class="full" placeholder="Phone" value="" required="required"/></dd>
+            <dd><input type="text" id="Phone" name="Phone" class="full" placeholder="Phone" value="<?php echo isset($post['Phone']) ? $post['Phone']['value'] : ""; ?>" required="required"/></dd>
 
             <dt>Email</dt>
-            <dd><input type="text" id="Email" name="Email" class="full" placeholder="Email Address" value="" required="required"/></dd>
+            <dd><input type="text" id="Email" name="Email" class="full" placeholder="Email Address" value="<?php echo isset($post['Email']) ? $post['Email']['value'] : ""; ?>" required="required"/></dd>
 
             <dt>Confirm</dt>
-            <dd><input type="text" id="Confirm_Email" name="Confirm_Email" class="full" placeholder="Confirm Email" value="" required="required"/></dd>
+            <dd><input type="text" id="Confirm_Email" name="Confirm_Email" class="full" placeholder="Confirm Email" value="<?php echo isset($post['Confirm_Email']) ? $post['Confirm_Email']['value'] : ""; ?>" required="required"/></dd>
 
             <dt>Facebook</dt>
-            <dd><input type="text" id="Facebook_Username" name="Facebook_Username" class="half" placeholder="Facebook Username" value=""/></dd>
+            <dd><input type="text" id="Facebook_Username" name="Facebook_Username" class="half" placeholder="Facebook Username" value="<?php echo isset($post['Facebook_Username']) ? $post['Facebook_Username']['value'] : ""; ?>"/></dd>
             
             <dt>Twitter</dt>
-            <dd><input type="text" id="Twitter_Username" name="Twitter_Username" class="half left bottom" placeholder="Twitter Handle" value=""/></dd>
+            <dd><input type="text" id="Twitter_Username" name="Twitter_Username" class="half left bottom" placeholder="Twitter Handle" value="<?php echo isset($post['Twitter_Username']) ? $post['Twitter_Username']['value'] : ""; ?>"/></dd>
             
             <dt>LinkedIn</dt>
-            <dd><input type="text" id="LinkedIn_Username" name="LinkedIn_Username" class="half bottom" placeholder="LinkedIn ID" value=""/></dd>
+            <dd><input type="text" id="LinkedIn_Username" name="LinkedIn_Username" class="half bottom" placeholder="LinkedIn ID" value="<?php echo isset($post['LinkedIn_Username']) ? $post['LinkedIn_Username']['value'] : ""; ?>"/></dd>
          </dl>
     </div>
     
@@ -460,12 +484,14 @@ if (time() < strtotime($datePosted) || $status == 'inactive') {
     <input type="button" class="btn green nextbutton" value="Next" data-section="questions" />
     </div>
     
+<!--
     <?php
     echo($videos);
     ?>
    <div id="finalStep">
     	<input type="submit" class="btn green" value="Submit" />
     </div>
+-->
 </form>
-<?php
-}
+
+<?php }
