@@ -435,7 +435,7 @@ if ($this instanceof Quipp) {
                     <input size="75" autocomplete="off" type="text" name="RQvalALPHQuestions[]" id="RQvalALPHQuestion_5" placeholder="Select a default question, or create your own." value="<?php echo(isset($_POST['RQvalALPHQuestion'][0])) ? $_POST['RQvalALPHQuestion'][0] : ''; ?>" /> 
                     
 	                <!--- JS dropdown menu ---->
-	                <select class="DefaultQs_1" name="Generic Questions" style="width:400px;">
+	                <select class="DefaultQs_5" name="Generic Questions" style="width:400px;">
 	                	<option>Optionally select a default question.</option>
 						<option value="fiveYearPlan">What are your goals and objectives for the next five years?</option>
 						<option value="careerGoals">How do you plan to achieve your career goals?</option>
@@ -462,7 +462,6 @@ if ($this instanceof Quipp) {
 						<option value="sixMonths">Are you willing to spend at least six months as a trainee?</option>
 					</select>    
 					<a href="#" data-count="5" class="removeDropDown btn" id="removeDD_5">x</a>
-					<br><a href="#" data-count="5" data-label="<?php echo $label; ?>" class="add_dropdown_q btn blue">Add Another Question</a>
                     <input type="hidden" id="RQvalNUMBType" name="RQvalNUMBType" value="<?php echo $type; ?>" />
                 </td>
             </tr>
@@ -553,7 +552,11 @@ if ($this instanceof Quipp) {
                     <div class="submitWrap">
                         <?php if(isset($_GET['step']) && $_GET['step'] == 2 ){ ?>
                              <a href="#" data-count="<?php echo $rowCount;?>" data-label="<?php echo $label; ?>" class="add btn blue addButtonStep2">Add Another Skill</a>
-                    	   <?php } ?>
+                    	   <?php } 
+	                    	   else if (isset($_GET['step']) && $_GET['step'] == 3) { ?>
+                	   				<a href="#" data-count="5" data-label="<?php echo $label; ?>" class="add_dropdown_q btn blue">Add Another Question</a>
+	                    	<?php   }
+                    	   ?>
                     	   <a name="configure-question" class="btn grey" href="/configure-question?qnrID=<?php echo $_REQUEST['qnrID']; ?>" >Reset</a>
                         <input type="submit" value="Save<?php if (isset($_GET['step']) && ($_GET['step'] == '2' || $_GET['step'] == '3')) { echo ' &amp; continue'; } ?>" name="configure-question" class="btn green noEnterSubmit" />
                   </div>

@@ -101,14 +101,15 @@ $('div[id^="idealSlider_"]').live('initIdealSlider', function () {
 // Add a new dropdown question 
 $('.add_dropdown_q').live('click', function() {     
 
-    $count = +$(this).data('count') + 1;
+	/* Increment button count & reassign data */
+    $count = $(this).data('count') + 1;
+    $(this).data('count', $count);
     totalCountDD.push($count);
-/*     console.log(totalCount); */
+    console.log(totalCountDD);
     
     $label = $(this).data('label');
     
-    $('<tr><td>' + $label + '</td><td colspan="2"><input size="75" type="text" autocomplete="off" name="RQvalALPHQuestions[]" id="RQvalALPHQuestion_' + $count + '" placeholder="Select a default question, or create your own." /><br> <select class="DefaultQs_' + $count + '"" name="Generic Questions" style="width:400px;"><option>Optionally select a default question.</option><option value="fiveYearPlan">What are your goals and objectives for the next five years?</option><option value="careerGoals">How do you plan to achieve your career goals?</option><option value="rewarding">What do you find most rewarding in your career?</option><option value="chooseCareer">Why did you choose the career for which you are in?</option><option value="strengthWeakness">What are your strengths, weaknesses, and interests?</option><option value="professorDescribe">How do you think a friend or professor who knows you well would describe you?</option><option value="difficultPerson">Describe how you handle working with a difficult person?</option><option value="greatestEffort">What motivates you to put forth your greatest effort? Describe a situation in which you did so.</option><option value="evaluateSuccess">How do you determine or evaluate success?</option><option value="contributionOrganization">In what ways do you think you can make a contribution to our organization?</option><option value="contributionProject">Describe a contribution you have made to a project on which you worked.</option><option value="successfulManager">What qualities should a successful manager/leader/supervisor/etc. possess?</option><option value="occasionDisagree">Describe how you handle an occasion when you disagree with a supervisor\'s decision?</option><option value="threeAccomplishments">What two or three accomplishments have given you the most satisfaction? Why?</option><option value="workEnvironment">In what kind of work environment are you most comfortable?</option><option value="underPressure">How do you work under pressure?</option><option value="teamEnvironment">What role do you best fit in when working in a team environment? Why?</option><option value="seekPosition">Why did you decide to seek a position with our organization?</option><option value="threeImporatnt">What two or three things would be most important to you in your job?</option><option value="evaluateOrganization">What criteria are you using to evaluate the organization for which you hope to work?</option><option value="relocationConstraints">How would you view needing to relocate for the job? Do you have any constraints on relocation?</option><option value="travelAmount">Are you comfortable with the amount of travel this job requires?</option><option value="sixMonths">Are you willing to spend at least six months as a trainee?</option></select><a href="#" data-label="' + $label + '" data-count="' + $count + '" class="removeDropDown btn red" id="removeDD_' + $count + '">&nbsp;x</a><br><a href="#" data-count="' + $count + '" data-label="' + $label + '" class="add_dropdown_q btn blue">Add Another Question</a></td></tr>').insertAfter($(this).parent().parent());
-    $(this).remove();
+    $('<tr><td>' + $label + '</td><td colspan="2"><input size="75" type="text" autocomplete="off" name="RQvalALPHQuestions[]" id="RQvalALPHQuestion_' + $count + '" placeholder="Select a default question, or create your own." /><br> <select class="DefaultQs_' + $count + '"" name="Generic Questions" style="width:400px;"><option>Optionally select a default question.</option><option value="fiveYearPlan">What are your goals and objectives for the next five years?</option><option value="careerGoals">How do you plan to achieve your career goals?</option><option value="rewarding">What do you find most rewarding in your career?</option><option value="chooseCareer">Why did you choose the career for which you are in?</option><option value="strengthWeakness">What are your strengths, weaknesses, and interests?</option><option value="professorDescribe">How do you think a friend or professor who knows you well would describe you?</option><option value="difficultPerson">Describe how you handle working with a difficult person?</option><option value="greatestEffort">What motivates you to put forth your greatest effort? Describe a situation in which you did so.</option><option value="evaluateSuccess">How do you determine or evaluate success?</option><option value="contributionOrganization">In what ways do you think you can make a contribution to our organization?</option><option value="contributionProject">Describe a contribution you have made to a project on which you worked.</option><option value="successfulManager">What qualities should a successful manager/leader/supervisor/etc. possess?</option><option value="occasionDisagree">Describe how you handle an occasion when you disagree with a supervisor\'s decision?</option><option value="threeAccomplishments">What two or three accomplishments have given you the most satisfaction? Why?</option><option value="workEnvironment">In what kind of work environment are you most comfortable?</option><option value="underPressure">How do you work under pressure?</option><option value="teamEnvironment">What role do you best fit in when working in a team environment? Why?</option><option value="seekPosition">Why did you decide to seek a position with our organization?</option><option value="threeImporatnt">What two or three things would be most important to you in your job?</option><option value="evaluateOrganization">What criteria are you using to evaluate the organization for which you hope to work?</option><option value="relocationConstraints">How would you view needing to relocate for the job? Do you have any constraints on relocation?</option><option value="travelAmount">Are you comfortable with the amount of travel this job requires?</option><option value="sixMonths">Are you willing to spend at least six months as a trainee?</option></select><a href="#" data-label="' + $label + '" data-count="' + $count + '" class="removeDropDown btn red" id="removeDD_' + $count + '">&nbsp;x</a></td></tr>').insertBefore($(this).parent().parent().parent());
     return false;
 });
 
@@ -245,8 +246,7 @@ $('.removeDropDown').live('click', function() {
 		/* Get this row and previous */
 		var thisRow = $(this).closest('tr');
 		var prevRow = thisRow.prev();
-		
-		$('</br><a href="#" data-count="' + $count + '" data-label="' + $label + '" class="add_dropdown_q btn blue">Add Another Question</a>').insertAfter(prevRow.find('.removeDropDown'));
+
 		$(this).closest('tr').remove();
 		$(this).closest('td').remove();
 		
@@ -303,6 +303,10 @@ $('.nextbutton').click(function () {
 	var $comingFrom = $(this).data('section');
 	
 	if ($comingFrom == 'questions') {
+		
+		/* Submit job application */
+		document.jobForm.submit();
+		
 		$(".userinfo").fadeOut();
 		$("#submissions").fadeOut(400, function() {
 			
@@ -325,6 +329,8 @@ $('.nextbutton').click(function () {
 			} else {
 				$("#finalStep").fadeIn();
 				$('.current').removeClass().next().addClass('current');
+				
+				$activeVideo--;
 			}
 		});
 		
@@ -332,4 +338,42 @@ $('.nextbutton').click(function () {
 	
 	
 	
+});
+
+$('.prevbutton').click(function () {
+	
+	var $comingFrom = $(this).data('section');
+	
+	if ($comingFrom == 'questions') {
+		
+		
+	} else if ($comingFrom == 'video') {
+		
+		$("#video"+$activeVideo).fadeOut(400, function() {
+			
+			$activeVideo--;
+			
+			if ($("#video"+$activeVideo).is('*')) {
+				$("#video"+$activeVideo).fadeIn();
+			} else {
+				$(".userinfo").fadeIn();
+				$("#submissions").fadeIn();
+				$('.current').removeClass().prev().addClass('current');
+			}
+		});
+		
+	} else if ($comingFrom == 'final') {
+		
+		$("#finalStep").fadeOut();
+		
+		if ($("#video"+$activeVideo).is('*')) {
+			$("#video"+$activeVideo).fadeIn();
+			$('.current').removeClass().prev().addClass('current');
+			
+		} else {
+			$(".userinfo").fadeIn();
+			$("#submissions").fadeIn();
+			$('.current').removeClass().prev().prev().addClass('current');
+		}
+	}
 });
