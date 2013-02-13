@@ -329,6 +329,8 @@ $('.nextbutton').click(function () {
 			} else {
 				$("#finalStep").fadeIn();
 				$('.current').removeClass().next().addClass('current');
+				
+				$activeVideo--;
 			}
 		});
 		
@@ -336,4 +338,42 @@ $('.nextbutton').click(function () {
 	
 	
 	
+});
+
+$('.prevbutton').click(function () {
+	
+	var $comingFrom = $(this).data('section');
+	
+	if ($comingFrom == 'questions') {
+		
+		
+	} else if ($comingFrom == 'video') {
+		
+		$("#video"+$activeVideo).fadeOut(400, function() {
+			
+			$activeVideo--;
+			
+			if ($("#video"+$activeVideo).is('*')) {
+				$("#video"+$activeVideo).fadeIn();
+			} else {
+				$(".userinfo").fadeIn();
+				$("#submissions").fadeIn();
+				$('.current').removeClass().prev().addClass('current');
+			}
+		});
+		
+	} else if ($comingFrom == 'final') {
+		
+		$("#finalStep").fadeOut();
+		
+		if ($("#video"+$activeVideo).is('*')) {
+			$("#video"+$activeVideo).fadeIn();
+			$('.current').removeClass().prev().addClass('current');
+			
+		} else {
+			$(".userinfo").fadeIn();
+			$("#submissions").fadeIn();
+			$('.current').removeClass().prev().prev().addClass('current');
+		}
+	}
 });
