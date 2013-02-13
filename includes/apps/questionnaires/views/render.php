@@ -1,6 +1,6 @@
 <?php
 
-global $quipp;
+global $quipp, $message;
 
 require_once dirname(dirname(__DIR__)) . '/jobs-manager/JobManager.php';
 require_once dirname(dirname(__DIR__)) . '/job-info/JobInfo.php';
@@ -23,7 +23,7 @@ if (isset($_POST['Email']) && isset($_POST['Confirm_Email']) && $_POST['Email'] 
 else if(isset($_POST) && !empty($_POST)){  
     //get values from form 
     
-   /* $firstName 		= 	str_replace("'", "", $_POST['First_Name']);
+ /* $firstName 		= 	str_replace("'", "", $_POST['First_Name']);
     $lastName 		= 	str_replace("'", "", $_POST['Last_Name']);
     $address 		= 	str_replace("'", "", $_POST['Address']);
     $city 		    = 	str_replace("'", "", $_POST['City']);
@@ -39,10 +39,10 @@ else if(isset($_POST) && !empty($_POST)){
     $meta = array(
     	array("fieldLabel" => "First Name", 			"validationCode" => "RQvalALPH"),
     	array("fieldLabel" => "Last Name", 				"validationCode" => "RQvalALPH"),
-    	array("fieldLabel" => "Address", 				"validationCode" => "RQvalALPH"),
-    	array("fieldLabel" => "City", 					"validationCode" => "RQvalALPH"),
-    	array("fieldLabel" => "Postal Code",			"validationCode" => "RQvalALPH"),
-    	array("fieldLabel" => "Phone",		 			"validationCode" => "RQvalPHON"),
+    	array("fieldLabel" => "Company Address", 		"validationCode" => "RQvalALPH"),
+    	array("fieldLabel" => "Company City", 			"validationCode" => "RQvalALPH"),
+    	array("fieldLabel" => "Company Postal Code",	"validationCode" => "RQvalALPH"),
+    	array("fieldLabel" => "Phone Number",		 	"validationCode" => "RQvalPHON"),
     	array("fieldLabel" => "Email", 					"validationCode" => "RQvalMAIL"),
     	array("fieldLabel" => "Confirm Email", 			"validationCode" => "RQvalMAIL"),
     	array("fieldLabel" => "Facebook Username", 		"validationCode" => "OPvalALPH"),
@@ -83,7 +83,7 @@ else if(isset($_POST) && !empty($_POST)){
         unset($post[2]); //don't want to pass this to createUserAccount
     }
     else {
-	    $message = "Please fill in all fields.";
+	    $quipp->js['onload'] .= 'alertBox("fail", "'.$message.'");';
     }
 
     if ($valid == true){
@@ -91,10 +91,9 @@ else if(isset($_POST) && !empty($_POST)){
 
         if (0 === ($userID = $f->createUserAccount($post, NULL, "applicants"))){
             $valid = false;
+            $quipp->js['onload'] .= 'alertBox("fail", "'.$message.'");';
         }
     }
-    
-    var_dump($valid); 
 
 /*     } */
     
@@ -300,7 +299,7 @@ else {
 
 <form id="job-form" name="jobForm" method="post" action="<?php echo $_SERVER['REQUEST_URI']; ?>" enctype="multipart/form-data">
 <!--<form id="job-form" method="post" action="<?php //echo $_SERVER['REQUEST_URI']; ?>" enctype="multipart/form-data">-->
-<form id="job-form" method="post">
+<!-- <form id="job-form" method="post"> -->
     <div id="card" class="box userinfo">
         <div class="heading">
             <h2>Enter Your Information</h2>
@@ -344,16 +343,16 @@ else {
             <dd><input type="text" id="Last_Name" name="Last_Name" class="full" placeholder="Last Name" value="<?php echo isset($post['Last_Name']) ? $post['Last_Name']['value'] : ""; ?>" required="required"/></dd>
 
             <dt>Address</dt>
-            <dd><input type="text" id="Address" name="Address" class="full" placeholder="Address" value="<?php echo isset($post['Address']) ? $post['Address']['value'] : ""; ?>" required="required"/></dd>
+            <dd><input type="text" id="Company_Address" name="Company_Address" class="full" placeholder="Address" value="<?php echo isset($post['Company_Address']) ? $post['Company_Address']['value'] : ""; ?>" required="required"/></dd>
             
             <dt>City</dt>
-            <dd><input type="text" id="City" name="City" class="full" placeholder="City" value="<?php echo isset($post['City']) ? $post['City']['value'] : ""; ?>" required="required"/></dd>
+            <dd><input type="text" id="Company_City" name="Company_City" class="full" placeholder="City" value="<?php echo isset($post['Company_City']) ? $post['Company_City']['value'] : ""; ?>" required="required"/></dd>
 
             <dt>Postal Code</dt>
-            <dd><input type="text" id="Postal_Code" name="Postal_Code" class="full" placeholder="Postal Code" value="<?php echo isset($post['Postal_Code']) ? $post['Postal_Code']['value'] : ""; ?>" required="required"/></dd>
+            <dd><input type="text" id="Company_Postal_Code" name="Company_Postal_Code" class="full" placeholder="Postal Code" value="<?php echo isset($post['Company_Postal_Code']) ? $post['Company_Postal_Code']['value'] : ""; ?>" required="required"/></dd>
             
             <dt>Phone</dt>
-            <dd><input type="text" id="Phone" name="Phone" class="full" placeholder="Phone" value="<?php echo isset($post['Phone']) ? $post['Phone']['value'] : ""; ?>" required="required"/></dd>
+            <dd><input type="text" id="Phone_Number" name="Phone_Number" class="full" placeholder="Phone" value="<?php echo isset($post['Phone_Number']) ? $post['Phone_Number']['value'] : ""; ?>" required="required"/></dd>
 
             <dt>Email</dt>
             <dd><input type="text" id="Email" name="Email" class="full" placeholder="Email Address" value="<?php echo isset($post['Email']) ? $post['Email']['value'] : ""; ?>" required="required"/></dd>
