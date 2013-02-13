@@ -300,7 +300,6 @@ var confirmAction = function(title, message){
 //apply page
 var $activeVideo = 0;
 $('.nextbutton').click(function () {
-	
 	var $comingFrom = $(this).data('section');
 	
 	if ($comingFrom == 'questions') {

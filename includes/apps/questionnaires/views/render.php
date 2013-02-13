@@ -23,7 +23,7 @@ if (isset($_POST['Email']) && isset($_POST['Confirm_Email']) && $_POST['Email'] 
 else if(isset($_POST) && !empty($_POST)){  
     //get values from form 
     
-    $firstName 		= 	str_replace("'", "", $_POST['First_Name']);
+   /* $firstName 		= 	str_replace("'", "", $_POST['First_Name']);
     $lastName 		= 	str_replace("'", "", $_POST['Last_Name']);
     $address 		= 	str_replace("'", "", $_POST['Address']);
     $city 		    = 	str_replace("'", "", $_POST['City']);
@@ -34,7 +34,7 @@ else if(isset($_POST) && !empty($_POST)){
     $facebook 		= 	str_replace("'", "", $_POST['Facebook_Username']);
     $twitter 		= 	str_replace("'", "", $_POST['Twitter_Username']);
     $linkedIn 		= 	str_replace("'", "", $_POST['LinkedIn_Username']);
-
+*/
 
     $meta = array(
     	array("fieldLabel" => "First Name", 			"validationCode" => "RQvalALPH"),
@@ -112,6 +112,7 @@ list($title, $link, $dateExpires, $datePosted, $questionnaireID, $status, $compa
 if (time() < strtotime($datePosted) || $status == 'inactive') {
     $quipp->js['onload'] .= 'alertBox("fail", "No job found");';
 
+
 } elseif (time() > strtotime($dateExpires)) {
     $quipp->js['onload'] .= 'alertBox("fail", "We\'re sorry, this job posting has expired");';
 
@@ -160,8 +161,8 @@ else {
 
     if (!empty($_POST) && empty($message)) {
     	
-/*
-    	if (isset($_FILES['resume']) || isset($_FILES['coverLetter'])) {
+    	//SAVING OF FILES COMMENTED OUT FOR TESTING
+    /*	if ((isset($_FILES['resume']) && !empty($_FILES['resume'])) || (isset($_FILES['coverLetter'])&& !empty($_FILES['coverLetter']))) {
 	    	
 	    	foreach ($_FILES as $f) {
 		    	if ($f['error'] == 0) {
@@ -195,10 +196,11 @@ else {
 			    	echo "Error: ".$f['Name']." - ".$f['error']."</br>";
 		    	}
 	    	}
-    	}
+    	}*/
     	
-*/
-        if (is_array($q->questions) && !empty($q->questions)) {
+    
+    	//SAVE QUESTIONS
+		if (is_array($q->questions) && !empty($q->questions)) {
 
             $qry = sprintf("INSERT INTO tblApplications (jobID, userID, sysDateInserted) VALUES ('%d', '%d', NOW())",
                 (int) $_GET['job'],
@@ -286,7 +288,7 @@ else {
 
             }
             
-/*             header('Location: /apply/' . (int)$_GET['job'] . '?success'); */
+           // header('Location: /apply/' . (int)$_GET['job'] . '?success');
         }
 
     }
@@ -297,6 +299,8 @@ else {
 ?>
 
 <form id="job-form" name="jobForm" method="post" action="<?php echo $_SERVER['REQUEST_URI']; ?>" enctype="multipart/form-data">
+<!--<form id="job-form" method="post" action="<?php //echo $_SERVER['REQUEST_URI']; ?>" enctype="multipart/form-data">-->
+<form id="job-form" method="post">
     <div id="card" class="box userinfo">
         <div class="heading">
             <h2>Enter Your Information</h2>
