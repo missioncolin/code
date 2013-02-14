@@ -6,10 +6,6 @@ require_once dirname(dirname(__DIR__)) . '/jobs-manager/JobManager.php';
 require_once dirname(dirname(__DIR__)) . '/job-info/JobInfo.php';
 require_once dirname(__DIR__) . '/Questionnaire.php';
 
-
-/* Unset SESSION - new page load */
-unset($_SESSION['success']);
-
 if (!isset($f) || !$f INSTANCEOF Forms){
     $f = new Forms($db);
 }
@@ -338,9 +334,12 @@ else {
 
 ?>
 
+<!-- ************* Javascript global var declaration ******************* -->
 <script type="text/javascript">
+
   /* Store global variable for whether the form has submitted successfully */
-  var successfulApp = <?php echo isset($_SESSION['success']) ? '1' : '0'; ?>;
+  var successfulApp = <?php echo isset($_REQUEST['submitted']) ? '1' : '0'; ?>;
+  var jobTitle = "<?php echo $title; ?>";
   
 </script>
 
@@ -532,6 +531,7 @@ else {
 
 ?>
     </table>
+    <input type="hidden" name="submitted" value="1"/>
     <input type="submit" class="btn green" value="Next" data-section="questions" />
     </div>
     
@@ -546,5 +546,14 @@ else {
     </div>
 -->
 </form>
+
+<!-- Welcome Popup --->
+<div id="confirm" style="display:none; z-index: 1000;">
+<div class="popUp">
+<h2></h2>
+<p></p>
+<a class="btn" id="confirmWelcome">Ok</a>
+</div>
+</div>
 
 <?php }
