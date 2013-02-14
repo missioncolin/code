@@ -20,7 +20,8 @@ if (isset($_POST['Email']) && isset($_POST['Confirm_Email']) && $_POST['Email'] 
 	$message = "Your email addresses do not match.";
 	
 }
-else if(isset($_POST) && !empty($_POST)){  
+
+if(isset($_POST) && !empty($_POST)){  
     //get values from form 
     
  /* $firstName 		= 	str_replace("'", "", $_POST['First_Name']);
@@ -63,7 +64,8 @@ else if(isset($_POST) && !empty($_POST)){
     $valid = false;
     
     $validate = array();
-    foreach($post as $field => $nfo){
+    
+    foreach($post as $field => $nfo) {
     
         $validate[$nfo["code"].$field] = "";
         
@@ -315,7 +317,7 @@ else {
 
             }
             
-           // header('Location: /apply/' . (int)$_GET['job'] . '?success');
+           header('Location: /apply/' . (int)$_GET['job'] . '?success');
         }
 
     }
@@ -323,7 +325,14 @@ else {
     if (isset($error) && $error != '') {
         $quipp->js['onload'] .= 'alertBox("fail", "' . $error . '");';
     }
+
 ?>
+
+<script type="text/javascript">
+  /* Store global variable for whether the form has submitted successfully */
+  var successfulApp = <?php echo isset($_GET['success']) ? '1' : '0'; ?>;
+  
+</script>
 
 <form id="job-form" name="jobForm" method="post" action="<?php echo $_SERVER['REQUEST_URI']; ?>" enctype="multipart/form-data">
 <!--<form id="job-form" method="post" action="<?php //echo $_SERVER['REQUEST_URI']; ?>" enctype="multipart/form-data">-->
@@ -513,13 +522,14 @@ else {
 
 ?>
     </table>
-    <input type="button" class="btn green nextbutton" value="Next" data-section="questions" />
+    <input type="submit" class="btn green" value="Next" data-section="questions" />
     </div>
     
-<!--
     <?php
     echo($videos);
+    
     ?>
+<!--
    <div id="finalStep">
    		<input type="button" class="btn red prevbutton" value="Previous" data-section="final" />
     	<input type="submit" class="btn green" value="Submit" />

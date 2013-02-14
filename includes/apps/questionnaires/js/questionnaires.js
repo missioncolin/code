@@ -7,6 +7,23 @@ totalCountQ.push(5);
 
 editCount = 0;
 
+$(function() {
+
+	console.log(successfulApp);
+	
+	if (successfulApp == 1) {
+		$(".userinfo").fadeOut();
+			$("#submissions").fadeOut(400, function() {
+				
+				if ($("#video1").is('*')) {
+					$("#video1").fadeIn();
+					$activeVideo = 1;
+				}
+			});
+			
+		$('.current').removeClass().next().addClass('current');
+	}
+});
     
 $("#RQvalNUMBType").change(function () {
     if ($(this).val() == 1 || $(this).val() == 2) {
@@ -303,9 +320,6 @@ $('.nextbutton').click(function () {
 	var $comingFrom = $(this).data('section');
 	
 	if ($comingFrom == 'questions') {
-		
-		/* Submit job application */
-		document.jobForm.submit();
 		
 		$(".userinfo").fadeOut();
 		$("#submissions").fadeOut(400, function() {
