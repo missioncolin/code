@@ -7,6 +7,8 @@ require_once dirname(dirname(__DIR__)) . '/job-info/JobInfo.php';
 require_once dirname(__DIR__) . '/Questionnaire.php';
 
 
+/* Unset SESSION - new page load */
+unset($_SESSION['success']);
 
 if (!isset($f) || !$f INSTANCEOF Forms){
     $f = new Forms($db);
