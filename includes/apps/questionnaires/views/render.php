@@ -90,10 +90,18 @@ if(isset($_POST) && !empty($_POST)){
 
     if ($valid == true){
         $message = "";
-
-        if (0 === ($userID = $f->createUserAccount($post, NULL, "applicants"))){
+        if (isset($_SESSION['success'])) {
+        	$userID = $f->updateUserAccount($post, "");
+        	
+        	if ($message != "") {
+	        	$valid = false;
+	        	$quipp->js['onload'] .= 'alertBox("fail", "'.$message.'")';
+        	}
+        }
+        
+        elseif (0 === ($userID = $f->createUserAccount($post, NULL, "applicants"))){
             $valid = false;
-            $quipp->js['onload'] .= 'alertBox("fail", "'.$message.'");';
+            $quipp->js['onload'] .= 'alertBox("fail", "'.$message.'")';
         }
     }
 
@@ -317,7 +325,7 @@ else {
 
             }
             
-           header('Location: /apply/' . (int)$_GET['job'] . '?success');
+           $_SESSION['success'] = 1;
         }
 
     }
@@ -330,7 +338,7 @@ else {
 
 <script type="text/javascript">
   /* Store global variable for whether the form has submitted successfully */
-  var successfulApp = <?php echo isset($_GET['success']) ? '1' : '0'; ?>;
+  var successfulApp = <?php echo isset($_SESSION['success']) ? '1' : '0'; ?>;
   
 </script>
 
