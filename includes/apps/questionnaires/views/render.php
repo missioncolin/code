@@ -165,7 +165,15 @@ else {
 	    	
 	    	foreach ($_FILES as $f=>$values) {
 		    	if ($values['error'] == 0) {
-			    				    				    	                
+			    	
+			    	/* Holds separate 'question IDs' for each in tblAnswers */
+			    	if ($f == 'coverLetter') {
+			    		$questionID = 0;
+			    	}			    	
+			    	else {
+				    	$questionID = -1;
+			    	}			    	 
+			    	               
                 	/* See whether /applications exists, if not - create it */
                 	if (!is_dir(dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications')) {
 	                	mkdir(dirname(dirname(dirname(dirname(__DIR__)))) . 'uploads/applications');
@@ -182,8 +190,6 @@ else {
                     if ($successfulMkdir) {
 	                    $file = upload_file($f, dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications/' . (int) $_GET['job'] . '/' . (int) $_SESSION['userID'] . '/', $MIME_TYPES, false, false, false, base_convert(0, 10, 36));
 	                    
-	                    var_dump($file);
-	                    
 	                    if (substr($file, 0, 8) == '<strong>') {
 	                        $error = $file;
 	                    } else {
@@ -192,7 +198,7 @@ else {
 	                            $applicationID,
 	                            (int) $_GET['job'],
 	                            (int) $_SESSION['userID'],
-	                            (int) '0',
+	                            (int) $questionID,
 	                            '',
 	                            $file,
 	                            date('Y-m-d H:i:s'),
