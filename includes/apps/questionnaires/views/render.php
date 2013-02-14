@@ -163,18 +163,27 @@ else {
     	//SAVING OF FILES COMMENTED OUT FOR TESTING
     	if (($_FILES['resume']['size'] != 0) || ($_FILES['coverLetter']['size'] != 0)) {
 	    	
-	    	foreach ($_FILES as $f) {
-		    	if ($f['error'] == 0) {
-			    	
-			    	echo dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications/' . (int) $_GET['job'] . '/' . (int) $_SESSION['userID'];
-			    	
+	    	foreach ($_FILES as $f=>$values) {
+		    	if ($values['error'] == 0) {
+			    				    				    	                
+                	/* See whether /applications exists, if not - create it */
+                	if (!is_dir(dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications')) {
+	                	mkdir(dirname(dirname(dirname(dirname(__DIR__)))) . 'uploads/applications');
+                	}
+                	
 			    	if (!is_dir(dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications/' . (int) $_GET['job'] . '/' . (int) $_SESSION['userID'])) {
                         $successfulMkdir = mkdir(dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications/' . (int) $_GET['job']);
                         $successfulMkdir = mkdir(dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications/' . (int) $_GET['job'] . '/' . (int) $_SESSION['userID']);
                     }
+                    else {
+	                    $successfulMkdir = 1;
+                    }
 
                     if ($successfulMkdir) {
-	                    $file = upload_file(0, dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications/' . (int) $_GET['job'] . '/' . (int) $_SESSION['userID'] . '/', $MIME_TYPES, false, false, false, base_convert(0, 10, 36));
+	                    $file = upload_file($f, dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications/' . (int) $_GET['job'] . '/' . (int) $_SESSION['userID'] . '/', $MIME_TYPES, false, false, false, base_convert(0, 10, 36));
+	                    
+	                    var_dump($file);
+	                    
 	                    if (substr($file, 0, 8) == '<strong>') {
 	                        $error = $file;
 	                    } else {
@@ -251,12 +260,21 @@ else {
 
                 // file upload
                 } elseif ($question['type'] == '5') {
+                
+                	/* See whether /applications exists, if not - create it */
+                	if (!is_dir(dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications')) {
+	                	mkdir(dirname(dirname(dirname(dirname(__DIR__)))) . 'uploads/applications');
+                	}
+                	
+                	/* Create new directory for this application and user if DNE */
                     if (!is_dir(dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications/' . (int) $_GET['job'] . '/' . (int) $_SESSION['userID'])) {
                         mkdir(dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications/' . (int) $_GET['job']);
                         mkdir(dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications/' . (int) $_GET['job'] . '/' . (int) $_SESSION['userID']);
                     }
 
                     $file = upload_file($questionID, dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications/' . (int) $_GET['job'] . '/' . (int) $_SESSION['userID'] . '/', $MIME_TYPES, false, false, false, base_convert($questionID, 10, 36));
+  
+                                      
                     if (substr($file, 0, 8) == '<strong>') {
                         $error = $file;
                     } else {
