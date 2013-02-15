@@ -1,3 +1,58 @@
+<script src="http://code.jquery.com/jquery-1.8.2.js"></script>
+<script src="http://code.jquery.com/ui/1.9.0/jquery-ui.js"></script>
+
+
+<!-- Javascript - whether can transition to video -->
+
+<script>
+	
+$(function() {
+
+	/* Store variables for whether the form has submitted successfully */
+	var successfulApp = <?php echo isset($_REQUEST['submitted']) ? '1' : '0'; ?>;
+	var jobTitle = "<?php echo $title; ?>";
+
+	/* If successfulApp == 1, transition to video - otherwise
+	   first time on the page, display welcome message for applying */
+	if (successfulApp == 1) {
+		$(".userinfo").fadeOut();
+			$("#submissions").fadeOut(400, function() {
+				
+				if ($("#video1").is('*')) {
+					$("#video1").fadeIn();
+					$activeVideo = 1;
+				}
+			});
+			
+		$('.current').removeClass().next().addClass('current');
+	}
+	
+	/* Handle displaying the welcome popup */
+	else {
+		$('.popUp').addClass('success');
+		confirmAction("Thank you for applying to " + jobTitle + "!", "Begin by filling out your profile below, use the sliders to select the years of experience you have in each skill and upload your resume and cover letter.");
+
+	}
+	
+	/* Clears the pop-up when user confirms */
+	$('#confirmWelcome').on('click', function() {
+			
+        $('#confirm').fadeOut('fast', function() {
+	    	$('.popUp h2').empty();
+	        $('.popUp p').empty();
+	        $('.popUp #popUpOk').off('click');
+	        $('.popUp #popUpNo').off('click'); 
+	        $('.popUp').removeClass('success');
+	        $('.popUp').removeClass('fail');
+	        $('.popUp #popUpNo').show();
+        });
+	});
+
+});
+
+</script>
+
+
 <?php
 
 global $quipp, $message;
@@ -45,6 +100,7 @@ if (isset($_POST['Email']) && isset($_POST['Confirm_Email']) && $_POST['Email'] 
 }else if(isset($_POST) && !empty($_POST)){  
     //UPDATE ACCOUNT  
 
+
     $meta = array(
     	array("fieldLabel" => "First Name", 			"validationCode" => "RQvalALPH"),
     	array("fieldLabel" => "Last Name", 				"validationCode" => "RQvalALPH"),
@@ -71,7 +127,8 @@ if (isset($_POST['Email']) && isset($_POST['Confirm_Email']) && $_POST['Email'] 
     $valid = false;
     
     $validate = array();
-    foreach($post as $field => $nfo){
+    
+    foreach($post as $field => $nfo) {
     
         $validate[$nfo["code"].$field] = "";
         
@@ -96,10 +153,25 @@ if (isset($_POST['Email']) && isset($_POST['Confirm_Email']) && $_POST['Email'] 
 
     if ($valid == true){
         $message = "";
-        
+
+//merge conflict line        
         if (0 === ($userID = $f->updateUserAccountApplicant($post, "buPa55w0rDjdafjdm"))){
+
+   /*
+   	//merge conflict code
+        if (isset($_SESSION['success'])) {
+        	$userID = $f->updateUserAccount($post, "");
+        	
+        	if ($message != "") {
+	        	$valid = false;
+	        	$quipp->js['onload'] .= 'alertBox("fail", "'.$message.'")';
+        	}
+        }
+        
+        elseif (0 === ($userID = $f->createUserAccount($post, NULL, "applicants"))){
+        */
             $valid = false;
-            $quipp->js['onload'] .= 'alertBox("fail", "'.$message.'");';
+            $quipp->js['onload'] .= 'alertBox("fail", "'.$message.'")';
         }
     }
 
@@ -171,18 +243,33 @@ else {
     	//SAVING OF FILES COMMENTED OUT FOR TESTING
     	if (($_FILES['resume']['size'] != 0) || ($_FILES['coverLetter']['size'] != 0)) {
 	    	
-	    	foreach ($_FILES as $f) {
-		    	if ($f['error'] == 0) {
+	    	foreach ($_FILES as $f=>$values) {
+		    	if ($values['error'] == 0) {
 			    	
-			    	echo dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications/' . (int) $_GET['job'] . '/' . (int) $_SESSION['userID'];
-			    	
+			    	/* Holds separate 'question IDs' for each in tblAnswers */
+			    	if ($f == 'coverLetter') {
+			    		$questionID = 0;
+			    	}			    	
+			    	else {
+				    	$questionID = -1;
+			    	}			    	 
+			    	               
+                	/* See whether /applications exists, if not - create it */
+                	if (!is_dir(dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications')) {
+	                	mkdir(dirname(dirname(dirname(dirname(__DIR__)))) . 'uploads/applications');
+                	}
+                	
 			    	if (!is_dir(dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications/' . (int) $_GET['job'] . '/' . (int) $_SESSION['userID'])) {
                         $successfulMkdir = mkdir(dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications/' . (int) $_GET['job']);
                         $successfulMkdir = mkdir(dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications/' . (int) $_GET['job'] . '/' . (int) $_SESSION['userID']);
                     }
+                    else {
+	                    $successfulMkdir = 1;
+                    }
 
                     if ($successfulMkdir) {
-	                    $file = upload_file(0, dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications/' . (int) $_GET['job'] . '/' . (int) $_SESSION['userID'] . '/', $MIME_TYPES, false, false, false, base_convert(0, 10, 36));
+	                    $file = upload_file($f, dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications/' . (int) $_GET['job'] . '/' . (int) $_SESSION['userID'] . '/', $MIME_TYPES, false, false, false, base_convert(0, 10, 36));
+	                    
 	                    if (substr($file, 0, 8) == '<strong>') {
 	                        $error = $file;
 	                    } else {
@@ -191,7 +278,7 @@ else {
 	                            $applicationID,
 	                            (int) $_GET['job'],
 	                            (int) $_SESSION['userID'],
-	                            (int) '0',
+	                            (int) $questionID,
 	                            '',
 	                            $file,
 	                            date('Y-m-d H:i:s'),
@@ -259,12 +346,21 @@ else {
 
                 // file upload
                 } elseif ($question['type'] == '5') {
+                
+                	/* See whether /applications exists, if not - create it */
+                	if (!is_dir(dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications')) {
+	                	mkdir(dirname(dirname(dirname(dirname(__DIR__)))) . 'uploads/applications');
+                	}
+                	
+                	/* Create new directory for this application and user if DNE */
                     if (!is_dir(dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications/' . (int) $_GET['job'] . '/' . (int) $_SESSION['userID'])) {
                         mkdir(dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications/' . (int) $_GET['job']);
                         mkdir(dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications/' . (int) $_GET['job'] . '/' . (int) $_SESSION['userID']);
                     }
 
                     $file = upload_file($questionID, dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications/' . (int) $_GET['job'] . '/' . (int) $_SESSION['userID'] . '/', $MIME_TYPES, false, false, false, base_convert($questionID, 10, 36));
+  
+                                      
                     if (substr($file, 0, 8) == '<strong>') {
                         $error = $file;
                     } else {
@@ -299,7 +395,7 @@ else {
 
             }
             
-           // header('Location: /apply/' . (int)$_GET['job'] . '?success');
+           $_SESSION['success'] = 1;
         }
 
     }
@@ -307,6 +403,7 @@ else {
     if (isset($error) && $error != '') {
         $quipp->js['onload'] .= 'alertBox("fail", "' . $error . '");';
     }
+
 ?>
 
 <form id="job-form" name="jobForm" method="post" action="<?php echo $_SERVER['REQUEST_URI']; ?>" enctype="multipart/form-data">
@@ -497,18 +594,29 @@ else {
 
 ?>
     </table>
-    <input type="button" class="btn green nextbutton" value="Next" data-section="questions" />
+    <input type="hidden" name="submitted" value="1"/>
+    <input type="submit" class="btn green" value="Next" data-section="questions" />
     </div>
     
-<!--
     <?php
     echo($videos);
+    
     ?>
+<!--
    <div id="finalStep">
    		<input type="button" class="btn red prevbutton" value="Previous" data-section="final" />
     	<input type="submit" class="btn green" value="Submit" />
     </div>
 -->
 </form>
+
+<!-- Welcome Popup --->
+<div id="confirm" style="display:none; z-index: 1000;">
+<div class="popUp">
+<h2></h2>
+<p></p>
+<a class="btn" id="confirmWelcome">Ok</a>
+</div>
+</div>
 
 <?php }

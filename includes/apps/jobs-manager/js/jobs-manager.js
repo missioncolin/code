@@ -1,6 +1,6 @@
 
 $(function () {
-    
+
     $('.activate').click(function(e) {
     	 e.preventDefault();
         var $jobID = $(this).data('job');

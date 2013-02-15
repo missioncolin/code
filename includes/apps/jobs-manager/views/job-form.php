@@ -15,8 +15,74 @@ $jobID = 0;
 $editReturn;
 
 $quipp->js['footer'][] = "/includes/apps/jobs-manager/js/jobs-manager.js";
+$quipp->js['footer'][] = "/includes/apps/questionnaires/js/questionnaires.js";
+?>
 
-if (!empty($_POST)) {
+<script src="http://code.jquery.com/jquery-1.8.2.js"></script>
+<script src="http://code.jquery.com/ui/1.9.0/jquery-ui.js"></script>
+
+
+<!--- Javascript - determine whether first time creating a job ----->
+<script>
+	
+$(function() {
+
+	var isNewReg = <?php echo $j->totalJobs(); ?>;
+
+	/* If successfulApp == 1, transition to video - otherwise
+	   first time on the page, display welcome message for applying */
+	if (isNewReg == 0) {
+		
+		$('.popUp').addClass('success');
+		confirmAction("Thank you for choosing Intervue!", "To begin please name your job.");
+	}
+
+	/* Clears the pop-up when user confirms */
+	$('#confirmNewReg').on('click', function() {
+			
+        $('#confirm').fadeOut('fast', function() {
+	    	$('.popUp h2').empty();
+	        $('.popUp p').empty();
+	        $('.popUp #popUpOk').off('click'); 
+	        $('.popUp').removeClass('success');
+	        $('.popUp').removeClass('fail');
+	        $('.popUp #popUpNo').show();
+        });
+	});
+});
+	
+</script>
+
+<!----- Header breadcrumb moved ------>
+
+<?php $signUpPages = array("hr-signup", "profile"); ?>
+ 
+<!-- New breadcrumb setup: If creating a new user, and moving to create a job, display this: --->
+<!--         <ul id="stepsNew"<?php if (!isset($_GET['step'])) { ?> class="hide"<?php } ?>> -->
+
+ <!---- Handles breadcrumb for newly registered users ---->
+<ul id="stepsNew"<?php if ($_GET['p'] != 'hr-signup' && $j->totalJobs() != 0) { ?> class="hide"<?php } ?>>
+    <?php if (isset($_GET['step']) || in_array($_GET['p'], $signUpPages)) { ?>
+    <li<?php if ($_GET['p'] == 'hr-signup') { ?> class="current"<?php } ?>><span>1</span>Create Account</li>
+    <li<?php if (isset($_GET['step']) && $_GET['step'] == '1') { ?> class="current"<?php } ?>><span>2</span>Name Your Job</li>
+    <li<?php if (isset($_GET['step']) && $_GET['step'] == '2') { ?> class="current"<?php } ?>><span>3</span>Add Required Skills and Experience</li>
+    <li<?php if (isset($_GET['step']) && $_GET['step'] == '3') { ?> class="current"<?php } ?>><span>4</span>Add intervue Questions</li>
+    <li<?php if (isset($_GET['step']) && $_GET['step'] == '4') { ?> class="current"<?php } ?>><span>5</span>Activate Link</li>
+    <?php } ?>
+</ul>
+
+<!--   If just creating a new job, use this: --->
+<ul id="steps"<?php if (($j->totalJobs() == 0)) { ?> class="hide"<?php } ?>>
+    <?php if (isset($_GET['step'])) { ?>
+    <li<?php if ($_GET['step'] == '1') { ?> class="current"<?php } ?>><span>1</span>Name Your Job</li>
+    <li<?php if ($_GET['step'] == '2') { ?> class="current"<?php } ?>><span>2</span>Add Required Skills and Experience</li>
+    <li<?php if ($_GET['step'] == '3') { ?> class="current"<?php } ?>><span>3</span>Add intervue Questions</li>
+    <li<?php if ($_GET['step'] == '4') { ?> class="current"<?php } ?>><span>4</span>Activate Link</li>
+    <?php } ?>
+</ul>
+
+
+<?php if (!empty($_POST)) {
     if (isset($_POST['RQvalALPHTitle'], $_POST['OPvalWEBSLink'], $_POST['RQvalDATEDate_Posted'], $_POST['RQvalNUMBQuestionnaire'])) {
         
         if (!validate_form($_POST)) {
@@ -152,6 +218,8 @@ if ($edit == true && !isset($_GET['id'])) {
  * POST edit with id and access and error
  */
 ?>
+
+        
 <section id="jobManagerEdit">
 	
 	<!--- Prevent submission of form on enter press --->
@@ -229,4 +297,15 @@ if (empty($questionnaires)) {
     </form>
     </div> <!-- colASplit -->
 </section>
+
+
+<!-- First Job Popup --->
+<div id="confirm" style="display:none; z-index: 1000;">
+	<div class="popUp">
+	<h2></h2>
+	<p></p>
+	<a class="btn" id="confirmNewReg">Ok</a>
+	</div>
+</div>
+	
 <?php } ?>

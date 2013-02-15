@@ -6,7 +6,6 @@ totalCountQ = new Array(1, 2, 3, 4);
 totalCountQ.push(5);
 
 editCount = 0;
-
     
 $("#RQvalNUMBType").change(function () {
     if ($(this).val() == 1 || $(this).val() == 2) {
@@ -303,9 +302,6 @@ $('.nextbutton').click(function () {
 	var $comingFrom = $(this).data('section');
 			
 	if ($comingFrom == 'questions') {
-	
-		/* Submit job application */
-		document.jobForm.submit();
 		
 		$(".userinfo").fadeOut();
 		$("#submissions").fadeOut(400, function() {

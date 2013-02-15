@@ -54,10 +54,10 @@ if (time() < strtotime($datePosted) || $status == 'inactive') {
 ?>
 
 <ul id="steps">
-<li><span>1</span>Create Account</li>
-<li class="current"><span>2</span>Contact Information, Resume, and Cover</li>
-<li><span>3</span>Interview Questions</li>
-<li><span>4</span>Submit Application</li>
+<!-- <li><span>1</span>Create Account</li> -->
+<li class="current"><span>1</span>Contact Information, Resume, and Cover</li>
+<li><span>2</span>Interview Questions</li>
+<li><span>3</span>Submit Application</li>
 </ul>
 
 <section id="applicantProfile" class="apply">

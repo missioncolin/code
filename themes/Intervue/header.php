@@ -1,4 +1,5 @@
 <?php
+	
     if (!isset($meta)) {
         $meta = array();
     }
@@ -79,31 +80,6 @@
     
     <section id="container" <?php if ($meta['body_id'] == 'home') { print 'class="home"'; } ?>>
     
-    	<?php $signUpPages = array("hr-signup", "profile"); ?>
-    	 
-    	<!-- New breadcrumb setup: If creating a new user, and moving to create a job, display this: --->
-<!--         <ul id="stepsNew"<?php if (!isset($_GET['step'])) { ?> class="hide"<?php } ?>> -->
-
-		 <!---- Handles breadcrumb for newly registered users ---->
-       	 <ul id="stepsNew"<?php if ($_GET['p'] != 'hr-signup' && !isset($_SESSION['newReg'])) { ?> class="hide"<?php } ?>>
-            <?php if (isset($_GET['step']) || in_array($_GET['p'], $signUpPages)) { ?>
-            <li<?php if ($_GET['p'] == 'hr-signup') { ?> class="current"<?php } ?>><span>1</span>Create Account</li>
-            <li<?php if (isset($_GET['step']) && $_GET['step'] == '1') { ?> class="current"<?php } ?>><span>2</span>Name Your Job</li>
-            <li<?php if (isset($_GET['step']) && $_GET['step'] == '2') { ?> class="current"<?php } ?>><span>3</span>Add Required Skills and Experience</li>
-            <li<?php if (isset($_GET['step']) && $_GET['step'] == '3') { ?> class="current"<?php } ?>><span>4</span>Add intervue Questions</li>
-            <li<?php if (isset($_GET['step']) && $_GET['step'] == '4') { ?> class="current"<?php } ?>><span>5</span>Activate Link</li>
-            <?php } ?>
-        </ul>
-        
-		<!--   If just creating a new job, use this: --->
-        <ul id="steps"<?php if (isset($_SESSION['newReg']) && ($_GET['p'] != 'create-job' && $_GET['p'] != 'configure-question')) { ?> class="hide"<?php } ?>>
-            <?php if (isset($_GET['step'])) { ?>
-            <li<?php if ($_GET['step'] == '1') { ?> class="current"<?php } ?>><span>1</span>Name Your Job</li>
-            <li<?php if ($_GET['step'] == '2') { ?> class="current"<?php } ?>><span>2</span>Add Required Skills and Experience</li>
-            <li<?php if ($_GET['step'] == '3') { ?> class="current"<?php } ?>><span>3</span>Add intervue Questions</li>
-            <li<?php if ($_GET['step'] == '4') { ?> class="current"<?php } ?>><span>4</span>Activate Link</li>
-            <?php } ?>
-        </ul>
 
        
         

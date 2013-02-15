@@ -91,7 +91,7 @@ class Forms extends User{
     
         $insID = 0;
         
-        $qry = sprintf("INSERT INTO `sysUsers` (`userIDField`, `userIDPassword`, `regDate`, `sysUser`, `sysIsADUser`, `sysStatus`, `sysOpen`) VALUES ('%s', '%s', NOW(), '0', '0', 'active', '1')",
+        $qry = sprintf("INSERT INTO `sysUsers` (`userIDField`, `userIDPassword`, `regDate`, `sysUser`, `sysIsADUser`, `sysStatus`, `sysOpen`) VALUES ('%s', '%s', NOW(), '0', '0', 'active', '1')" ,
             $this->db->escape($post["Email"]["value"], true),
             MD5($this->db->escape($password, true))
         );
