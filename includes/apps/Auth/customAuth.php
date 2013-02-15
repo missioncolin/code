@@ -95,16 +95,31 @@ class customAuth extends Auth{
     				        }
     				        break;
     				    case "hr-managers":
+    				    
     				        if ($newRegistration == false){
     				        	header("Location:http://". $_SERVER['SERVER_NAME'] . "/applications");
     				        	die('Redirecting (applicant good, no cf)...');
     				        } else {
-    				        	$_SESSION['newReg'] = 1;
+/*     				        	$_SESSION['newReg'] = 1; */
     				            header("Location:http://". $_SERVER['SERVER_NAME'] . "/create-job?step=1");
     				            die('Redirecting (applicant good, no cf)...');
     				        }
     				        
     				        break;
+    				    
+    				    /* Handles the root case */
+    				    case "siteadmin,hr-managers":
+    				    
+	    				    if ($newRegistration == false){
+	    				        	header("Location:http://". $_SERVER['SERVER_NAME'] . "/applications");
+	    				        	die('Redirecting (applicant good, no cf)...');
+	    				        } else {
+	    				            header("Location:http://". $_SERVER['SERVER_NAME'] . "/create-job?step=1");
+	    				            die('Redirecting (applicant good, no cf)...');
+	    				        }
+	    				    
+	    				    break;
+    				    
     				    default:
     				        header("Location:http://". $_SERVER['SERVER_NAME'] . "/");
     				        die('Redirecting (good, no cf)...');
