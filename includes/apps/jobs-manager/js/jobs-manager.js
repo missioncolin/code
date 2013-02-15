@@ -41,48 +41,64 @@ $(function () {
 
 
     $('.activateList').click(function(e) {
-    	 e.preventDefault();
-        var $jobID = $(this).data('job');
-        var $expiry = $(this).data('expiry');
-        var $this = $(this);
-        var react = $(this);
-        var linkText = document.createTextNode(location.host+"/apply/"+$jobID);
-        confirmAction("Publish Job?", "Publishing this job will cost one (1) credit");
-        
-        //client request - "make it green"
-        $('.popUp').removeClass('fail').addClass('success');
-        
-        $('.popUp #popUpNo').on('click', clearPopUp);
-        $('.popUp #popUpOk').on('click', function(){
-               var parTD = react.parent();
-               var parTR = react.parents('tr').index();     
-		$.post('/reactivate-job', {
-			job: $jobID
-		}, function (data) {
-			if (data == 'success'){
-				var credits = $('#loggedInButtons a:eq(0)').html().match(/^(\d+)\sCredit.*$/); 
-				log(credits);
-				//if (typeof credits != 'undefined' && credits[1] > 0 && typeof credits != 'null' && typeof credits[1] != 'null'){
-				//if (data == 'success')
-				var creditHTML = (parseInt(credits[1], 10) - 1)+' Credits';
-				$('#loggedInButtons a:eq(0)').html(creditHTML);
-				$('.alert').removeClass('fail').addClass('success').html('<span></span>Job Re-published Successfully. Your account was debited one (1) credit');				
+    	 
+    	if ($(this).data('credits') > 0) { 
+	    	 e.preventDefault();
+	        var $jobID = $(this).data('job');
+	        var $expiry = $(this).data('expiry');
+	        var $this = $(this);
+	        var react = $(this);
+	        var linkText = document.createTextNode(location.host+"/apply/"+$jobID);
+	        confirmAction("Publish Job?", "Publishing this job will cost one (1) credit");
+	        
+	        //client request - "make it green"
+	        $('.popUp').removeClass('fail').addClass('success');
+	        
+	        $('.popUp #popUpNo').on('click', clearPopUp);
+	        $('.popUp #popUpOk').on('click', function(){
+	               var parTD = react.parent();
+	               var parTR = react.parents('tr').index();     
+			$.post('/reactivate-job', {
+				job: $jobID
+			}, function (data) {
+				if (data == 'success'){
+					var credits = $('#loggedInButtons a:eq(0)').html().match(/^(\d+)\sCredit.*$/); 
+					log(credits);
+					//if (typeof credits != 'undefined' && credits[1] > 0 && typeof credits != 'null' && typeof credits[1] != 'null'){
+					//if (data == 'success')
+					var creditHTML = (parseInt(credits[1], 10) - 1)+' Credits';
+					$('#loggedInButtons a:eq(0)').html(creditHTML);
+					$('.alert').removeClass('fail').addClass('success').html('<span></span>Job Re-published Successfully. Your account was debited one (1) credit');				
+						
+					location.reload();
+					//}else{
+					//	alertBox("fail", "Job not re-published. " + data + ". <a href='buy-job-credits'>Buy Credits?</a>");
+					//}
+	
+				}else{
+					//$('.alert').removeClass('success').addClass('fail').html('<span></span>Job not Re-published. '+data);
+					alertBox("fail", "Job not re-published. " + data + ". <a href='buy-job-credits'>Buy Credits?</a>");	
 					
-				location.reload();
-				//}else{
-				//	alertBox("fail", "Job not re-published. " + data + ". <a href='buy-job-credits'>Buy Credits?</a>");
-				//}
-
-			}else{
-				//$('.alert').removeClass('success').addClass('fail').html('<span></span>Job not Re-published. '+data);
-				alertBox("fail", "Job not re-published. " + data + ". <a href='buy-job-credits'>Buy Credits?</a>");
-			}
-
-			clearPopUp();
-				
-		}); 
-     
-       });
+				}
+	
+	/* 			clearPopUp(); */
+					
+			}); 
+	     
+	       });
+       }
+       
+       /* No credits left */
+       else {
+	       $('.popUp h2').html("No Credits Remaining");
+	       $('.popUp p').html('To activate the link you must purchase credits, click <a href="buy-job-credits">here</a> to buy credits.');
+	       $('.popUp #popUpNo').hide();
+	       $('#confirm').fadeIn();
+	       
+	       $('.popUp #popUpOk').click(function () {
+		       clearPopUp();
+	       })
+       }
     });
     
     var clearPopUp = function(){
