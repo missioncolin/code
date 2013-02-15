@@ -95,7 +95,7 @@ class Forms extends User{
             $this->db->escape($post["Email"]["value"], true),
             MD5($this->db->escape($password, true))
         );
-        
+
         $res = $this->db->query($qry);
         $inID = 0;
         if ($this->db->affected_rows($res) == 1){
@@ -112,10 +112,12 @@ class Forms extends User{
         }
         return $insID;
     }
+    
     public function updateUserAccount($post, $password){
+
         global $message;
         $updated = true;
-        if ((int)$this->id > 0){
+        if ((int)$this->id > 0){        	
             foreach($post as $key => $data){
                 if (!$this->set_meta($data["label"], $data["value"])){
                     $message = (empty($message))? '<li><strong>'.$data["label"].'</strong> was not updated</li>' : $message . '<li><strong>'.$data["label"].'</strong> was not updated</li>';
@@ -135,4 +137,38 @@ class Forms extends User{
         }
         return $updated;
     }
+    
+    public function updateUserAccountApplicant($post, $password){
+
+        global $message;
+        $updated = true;
+        if ((int)$_SESSION['userID'] > 0){        	
+            foreach($post as $key => $data){
+                if (!$this->set_applicant_meta($data["label"], $data["value"])){
+                    $message = (empty($message))? '<li><strong>'.$data["label"].'</strong> was not updated</li>' : $message . '<li><strong>'.$data["label"].'</strong> was not updated</li>';
+                    $updated = false;
+                }
+            }
+        }
+        return $updated;
+    }
+    
+    public function set_applicant_meta($fieldLabel, $value)
+	{
+		global $db;
+		//determine the keyID of this field
+		$fieldID = $this->db->return_specific_item(false, "sysUGFields", "itemID", "--", "fieldLabel = '".$fieldLabel."'");
+		if(is_numeric($fieldID) && $fieldID > 0) {
+				//field exists for this user, lets update it
+				$qry = sprintf("UPDATE sysUGFValues SET value='%s' WHERE userID='%d' AND fieldID='%d';",
+					$this->db->escape($value),
+					(int)$_SESSION['userID'],
+					(int)$fieldID);
+				$this->db->query($qry);
+				
+		} else {
+			return "Could not find the field [" . $fieldLabel . "] in sysUGFields, check your spelling and make sure it matches exactly.";
+		}
+	}
+    
 }

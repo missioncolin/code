@@ -97,6 +97,7 @@ class User
 
 
 			}
+
 			return true;
 		} else {
 			return "Could not find the field [" . $fieldLabel . "] in sysUGFields, check your spelling and make sure it matches exactly.";

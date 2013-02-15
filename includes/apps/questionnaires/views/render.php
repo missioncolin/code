@@ -6,35 +6,44 @@ require_once dirname(dirname(__DIR__)) . '/jobs-manager/JobManager.php';
 require_once dirname(dirname(__DIR__)) . '/job-info/JobInfo.php';
 require_once dirname(__DIR__) . '/Questionnaire.php';
 
-
+if (isset($_SESSION['userID'])){
+	print "Session ". $_SESSION['userID'];
+}
 
 if (!isset($f) || !$f INSTANCEOF Forms){
     $f = new Forms($db);
 }
 
-/*
-CREATE A USERRRR -----------------
-*/ 
+//create a new blank user if there is no session ID
+
+if (!isset($_SESSION['userID']) || !$_SESSION['userID'] > 0){
+
+	$blankUser = array();
+
+    //build array
+    $blankUser["First_Name"] 			= array("code" => "RQvalALPH", "value" => "", "label" => "First Name"			);
+    $blankUser["Last_Name"] 			= array("code" => "RQvalALPH", "value" => "", "label" => "Last Name"			);
+    $blankUser["Company_Address"] 		= array("code" => "RQvalALPH", "value" => "", "label" => "Company Address"		);
+    $blankUser["Company_City"] 			= array("code" => "RQvalALPH", "value" => "", "label" => "Company City"			);
+    $blankUser["Company_Postal_Code"] 	= array("code" => "RQvalALPH", "value" => "", "label" => "Company Postal Code"	);
+    $blankUser["Phone_Number"] 			= array("code" => "RQvalPHON", "value" => "", "label" => "Phone Number"			);
+    $blankUser["Email"] 				= array("code" => "RQvalMAIL", "value" => "newuser".rand(99999999, 999999999)."@res.im", "label" => "Email"				);
+    $blankUser["Confirm_Email"] 		= array("code" => "RQvalMAIL", "value" => "newuser".rand(99999999, 999999999)."@res.im", "label" => "Confirm Email"		);
+    $blankUser["Facebook_Username"] 	= array("code" => "OPvalALPH", "value" => "", "label" => "Facebook Username"	);
+    $blankUser["Twitter_Username"] 		= array("code" => "OPvalALPH", "value" => "", "label" => "Twitter Username"		);
+    $blankUser["LinkedIn_Username"] 	= array("code" => "OPvalALPH", "value" => "", "label" => "LinkedIn Username"	);	
+	
+	$_SESSION['userID'] = $f->createUserAccount($blankUser, "buPa55w0rDjdafjdm", "applicants");
+
+}
+
+
 if (isset($_POST['Email']) && isset($_POST['Confirm_Email']) && $_POST['Email'] != $_POST['Confirm_Email']) {
 	
 	$message = "Your email addresses do not match.";
 	
-}
-else if(isset($_POST) && !empty($_POST)){  
-    //get values from form 
-    
- /* $firstName 		= 	str_replace("'", "", $_POST['First_Name']);
-    $lastName 		= 	str_replace("'", "", $_POST['Last_Name']);
-    $address 		= 	str_replace("'", "", $_POST['Address']);
-    $city 		    = 	str_replace("'", "", $_POST['City']);
-    $postalCode     = 	str_replace("'", "", $_POST['Postal_Code']);
-    $phone 		    = 	str_replace("'", "", $_POST['Phone']);
-    $email  		= 	str_replace("'", "", $_POST['Email']);
-    $confirmEmail 	= 	str_replace("'", "", $_POST['Confirm_Email']);
-    $facebook 		= 	str_replace("'", "", $_POST['Facebook_Username']);
-    $twitter 		= 	str_replace("'", "", $_POST['Twitter_Username']);
-    $linkedIn 		= 	str_replace("'", "", $_POST['LinkedIn_Username']);
-*/
+}else if(isset($_POST) && !empty($_POST)){  
+    //UPDATE ACCOUNT  
 
     $meta = array(
     	array("fieldLabel" => "First Name", 			"validationCode" => "RQvalALPH"),
@@ -57,7 +66,6 @@ else if(isset($_POST) && !empty($_POST)){
     }
     
 /*     if (isset($_POST["job-form"])){ */
-    	
         
     $submitted = true;
     $valid = false;
@@ -88,8 +96,8 @@ else if(isset($_POST) && !empty($_POST)){
 
     if ($valid == true){
         $message = "";
-
-        if (0 === ($userID = $f->createUserAccount($post, NULL, "applicants"))){
+        
+        if (0 === ($userID = $f->updateUserAccountApplicant($post, "buPa55w0rDjdafjdm"))){
             $valid = false;
             $quipp->js['onload'] .= 'alertBox("fail", "'.$message.'");';
         }

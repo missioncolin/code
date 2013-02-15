@@ -301,9 +301,9 @@ var confirmAction = function(title, message){
 var $activeVideo = 0;
 $('.nextbutton').click(function () {
 	var $comingFrom = $(this).data('section');
-	
+			
 	if ($comingFrom == 'questions') {
-		
+	
 		/* Submit job application */
 		document.jobForm.submit();
 		
