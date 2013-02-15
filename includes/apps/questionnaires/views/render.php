@@ -1,3 +1,58 @@
+<script src="http://code.jquery.com/jquery-1.8.2.js"></script>
+<script src="http://code.jquery.com/ui/1.9.0/jquery-ui.js"></script>
+
+
+<!--- Javascript - whether can transition to video ----->
+
+<script>
+	
+$(function() {
+
+	/* Store variables for whether the form has submitted successfully */
+	var successfulApp = <?php echo isset($_REQUEST['submitted']) ? '1' : '0'; ?>;
+	var jobTitle = "<?php echo $title; ?>";
+
+	/* If successfulApp == 1, transition to video - otherwise
+	   first time on the page, display welcome message for applying */
+	if (successfulApp == 1) {
+		$(".userinfo").fadeOut();
+			$("#submissions").fadeOut(400, function() {
+				
+				if ($("#video1").is('*')) {
+					$("#video1").fadeIn();
+					$activeVideo = 1;
+				}
+			});
+			
+		$('.current').removeClass().next().addClass('current');
+	}
+	
+	/* Handle displaying the welcome popup */
+	else {
+		$('.popUp').addClass('success');
+		confirmAction("Thank you for applying to " + jobTitle + "!", "Begin by filling out your profile below, use the sliders to select the years of experience you have in each skill and upload your resume and cover letter.");
+
+	}
+	
+	/* Clears the pop-up when user confirms */
+	$('#confirmWelcome').on('click', function() {
+			
+        $('#confirm').fadeOut('fast', function() {
+	    	$('.popUp h2').empty();
+	        $('.popUp p').empty();
+	        $('.popUp #popUpOk').off('click');
+	        $('.popUp #popUpNo').off('click'); 
+	        $('.popUp').removeClass('success');
+	        $('.popUp').removeClass('fail');
+	        $('.popUp #popUpNo').show();
+        });
+	});
+
+});
+
+</script>
+
+
 <?php
 
 global $quipp, $message;
@@ -333,15 +388,6 @@ else {
     }
 
 ?>
-
-<!-- ************* Javascript global var declaration ******************* -->
-<script type="text/javascript">
-
-  /* Store global variable for whether the form has submitted successfully */
-  var successfulApp = <?php echo isset($_REQUEST['submitted']) ? '1' : '0'; ?>;
-  var jobTitle = "<?php echo $title; ?>";
-  
-</script>
 
 <form id="job-form" name="jobForm" method="post" action="<?php echo $_SERVER['REQUEST_URI']; ?>" enctype="multipart/form-data">
 <!--<form id="job-form" method="post" action="<?php //echo $_SERVER['REQUEST_URI']; ?>" enctype="multipart/form-data">-->

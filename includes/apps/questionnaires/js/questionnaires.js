@@ -6,48 +6,6 @@ totalCountQ = new Array(1, 2, 3, 4);
 totalCountQ.push(5);
 
 editCount = 0;
-
-$(function() {
-
-	console.log(successfulApp);
-	
-	/* If successfulApp == 1, transition to video - otherwise
-	   first time on the page, display welcome message for applying */
-	if (successfulApp == 1) {
-		$(".userinfo").fadeOut();
-			$("#submissions").fadeOut(400, function() {
-				
-				if ($("#video1").is('*')) {
-					$("#video1").fadeIn();
-					$activeVideo = 1;
-				}
-			});
-			
-		$('.current').removeClass().next().addClass('current');
-	}
-	
-	/* Handle displaying the welcome popup */
-	else {
-		$('.popUp').addClass('success');
-		confirmAction("Thank you for applying to " + jobTitle + "!", "Begin by filling out your profile below, use the sliders to select the years of experience you have in each skill and upload your resume and cover letter.");
-
-	}
-	
-	/* Clears the pop-up when user confirms */
-	$('#confirmWelcome').on('click', function() {
-			
-        $('#confirm').fadeOut('fast', function() {
-	    	$('.popUp h2').empty();
-	        $('.popUp p').empty();
-	        $('.popUp #popUpOk').off('click');
-	        $('.popUp #popUpNo').off('click'); 
-	        $('.popUp').removeClass('success');
-	        $('.popUp').removeClass('fail');
-	        $('.popUp #popUpNo').show();
-        });
-	});
-
-});
     
 $("#RQvalNUMBType").change(function () {
     if ($(this).val() == 1 || $(this).val() == 2) {

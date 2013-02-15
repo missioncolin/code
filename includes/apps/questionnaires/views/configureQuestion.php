@@ -58,8 +58,7 @@ if ($this instanceof Quipp) {
     
     /// MANAGEMENT OF NEWLY CREATED QUESTIONNAIRES
     if (!empty($_POST) && isset($_POST["configure-question"]) && !isset($_POST["submitEditQs"]) ) {
-	    
-	    print_r($_POST);
+
 	    
         if (validate_form($_POST)) {
 
