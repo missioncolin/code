@@ -101,7 +101,13 @@ if (!isset($_SESSION['userID']) || !$_SESSION['userID'] > 0){
 		$post['Facebook_Username']['value'] 	= $db->return_specific_item(false, "sysUGFValues", "value", "--", "fieldID = 27 AND userID = " . $_SESSION['userID']); 
 		$post['Twitter_Username']['value']		= $db->return_specific_item(false, "sysUGFValues", "value", "--", "fieldID = 30 AND userID = " . $_SESSION['userID']); 
 		$post['LinkedIn_Username']['value']		= $db->return_specific_item(false, "sysUGFValues", "value", "--", "fieldID = 26 AND userID = " . $_SESSION['userID']); 
-		$post['Confirm_Email']['value'] 		= $post['Email']['value'];
+		
+		if (!strpos($post['Email']['value'], "newuser")){ 
+			$post['Confirm_Email']['value'] = $post['Email']['value'];
+		}else{
+			$post['Confirm_Email']['value'] = "";
+			$post['Email']['value'] = "";
+		}
 }
 
 
