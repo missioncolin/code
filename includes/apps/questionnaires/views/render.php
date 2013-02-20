@@ -11,7 +11,8 @@ $(function() {
 	/* Store variables for whether the form has submitted successfully */
 	var successfulApp = <?php echo isset($_REQUEST['submitted']) ? '1' : '0'; ?>;
 	var jobTitle = "<?php echo $title; ?>";
-
+	var isSession = "<?php echo isset($_SESSION['userID']); ?>";
+	
 	/* If successfulApp == 1, transition to video - otherwise
 	   first time on the page, display welcome message for applying */
 	if (successfulApp == 1) {
@@ -25,10 +26,12 @@ $(function() {
 			});
 			
 		$('.current').removeClass().next().addClass('current');
+		
+		$("#takeAway").fadeIn();
 	}
 	
 	/* Handle displaying the welcome popup */
-	else {
+	else if (successfulApp != 1 && isSession == 0) {
 		$('.popUp').addClass('success');
 		confirmAction("Thank you for applying to " + jobTitle + "!", "Begin by filling out your profile below, use the sliders to select the years of experience you have in each skill and upload your resume and cover letter.");
 
@@ -60,7 +63,6 @@ global $quipp, $message;
 require_once dirname(dirname(__DIR__)) . '/jobs-manager/JobManager.php';
 require_once dirname(dirname(__DIR__)) . '/job-info/JobInfo.php';
 require_once dirname(__DIR__) . '/Questionnaire.php';
-
 
 if (!isset($f) || !$f INSTANCEOF Forms){
     $f = new Forms($db);
@@ -110,12 +112,32 @@ if (!isset($_SESSION['userID']) || !$_SESSION['userID'] > 0){
 		}
 }
 
+if (isset($_GET['user']) || isset($_SESSION['userID'])) {
+	/* Revisiting page - check whether already applied */
+	
+	if (isset($_GET['user'])) {
+		$usrQry = sprintf("SELECT * FROM tblApplications WHERE userID = '%d' AND jobID = '%d' AND sysActive = '1'", (int)$_GET['user'], (int)$_GET['job']);
+		$usrRes = $db->query($usrQry);
+		
+		$returnedThis = $db->fetch_assoc($usrRes);		
+	}
+	
+	if (isset($_SESSION['userID'])) {
+		$usrQry = sprintf("SELECT * FROM tblApplications WHERE userID = '%d' AND jobID = '%d' AND sysActive = '1'", (int)$_SESSION['userID'], (int)$_GET['job']);
+		$usrRes = $db->query($usrQry);		
+		$secondThis = $db->fetch_assoc($usrRes);	
+	}
+	
+	if (!empty($returnedThis) || !empty($secondThis)) {
+		$message = "You have already applied to this job.";
+	}	
+}
 
 if (isset($_POST['Email']) && isset($_POST['Confirm_Email']) && $_POST['Email'] != $_POST['Confirm_Email']) {
 	
 	$message = "Your email addresses do not match.";
 	
-}else if(isset($_POST) && !empty($_POST)){  
+} else if(isset($_POST) && !empty($_POST) && empty($message)){  
     //UPDATE ACCOUNT  
 
 
@@ -166,7 +188,9 @@ if (isset($_POST['Email']) && isset($_POST['Confirm_Email']) && $_POST['Email'] 
         unset($post[2]); //don't want to pass this to createUserAccount
     }
     else {
-	    $quipp->js['onload'] .= 'alertBox("fail", "'.$message.'");';
+	    	echo '<div id="steps" style="margin-top: 20px;"><li class="alert fail"><span></span>';
+			echo $message;
+			echo "</li></div>";
     }
 
     if ($valid == true){
@@ -189,8 +213,10 @@ if (isset($_POST['Email']) && isset($_POST['Confirm_Email']) && $_POST['Email'] 
         elseif (0 === ($userID = $f->createUserAccount($post, NULL, "applicants"))){
         */
             $valid = false;
-            $quipp->js['onload'] .= 'alertBox("fail", "'.$message.'")';
-        }
+			echo '<div id="steps" style="margin-top: 20px;"><li class="alert fail"><span></span>';
+			echo $message;
+			echo "</li></div>";       
+		}
     }
 
 /*     } */
@@ -210,6 +236,12 @@ if (time() < strtotime($datePosted) || $status == 'inactive') {
     $quipp->js['onload'] .= 'alertBox("fail", "No job found");';
 
 
+} elseif (!empty($message) && $message == "You have already applied to this job.") { 
+
+	echo '<div id="steps" style="margin-top: 20px;"><li class="alert fail"><span></span>';
+	echo $message;
+	echo "</li></div>";
+	
 } elseif (time() > strtotime($dateExpires)) {
     $quipp->js['onload'] .= 'alertBox("fail", "We\'re sorry, this job posting has expired");';
 
@@ -313,10 +345,13 @@ else {
 	    	}
     	}
     	
-    
+    	echo "here";
+    	
     	//SAVE QUESTIONS
 		if (is_array($q->questions) && !empty($q->questions)) {
 
+			echo "here";
+			
             $qry = sprintf("INSERT INTO tblApplications (jobID, userID, sysDateInserted) VALUES ('%d', '%d', NOW())",
                 (int) $_GET['job'],
                 (int) $_SESSION['userID']);
@@ -418,7 +453,9 @@ else {
     }
 
     if (isset($error) && $error != '') {
-        $quipp->js['onload'] .= 'alertBox("fail", "' . $error . '");';
+       	echo '<div id="steps" style="margin-top: 20px;"><li class="alert fail"><span></span>';
+		echo $message;
+		echo "</li></div>";
     }
 
 ?>
@@ -548,7 +585,7 @@ else {
 
                 case 3: //slider
                     $name = $id = $questionID;
-                    $val = (isset($_POST[$name])) ? $_POST[$name] : 0;
+                    $val = $db->return_specific_item(false, "tblAnswers", "value", "0", "jobID = ".$_GET['job']." AND questionID = ".$name." AND userID = " . $_SESSION['userID']);
                     echo "<div class=\"slider\" rel=\"$name\" alt='".$val."'></div><input type=\"hidden\" name=\"$name\" id=\"$id\" value=\"".$val."\" /><div class='sliderValueHolder' rel='$id'>".$val."/20 years of experience</div>";
 
                 break;
@@ -612,7 +649,6 @@ else {
 	        ?>
 	        <div id="steps">
 		        <li class="alert success">
-		        	<span></span>
 		        	<?php echo $fileMessage; ?>
 		        </li>
 	        </div>
@@ -633,7 +669,9 @@ else {
     <?php
             
     } else {
-        $quipp->js['onload'] .= 'alertBox("fail", "This application has no questions");';
+        	echo '<div id="steps" style="margin-top: 20px;"><li class="alert fail"><span></span>';
+			echo "This application has no questions.";
+			echo "</li></div>";
     }
     
     
@@ -658,9 +696,19 @@ else {
 		        </div>
    		</div>
    		<input type="button" id="finalPrev" class="btn red prevbutton" value="Previous" data-section="final" />
-    	<input type="button" class="btn green thankYou" value="Submit" />
+    	<input type="button" class="btn green thankYou" data-user="<?php echo $_SESSION['userID']; ?>" data-job="<?php echo $_GET['job']; ?>" value="Submit" />
     </div>
 </form>
+
+<!-- Takeaway Link -->
+<div id="takeAway" <?php echo (isset($_SESSION['userID'])) ? '' : 'style="display:none;"';?>>
+	<div id="steps" style="margin-top: 20px;">
+		<li class="alert success">
+			<span></span>
+				Edit your profile before submitting by visiting: <?php echo $_SERVER["SERVER_NAME"]."/apply/".$_GET['job']."?user=".$_SESSION['userID']; ?>
+		</li>
+	</div>
+</div>
 
 <!-- Welcome Popup --->
 <div id="confirm" style="display:none; z-index: 1000;">

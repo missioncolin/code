@@ -376,9 +376,18 @@ $('.prevbutton').click(function () {
 
 
 $('.thankYou').click(function () {
-	$(this).hide();
-	$('#finalPrev').hide();
-	$("#thankYouMsg").fadeIn();
 
+	$.post('/submit-app', {
+        user: $(this).data('user'),
+        job: $(this).data('job')
+    }, function(data) {
+	    if ((data == 1) == 1) {
+	        $(this).hide();
+			$('#finalPrev').hide();
+			$("#takeAway").hide();
+			$("#thankYouMsg").fadeIn();
+		}
+    });
+	
 });
 
