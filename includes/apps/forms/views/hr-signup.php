@@ -70,6 +70,16 @@ if ($this INSTANCEOF Quipp){
         
     }
 ?>
+
+<!-- Breadcrumb -->
+<ul id="stepsNew">
+    <li class="current"><span>1</span>Create Account</li>
+    <li><span>2</span>Name Your Job</li>
+    <li><span>3</span>Add Required Skills and Experience</li>
+    <li><span>4</span>Add intervue Questions</li>
+    <li><span>5</span>Activate Link</li>
+</ul>
+
 <section id="hrSignup">
     
 <?php

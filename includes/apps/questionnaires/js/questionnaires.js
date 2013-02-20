@@ -373,3 +373,12 @@ $('.prevbutton').click(function () {
 		}
 	}
 });
+
+
+$('.thankYou').click(function () {
+	$(this).hide();
+	$('#finalPrev').hide();
+	$("#thankYouMsg").fadeIn();
+
+});
+
