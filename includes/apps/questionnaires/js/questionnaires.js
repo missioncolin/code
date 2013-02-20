@@ -332,8 +332,6 @@ $('.nextbutton').click(function () {
 		
 	}
 	
-	
-	
 });
 
 $('.prevbutton').click(function () {
@@ -371,6 +369,53 @@ $('.prevbutton').click(function () {
 			$("#submissions").fadeIn();
 			$('.current').removeClass().prev().prev().addClass('current');
 		}
+	}
+});
+
+$('#steps li').click(function () {
+	var selectedIndex = $(this).index() + 1;
+	
+	$('.current').removeClass();
+	$(this).addClass('current');
+	
+	
+	switch(selectedIndex) {
+	case 1:
+		$("#finalStep").fadeOut();
+		$(".video-q-holder").fadeOut(400, function() {
+			
+			$("#submissions").fadeIn();
+			$(".userinfo").fadeIn();
+		});
+		
+		
+		
+		break;
+	case 2:
+		$(".userinfo").fadeOut();
+		$("#finalStep").fadeOut();
+		$("#submissions").fadeOut(400, function() {
+			
+			$(".video-q-holder").fadeIn();
+		});
+		
+		
+		
+		break;
+	case 3:
+		$(".userinfo").fadeOut();
+		$(".video-q-holder").fadeOut();
+		$("#submissions").fadeOut(400, function() {
+			
+			$("#finalStep").fadeIn();
+		});
+		
+		
+		
+		break;
+	default:
+	
+		break;
 	}
 });
 
