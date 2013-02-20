@@ -144,7 +144,7 @@ class Forms extends User{
         $updated = true;
         if ((int)$_SESSION['userID'] > 0){        	
             foreach($post as $key => $data){
-                if (!$this->set_applicant_meta($data["label"], $data["value"])){
+                if (!$this->setApplicantMeta($data["label"], $data["value"])){
                     $message = (empty($message))? '<li><strong>'.$data["label"].'</strong> was not updated</li>' : $message . '<li><strong>'.$data["label"].'</strong> was not updated</li>';
                     $updated = false;
                 }
@@ -153,7 +153,7 @@ class Forms extends User{
         return $updated;
     }
     
-    public function set_applicant_meta($fieldLabel, $value)
+    public function setApplicantMeta($fieldLabel, $value)
 	{
 		global $db;
 		//determine the keyID of this field

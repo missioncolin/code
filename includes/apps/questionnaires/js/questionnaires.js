@@ -49,7 +49,7 @@ $(".slider").each(function () {
         slide: function (event, ui) {
             var slideInput = $(this).attr('rel');
             $("#" + slideInput).val(ui.value);
-            $('.sliderValueHolder[rel=' + slideInput + ']').html(ui.value + "/20");
+            $('.sliderValueHolder[rel=' + slideInput + ']').html(ui.value + "/20 years of experience");
         }
     });
 });

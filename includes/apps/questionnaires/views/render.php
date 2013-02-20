@@ -61,9 +61,6 @@ require_once dirname(dirname(__DIR__)) . '/jobs-manager/JobManager.php';
 require_once dirname(dirname(__DIR__)) . '/job-info/JobInfo.php';
 require_once dirname(__DIR__) . '/Questionnaire.php';
 
-if (isset($_SESSION['userID'])){
-	print "Session ". $_SESSION['userID'];
-}
 
 if (!isset($f) || !$f INSTANCEOF Forms){
     $f = new Forms($db);
@@ -90,6 +87,21 @@ if (!isset($_SESSION['userID']) || !$_SESSION['userID'] > 0){
 	
 	$_SESSION['userID'] = $f->createUserAccount($blankUser, "buPa55w0rDjdafjdm", "applicants");
 
+}else{
+	//load details 
+		 //$firstName = $db->return_specific_item(false, "sysUGFValues", "value", "--", "fieldID = 1 AND userID = " . $_SESSION['userID']); 
+		$post = array();
+		$post['First_Name']['value'] 			= $db->return_specific_item(false, "sysUGFValues", "value", "--", "fieldID = 1  AND userID = " . $_SESSION['userID']);
+		$post['Last_Name']['value']  			= $db->return_specific_item(false, "sysUGFValues", "value", "--", "fieldID = 2  AND userID = " . $_SESSION['userID']);
+		$post['Company_Address']['value']   	= $db->return_specific_item(false, "sysUGFValues", "value", "--", "fieldID = 6  AND userID = " . $_SESSION['userID']);
+		$post['Company_City']['value']	   		= $db->return_specific_item(false, "sysUGFValues", "value", "--", "fieldID = 11 AND userID = " . $_SESSION['userID']);
+		$post['Company_Postal_Code']['value'] 	= $db->return_specific_item(false, "sysUGFValues", "value", "--", "fieldID = 12 AND userID = " . $_SESSION['userID']);
+		$post['Phone_Number']['value']			= $db->return_specific_item(false, "sysUGFValues", "value", "--", "fieldID = 4  AND userID = " . $_SESSION['userID']); 
+		$post['Email']['value'] 				= $db->return_specific_item(false, "sysUGFValues", "value", "--", "fieldID = 3  AND userID = " . $_SESSION['userID']); 
+		$post['Facebook_Username']['value'] 	= $db->return_specific_item(false, "sysUGFValues", "value", "--", "fieldID = 27 AND userID = " . $_SESSION['userID']); 
+		$post['Twitter_Username']['value']		= $db->return_specific_item(false, "sysUGFValues", "value", "--", "fieldID = 30 AND userID = " . $_SESSION['userID']); 
+		$post['LinkedIn_Username']['value']		= $db->return_specific_item(false, "sysUGFValues", "value", "--", "fieldID = 26 AND userID = " . $_SESSION['userID']); 
+		$post['Confirm_Email']['value'] 		= $post['Email']['value'];
 }
 
 
@@ -483,6 +495,7 @@ else {
     <div id="submissions">
     <table class="simpleTable">
     <tr><th><?php echo $title; ?></th></tr>
+    <tr><td>How many years of experience to do you have in these skills?</td></tr>
     <?php
 
     if (is_array($q->questions) && !empty($q->questions)) {
@@ -497,7 +510,6 @@ else {
 	            echo "</tr>";	
         	}
             
-
             echo "<tr>";
             echo "<td>";
             switch ($question['type']) {
@@ -532,7 +544,7 @@ else {
                 case 3: //slider
                     $name = $id = $questionID;
                     $val = (isset($_POST[$name])) ? $_POST[$name] : 0;
-                    echo "<div class=\"slider\" rel=\"$name\" alt='".$val."'></div><input type=\"hidden\" name=\"$name\" id=\"$id\" value=\"".$val."\" /><div class='sliderValueHolder' rel='$id'>".$val."/20</div>";
+                    echo "<div class=\"slider\" rel=\"$name\" alt='".$val."'></div><input type=\"hidden\" name=\"$name\" id=\"$id\" value=\"".$val."\" /><div class='sliderValueHolder' rel='$id'>".$val."/20 years of experience</div>";
 
                 break;
 

@@ -26,6 +26,7 @@ class DB extends Quipp {
 		}
 	
 		$qry = "SELECT $selectList FROM $table $whereList $orderList;";
+
 		$res = $this->query($qry);
 
 		if ($this->valid($res)) {
