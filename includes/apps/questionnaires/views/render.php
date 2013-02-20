@@ -223,9 +223,8 @@ else {
 
     if (!empty($_POST) && empty($message)) {
     	
-    	//SAVING OF FILES COMMENTED OUT FOR TESTING
     	if (($_FILES['resume']['size'] != 0) || ($_FILES['coverLetter']['size'] != 0)) {
-	    	
+	    		    	
 	    	foreach ($_FILES as $f=>$values) {
 		    	if ($values['error'] == 0) {
 			    	
@@ -561,13 +560,42 @@ else {
 
             }
         }
+                
+        if ((isset($_FILES['resume']['name']) || isset($_FILES['coverLetter']['name']))) {
         
-                    
-        /* Allow users to upload their resumes/CVs */
-        echo "<label for='coverLetter'>Upload Cover Letter: </label><input type='file' name='coverLetter' id='coverLetter'></br>";
-        echo "<label for='resume'>Upload Resume: </label><input type='file' name='resume' id='resume'></br>";
-        echo "</td>";
-        echo "</tr>";
+        	$currentFiles = "";
+        	
+        	foreach ($_FILES as $f=>$info) {
+	        	
+	        	if (isset($info['name']) && $info['name'] != '') {
+		        	$currentFiles .= "<li>".$info['name']."</li></br> "; 
+	        	}
+        	}
+        	
+	        $fileMessage = "You have uploaded the following files: </br></br>".$currentFiles." </br>";
+        
+	        ?>
+	        <div id="steps">
+		        <li class="alert success">
+		        	<span></span>
+		        	<?php echo $fileMessage; ?>
+		        </li>
+	        </div>
+
+        <?php 
+        }
+        
+        
+        ?>
+        
+                         
+        <!---- Allow users to upload their docs ----> 
+        <label for='coverLetter'>Upload Cover Letter: </label><input type='file' name='coverLetter' id='coverLetter'></br>
+        <label for='resume'>Upload Resume: </label><input type='file' name='resume' id='resume'></br>
+        </td>
+        </tr>
+        
+    <?php
             
     } else {
         $quipp->js['onload'] .= 'alertBox("fail", "This application has no questions");';
@@ -585,12 +613,12 @@ else {
     echo($videos);
     
     ?>
-<!--
    <div id="finalStep">
-   		<input type="button" class="btn red prevbutton" value="Previous" data-section="final" />
-    	<input type="submit" class="btn green" value="Submit" />
+   		<div id="thankYouMsg">
+   		</div>
+   		<input type="button" id="finalPrev" class="btn red prevbutton" value="Previous" data-section="final" />
+    	<input type="button" class="btn green thankYou" value="Submit" />
     </div>
--->
 </form>
 
 <!-- Welcome Popup --->
