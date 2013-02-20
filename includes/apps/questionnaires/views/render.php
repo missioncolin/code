@@ -615,6 +615,12 @@ else {
     ?>
    <div id="finalStep">
    		<div id="thankYouMsg">
+	   		 <div id="steps">
+			        <li class="alert success">
+			        	<span></span>
+			        	Thank you for submitting your application.
+			        </li>
+		        </div>
    		</div>
    		<input type="button" id="finalPrev" class="btn red prevbutton" value="Previous" data-section="final" />
     	<input type="button" class="btn green thankYou" value="Submit" />
