@@ -24,10 +24,9 @@ $(function() {
 					$activeVideo = 1;
 				}
 			});
-			
+		
 		$('.current').removeClass().next().addClass('current');
 		
-		$("#takeAway").fadeIn();
 	}
 	
 	/* Handle displaying the welcome popup */
@@ -41,6 +40,20 @@ $(function() {
 	$('#confirmWelcome').on('click', function() {
 			
         $('#confirm').fadeOut('fast', function() {
+	    	$('.popUp h2').empty();
+	        $('.popUp p').empty();
+	        $('.popUp #popUpOk').off('click');
+	        $('.popUp #popUpNo').off('click'); 
+	        $('.popUp').removeClass('success');
+	        $('.popUp').removeClass('fail');
+	        $('.popUp #popUpNo').show();
+        });
+	});
+	
+		/* Clears the pop-up when user confirms */
+	$('#takeAway').on('click', function() {
+			
+        $('#takeAway').fadeOut('fast', function() {
 	    	$('.popUp h2').empty();
 	        $('.popUp p').empty();
 	        $('.popUp #popUpOk').off('click');
@@ -700,13 +713,15 @@ else {
     </div>
 </form>
 
-<!-- Takeaway Link -->
-<div id="takeAway" <?php echo (isset($_SESSION['userID'])) ? '' : 'style="display:none;"';?>>
-	<div id="steps" style="margin-top: 20px;">
-		<li class="alert success">
-			<span></span>
-				Edit your profile before submitting by visiting: <?php echo $_SERVER["SERVER_NAME"]."/apply/".$_GET['job']."?user=".$_SESSION['userID']; ?>
-		</li>
+
+<!-- Takeaway Link Popup -->
+<div id="takeAway" style="display:none; z-index: 1000;">
+	<div class="popUp success">	
+		<h2>Thank you for applying.</h2>
+		<p>Your application has been saved. Click this link to continue the application process:</br> <a href="http://<?php echo $_SERVER["SERVER_NAME"]."/apply/".$_GET['job']."?user=".$_SESSION['userID']; ?>"><?php echo $_SERVER["SERVER_NAME"]."/apply/".$_GET['job']."?user=".$_SESSION['userID']; ?></a></p>
+		
+		<a class="btn" id="takeawayOk">Ok</a>
+		
 	</div>
 </div>
 

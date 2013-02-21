@@ -429,10 +429,15 @@ $('.thankYou').click(function () {
 	    if ((data == 1) == 1) {
 	        $(this).hide();
 			$('#finalPrev').hide();
-			$("#takeAway").hide();
 			$("#thankYouMsg").fadeIn();
 		}
     });
 	
 });
 
+
+$('.nextbutton').click(function () {
+	
+	$("#takeAway").fadeIn();	
+		
+});
