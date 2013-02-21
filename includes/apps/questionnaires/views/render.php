@@ -691,7 +691,7 @@ else {
 	   		 <div id="steps">
 			        <li class="alert success">
 			        	<span></span>
-			        	Thank you for applying to the position of <?php echo $title; ?> with <?php echo $db->return_specific_item(false, "sysUGFValues", "value", "--", "fieldID = 10  AND userID = " . $companyID);?></br> 							<center>Your application has been successfully submitted. Only those qualified will be contacted for an interview.</center>
+			        	Thank you for applying to the position of <?php echo $title; ?> with <?php echo $db->return_specific_item(false, "sysUGFValues", "value", "--", "fieldID = 10  AND userID = " . $companyID);?>.</br> 							<center>Your application has been successfully submitted. Only those qualified will be contacted for an interview.</center>
 			        </li>
 		        </div>
    		</div>
