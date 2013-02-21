@@ -417,9 +417,16 @@ else {
 
     }
 
+    if (isset($post['Email']) && strpos($post['Email']['value'], "@res.im") > 0){ 
+		$post['Confirm_Email']['value'] = "";
+		$post['Email']['value'] = "";
+	}
+
     if (isset($error) && $error != '') {
         $quipp->js['onload'] .= 'alertBox("fail", "' . $error . '");';
     }
+
+
 
 ?>
 
