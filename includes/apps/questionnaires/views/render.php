@@ -300,8 +300,8 @@ else {
         "application/vnd.openxmlformats-officedocument.wordprocessingml.document" => "Microsoft Word"
 
     );
-
-    if (!empty($_POST)) {
+    
+    if (!empty($_POST) && empty($message)) {
     	
     	if (($_FILES['resume']['size'] != 0) || ($_FILES['coverLetter']['size'] != 0)) {
 	    		    	
