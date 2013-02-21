@@ -51,7 +51,7 @@ $(function() {
 	});
 	
 		/* Clears the pop-up when user confirms */
-	$('#takeAway').on('click', function() {
+	$('#takeAwayOk').on('click', function() {
 			
         $('#takeAway').fadeOut('fast', function() {
 	    	$('.popUp h2').empty();
@@ -280,7 +280,7 @@ elseif (isset($message) && !empty($message)) {
 else {
     $q = new Questionnaire($db, $questionnaireID);
     $quipp->js['footer'][] = "/includes/apps/questionnaires/js/questionnaires.js";
-    
+        
     $videos = "";
     $videoCount = 1;
 
@@ -301,7 +301,7 @@ else {
 
     );
 
-    if (!empty($_POST) && empty($message)) {
+    if (!empty($_POST)) {
     	
     	if (($_FILES['resume']['size'] != 0) || ($_FILES['coverLetter']['size'] != 0)) {
 	    		    	
@@ -357,13 +357,9 @@ else {
 		    	}
 	    	}
     	}
-    	
-    	echo "here";
-    	
+
     	//SAVE QUESTIONS
 		if (is_array($q->questions) && !empty($q->questions)) {
-
-			echo "here";
 			
             $qry = sprintf("INSERT INTO tblApplications (jobID, userID, sysDateInserted) VALUES ('%d', '%d', NOW())",
                 (int) $_GET['job'],
@@ -718,9 +714,9 @@ else {
 <div id="takeAway" style="display:none; z-index: 1000;">
 	<div class="popUp success">	
 		<h2>Thank you for applying.</h2>
-		<p>Your application has been saved. Click this link to continue the application process:</br> <a href="http://<?php echo $_SERVER["SERVER_NAME"]."/apply/".$_GET['job']."?user=".$_SESSION['userID']; ?>"><?php echo $_SERVER["SERVER_NAME"]."/apply/".$_GET['job']."?user=".$_SESSION['userID']; ?></a></p>
+		<p>Your application has been saved. Click this link to continue the application process: <a href="http://<?php echo $_SERVER["SERVER_NAME"]."/apply/".$_GET['job']."?user=".$_SESSION['userID']; ?>"><?php echo $_SERVER["SERVER_NAME"]."/apply/".$_GET['job']."?user=".$_SESSION['userID']; ?></a></p>
 		
-		<a class="btn" id="takeawayOk">Ok</a>
+		<a class="btn" id="takeAwayOk">Ok</a>
 		
 	</div>
 </div>
