@@ -165,10 +165,11 @@ class Forms extends User{
 					(int)$_SESSION['userID'],
 					(int)$fieldID);
 				$this->db->query($qry);
-				
+				return true;
 		} else {
 			return "Could not find the field [" . $fieldLabel . "] in sysUGFields, check your spelling and make sure it matches exactly.";
 		}
+		return false;
 	}
     
 }

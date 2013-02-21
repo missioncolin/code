@@ -300,8 +300,8 @@ else {
         "application/vnd.openxmlformats-officedocument.wordprocessingml.document" => "Microsoft Word"
 
     );
-
-    if (!empty($_POST)) {
+    
+    if (!empty($_POST) && empty($message)) {
     	
     	if (($_FILES['resume']['size'] != 0) || ($_FILES['coverLetter']['size'] != 0)) {
 	    		    	
@@ -461,11 +461,18 @@ else {
 
     }
 
+    if (isset($post['Email']) && strpos($post['Email']['value'], "@res.im") > 0){ 
+		$post['Confirm_Email']['value'] = "";
+		$post['Email']['value'] = "";
+	}
+
     if (isset($error) && $error != '') {
        	echo '<div id="steps" style="margin-top: 20px;"><li class="alert fail"><span></span>';
 		echo $message;
 		echo "</li></div>";
     }
+
+
 
 ?>
 
