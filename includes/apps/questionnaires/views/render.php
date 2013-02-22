@@ -791,10 +791,10 @@ else {
 <!-- Takeaway Link Popup -->
 <div id="takeAway" style="display:none; z-index: 1000;">
 	<div class="popUp success">	
-		<h2>Thank you for applying.</h2>
-		<p>Your application has been saved. Click this link to continue the application process or bookmark it to come back later: <a href="http://<?php echo $_SERVER["SERVER_NAME"]."/apply/".$_GET['job']."?user=".$_SESSION['userID']; ?>"><?php echo $_SERVER["SERVER_NAME"]."/apply/".$_GET['job']."?user=".$_SESSION['userID']; ?></a></p>
-		
-		<a class="btn" id="takeAwayOk">Ok</a>
+		<h2>Your application is now saved.</h2>
+		<p>An email has been sent to you. When you are ready please click the link in the email to continue your application.</br> <!-- <a href="http://<?php echo $_SERVER["SERVER_NAME"]."/apply/".$_GET['job']."?user=".$_SESSION['userID']; ?>"><?php echo $_SERVER["SERVER_NAME"]."/apply/".$_GET['job']."?user=".$_SESSION['userID']; ?></a></p> -->		
+		<a class="btn" style="margin-top: 10px;" id="takeAwayOk">Ok</a>
+
 		
 	</div>
 </div>
