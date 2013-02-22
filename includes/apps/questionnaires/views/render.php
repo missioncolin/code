@@ -36,6 +36,7 @@ $(function() {
 				if ($("#video1").is('*')) {
 					$("#video1").fadeIn();
 					$activeVideo = 1;
+					$("#videoInstructions").fadeIn();
 				}
 			});
 		
@@ -713,10 +714,40 @@ else {
     <input type="submit" class="btn green" value="Next" data-section="questions" />
     </div>
     
+    <ul id="videoInstructions">
+	    <li>
+		    <h2>Important Information</h2>
+		    <ul>
+		    	<li>Donec id elit non mi porta gravida at eget metus.</li>
+		    	<li>Nulla vitae elit libero, a pharetra augue.</li>
+		    	<li>Fusce dapibus, fermentum massa justo sit amet risus.</li>
+		    	<li>Vestibulum id ligula porta felis euismod semper.</li>
+		    </ul>
+	    </li>
+	    <li>
+		    <h2>The Interview Process</h2>
+		    <ul>
+		    	<li>Etiam porta sem malesuada magna mollis euismod.</li>
+		    	<li>Donec id elit non mi porta gravida at eget metus.</li>
+		    	<li>Cras justo odio, dapibus ac facilisis in, egestas eget quam.</li>
+		    	<li>Maecenas faucibus mollis interdum.</li>
+		    </ul>
+	    </li>
+	    <li>
+		    <h2>Make The Best Impression</h2>
+		    <ul>
+		    	<li>Donec id elit non mi porta gravida at eget metus.</li>
+		    	<li>Nulla vitae elit libero, a pharetra augue.</li>
+		    	<li>Fusce dapibus, fermentum massa justo sit amet risus.</li>
+		    	<li>Vestibulum id ligula porta felis euismod semper.</li>
+		    </ul>
+	    </li>
+    </ul>
+    
     <?php
     echo($videos);
-    
     ?>
+    
    <div id="finalStep">
    		<div id="thankYouMsg">
 	   		 <div id="steps">
