@@ -19,6 +19,20 @@ $(function() {
 		$(".userinfo").fadeOut();
 			$("#submissions").fadeOut(400, function() {
 				
+				/*if ($("#video1").is('*')) {
+					$("#video1").fadeIn();
+					$activeVideo = 1;
+				}*/
+				$(".instructions").show();
+				$(".instructions").fadeIn();
+			});
+		
+		$('.current').removeClass().next().addClass('current');
+				
+				
+		/*$(".userinfo").fadeOut();
+			$("#submissions").fadeOut(400, function() {
+				
 				if ($("#video1").is('*')) {
 					$("#video1").fadeIn();
 					$activeVideo = 1;
@@ -26,7 +40,7 @@ $(function() {
 			});
 		
 		$('.current').removeClass().next().addClass('current');
-		
+		*/
 	}
 	
 	/* Handle displaying the welcome popup */
@@ -80,6 +94,7 @@ require_once dirname(__DIR__) . '/Questionnaire.php';
 if (!isset($f) || !$f INSTANCEOF Forms){
     $f = new Forms($db);
 }
+
 
 //create a new blank user if there is no session ID
 
@@ -714,6 +729,62 @@ else {
    		<input type="button" id="finalPrev" class="btn red prevbutton" value="Previous" data-section="final" />
     	<input type="button" class="btn green thankYou" data-user="<?php echo $_SESSION['userID']; ?>" data-job="<?php echo $_GET['job']; ?>" value="Submit" />
     </div>
+    
+    
+    <!--instructions page-->
+    <div id="instructions">
+    	<div class="ColA">
+	    	<div>Answer the hiring managers questions using your web cam</div>
+	    	<div>
+	    		<strong>Important information</strong>
+	    		<ul>
+	    			<li>You need a web cam and microphone</li>
+	    			<li>Test it out to see if it works</li>
+	    			<li>Refresh page if you are having issues</li>
+	    			<li>Your videos cannot be shared or downloaded</li>
+	    		</ul>
+		    </div> 
+		    <div>
+	    		<strong>The intervuew process</strong>
+	    		<ul>
+	    			<li>There are 5 questions</li>
+	    			<li>Each question has a 2 minute time limit</li>
+	    			<li>Click done when you are finished answering</li>
+	    			<li>You can revue your answers and do retakes</li>
+	    		</ul>
+		    </div> 
+		    <div>
+	    		<strong>Make the best impression</strong>
+	    		<ul>
+	    			<li>Dress professionally</li>
+	    			<li>Make sure the room is well lit</li>
+	    			<li>Clear the area around you</li>
+	    			<li>Be yourself</li>
+	    		</ul>
+		    </div> 
+		    <div>
+		    	<span>
+		    		Accept <a href="#">privacy policy</a>
+		    		<input type="checkbox">
+		    	</span>
+		    </div>
+    	</div>
+    	
+    	<div class="ColB">
+    		<div>
+    			<span>Test your camera and microphone</span>
+    		</div>
+    		<div>
+    			VIDEO
+    			-video title
+    		</div>
+    		<div>
+    			<input type="button" class="saveButton" value="Save now and do interview later"/>
+    			<input type="button" class="nextbutton" data-section="instructions" value="Continue and begin interview"/>
+    		</div>
+    	</div>
+    </div>
+
 </form>
 
 
@@ -721,7 +792,7 @@ else {
 <div id="takeAway" style="display:none; z-index: 1000;">
 	<div class="popUp success">	
 		<h2>Thank you for applying.</h2>
-		<p>Your application has been saved. Click this link to continue the application process: <a href="http://<?php echo $_SERVER["SERVER_NAME"]."/apply/".$_GET['job']."?user=".$_SESSION['userID']; ?>"><?php echo $_SERVER["SERVER_NAME"]."/apply/".$_GET['job']."?user=".$_SESSION['userID']; ?></a></p>
+		<p>Your application has been saved. Click this link to continue the application process or bookmark it to come back later: <a href="http://<?php echo $_SERVER["SERVER_NAME"]."/apply/".$_GET['job']."?user=".$_SESSION['userID']; ?>"><?php echo $_SERVER["SERVER_NAME"]."/apply/".$_GET['job']."?user=".$_SESSION['userID']; ?></a></p>
 		
 		<a class="btn" id="takeAwayOk">Ok</a>
 		

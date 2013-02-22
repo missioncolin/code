@@ -301,7 +301,7 @@ var $activeVideo = 0;
 $('.nextbutton').click(function () {
 	var $comingFrom = $(this).data('section');
 			
-	if ($comingFrom == 'questions') {
+	if ($comingFrom == 'instructions') {
 		
 		$(".userinfo").fadeOut();
 		$("#submissions").fadeOut(400, function() {
@@ -339,6 +339,8 @@ $('.prevbutton').click(function () {
 	var $comingFrom = $(this).data('section');
 	
 	if ($comingFrom == 'questions') {
+		
+	} else if ($comingFrom == 'instructions'){
 		
 		
 	} else if ($comingFrom == 'video') {
@@ -440,4 +442,9 @@ $('.nextbutton').click(function () {
 	
 	$("#takeAway").fadeIn();	
 		
+});
+
+$('.saveButton').click(function(){
+
+	$("#takeAway").fadeIn();
 });
