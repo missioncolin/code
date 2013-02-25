@@ -309,6 +309,7 @@ $('.nextbutton').click(function () {
 			if ($("#video1").is('*')) {
 				$("#video1").fadeIn();
 				$activeVideo = 1;
+				$("#videoInstructions").fadeIn();
 			}
 		});
 		
@@ -324,6 +325,7 @@ $('.nextbutton').click(function () {
 				$("#video"+$activeVideo).fadeIn();
 			} else {
 				$("#finalStep").fadeIn();
+				$("#videoInstructions").fadeOut();
 				$('.current').removeClass().next().addClass('current');
 				
 				$activeVideo--;
@@ -354,6 +356,7 @@ $('.prevbutton').click(function () {
 			} else {
 				$(".userinfo").fadeIn();
 				$("#submissions").fadeIn();
+				$("#videoInstructions").fadeOut();
 				$('.current').removeClass().prev().addClass('current');
 			}
 		});
@@ -365,7 +368,7 @@ $('.prevbutton').click(function () {
 		if ($("#video"+$activeVideo).is('*')) {
 			$("#video"+$activeVideo).fadeIn();
 			$('.current').removeClass().prev().addClass('current');
-			
+			$("#videoInstructions").fadeIn();
 		} else {
 			$(".userinfo").fadeIn();
 			$("#submissions").fadeIn();
@@ -384,6 +387,7 @@ $('#steps li').click(function () {
 	switch(selectedIndex) {
 	case 1:
 		$("#finalStep").fadeOut();
+		$("#videoInstructions").fadeOut();
 		$(".video-q-holder").fadeOut(400, function() {
 			
 			$("#submissions").fadeIn();
@@ -398,7 +402,17 @@ $('#steps li').click(function () {
 		$("#finalStep").fadeOut();
 		$("#submissions").fadeOut(400, function() {
 			
-			$(".video-q-holder").fadeIn();
+			$activeVideo = 1;
+			
+			if ($("#video"+$activeVideo).is('*')) {
+				$("#video"+$activeVideo).fadeIn();
+				$("#videoInstructions").fadeIn();
+			} else {
+				$(".userinfo").fadeIn();
+				$("#submissions").fadeIn();
+				$("#videoInstructions").fadeOut();
+				$('.current').removeClass().prev().addClass('current');
+			}
 		});
 		
 		
@@ -407,6 +421,7 @@ $('#steps li').click(function () {
 	case 3:
 		$(".userinfo").fadeOut();
 		$(".video-q-holder").fadeOut();
+		$("#videoInstructions").fadeOut();
 		$("#submissions").fadeOut(400, function() {
 			
 			$("#finalStep").fadeIn();
