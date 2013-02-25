@@ -764,7 +764,7 @@ else {
 		    </div> 
 		    <div>
 		    	<span>
-		    		Accept <a href="#">privacy policy</a>
+		    		Accept <a id="privacyPolicy" name="privacyPolicy" href="#">privacy policy</a>
 		    		<input type="checkbox">
 		    	</span>
 		    </div>
