@@ -23,8 +23,8 @@ $(function() {
 					$("#video1").fadeIn();
 					$activeVideo = 1;
 				}*/
-				$(".instructions").show();
-				$(".instructions").fadeIn();
+				$("#videoInstructions").show();
+				$("#videoInstructions").fadeIn();
 			});
 		
 		$('.current').removeClass().next().addClass('current');
@@ -692,7 +692,7 @@ else {
         ?>
         
                          
-        <!---- Allow users to upload their docs ----> 
+        <!-- Allow users to upload their docs --> 
         <label for='coverLetter'>Upload Cover Letter: </label><input type='file' name='coverLetter' id='coverLetter'></br>
         <label for='resume'>Upload Resume: </label><input type='file' name='resume' id='resume'></br>
         </td>
@@ -714,7 +714,11 @@ else {
     <input type="submit" class="btn green" value="Next" data-section="questions" />
     </div>
     
+
     <ul id="videoInstructions">
+    	<li> 
+    		Answer the hiring manager's questions using your web cam
+    	</li>
 	    <li>
 		    <h2>Important Information</h2>
 		    <ul>
@@ -742,7 +746,28 @@ else {
 		    	<li>Vestibulum id ligula porta felis euismod semper.</li>
 		    </ul>
 	    </li>
+	    <li>
+	    	<label for="privacyPolicy">Accept <a href="#">Privacy Policy </a></label><input type="checkbox" id="privacyPolicy" name="privacyPolicy">
+	    </li>
+	    <li> 
+	    	Test your camera and microphone
+	    </li>
+	    <li> 
+	    	VIDEO
+	    </li>
+	    <li>
+	    	How do you determine or evaluate success?
+	    </li>
+	    <li> 
+	    	<input type="button" class="saveButton" value="Save now and do interview later"/>
+	    </li>
+	    <li>
+	    	<input type="button" class="nextbutton" data-section="instructions" value="Continue and begin interview"/>
+	    </li>
     </ul>
+    
+    
+    
     
     <?php
     echo($videos);
@@ -761,60 +786,7 @@ else {
     	<input type="button" class="btn green thankYou" data-user="<?php echo $_SESSION['userID']; ?>" data-job="<?php echo $_GET['job']; ?>" value="Submit" />
     </div>
     
-    
-    <!--instructions page-->
-    <div id="instructions">
-    	<div class="ColA">
-	    	<div>Answer the hiring managers questions using your web cam</div>
-	    	<div>
-	    		<strong>Important information</strong>
-	    		<ul>
-	    			<li>You need a web cam and microphone</li>
-	    			<li>Test it out to see if it works</li>
-	    			<li>Refresh page if you are having issues</li>
-	    			<li>Your videos cannot be shared or downloaded</li>
-	    		</ul>
-		    </div> 
-		    <div>
-	    		<strong>The intervuew process</strong>
-	    		<ul>
-	    			<li>There are 5 questions</li>
-	    			<li>Each question has a 2 minute time limit</li>
-	    			<li>Click done when you are finished answering</li>
-	    			<li>You can revue your answers and do retakes</li>
-	    		</ul>
-		    </div> 
-		    <div>
-	    		<strong>Make the best impression</strong>
-	    		<ul>
-	    			<li>Dress professionally</li>
-	    			<li>Make sure the room is well lit</li>
-	    			<li>Clear the area around you</li>
-	    			<li>Be yourself</li>
-	    		</ul>
-		    </div> 
-		    <div>
-		    	<span>
-		    		Accept <a id="privacyPolicy" name="privacyPolicy" href="#">privacy policy</a>
-		    		<input type="checkbox">
-		    	</span>
-		    </div>
-    	</div>
-    	
-    	<div class="ColB">
-    		<div>
-    			<span>Test your camera and microphone</span>
-    		</div>
-    		<div>
-    			VIDEO
-    			-video title
-    		</div>
-    		<div>
-    			<input type="button" class="saveButton" value="Save now and do interview later"/>
-    			<input type="button" class="nextbutton" data-section="instructions" value="Continue and begin interview"/>
-    		</div>
-    	</div>
-    </div>
+
 
 </form>
 
