@@ -753,7 +753,9 @@ else {
 	    	Test your camera and microphone
 	    </li>
 	    <li> 
-	    	VIDEO
+	    <?php 
+	    	echo '<embed src="/includes/apps/ams-media/flx/captureModule.swf" quality="high" bgcolor="#000000" width="550" height="400" name="captureModule" FlashVars="itemID=0&securityKey=' . md5("iLikeSalt0") . '" align="middle" allowScriptAccess="sameDomain" allowFullScreen="false" type="application/x-shockwave-flash" pluginspage="http://www.adobe.com/go/getflash" />';
+	    ?>
 	    </li>
 	    <li>
 	    	How do you determine or evaluate success?
