@@ -1,42 +1,158 @@
-<a href="/hr-signup?hr-step=1" id="priceCallout" class="btn green">First Job is Free! <span>Sign Up Today!</span></a>
+<div id="banner">
+		<h2>Hire the Best Talent in 3 Easy Steps</h2>
+	    <ol>
+	        <li>
+	        	<i class="icon"></i>
+	            <h4>Each Application Includes</h4><br />
+	            <p>Create a job and intervue will generate a specific for your job</p>
+	        </li>
+	        <li>
+	        	<i class="icon"></i>
+	            <h4>Each Application Includes</h4><br />
+	            <p>Create a job and intervue will generate a specific for your job</p>
+	        </li>
+	        <li>
+	        	<i class="icon"></i>
+	            <h4>Each Application Includes</h4><br />
+	            <p>Create a job and intervue will generate a specific for your job</p>
+	        </li>
+	        <div class="clearfix"></div>
+	    </ol>
+	</div>
+	 
+	<hr>
+	
+	<div class="clearfix"></div>
+	
+	<div id="sectionOne">
+		
+		<h2>See How it Works<i class="icon arrow"></i></h2>
+	
+		<div class="videoBox"></div>
+	
+		<ul>
+		    <li>
+		    	<i class="icon breifCase"></i>
+		        <h4>Manage everything</h4>
+		        <p>Applicants apply though intervue and all their information is stored and organized in one place</p>
+		    </li>
+		    <li>
+		    	<i class="icon certificate"></i>
+		        <h4>Grades Applicants</h4>
+		        <p>Tell us what skills you are looking for and intervue will grade applicants for you</p>
+		    </li>
+		    <li>
+		    	<i class="icon peoples"></i>
+		        <h4>Screens them too...</h4>
+		        <p>Use filters to display only those who have the right skills and experience for the job</p>
+		    </li>
+		    <li>
+		    	<i class="icon interviewers"></i>
+		        <h4>...and does Interviews</h4>
+		        <p>Get to know the candidates by watching their recorded answers to your questions</p>
+		    </li>
+		</ul>
+		
+		<div class="clearfix"></div>
+	
+	</div>
 
-<ul id="pricingOptions">
-    <li>
-        <h2>$<?php echo $db->return_specific_item(false, 'tblJobCreditsPricing', 'price', "199", '`credits` = 1');?></h2>
-        <h5>1 Job</h5>
-        <p><a class="btn" href="/buy-job-credits">Buy Now</a></p>
-    </li>
-    <li>
-        <h2>$<?php echo $db->return_specific_item(false, 'tblJobCreditsPricing', 'price', "550", '`credits` = 3');?></h2>
-        <h5>3 Jobs</h5>
-        <p><a class="btn" href="/buy-job-credits">Buy Now<span class="saleTag">Save<br />10%</span></a></p>
-    </li>
-    <li>
-        <h2>$<?php echo $db->return_specific_item(false, 'tblJobCreditsPricing', 'price', "1500", '`credits` = 10');?></h2>
-        <h5>10 Jobs</h5>
-        <p><a class="btn" href="/buy-job-credits">Buy Now<span class="saleTag">Save<br />25%</span></a></p>
-    </li>
-</ul>
+	<hr>
+	
+	<div id="sectionTwo">
+	    <h2>The Intervue Process</h2>
+	    <ul class="imgRight">
+	    	<li>
+		    	<h4>Create your Joblink</h4>
+		    	<p>Name your job, list the skills and experience you are looking for and ask the interview questions you want answered</p>
+	    	</li>
+	    	<li>
+	    		<img/>
+	    	</li>
+	    </ul>
+	    <ul class="imgLeft">
+	    	<li>
+	    		<img/>
+	    	</li>
+	    	<li>
+		    	<h4>Activate your joblink</h4>
+		    	<p>Buy job credits and activate your joblink. The link will be active for 60 days</p>
+	    	</li>
+	    </ul>
+	    <ul class="imgRight">
+	    	<li>
+		    	<h4>Post your Job</h4>
+		    	<p>Post your job using your normal job sites. Include the joblink in the posting and direct applicants to click it to apply</p>
+	    	</li>
+	    	<li>
+	    		<img/>
+	    	</li>
+	    </ul>
+	    <ul class="imgLeft">
+	    	<li>
+	    		<img/>
+	    	</li>
+	    	<li>
+		    	<h4>Activate through Intervue</h4>
+		    	<p>Applicants enter contact information. upload resume and cover letter enter skills and experience then record answers to your questions using their web cam</p>
+	    	</li>
+	    </ul>
+	    <ul class="imgRight">
+	    	<li>
+		    	<h4>Manages everything</h4>
+		    	<p>All applications are stored and organized in one place. Access all their information with a single click</p>
+	    	</li>
+	    	<li>
+	    		<img/>
+	    	</li>
+	    </ul>
+	    <ul class="imgLeft">
+	    	<li>
+	    		<img/>
+	    	</li>
+	    	<li>
+		    	<h4>Grade Applicants</h4>
+		    	<p>Everything applicant receives a grade based on your job requirements so you can easily find the most qualified candidates</p>
+	    	</li>
+	    </ul>
+	    <ul class="imgRight">
+	    	<li>
+		    	<h4>Screens them Too...</h4>
+		    	<p>Use the skills sliders so you can find the candidates with right skills to fit your job</p>
+	    	</li>
+	    	<li>
+	    		<img/>
+	    	</li>
+	    </ul>
+	    <ul class="imgLeft">
+	    	<li>
+	    		<img/>
+	    	</li>
+	    	<li>
+		    	<h4>...and does Interviews</h4>
+		    	<p>Applicants are recorded answering your questions. Watch their Intervues from anywhere on your time and get to know your candidates</p>
+	    	</li>
+	    </ul>
+	    <ul class="imgRight">
+	    	<li>
+		    	<h4>Group Applicants</h4>
+		    	<p>Tag your applicants as top candidate or has potential so you can separate the best from the rest.</p>
+	    	</li>
+	    	<li>
+	    		<img/>
+	    	</li>
+	    </ul>
+	    <ul class="imgLeft">
+	    	<li>
+	    		<img/>
+	    	</li>
+	    	<li>
+		    	<h4>Hire the Best Employee Fast</h4>
+		    	<p>Intervue saves you time and money by taking the guess work out of the hiring process</p>
+	    	</li>
+	    </ul>
+	    <div class="clearfix"></div>
+	</div>
 
-<div id="about" class="box">
-    <h3>About Intervue</h3>
-    <p>Intervue is an online recruitment tool that screens and ranks job applicants. No matter where you post your job, your candidates can be automatically routed through Intervue's application process. For every applicant you receive a ranking based on your specific job requirements, recorded web-cam responses to your questions, and the traditional resume and cover letter.  All of this means that you get to know your applicants before you ever interview them. That's how Intervue is helping companies hire faster, hire better and hire smarter. Create your first job today.</p>
-</div>
 
-<div id="testimonials">
-    <div id="testimonialRotator">
-        <div class="testimonialItem">
-            <p>Maecenas faucibus mollis interdum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibl.</p>
-            <h4>John Smith<br /><span>Acme, Inc.</span></h4>
-        </div>
-        <div class="testimonialItem">
-            <p>Maecenas faucibus mollis interdum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibl.</p>
-            <h4>Jon Rundle<br /><span>Resolution IM</span></h4>
-        </div>
-        <div class="testimonialItem">
-            <p>Maecenas faucibus mollis interdum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibl.</p>
-            <h4>Joe Smith<br /><span>Company, Inc.</span></h4>
-        </div>
-    </div>
-    <div id="testimonialNav"></div>
 </div>
