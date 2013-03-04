@@ -18,7 +18,7 @@
 	        </li>
 	        <div class="clearfix"></div>
 	    </ol>
-	    <div class="cta"><a href="/create-a-job" class="startBtn">Start</a><div class="badge"></div></div>
+	    <div class="cta"><a href="/hr-signup" class="startBtn">Start</a><div class="badge"></div></div>
 	</div>
 	 
 	<hr>
@@ -153,7 +153,7 @@
 	    	</li>
 	    </ul>
 	    <div class="clearfix"></div>
-	     <div class="cta"><a href="/create-a-job" class="startBtn">Start</a><div class="badge"></div></div>
+	     <div class="cta"><a href="/hr-signup" class="startBtn">Start</a><div class="badge"></div></div>
 	</div>
 	
 	<hr>
@@ -161,26 +161,26 @@
 	<div id="newFooter">
 		<ul>
 			<h3>Features</h3>
-			<li><a href="">Manages</a></li>
-			<li><a href="">Grades</a></li>
-			<li><a href="">Screens</a></li>
-			<li><a href="">Interviews</a></li>
+			<li><a href="#sectionOne">Manages</a></li>
+			<li><a href="#sectionOne">Grades</a></li>
+			<li><a href="#sectionOne">Screens</a></li>
+			<li><a href="#sectionOne">Interviews</a></li>
 		</ul>
 		<ul>
 			<h3>Community</h3>
-			<li><a href="">Twitter</a></li>
-			<li><a href="">Facebook</a></li>
-			<li><a href="">LinkIn</a></li>
+			<li><a href="http://twitter.com/Intervuetweets">Twitter</a></li>
+			<li><a href="http://www.facebook.com/Intervue?fref=ts">Facebook</a></li>
+			<li><a href="http://www.linkedin.com/company/2723868?trk=tyah">LinkIn</a></li>
 			<li><a href="">YouTube</a></li>
 		</ul>
 		<ul>
 			<h3 class="companyName">Intervue</h3>
-			<li><a href="">About Us</a></li>
-			<li><a href="">How it Works</a></li>
-			<li><a href="">Contact Us</a></li>
-			<li><a href="">Sign In</a></li>
-			<li><a href="">Sign Up</a></li>
-			<li><a href="">FAQs</a></li>
+			<li><a href="/about-us">About Us</a></li>
+			<li><a href="/how-it-works">How it Works</a></li>
+			<li><a href="/contact-us">Contact Us</a></li>
+			<li><a href="/login">Sign In</a></li>
+			<li><a href="/hr-signup">Sign Up</a></li>
+			<li><a href="/faq">FAQs</a></li>
 		</ul>
 		<div class="clearfix"></div>
 	</div>
