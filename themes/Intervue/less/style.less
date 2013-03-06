@@ -548,7 +548,7 @@ header > div, #container, footer > div {
     position: relative;
 }
 
-#container.home {
+#container.home, #howitworks #container {
     max-width: 1020px;
 }
 
@@ -797,14 +797,23 @@ nav a:hover {
 #banner li {
     display: block;
     float: left;
-    width: 300px;
+    width: 270px;
     height: 194px;
     position: relative;
-    margin-left: 0px;
+    margin-right: 45px;
     z-index: 1;
 }
 #banner li h4, #banner li p {
-	margin-left: 60px;
+	margin-left: 30px;
+}
+#banner li:last-child {
+	margin-right: 0;
+}
+
+#banner li span {
+	position: absolute;
+	left: 0px;
+	font-size: 32px;
 }
 
 #banner h2, #sectionTwo h2, #sectionOne h2 {
@@ -837,22 +846,78 @@ nav a:hover {
 	position: relative;
 	top: -3px;
 }
-#banner .cta, #sectionTwo .cta {
+
+
+   
+/* =============================================================================
+   Specific Styles
+   ========================================================================== */     
+/*Home Page Specifics ----------------------------------------------------------- */
+
+#sectionOneHome {
+	padding: 20px;
+}
+
+#home #container h2 { 
+	font-size: 30px;
+	text-align: center;
+}
+#home #container #sectionOneHome h3 {
+	text-align: center;
+	text-transform: capitalize;
+	color: @base;
+	margin-bottom: 60px;
+}
+#home #container .homeContent {
+	margin-left: 540px;
+}
+#home .videoHome {
+	float: left; 
+	background: #000;
+	width: 330px;
+	height: 210px;
+	margin: 0 0 0 100px;
+}
+#home #container hr, #howitworks #container hr {
+	float: left;
+	width: 100%;
+	height: 7px;
+	background: @accent2;
+	margin: 0;
+}
+#home #container h4, #howitworks #container h4 {
+	text-transform: none;
+	font-size: 23px;
+	font-weight: 700;
+}
+#home #container h4 {
+	margin: 3px 0;
+}
+#home #container, #howitworks #container {
+	font-size: 16px;
+	font-weight: 700;
+	color: @base;
+}
+
+.cta {
 	float: right; 
-	padding-top: 60px;
+	padding-top: 90px;
 	clear: both;
 }
-#sectionTwo .cta {
+#home .cta, #sectionTwo .cta {
 	padding: 0 0 30px;
 }
-#banner a.startBtn, #sectionTwo .cta a.startBtn {
+#home .cta {
+	padding: 30px 90px 30px 0;
+}
+.cta a.startBtn {
 	float: left;
 	background: url(img/startBtn.png) no-repeat;
 	width: 164px;
 	height: 53px;
 	text-indent: -9999px;
 }
-#banner .cta .badge, #sectionTwo .cta .badge {
+.cta .badge {
 	float: right;
 	background: url(img/jobsBadge.png) no-repeat;
 	width: 80px;
@@ -860,111 +925,24 @@ nav a:hover {
 	margin: -16px 0 0 20px;
 }
 
-
-   
-/* =============================================================================
-   Specific Styles
-   ========================================================================== */     
-
-/*Home Page Specifics--------------------------------------------------------- */
-
-#container.home {
-    .box-shadow(0px, 1px, 5px, rgba(0,0,0,0.2));
-    .border-radius();
-    border: 1px solid @borders;
-    margin-top: 20px;
+#newSubFooter {
+	background-color: lighten(@borders, 10%);
+	padding: 30px;
+	border-bottom: 1px solid @borders;
 }
-
-#home #container.home hr {
-	float: left;
-	width: 100%;
-	height: 7px;
-	background: @accent2;
-	margin: 0;
+#newSubFooter .testimonies {
+	float: left; 
+	width: 340px;
+	margin-top: 10px;
 }
-
-#home #container h4 {
-	text-transform: none;
-	font-size: 23px;
-	font-weight: 700;
-}
-#home #container {
-	font-size: 16px;
-	font-weight: 700;
-	color: @base;
-}
-
-#sectionOne h2 {
-	position: relative;
-	font-weight: 400;
-	padding-right: 100px;
-	width: 190px;
-	margin: 30px auto;
-}
-
-#sectionOne i.icon.arrowCurved {
-	position:absolute;
-	right: 0;
-	text-indent: 0;
-	width: 87px;
-	height: 76px;
-	top: -17px;
-}
-
-#sectionOne .videoBox {
-	width: 500px;
-	height: 325px;
-	background: #000;
-	margin: 30px auto;
-}
-
-#home #sectionOne ul, #home #sectionTwo ul {
-	list-style: none;
-	padding: 0;
-	margin: 0;
+#newSubFooter .testimonies span {
+	display: block;
+	text-align: right;
 	clear: both;
-	text-align: center;
 }
-
-#home #sectionOne li i.icon {
-	position: absolute;
-	/*background: #000;*/
-	width: 120px;
-	height: 120px;
-	left: 0;
-	text-indent: 0;
-}
-
-#home #sectionOne li {
-	position: relative;
-	float: left;
-	width: 240px;
-	margin: 30px 0 30px 100px;
-	padding-left: 160px;
-}
-
-#sectionTwo h2 {
-	float: left;
-	width: 100%;
-	clear: both;
-	margin: 30px 0;
-}
-
-#home #sectionTwo li {
-	float: left;
-	width: 280px;
-	margin: 20px 0 20px 140px;
-	text-align: center;
-}
-
-#home #sectionTwo li img {
-	width: 280px;
-	height: auto;
-	background: #000;
-}
-
-#home #sectionOne li.oddHome, #home #sectionTwo li:first-child {
-	margin-left: 0;
+#newSubFooter .jobSites {
+	float: right;
+	margin-right: 60px;
 }
 
 #newFooter {
@@ -995,7 +973,97 @@ nav a:hover {
 	color: @accent2;
 }
 
-/*Icons----------------------------------------------------------------------- */
+/*How It Works Specifics--------------------------------------------------------- */
+
+#container.home, #howitworks #container {
+    .box-shadow(0px, 1px, 5px, rgba(0,0,0,0.2));
+    .border-radius();
+    border: 1px solid @borders;
+    margin-top: 20px;
+}
+
+#howitworks #container hr {
+	float: left;
+	width: 100%;
+	height: 7px;
+	background: @accent2;
+	margin: 0;
+}
+
+#sectionOne h2 {
+	position: relative;
+	font-weight: 400;
+	padding-right: 100px;
+	width: 190px;
+	margin: 30px auto;
+}
+
+#sectionOne i.icon.arrowCurved {
+	position:absolute;
+	right: 0;
+	text-indent: 0;
+	width: 87px;
+	height: 76px;
+	top: -17px;
+}
+
+#sectionOne .videoBox {
+	width: 500px;
+	height: 325px;
+	background: #000;
+	margin: 30px auto;
+}
+
+#sectionOne ul, #sectionTwo ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	clear: both;
+	text-align: center;
+}
+
+#sectionOne li i.icon {
+	position: absolute;
+	/*background: #000;*/
+	width: 120px;
+	height: 120px;
+	left: 0;
+	text-indent: 0;
+}
+
+#sectionOne li {
+	position: relative;
+	float: left;
+	width: 240px;
+	margin: 30px 0 30px 100px;
+	padding-left: 160px;
+}
+
+#sectionTwo h2 {
+	float: left;
+	width: 100%;
+	clear: both;
+	margin: 30px 0;
+}
+
+#sectionTwo li {
+	float: left;
+	width: 280px;
+	margin: 20px 0 20px 140px;
+	text-align: center;
+}
+
+#sectionTwo li img {
+	width: 280px;
+	height: auto;
+	background: #000;
+}
+
+#sectionOne li.oddHome, #sectionTwo li:first-child {
+	margin-left: 0;
+}
+
+/*Icons--------------------------------------------------------------------- */
 
 .icon {
     display: block;
@@ -1392,12 +1460,12 @@ form textarea:focus {
     float: left;
 }
 
-#home #colA #sectionOne, #banner {
+#colA #sectionOne, #banner {
 	width: 900px;
     margin: 0;
     padding: 0 60px;
 }
-#home #sectionTwo {
+#sectionTwo {
 	width: 700px;
     margin: 0;
     padding: 0 160px;
