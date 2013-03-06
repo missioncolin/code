@@ -548,7 +548,7 @@ header > div, #container, footer > div {
     position: relative;
 }
 
-#container.home {
+#container.home, #howitworks #container {
     max-width: 1020px;
 }
 
@@ -785,102 +785,56 @@ nav a:hover {
     float: left;
     clear: both;
     position: relative;
-    margin: 85px 0 -90px;
+    margin: 30px 0 30px !important;
+    padding: 0 60px;
 }
 
-#banner ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
+#banner ol {
+	padding: 0;
+	margin: 0 0 30px;
 }
 
 #banner li {
     display: block;
-    float: right;
-    border: 1px solid @darkBorders;
-    background: #FFF;
-    .border-radius(3px);
-    width: 245px;
+    float: left;
+    width: 270px;
     height: 194px;
     position: relative;
+    margin-right: 45px;
     z-index: 1;
-    .box-shadow(1px, 1px, 5px, rgba(0,0,0,0.2));
-    background: url(img/banner3Img.jpg) no-repeat;
+}
+#banner li h4, #banner li p {
+	margin-left: 30px;
+}
+#banner li:last-child {
+	margin-right: 0;
 }
 
-#banner li > span {
-	display: block;
-	color: #000;
-	font-weight: 400;
-	font-size: 16px;
-	line-height: 20px;
+#banner li span {
+	position: absolute;
+	left: 0px;
+	font-size: 32px;
+}
+
+#banner h2, #sectionTwo h2, #sectionOne h2 {
 	text-align: center;
-	padding-top: 50px;
-}
-
-#banner li > span strong {
-	font-size: 19px;
-}
-
-#banner li > span a {
-    color: #000;
-}
-
-#banner li > span a:hover {
-    color: rgba(255,255,255,0.8);
-}
-
-#banner li:first-child {
-    float: left;
-    background: url(img/banner1Img.jpg) no-repeat;
-}
-
-#banner li.middle {
-    position: absolute;
-    z-index: 2;
-    width: 490px;
-    height: 274px;
-    left: 50%;
-    margin-left: -245px;
-    margin-top: -40px;
-    background: url(img/banner2Img.jpg) no-repeat bottom left #FFF;
-}
-
-#banner h2 {
-    font-weight: 400;
+    font-weight: 900;
     text-transform: capitalize;
-    font-size: 30px;
+    font-size: 26px;
     line-height: 35px;
-    float: left;
-    margin: 35px 0 0 260px;
 }
 
-.middleBannerText {
-	background: rgba(0, 0, 0, 0.7);
-	height: 71px;
-	margin-top: 190px;
-	padding-top: 13px;
-	color: white;
-	line-height: 20px;
-	text-align: center;
-}
-
-#banner h2 strong {
+#banner strong {
     font-weight: 600;
     font-size: 35px;
 }
-
-#banner li.middle a {
-    color: @base;
-    font-size: 16px;
-    text-decoration: none;
-    float: left;
-    clear: left;
-    margin: 15px 0 0 240px;
-}
-
-#banner li.middle a:hover {
-    color: @base2;
+#banner li i.icon {
+	position: relative;
+	width: 100px;
+	height: 74px;
+	/*background: #000;*/
+	margin: 30px auto;
+	text-indent: 0;
 }
 
 .icon.video {
@@ -893,46 +847,223 @@ nav a:hover {
 	top: -3px;
 }
 
-#banner li.middle .arrows {
-    background: url(img/arrowL.png) no-repeat 13px center;
-    background-color: @accent;
-    width: 52px;
-    height: 52px;
-    text-align: center;
-    position: absolute;
-    z-index: 5;
-    left: 0;
-    float: none;
-    margin: -31px 0 0 0;
-    top: 50%;
-    .border-radius(0 26px 26px 0);
-    display: block;
-    text-indent: -9999px;
-    .transition(all, 0.3s, linear);
-}
-
-#banner li.middle .arrows.next {
-    left: auto;
-    right: 0;
-    .border-radius(26px 0 0 26px);
-    background: url(img/arrowR.png) no-repeat 22px center;
-    background-color: @accent;
-}
-
-#banner li.middle a:hover.arrows {
-    background-color: darken(@accent, 10%);
-}
 
    
 /* =============================================================================
    Specific Styles
    ========================================================================== */     
+/*Home Page Specifics ----------------------------------------------------------- */
 
-#container.home {
-    margin-top: 220px;
+#sectionOneHome {
+	padding: 20px;
 }
 
-/*Icons----------------------------------------------------------------------- */
+#home #container h2 { 
+	font-size: 30px;
+	text-align: center;
+}
+#home #container #sectionOneHome h3 {
+	text-align: center;
+	text-transform: capitalize;
+	color: @base;
+	margin-bottom: 60px;
+}
+#home #container .homeContent {
+	margin-left: 540px;
+}
+#home .videoHome {
+	float: left; 
+	background: #000;
+	width: 330px;
+	height: 210px;
+	margin: 0 0 0 100px;
+}
+#home #container hr, #howitworks #container hr {
+	float: left;
+	width: 100%;
+	height: 7px;
+	background: @accent2;
+	margin: 0;
+}
+#home #container h4, #howitworks #container h4 {
+	text-transform: none;
+	font-size: 23px;
+	font-weight: 700;
+}
+#home #container h4 {
+	margin: 3px 0;
+}
+#home #container, #howitworks #container {
+	font-size: 16px;
+	font-weight: 700;
+	color: @base;
+}
+
+.cta {
+	float: right; 
+	padding-top: 90px;
+	clear: both;
+}
+#home .cta, #sectionTwo .cta {
+	padding: 0 0 30px;
+}
+#home .cta {
+	padding: 30px 90px 30px 0;
+}
+.cta a.startBtn {
+	float: left;
+	background: url(img/startBtn.png) no-repeat;
+	width: 164px;
+	height: 53px;
+	text-indent: -9999px;
+}
+.cta .badge {
+	float: right;
+	background: url(img/jobsBadge.png) no-repeat;
+	width: 80px;
+	height: 80px;
+	margin: -16px 0 0 20px;
+}
+
+#newSubFooter {
+	background-color: lighten(@borders, 10%);
+	padding: 30px;
+	border-bottom: 1px solid @borders;
+}
+#newSubFooter .testimonies {
+	float: left; 
+	width: 340px;
+	margin-top: 10px;
+}
+#newSubFooter .testimonies span {
+	display: block;
+	text-align: right;
+	clear: both;
+}
+#newSubFooter .jobSites {
+	float: right;
+	margin-right: 60px;
+}
+
+#newFooter {
+	clear: both;
+	background-color: lighten(@borders, 10%);
+	padding: 20px 160px;
+}
+#newFooter ul {
+	float: left;
+	width: 233px;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+#newFooter h3 {
+	text-transform: none;
+}
+#newFooter ul a {
+	font-weight: 400;
+	color: #3a812e;
+}
+#newFooter ul:first-child a {
+	font-weight: 700;
+	color: #acb69d;
+}
+
+#newFooter ul a:hover {
+	color: @accent2;
+}
+
+/*How It Works Specifics--------------------------------------------------------- */
+
+#container.home, #howitworks #container {
+    .box-shadow(0px, 1px, 5px, rgba(0,0,0,0.2));
+    .border-radius();
+    border: 1px solid @borders;
+    margin-top: 20px;
+}
+
+#howitworks #container hr {
+	float: left;
+	width: 100%;
+	height: 7px;
+	background: @accent2;
+	margin: 0;
+}
+
+#sectionOne h2 {
+	position: relative;
+	font-weight: 400;
+	padding-right: 100px;
+	width: 190px;
+	margin: 30px auto;
+}
+
+#sectionOne i.icon.arrowCurved {
+	position:absolute;
+	right: 0;
+	text-indent: 0;
+	width: 87px;
+	height: 76px;
+	top: -17px;
+}
+
+#sectionOne .videoBox {
+	width: 500px;
+	height: 325px;
+	background: #000;
+	margin: 30px auto;
+}
+
+#sectionOne ul, #sectionTwo ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	clear: both;
+	text-align: center;
+}
+
+#sectionOne li i.icon {
+	position: absolute;
+	/*background: #000;*/
+	width: 120px;
+	height: 120px;
+	left: 0;
+	text-indent: 0;
+}
+
+#sectionOne li {
+	position: relative;
+	float: left;
+	width: 240px;
+	margin: 30px 0 30px 100px;
+	padding-left: 160px;
+}
+
+#sectionTwo h2 {
+	float: left;
+	width: 100%;
+	clear: both;
+	margin: 30px 0;
+}
+
+#sectionTwo li {
+	float: left;
+	width: 280px;
+	margin: 20px 0 20px 140px;
+	text-align: center;
+}
+
+#sectionTwo li img {
+	width: 280px;
+	height: auto;
+	background: #000;
+}
+
+#sectionOne li.oddHome, #sectionTwo li:first-child {
+	margin-left: 0;
+}
+
+/*Icons--------------------------------------------------------------------- */
 
 .icon {
     display: block;
@@ -1329,8 +1460,15 @@ form textarea:focus {
     float: left;
 }
 
-#home #colA {
-    margin: -50px 0 0;
+#colA #sectionOne, #banner {
+	width: 900px;
+    margin: 0;
+    padding: 0 60px;
+}
+#sectionTwo {
+	width: 700px;
+    margin: 0;
+    padding: 0 160px;
 }
 
 .two-column #colA {
@@ -2875,9 +3013,13 @@ footer h3 span {
 }
 
 .video-q-holder {
-	width: 100%;
-	clear: both;
+	width: 553px;
 	display: none;
+	float: right;
+}
+
+.video-q-holder input.btn.red {
+	margin-top: 10px;
 }
 
 .video-label {
@@ -2888,6 +3030,26 @@ footer h3 span {
 	font-weight: bold;
 	font-size: 18px;
 	margin-bottom: 10px;
+}
+
+#videoInstructions {
+	display: none;
+	float: left;
+	width: 380px;
+}
+
+#videoInstructions li {
+	background-color: #e8e8e8;
+	padding: 10px;
+	margin-bottom: 10px;
+}
+
+#videoInstructions li ul li {
+	padding: 0;
+	margin-left: 10px;
+	list-style: square inside;
+	font-size: 14px;
+	margin-bottom: 0px;
 }
 
 .video-flash-holder {

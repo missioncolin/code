@@ -19,14 +19,29 @@ $(function() {
 		$(".userinfo").fadeOut();
 			$("#submissions").fadeOut(400, function() {
 				
+				/*if ($("#video1").is('*')) {
+					$("#video1").fadeIn();
+					$activeVideo = 1;
+				}*/
+				$("#videoInstructions").show();
+				$("#videoInstructions").fadeIn();
+			});
+		
+		$('.current').removeClass().next().addClass('current');
+				
+				
+		/*$(".userinfo").fadeOut();
+			$("#submissions").fadeOut(400, function() {
+				
 				if ($("#video1").is('*')) {
 					$("#video1").fadeIn();
 					$activeVideo = 1;
+					$("#videoInstructions").fadeIn();
 				}
 			});
 		
 		$('.current').removeClass().next().addClass('current');
-		
+		*/
 	}
 	
 	/* Handle displaying the welcome popup */
@@ -80,6 +95,7 @@ require_once dirname(__DIR__) . '/Questionnaire.php';
 if (!isset($f) || !$f INSTANCEOF Forms){
     $f = new Forms($db);
 }
+
 
 //create a new blank user if there is no session ID
 
@@ -676,7 +692,7 @@ else {
         ?>
         
                          
-        <!---- Allow users to upload their docs ----> 
+        <!-- Allow users to upload their docs --> 
         <label for='coverLetter'>Upload Cover Letter: </label><input type='file' name='coverLetter' id='coverLetter'></br>
         <label for='resume'>Upload Resume: </label><input type='file' name='resume' id='resume'></br>
         </td>
@@ -698,10 +714,67 @@ else {
     <input type="submit" class="btn green" value="Next" data-section="questions" />
     </div>
     
+
+    <ul id="videoInstructions">
+    	<li> 
+    		Answer the hiring manager's questions using your web cam
+    	</li>
+	    <li>
+		    <h2>Important Information</h2>
+		    <ul>
+		    	<li>Donec id elit non mi porta gravida at eget metus.</li>
+		    	<li>Nulla vitae elit libero, a pharetra augue.</li>
+		    	<li>Fusce dapibus, fermentum massa justo sit amet risus.</li>
+		    	<li>Vestibulum id ligula porta felis euismod semper.</li>
+		    </ul>
+	    </li>
+	    <li>
+		    <h2>The Interview Process</h2>
+		    <ul>
+		    	<li>Etiam porta sem malesuada magna mollis euismod.</li>
+		    	<li>Donec id elit non mi porta gravida at eget metus.</li>
+		    	<li>Cras justo odio, dapibus ac facilisis in, egestas eget quam.</li>
+		    	<li>Maecenas faucibus mollis interdum.</li>
+		    </ul>
+	    </li>
+	    <li>
+		    <h2>Make The Best Impression</h2>
+		    <ul>
+		    	<li>Donec id elit non mi porta gravida at eget metus.</li>
+		    	<li>Nulla vitae elit libero, a pharetra augue.</li>
+		    	<li>Fusce dapibus, fermentum massa justo sit amet risus.</li>
+		    	<li>Vestibulum id ligula porta felis euismod semper.</li>
+		    </ul>
+	    </li>
+	    <li>
+	    	<label for="privacyPolicy">Accept <a href="#">Privacy Policy </a></label><input type="checkbox" id="privacyPolicy" name="privacyPolicy">
+	    </li>
+	    <li> 
+	    	Test your camera and microphone
+	    </li>
+	    <li> 
+	    <?php 
+	    	echo '<embed src="/includes/apps/ams-media/flx/captureModule.swf" quality="high" bgcolor="#000000" width="550" height="400" name="captureModule" FlashVars="itemID=0&securityKey=' . md5("iLikeSalt0") . '" align="middle" allowScriptAccess="sameDomain" allowFullScreen="false" type="application/x-shockwave-flash" pluginspage="http://www.adobe.com/go/getflash" />';
+	    ?>
+	    </li>
+	    <li>
+	    	How do you determine or evaluate success?
+	    </li>
+	    <li> 
+	    	<input type="button" class="saveButton" value="Save now and do interview later"/>
+	    </li>
+	    <li>
+	    	<input type="button" class="nextbutton" data-section="instructions" value="Continue and begin interview"/>
+	    </li>
+    </ul>
+    
+    
+    
+    
     <?php
     echo($videos);
-    
     ?>
+    
    <div id="finalStep">
    		<div id="thankYouMsg">
 	   		 <div id="steps">
@@ -714,6 +787,9 @@ else {
    		<input type="button" id="finalPrev" class="btn red prevbutton" value="Previous" data-section="final" />
     	<input type="button" class="btn green thankYou" data-user="<?php echo $_SESSION['userID']; ?>" data-job="<?php echo $_GET['job']; ?>" value="Submit" />
     </div>
+    
+
+
 </form>
 
 
@@ -724,6 +800,7 @@ else {
 		<p>An email has been sent to you. When you are ready please click the link in the email to continue your application.</br></br>
 		If you have not received an email, please check your junk mail.</br></br></b> <!-- <a href="http://<?php echo $_SERVER["SERVER_NAME"]."/apply/".$_GET['job']."?user=".$_SESSION['userID']; ?>"><?php echo $_SERVER["SERVER_NAME"]."/apply/".$_GET['job']."?user=".$_SESSION['userID']; ?></a></p> -->		
 		<a class="btn" style="margin-top: 10px;" id="takeAwayOk">Ok</a>
+
 		
 	</div>
 </div>

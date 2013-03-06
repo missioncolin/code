@@ -301,18 +301,26 @@ var $activeVideo = 0;
 $('.nextbutton').click(function () {
 	var $comingFrom = $(this).data('section');
 			
-	if ($comingFrom == 'questions') {
-		
-		$(".userinfo").fadeOut();
-		$("#submissions").fadeOut(400, function() {
+	if ($comingFrom == 'instructions') {
+		if (document.getElementById('privacyPolicy').checked){ 
+			$(".userinfo").fadeOut();
+			$("#submissions").fadeOut(400, function() {
+				
+				if ($("#video1").is('*')) {
+					$("#video1").fadeIn();
+					$activeVideo = 1;
+					$("#videoInstructions").fadeOut();
+					$("#videoInstructions").remove();
+				}
+			});
 			
-			if ($("#video1").is('*')) {
-				$("#video1").fadeIn();
-				$activeVideo = 1;
-			}
-		});
+			$('.current').removeClass().next().addClass('current');
+			
+		}else{
+			alert("Please accept our privacy policy before continuing");
+			return false;
+		}
 		
-		$('.current').removeClass().next().addClass('current');
 		
 	} else if ($comingFrom == 'video') {
 		
@@ -324,6 +332,7 @@ $('.nextbutton').click(function () {
 				$("#video"+$activeVideo).fadeIn();
 			} else {
 				$("#finalStep").fadeIn();
+				$("#videoInstructions").fadeOut();
 				$('.current').removeClass().next().addClass('current');
 				
 				$activeVideo--;
@@ -340,6 +349,8 @@ $('.prevbutton').click(function () {
 	
 	if ($comingFrom == 'questions') {
 		
+	} else if ($comingFrom == 'instructions'){
+		
 		
 	} else if ($comingFrom == 'video') {
 		
@@ -352,6 +363,7 @@ $('.prevbutton').click(function () {
 			} else {
 				$(".userinfo").fadeIn();
 				$("#submissions").fadeIn();
+				$("#videoInstructions").fadeOut();
 				$('.current').removeClass().prev().addClass('current');
 			}
 		});
@@ -363,7 +375,7 @@ $('.prevbutton').click(function () {
 		if ($("#video"+$activeVideo).is('*')) {
 			$("#video"+$activeVideo).fadeIn();
 			$('.current').removeClass().prev().addClass('current');
-			
+			$("#videoInstructions").fadeIn();
 		} else {
 			$(".userinfo").fadeIn();
 			$("#submissions").fadeIn();
@@ -382,6 +394,7 @@ $('#steps li').click(function () {
 	switch(selectedIndex) {
 	case 1:
 		$("#finalStep").fadeOut();
+		$("#videoInstructions").fadeOut();
 		$(".video-q-holder").fadeOut(400, function() {
 			
 			$("#submissions").fadeIn();
@@ -396,7 +409,17 @@ $('#steps li').click(function () {
 		$("#finalStep").fadeOut();
 		$("#submissions").fadeOut(400, function() {
 			
-			$(".video-q-holder").fadeIn();
+			$activeVideo = 1;
+			
+			if ($("#video"+$activeVideo).is('*')) {
+				$("#video"+$activeVideo).fadeIn();
+				$("#videoInstructions").fadeIn();
+			} else {
+				$(".userinfo").fadeIn();
+				$("#submissions").fadeIn();
+				$("#videoInstructions").fadeOut();
+				$('.current').removeClass().prev().addClass('current');
+			}
 		});
 		
 		
@@ -405,6 +428,7 @@ $('#steps li').click(function () {
 	case 3:
 		$(".userinfo").fadeOut();
 		$(".video-q-holder").fadeOut();
+		$("#videoInstructions").fadeOut();
 		$("#submissions").fadeOut(400, function() {
 			
 			$("#finalStep").fadeIn();
@@ -436,8 +460,7 @@ $('.thankYou').click(function () {
 });
 
 
-$('.nextbutton').click(function () {
-	
-	$("#takeAway").fadeIn();	
-		
+$('.saveButton').click(function(){
+
+	$("#takeAway").fadeIn();
 });
