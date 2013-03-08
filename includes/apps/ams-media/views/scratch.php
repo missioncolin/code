@@ -8,8 +8,8 @@ require '../../../../includes/init.php';
 
 <?php
 //the itemID of the video table
-$userID = 0;
-$jobID = 0;
+$userID = 1;
+$jobID = 1;
 
 if(!isset($_GET['videoID'])) {
 
@@ -22,7 +22,7 @@ $qry = sprintf("INSERT INTO tblVideos (userID, jobID, sysDateInserted, sysDateLa
 } else {
     $videoID = (int) $_GET['videoID'];
 }
-       //print "VIDEO ID IS: " . $videoID;
+print "VIDEO ID IS: " . $videoID;
 
 
 //pull the video URL from the database
