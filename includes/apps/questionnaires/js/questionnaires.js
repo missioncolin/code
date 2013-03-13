@@ -44,12 +44,12 @@ $(".slider").each(function () {
         range: "min",
         value: slideVal,
         min: 0,
-        max: 20,
+        max: 30,
         step: 1,
         slide: function (event, ui) {
             var slideInput = $(this).attr('rel');
             $("#" + slideInput).val(ui.value);
-            $('.sliderValueHolder[rel=' + slideInput + ']').html(ui.value + "/20 years of experience");
+            $('.sliderValueHolder[rel=' + slideInput + ']').html(ui.value + "/30 years of experience");
         }
     });
 });

@@ -245,7 +245,7 @@ $(function() {
 			animate: true,
 		    range: "max",
 		    min: 0,
-		    max: 20,
+		    max: 30,
 		    value: Number(thisValue),
 		    // Each slide updates value label
 		    slide: function( event, ui ) {	    	
@@ -297,7 +297,7 @@ $(function() {
 		animate: true,
 	    range: "max",
 	    min: 0,
-	    max: 20,
+	    max: 30,
 	    value: Number('<?php echo isset($_REQUEST['master-val']) ? $_REQUEST['master-val'] : '0'; ?>'),
 	    create: function( event, ui ) {
 		    $( "#master-amount").html( $( this ).slider( "value" ) );   
