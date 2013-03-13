@@ -617,7 +617,7 @@ else {
                 case 3: //slider
                     $name = $id = $questionID;
                     $val = $db->return_specific_item(false, "tblAnswers", "value", "0", "jobID = ".$_GET['job']." AND questionID = ".$name." AND userID = " . $_SESSION['userID']);
-                    echo "<div class=\"slider\" rel=\"$name\" alt='".$val."'></div><input type=\"hidden\" name=\"$name\" id=\"$id\" value=\"".$val."\" /><div class='sliderValueHolder' rel='$id'>".$val."/20 years of experience</div>";
+                    echo "<div class=\"slider\" rel=\"$name\" alt='".$val."'></div><input type=\"hidden\" name=\"$name\" id=\"$id\" value=\"".$val."\" /><div class='sliderValueHolder' rel='$id'>".$val."/30 years of experience</div>";
 
                 break;
 
