@@ -1,42 +1,59 @@
-<a href="/hr-signup?hr-step=1" id="priceCallout" class="btn green">First Job is Free! <span>Sign Up Today!</span></a>
+<div id="sectionOneHome">
+		<h2>Hire Better. Hire Faster. Hire Smarter</h2>
+		<h3>The #1 Online Recruiting Tool</h3>
+		
+		<div class="videoHome"></div>
+		<div class="homeContent">
+			<h4 id="manage">Manage</h4>
+			<p>All applicants information is sorted and organized for you</p>
+			<h4 id="grade">Grade</h4>
+			<p>Every applicant gets a grade based on your job requirements</p>
+			<h4 id="screen">Screen</h4>
+			<p>Easily narrow your search to focus on the most qualified</p>
+			<h4 id="interview">Interview</h4>
+			<p>Watch recorded video of applicants answering your questions</p>
+		</div>
+		<div class="cta"><a href="/hr-signup" class="startBtn">Start</a><div class="badge"></div></div>
+	</div>
+	
+	<div class="clearfix"></div>
+		
+	<hr>
+	
+	<div id="newSubFooter">
+		<div class="testimonies">
+			Intervue make the hiring process faster and far more efficient than our old system
+			<span>Will Hamilton</span>
+		</div>
+		<div class="jobSites"><img src="../../../../themes/Intervue/img/jobSites.png" alt="jobSites" width="311" height="109" /></div>
+		<div class="clearfix"></div>
+	</div>	
+	
+	<div id="newFooter">
+		<ul>
+			<h3>Features</h3>
+			<li><a href="#sectionOne">Manages</a></li>
+			<li><a href="#sectionOne">Grades</a></li>
+			<li><a href="#sectionOne">Screens</a></li>
+			<li><a href="#sectionOne">Interviews</a></li>
+		</ul>
+		<ul>
+			<h3>Community</h3>
+			<li><a href="http://twitter.com/Intervuetweets">Twitter</a></li>
+			<li><a href="http://www.facebook.com/Intervue?fref=ts">Facebook</a></li>
+			<li><a href="http://www.linkedin.com/company/2723868?trk=tyah">LinkIn</a></li>
+			<li><a href="">YouTube</a></li>
+		</ul>
+		<ul>
+			<h3 class="companyName">Intervue</h3>
+			<li><a href="/about-us">About Us</a></li>
+			<li><a href="/how-it-works">How it Works</a></li>
+			<li><a href="/contact-us">Contact Us</a></li>
+			<li><a href="/login">Sign In</a></li>
+			<li><a href="/hr-signup">Sign Up</a></li>
+			<li><a href="/faq">FAQs</a></li>
+		</ul>
+		<div class="clearfix"></div>
+	</div>
 
-<ul id="pricingOptions">
-    <li>
-        <h2>$<?php echo $db->return_specific_item(false, 'tblJobCreditsPricing', 'price', "199", '`credits` = 1');?></h2>
-        <h5>1 Job</h5>
-        <p><a class="btn" href="/buy-job-credits">Buy Now</a></p>
-    </li>
-    <li>
-        <h2>$<?php echo $db->return_specific_item(false, 'tblJobCreditsPricing', 'price', "550", '`credits` = 3');?></h2>
-        <h5>3 Jobs</h5>
-        <p><a class="btn" href="/buy-job-credits">Buy Now<span class="saleTag">Save<br />10%</span></a></p>
-    </li>
-    <li>
-        <h2>$<?php echo $db->return_specific_item(false, 'tblJobCreditsPricing', 'price', "1500", '`credits` = 10');?></h2>
-        <h5>10 Jobs</h5>
-        <p><a class="btn" href="/buy-job-credits">Buy Now<span class="saleTag">Save<br />25%</span></a></p>
-    </li>
-</ul>
-
-<div id="about" class="box">
-    <h3>About Intervue</h3>
-    <p>Intervue is an online recruitment tool that screens and ranks job applicants. No matter where you post your job, your candidates can be automatically routed through Intervue's application process. For every applicant you receive a ranking based on your specific job requirements, recorded web-cam responses to your questions, and the traditional resume and cover letter.  All of this means that you get to know your applicants before you ever interview them. That's how Intervue is helping companies hire faster, hire better and hire smarter. Create your first job today.</p>
-</div>
-
-<div id="testimonials">
-    <div id="testimonialRotator">
-        <div class="testimonialItem">
-            <p>Maecenas faucibus mollis interdum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibl.</p>
-            <h4>John Smith<br /><span>Acme, Inc.</span></h4>
-        </div>
-        <div class="testimonialItem">
-            <p>Maecenas faucibus mollis interdum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibl.</p>
-            <h4>Jon Rundle<br /><span>Resolution IM</span></h4>
-        </div>
-        <div class="testimonialItem">
-            <p>Maecenas faucibus mollis interdum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibl.</p>
-            <h4>Joe Smith<br /><span>Company, Inc.</span></h4>
-        </div>
-    </div>
-    <div id="testimonialNav"></div>
 </div>

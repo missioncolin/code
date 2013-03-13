@@ -797,7 +797,8 @@ else {
 <div id="takeAway" style="display:none; z-index: 1000;">
 	<div class="popUp success">	
 		<h2>Your application is now saved.</h2>
-		<p>An email has been sent to you. When you are ready please click the link in the email to continue your application.</br> <!-- <a href="http://<?php echo $_SERVER["SERVER_NAME"]."/apply/".$_GET['job']."?user=".$_SESSION['userID']; ?>"><?php echo $_SERVER["SERVER_NAME"]."/apply/".$_GET['job']."?user=".$_SESSION['userID']; ?></a></p> -->		
+		<p>An email has been sent to you. When you are ready please click the link in the email to continue your application.</br></br>
+		If you have not received an email, please check your junk mail.</br></br></b> <!-- <a href="http://<?php echo $_SERVER["SERVER_NAME"]."/apply/".$_GET['job']."?user=".$_SESSION['userID']; ?>"><?php echo $_SERVER["SERVER_NAME"]."/apply/".$_GET['job']."?user=".$_SESSION['userID']; ?></a></p> -->		
 		<a class="btn" style="margin-top: 10px;" id="takeAwayOk">Ok</a>
 
 		

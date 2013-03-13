@@ -48,6 +48,7 @@ if ($user->info['Job Credits'] == 0){
 	$buttonLink = "<a href=\"/buy-job-credits\" class=\"btn green\">Buy Credits</a>";
 }else if ($user->info['Job Credits'] > 0){
 	$title = "Activate Your Link";
+	$creditNote = '<tr><td><div class="btn">Activate your link to make it live</div></td><tr>';
 	$jobCreditsLine = "<strong>You have " . $user->info['Job Credits'] . " credits</strong>";
 	$buttonLink = "<a href=\"\" class=\"btn activate green\" data-job=\"".$_GET["jobID"]."\">Activate Link</a>";
 } 
@@ -69,6 +70,7 @@ echo alert_box('<h2>Tips</h2><p>Job links are active for 60 days</p><p>Cut and p
 			</thead>
 			<tbody>
 				<tr>
+					<?php echo ($user->info['Job Credits'] > 0 ) ? $creditNote : ''; ?>
 					<td><?php echo $jobCreditsLine; ?></td>
 				</tr>
 				<tr>
