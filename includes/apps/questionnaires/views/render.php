@@ -23,8 +23,7 @@ $(function() {
 					$("#video1").fadeIn();
 					$activeVideo = 1;
 				}*/
-				$("#videoInstructions").show();
-				$("#videoInstructions").fadeIn();
+				$("#instructions").fadeIn();
 			});
 		
 		$('.current').removeClass().next().addClass('current');
@@ -714,61 +713,51 @@ else {
     <input type="submit" class="btn green" value="Next" data-section="questions" />
     </div>
     
-
-    <ul id="videoInstructions">
-    	<li> 
-    		Answer the hiring manager's questions using your web cam
-    	</li>
-	    <li>
-		    <h2>Important Information</h2>
-		    <ul>
-		    	<li>Donec id elit non mi porta gravida at eget metus.</li>
-		    	<li>Nulla vitae elit libero, a pharetra augue.</li>
-		    	<li>Fusce dapibus, fermentum massa justo sit amet risus.</li>
-		    	<li>Vestibulum id ligula porta felis euismod semper.</li>
-		    </ul>
-	    </li>
-	    <li>
-		    <h2>The Interview Process</h2>
-		    <ul>
-		    	<li>Etiam porta sem malesuada magna mollis euismod.</li>
-		    	<li>Donec id elit non mi porta gravida at eget metus.</li>
-		    	<li>Cras justo odio, dapibus ac facilisis in, egestas eget quam.</li>
-		    	<li>Maecenas faucibus mollis interdum.</li>
-		    </ul>
-	    </li>
-	    <li>
-		    <h2>Make The Best Impression</h2>
-		    <ul>
-		    	<li>Donec id elit non mi porta gravida at eget metus.</li>
-		    	<li>Nulla vitae elit libero, a pharetra augue.</li>
-		    	<li>Fusce dapibus, fermentum massa justo sit amet risus.</li>
-		    	<li>Vestibulum id ligula porta felis euismod semper.</li>
-		    </ul>
-	    </li>
-	    <li>
-	    	<label for="privacyPolicy">Accept <a href="#">Privacy Policy </a></label><input type="checkbox" id="privacyPolicy" name="privacyPolicy">
-	    </li>
-	    <li> 
-	    	Test your camera and microphone
-	    </li>
-	    <li> 
+    <div id="instructions">
+	    <ul id="videoInstructions">
+	    	<li> 
+	    		Answer the hiring manager's questions using your web cam
+	    	</li>
+		    <li>
+			    <h2>Important Information</h2>
+			    <ul>
+			    	<li>You need a web cam and microphone</li>
+			    	<li>Test it out to see if it works</li>
+			    	<li>Refresh page if you are having issues</li>
+			    	<li>Your videos cannot be shared or downloaded</li>
+			    </ul>
+		    </li>
+		    <li>
+			    <h2>The Interview Process</h2>
+			    <ul>
+			    	<li>Each video question has a 2 minute time limit</li>
+			    	<li>Click done when you are finished answering</li>
+			    	<li>You can review your answers and do retakes</li>
+			    </ul>
+		    </li>
+		    <li>
+			    <h2>Make The Best Impression</h2>
+			    <ul>
+			    	<li>Dress professionally</li>
+			    	<li>Make sure the room is well lit</li>
+			    	<li>Clear the area around you</li>
+			    	<li>Be yourself</li>
+			    </ul>
+		    </li>
+		    <li>
+		    	<label for="privacyPolicy">Accept <a href="#">Privacy Policy </a></label><input type="checkbox" id="privacyPolicy" name="privacyPolicy">
+		    </li>
+	    </ul>
+	    
+	    <label class="video-label">Test your camera and microphone</label>
+	    
 	    <?php 
-	    	echo '<embed src="/includes/apps/ams-media/flx/captureModule.swf" quality="high" bgcolor="#000000" width="550" height="400" name="captureModule" FlashVars="itemID=0&securityKey=' . md5("iLikeSalt0") . '" align="middle" allowScriptAccess="sameDomain" allowFullScreen="false" type="application/x-shockwave-flash" pluginspage="http://www.adobe.com/go/getflash" />';
-	    ?>
-	    </li>
-	    <li>
-	    	How do you determine or evaluate success?
-	    </li>
-	    <li> 
-	    	<input type="button" class="saveButton" value="Save now and do interview later"/>
-	    </li>
-	    <li>
-	    	<input type="button" class="nextbutton" data-section="instructions" value="Continue and begin interview"/>
-	    </li>
-    </ul>
-    
-    
+		    	echo '<embed src="/includes/apps/ams-media/flx/captureModule.swf" quality="high" bgcolor="#000000" width="550" height="400" name="captureModule" FlashVars="itemID=0&securityKey=' . md5("iLikeSalt0") . '" align="middle" allowScriptAccess="sameDomain" allowFullScreen="false" type="application/x-shockwave-flash" pluginspage="http://www.adobe.com/go/getflash" />';
+		    ?>
+	    
+	    <input type="button" class="btn saveButton" value="Save now and do interview later"/>
+	    <input type="button" class="btn green nextbutton instButton" data-section="instructions" value="Continue and begin interview"/>
+    </div>
     
     
     <?php
