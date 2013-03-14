@@ -785,7 +785,7 @@ else {
 		        </div>
    		</div>
    		<input type="button" id="finalPrev" class="btn red prevbutton" value="Previous" data-section="final" />
-    	<input type="button" class="btn green thankYou" data-user="<?php echo $_SESSION['userID']; ?>" data-job="<?php echo $_GET['job']; ?>" value="Submit" />
+    	<input type="button" class="btn green thankYou" data-user="<?php echo $_SESSION['userID']; ?>" data-job="<?php echo $_GET['job']; ?>" value="Send Your Application" />
     </div>
     
 

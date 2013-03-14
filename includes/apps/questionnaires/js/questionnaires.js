@@ -450,11 +450,9 @@ $('.thankYou').click(function () {
         user: $(this).data('user'),
         job: $(this).data('job')
     }, function(data) {
-	    if ((data == 1) == 1) {
-	        $(this).hide();
+	        $('.thankYou').hide();
 			$('#finalPrev').hide();
 			$("#thankYouMsg").fadeIn();
-		}
     });
 	
 });
