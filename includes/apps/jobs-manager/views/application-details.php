@@ -102,7 +102,7 @@ $quipp->js['footer'][] = "/includes/apps/jobs-manager/js/jobs-manager.js";
             <a href="mailto:<?php echo $applicant->info['Email']; ?>" class="btn"><img src="/themes/Intervue/img/contactIcon.png" alt="" /></a>
         </div>
         <div class="cutout">
-            <div class="profilePic"><div class="imgWrapper"><img src="http://www.gravatar.com/avatar/<?php echo md5(strtolower(trim($applicant->info['Email']))); ?>?d=<?php echo urlencode('http://' . $_SERVER['HTTP_HOST'] . '/themes/Intervue/img/profilePicExample.jpg'); ?>&s=126" alt="" /></div></div>
+            <div class="profilePic"><div class="imgWrapper"><img src="http://www.gravatar.com/avatar/<?php echo md5(strtolower(trim($applicant->info['Email']))); ?>?d=<?php echo urlencode('http://' . $_SERVER['HTTP_HOST'] . '/themes/Intervue/img/profilePicExample1.jpg'); ?>&s=126" alt="" /></div></div>
         </div>
         <dl>
             <dt>Name</dt>
