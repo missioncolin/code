@@ -4,7 +4,7 @@ $post   = array();
 foreach($meta as $fields){
     $post[str_replace(" ","_",$fields["fieldLabel"])] = array("value" => $frms->get_meta($fields["fieldLabel"]));
 }
-$grav_url = "http://www.gravatar.com/avatar/" . md5(strtolower(trim($post["Email"]["value"]))) . "?d=" . urlencode("http://".$_SERVER["SERVER_NAME"]."/themes/Intervue/img/profilePicExample.jpg") . "&s=80";
+$grav_url = "http://www.gravatar.com/avatar/" . md5(strtolower(trim($post["Email"]["value"]))) . "?d=" . urlencode("http://".$_SERVER["SERVER_NAME"]."/themes/Intervue/img/profilePicExample1.jpg") . "&s=80";
 ?>
 <h3 id="applicantProfileEdit"><div class="imgWrap"><img src="<?php echo $grav_url;?>" alt="avatar" width="80px" height="80px" /></div><?php echo $post["First_Name"]["value"]." ".$post["Last_Name"]["value"];?><a href="/profile/edit">Edit Profile</a></h3>
 <form>
