@@ -721,28 +721,27 @@ else {
 		    <li>
 			    <h2>Important Information</h2>
 			    <ul>
-			    	<li>Donec id elit non mi porta gravida at eget metus.</li>
-			    	<li>Nulla vitae elit libero, a pharetra augue.</li>
-			    	<li>Fusce dapibus, fermentum massa justo sit amet risus.</li>
-			    	<li>Vestibulum id ligula porta felis euismod semper.</li>
+			    	<li>You need a web cam and microphone</li>
+			    	<li>Test it out to see if it works</li>
+			    	<li>Refresh page if you are having issues</li>
+			    	<li>Your videos cannot be shared or downloaded</li>
 			    </ul>
 		    </li>
 		    <li>
 			    <h2>The Interview Process</h2>
 			    <ul>
-			    	<li>Etiam porta sem malesuada magna mollis euismod.</li>
-			    	<li>Donec id elit non mi porta gravida at eget metus.</li>
-			    	<li>Cras justo odio, dapibus ac facilisis in, egestas eget quam.</li>
-			    	<li>Maecenas faucibus mollis interdum.</li>
+			    	<li>Each video question has a 2 minute time limit</li>
+			    	<li>Click done when you are finished answering</li>
+			    	<li>You can review your answers and do retakes</li>
 			    </ul>
 		    </li>
 		    <li>
 			    <h2>Make The Best Impression</h2>
 			    <ul>
-			    	<li>Donec id elit non mi porta gravida at eget metus.</li>
-			    	<li>Nulla vitae elit libero, a pharetra augue.</li>
-			    	<li>Fusce dapibus, fermentum massa justo sit amet risus.</li>
-			    	<li>Vestibulum id ligula porta felis euismod semper.</li>
+			    	<li>Dress professionally</li>
+			    	<li>Make sure the room is well lit</li>
+			    	<li>Clear the area around you</li>
+			    	<li>Be yourself</li>
 			    </ul>
 		    </li>
 		    <li>
