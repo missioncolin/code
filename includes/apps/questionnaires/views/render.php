@@ -69,13 +69,13 @@ $(function() {
 	$('#takeAwayOk').on('click', function() {
 			
         $('#takeAway').fadeOut('fast', function() {
-	    	$('.popUp h2').empty();
+	    	/*$('.popUp h2').empty();
 	        $('.popUp p').empty();
 	        $('.popUp #popUpOk').off('click');
 	        $('.popUp #popUpNo').off('click'); 
 	        $('.popUp').removeClass('success');
 	        $('.popUp').removeClass('fail');
-	        $('.popUp #popUpNo').show();
+	        $('.popUp #popUpNo').show();*/
         });
 	});
 
@@ -797,13 +797,12 @@ else {
 <div id="takeAway" style="display:none; z-index: 1000;">
 	<div class="popUp success">	
 		<h2>Your application is now saved.</h2>
-		<p>An email has been sent to you. When you are ready please click the link in the email to continue your application.</br></br>
-		If you have not received an email, please check your junk mail.</br></br></b> <!-- <a href="http://<?php echo $_SERVER["SERVER_NAME"]."/apply/".$_GET['job']."?user=".$_SESSION['userID']; ?>"><?php echo $_SERVER["SERVER_NAME"]."/apply/".$_GET['job']."?user=".$_SESSION['userID']; ?></a></p> -->		
-		<a class="btn" style="margin-top: 10px;" id="takeAwayOk">Ok</a>
-
-		
+		<p>An email has been sent to you. When you are ready please click the link in the email to continue your application. If you have not received an email, please check your junk mail.</p>
+		<a class="btn" id="takeAwayOk">Ok</a>
 	</div>
 </div>
+
+
 
 <!-- Welcome Popup --->
 <div id="confirm" style="display:none; z-index: 1000;">
