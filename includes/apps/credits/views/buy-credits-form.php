@@ -16,7 +16,7 @@
 
     $quipp->js['onload'] .= 'Stripe.setPublishableKey(\'pk_0i8Mtrri9uQxBMMOsrlXGQCSPlguJ\');';
     
-     $provs  = $db->query("SELECT `itemID`, `provName` FROM `sysProvince` WHERE countryID IN (38, 213) ORDER BY `countryID`, `provName`");
+    $provs  = $db->query("SELECT `itemID`, `provName` FROM `sysProvince` WHERE countryID IN (38, 213) ORDER BY `countryID`, `provName`");
      
     $meta   = $frms->getMetaFieldsByGroup('hr-managers');
     $post   = array();
@@ -38,22 +38,54 @@
     
 
 ?>
+<h2>Sign Up Instantly for Intervue</h2>
+<h3>Job Credits do not expire</h3>
+<div class="clearfix"></div>
 
 <div class="payment-errors"<?php if (isset($charge) && $charge !== true) { echo ' style="display:block"'; } ?>><?php if (isset($charge) && $charge !== true) { echo $charge; } ?></div>
-
+<div class="clearfix"></div>
 
 
 <form action="" method="post" id="payment-form">
     <div class="credits">
+    <ul class="pricingTable">
+        <li>
+	    	<div class="priceHeading">Max</div>
+		    <h4>Hiring More?</h4>
+		    <p>Ask about our unlimited job offer</p>
+		    <span>Call for details <br />647-348-6784</span>
+		    <small>Job credits do no expire</small>
+		    <a href="#">Choose this Plan</a>
+	    </li>
+	    
         <?php     
         $i = 1;
         foreach ($credits->credits as $creditID => $credit) {
             $checked = ($i == 1) ? ' checked="checked"' : '';
             $class   = ($i == 1) ? ' class="selected"' : '';
-            echo "<input type=\"radio\" name=\"credits\" id=\"credit_{$credit['itemID']}\" value=\"{$credit['itemID']}\"{$checked}\"> <label for=\"credit_{$credit['itemID']}\"{$class}>\${$credit['price']}<span> + tax</span><br /><span class=\"creditNumber\">{$credit['packageName']}</span></label>\n";
+            
+            if ($i == 1) { ?>
+	        <li class="bigger">
+	        	<div class="mostPopular"><img src="/themes/Intervue/img/mostPop.png" alt="mostPop" width="166" height="45" /></div>
+            <?php } else { ?>
+	        <li>
+            <?php } ?>
+		    	<div class="priceHeading"><?php echo strtoupper($credit['packageName']); ?></div>
+			    <h4>$<?php echo $credit['price']; ?></h4>
+			    <h5><?php echo $credit['credits']; ?> Jobs</h5>
+			    <p><?php echo $credit['packageDescription']; ?></p>
+			    <small>Job credits do no expire</small>
+			    <label for="credit_<?php echo $credit['itemID']; ?>"<?php echo $class; ?>>Choose this Plan</label>
+			    <input type="radio" name="credits" id="credit_<?php echo $credit['itemID']; ?>" value="<?php echo $credit['itemID']; ?>"<?php echo $checked; ?>>
+		    </li>
+            <?php
+            
             $i++;
         }
         ?>
+	     </ul>
+	         <div class="clearfix"></div>
+
     </div>
     
     <script type="text/javascript">
@@ -79,6 +111,7 @@
     </script>
     
     <div id="whatAreYouBuying">&nbsp;</div>
+    
    
     <div class="creditCardForm">
         
@@ -128,7 +161,6 @@
            
     </div>
     <div class="creditCardForm">
-        
         
         <div class="form-row heading">
             <h4>Payment Details <img src="/themes/Intervue/img/creditCardCompanies.png" alt="" /></h4>
@@ -186,3 +218,23 @@
 
     <input type="hidden" name="referrer" value="<?php echo (isset($_GET['req']) ? $_GET['req'] : '');?>" />
 </form>
+
+<div class="anySite">
+	    <h4>Intervue works with any site, Including</h4>
+	    <img src="../../../../themes/Intervue/img/jobSitesPricing.png" alt="jobSitesPricing" width="252" height="90" />
+	</div>
+	
+	<ul class="faqz">
+	    <li>
+	    	<strong>How long do my credits last?</strong>
+		    <p>Job credits do not expire, so buy as many as you like!</p>
+	    </li>
+	    <li>
+	    	<strong>How long is my link active for?</strong>
+		    <p>The job link will be active for 60 days, but it's unlikely you will need it that long, Intervue is FAST!</p>
+	    </li>
+	    <li>
+	    	<strong>What sites can I use my Job link with?</strong>
+		    <p>You job link will work on any site, just include it in your job posting and the applicants will be directed to Intervue</p>
+	    </li>
+	</ul>

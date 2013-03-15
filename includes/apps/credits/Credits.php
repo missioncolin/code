@@ -117,7 +117,7 @@ class Credits {
      * @return array
      */
     public function getCreditPrices() {
-        $qry = "SELECT * FROM  `tblJobCreditsPricing`";
+        $qry = "SELECT * FROM  `tblJobCreditsPricing` ORDER BY price DESC";
         $res = $this->db->query($qry);
         
         if ($this->db->valid($res)) {
