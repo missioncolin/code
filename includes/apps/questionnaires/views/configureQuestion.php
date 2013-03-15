@@ -346,7 +346,7 @@ if ($this instanceof Quipp) {
         <table id="configure" class="simpleTable">
             <?php 
             if (isset($_GET['step']) && $_GET['step'] == 2){
-            	 echo "<tr><th colspan=\"2\">Please Enter Required Skills and Ideal Years of Experience You Are Looking For</th></tr>";
+            	 echo "<tr><th colspan=\"2\">Please Enter the Required Skills and Ideal Years of Experience You Are Looking For</th></tr>";
             }else{
                echo "<tr><th colspan=\"3\">Enter Your Questions</th></tr>";
             }
@@ -586,7 +586,7 @@ if ($this instanceof Quipp) {
                 	   				<a href="#" data-count="5" data-label="<?php echo $label; ?>" class="add_dropdown_q btn blue">Add Another Question</a>
 	                    	<?php   }
                     	   ?>
-                    	   <a name="configure-question" class="btn grey" href="/configure-question?qnrID=<?php echo $_REQUEST['qnrID']; ?>" >Reset</a>
+                    	   <a name="configure-question" class="btn grey" href="/configure-question?qnrID=<?php echo $_REQUEST['qnrID']; ?>&step=<?php echo $_GET['step']; ?>" >Reset</a>
                         <input type="submit" value="Save<?php if (isset($_GET['step']) && ($_GET['step'] == '2' || $_GET['step'] == '3')) { echo ' &amp; continue'; } ?>" name="configure-question" class="btn green noEnterSubmit" />
                   </div>
                 </td>

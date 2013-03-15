@@ -17,14 +17,16 @@ require 'templates/header.php';
 <a href="#" class="btnStyle green">Green Button</a> 
 -->
 <?php
+/*
 require '../includes/lib/gapi-1.3/gapi.class.php';
 
 $ga = new gapi($quipp->google["ga_email"],$quipp->google["ga_password"]);
 
 $ga->requestReportData($quipp->google["ga_profile_id"],array('pagePath','pageTitle', 'visitCount'),array('pageviews','visits', 'visitors', 'visitBounceRate'), null, null, date("Y-m-d", strtotime("-30 days")), date("Y-m-d", strtotime("yesterday")));
 
-?>
 
+?>
+<!--
 <style type="text/css">
 	#dashboardReporting {
 		
@@ -144,5 +146,6 @@ $ga->requestReportData($quipp->google["ga_profile_id"],array('pagePath','pageTit
 
 </div>
 <?php
+*/
 require 'templates/footer.php';
 ?>
