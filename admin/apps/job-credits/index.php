@@ -37,7 +37,10 @@ if ($hasPermission) {
             if (is_numeric($itemID) && (int)$itemID > 0 && preg_match("%^\d+$%",$price,$matches)){
                 $updates[] = array(
                     "itemID" => $itemID,
-                    "price" => $price
+                    "price" => $price,
+                    "description" => $_POST["RQvalALPHDescription"][$itemID],
+                    "name" => $_POST["RQvalALPHName"][$itemID]
+
                 );
             }
         }
@@ -49,9 +52,11 @@ if ($hasPermission) {
             if (isset($updates)){
                 $affectedRows = 0;
                 foreach ($updates as $update){
-                    $qry = sprintf("UPDATE %s SET `price` = %d WHERE itemID = '%d'", 
+                    $qry = sprintf("UPDATE %s SET `price` = %d, `packageName` = '%s', `packageDescription` = '%s' WHERE itemID = '%d'", 
                     (string) $primaryTableName, 
-                    (int)$update["price"], 
+                    (int)$update["price"],
+                    $db->escape($update["name"]),
+                    $db->escape($update["description"]),
                     (int)$update["itemID"]);
                     
                     $res = $db->query($qry);
@@ -93,27 +98,30 @@ include $root. "/admin/templates/header.php";
 
     //view = view state, these standard views will do for most single table interactions, you may need to replace with your own
         
-    $listqry = "SELECT `itemID`, `packageName`, `price`, `credits` FROM $primaryTableName";
+    $listqry = "SELECT `itemID`, `packageName`, `packageDescription`, `price`, `credits` FROM $primaryTableName";
     $resQry = $db->query($listqry);
     
     if ($db->valid($resQry) !== false){
     //list table field titles
     $titles[0] = "Package";
     $titles[1] = "Price (CDN)";
-    $titles[2] = "Savings";
+    $titles[2] = "Description";
+    $titles[3] = "Savings";
 
     $basePrice = 0;
     //print an editor with basic controls
     echo '<form name="frmUpdateNotify" method = "post" action='.$_SERVER['REQUEST_URI'].'>';
     echo '<table id="adminTableList" class="adminTableList tablesorter" width="100%" cellpadding="5" cellspacing="0" border="1">';
-    echo '<thead><tr><th>'.$titles[0].'</th><th>'.$titles[1].'</th><th>'.$titles[2].'</th></tr></thead><tbody>';
+    echo '<thead><tr><th>'.$titles[0].'</th><th>'.$titles[1].'</th><th>'.$titles[2].'</th><th>'.$titles[3].'</th></tr></thead><tbody>';
     while ($row = $db->fetch_assoc($resQry)){
     
         if ($basePrice == 0 && trim($row["credits"]) == '1'){
             $basePrice = trim($row["price"]);
         }
-        echo '<tr><td>'.trim($row["packageName"]) .'</td>
+        echo '<tr><td><input type="text" name="RQvalALPHName['.trim($row["itemID"]).']" value="'.trim($row["packageName"]).'" id="RQvalALPHName'.trim($row["itemID"]).'" class="uniform" style="width:250px"/></td>
+
         <td><input type="text" name="RQvalNUMBprice['.trim($row["itemID"]).']" value="'.trim($row["price"]).'" id="RQvalNUMBprice'.trim($row["itemID"]).'" class="uniform" style="width:250px"/></td>
+        <td><textarea name="RQvalALPHDescription['.trim($row["itemID"]).']" id="RQvalALPHDescription'.trim($row["itemID"]).'" style="width:250px">' . trim($row['packageDescription']) . '</textarea></td>
         <td>'.($basePrice > 0 ? (100 -floor(((int)$row["price"]/((int)$row["credits"]*$basePrice) * 100))) : 0).'% Savings</td></tr>';
     }    
     echo '</tbody></table>';
