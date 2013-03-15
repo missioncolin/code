@@ -843,5 +843,29 @@ class JobManager {
 	}
 	
 	
+	//gets resume and cover letter link
+	public function getResumeCoverLetter($jobID, $userID){
+		$qry = sprintf("SELECT questionID, value FROM tblAnswers WHERE jobID = %d AND userID = %d AND (questionID = 0 OR questionID = -1)",
+		 	$jobID,
+		 	$userID);
+		
+		$res = $this->db->query($qry);
+		$links = array(); 
+		 
+		if (is_resource($res)){
+			if ($this->db->num_rows($res) > 0){
+				while ($row = $this->db->fetch_assoc($res)) {
+					$links[$row['questionID']] = $row['value'];            
+				}
+			}else{
+				return false;
+			}
+		}else{
+			return false;
+		}
+		return $links;
+	}
+	
+	
 	    
 } ?>

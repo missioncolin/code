@@ -510,7 +510,7 @@ if ($this instanceof Quipp) {
                         <option <?php if($_POST['RQvalNUMBType'] == 1) echo "checked='checked'"; ?> value="1">Radio (Single Answer)</option>
                         <option <?php if($_POST['RQvalNUMBType'] == 2) echo "checked='checked'"; ?> value="2">Checkbox (Multiple Answers)</option>
                         */ ?>
-                        <option <?php if (isset($_POST['RQvalNUMBType']) && $_POST['RQvalNUMBType'] == 3) echo "checked='checked'"; ?> value="3">Years of Experience Slider (1-20)</option>
+                        <option <?php if (isset($_POST['RQvalNUMBType']) && $_POST['RQvalNUMBType'] == 3) echo "checked='checked'"; ?> value="3">Years of Experience Slider (1-30)</option>
                         <option <?php if (isset($_POST['RQvalNUMBType']) && $_POST['RQvalNUMBType'] == 4) echo "checked='checked'"; ?> value="4">Video Response</option>
                         <?php /*
                         <option <?php if($_POST['RQvalNUMBType'] == 5) echo "checked='checked'"; ?> value="5">File Upload</option>

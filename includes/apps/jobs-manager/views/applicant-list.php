@@ -245,7 +245,7 @@ $(function() {
 			animate: true,
 		    range: "max",
 		    min: 0,
-		    max: 20,
+		    max: 30,
 		    value: Number(thisValue),
 		    // Each slide updates value label
 		    slide: function( event, ui ) {	    	
@@ -297,7 +297,7 @@ $(function() {
 		animate: true,
 	    range: "max",
 	    min: 0,
-	    max: 20,
+	    max: 30,
 	    value: Number('<?php echo isset($_REQUEST['master-val']) ? $_REQUEST['master-val'] : '0'; ?>'),
 	    create: function( event, ui ) {
 		    $( "#master-amount").html( $( this ).slider( "value" ) );   
@@ -494,6 +494,22 @@ $(function() {
 				$averageColour = "black";
 			}
 			
+			$links = $j->getResumeCoverLetter((int)$jobID, $a['userID']); 
+			$resumeLink = "";
+			$coverLink = "";
+			
+			if ($links != false){ 
+				if (isset($links[-1])){
+					$resumeLink = "<a href=\"/uploads/applications/" . $jobID. "/" . $a['userID']. "/" . $links[-1]."\" class=\"grade btn lightGrey lessPad\"><img src=\"/themes/Intervue/img/resumeIconDark.png\" alt=\"\" /></a>";
+
+					//<a href="<?php echo $resumeLink; //" class="grade btn lightGrey lessPad"><img src="/themes/Intervue/img/resumeIconDark.png" alt="" /></a>				
+				}
+				if (isset($links[0])){
+					$coverLink = "<a href=\"/uploads/applications/" . $jobID. "/" . $a['userID']. "/" . $links[0]."\" class=\"grade btn lightGrey lessPad\"><img src=\"/themes/Intervue/img/coverLetterIconDark.png\" alt=\"\" /></a>";
+				}
+			}
+			
+			
 			?>
 			
 			<tr class="newUser">
@@ -519,10 +535,10 @@ $(function() {
 					
 				</td>
 				<td>
-				       <a href="#" class="grade btn lightGrey lessPad"><img src="/themes/Intervue/img/resumeIconDark.png" alt="" /></a>
+				    <?php echo $resumeLink; ?>
 				</td>
 				<td>
-					<a href="#" class="grade btn lightGrey lessPad"><img src="/themes/Intervue/img/coverLetterIconDark.png" alt="" /></a>
+					<?php echo $coverLink; ?>
 				</td>
 				<td>
 					<a href="/applications-detail?application=<?php echo $a['itemID']; ?>" class="grade btn lightGrey playBtn"><img src="/themes/Intervue/img/playBtn.png" alt="" /></a>
