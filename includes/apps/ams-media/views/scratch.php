@@ -48,7 +48,7 @@ if(!empty($vRS['filename'])) {
     name="captureModule" FlashVars="reviewFile=<?php echo $vRS['filename']; ?>"
     align="middle"
     allowScriptAccess="sameDomain"
-    allowFullScreen="false"
+    allowFullScreen="true"
     type="application/x-shockwave-flash"
     pluginspage="http://www.adobe.com/go/getflash"
 />
@@ -65,7 +65,7 @@ if(!empty($vRS['filename'])) {
     name="captureModule" FlashVars="itemID=<?php echo $videoID; ?>&securityKey=<?php echo md5("iLikeSalt" . $videoID); ?>"
     align="middle"
     allowScriptAccess="sameDomain"
-    allowFullScreen="false"
+    allowFullScreen="true"
     type="application/x-shockwave-flash"
     pluginspage="http://www.adobe.com/go/getflash"
 />

@@ -43,9 +43,21 @@ if ($currentID !== false) {
 
 }
 
+$links = $j->getResumeCoverLetter($application['jobID'], $application['userID']); 
+$resumeLink = "";
+$coverLink = "";
+
+if ($links != false){ 
+	if (isset($links[-1])){
+		$resumeLink = "<a href=\"/uploads/applications/" . $application['jobID']. "/" . $application['userID']. "/" . $links[-1]."\" class=\"grade btn black\"><img src=\"/themes/Intervue/img/resumeIcon.png\" alt=\"\" />Resume</a>";
+	}
+	if (isset($links[0])){
+		$coverLink = "<a href=\"/uploads/applications/" . $application['jobID']. "/" . $application['userID']. "/" . $links[0]."\" class=\"grade btn black\"><img src=\"/themes/Intervue/img/coverLetterIcon.png\" alt=\"\" />Cover Letter</a>";
+	}
+}
+
 
 $quipp->js['footer'][] = "/includes/apps/jobs-manager/js/jobs-manager.js";
-
 ?>
 
 <div id="toolbar">
@@ -164,8 +176,10 @@ $quipp->js['footer'][] = "/includes/apps/jobs-manager/js/jobs-manager.js";
 			<?php } ?>				
        </dl>
        <div id="resumeCoverLetter">
-            <a href="#" class="grade btn black"><img src="/themes/Intervue/img/resumeIcon.png" alt="" />Resume</a>
-            <a href="#" class="grade btn black"><img src="/themes/Intervue/img/coverLetterIcon.png" alt="" />Cover Letter</a>
+            <?php 
+            	echo $resumeLink;
+            	echo $coverLink;
+            ?>
         </div>
 	</div>
     	

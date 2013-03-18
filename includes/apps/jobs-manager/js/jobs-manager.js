@@ -357,6 +357,52 @@ $(function () {
 		        }
 
         });
+    });
+    
+    
+    var currentVideo = 1;
+    var numberOfVideos = $('#video-answers .answer-box').length;
+    
+    $('#va-prev').click(function () {
+    	
+        $('#video-answers .answer-box:nth-child('+currentVideo+')').fadeOut(400, function() {
+	        
+	        if (currentVideo == 1) {
+	    		currentVideo = numberOfVideos;
+	        } else {
+		        currentVideo--;
+	        }
+	        
+	        $('#video-answers .answer-box:nth-child('+currentVideo+')').show();
+        });
+    });
+    
+    $('#va-next').click(function () {
+        
+        $('#video-answers .answer-box:nth-child('+currentVideo+')').fadeOut(400, function() {
+	        
+	        if (currentVideo == numberOfVideos) {
+	    		currentVideo = 1;
+	        } else {
+		        currentVideo++;
+	        }
+	        
+	        $('#video-answers .answer-box:nth-child('+currentVideo+')').show();
+        });
     }); 
+    
+    $(".video-thumbnail").click(function() {
+	   
+	   var newVideo = parseInt($(this).data('vidnumber'));
+	   
+		$('#video-answers .answer-box:nth-child('+currentVideo+')').fadeOut(400, function() {
+			
+			currentVideo = newVideo;
+			
+			$('#video-answers .answer-box:nth-child('+currentVideo+')').show();
+			
+		});
+	   
+    });
       
 });

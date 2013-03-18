@@ -16,12 +16,14 @@ $j = new JobManager($db, $application['userID']);
 
 ?>
 
-    <table class="simpleTable">
     <?php
 
     if (is_array($q->questions) && !empty($q->questions)) {
+    
+    	$videoNavThumbs = "";
+    
+    	echo '<div id="video-answers">';
         $z = 1;
-        echo "<tr>";
         foreach ($q->questions as $questionID => $question) {
 
             $answer = $q->getAnswer($questionID, $application['userID']);
@@ -30,17 +32,20 @@ $j = new JobManager($db, $application['userID']);
             
             if ($question['type'] == 4) {
                 
-                if ($z == 4) {
-                    echo '</tr><tr>';
-                    $z = 1;
-                }
                 
                 $video   = $db->return_specific_item('', 'tblVideos', 'filename', 0, "jobID='" . (int) $application['jobID'] . "' AND questionID='" . $questionID . "' AND userID='" . (int) $application['userID'] . "' AND sysOpen='1' AND sysActive='1'") ;
                 $videoID = $db->return_specific_item('', 'tblVideos', 'itemID', 0, "jobID='" . (int) $application['jobID'] . "' AND questionID='" . $questionID . "' AND userID='" . (int) $application['userID'] . "' AND sysOpen='1'") ;
                 
-                echo '<td>';
+                if ($z==1) {
+                	$style='';
+                } else {
+	                $style='style="display:none;"';
+                }
+                
+                echo '<div class="answer-box" '.$style.'>';
+                echo '<p><strong>Question '.$z.':</strong> ' . $question['label'] . '</p>';
+                
                 if ($video !== 0) {
-
                 ?>
 
                     <embed src="/includes/apps/ams-media/flx/captureModule.swf" quality="high" bgcolor="#000000" width="550" height="400" name="captureModule" FlashVars="reviewFile=<?php echo $video; ?>" align="middle" allowScriptAccess="sameDomain" allowFullScreen="true" type="application/x-shockwave-flash" pluginspage="http://www.adobe.com/go/getflash" />
@@ -48,20 +53,35 @@ $j = new JobManager($db, $application['userID']);
                 <?php
                 } else {
                     // default image here?
-                    echo '<i>Question not answered</i>';
+                    echo '<div class="no-video-box">Question Not Answered</div>';
                 }
-                echo '<p>' . $question['label'] . '</p>';
-                echo '</td>';
+                
+                $videoNavThumbs .= '<div data-vidnumber="'.$z.'" class="video-thumbnail"></div>';
+                
+                echo '</div>';
                 $z++;
                 
             }
             
 
         }
-        echo "</tr>";
+        echo '</div>'; //video-answers
+        
+        ?>
+        
+        <div id="video-answer-nav">
+	        <input type="button" id="va-prev" class="btn red" value="Previous" />
+	        <input type="button" id="va-next" class="btn green" value="Next" />
+        </div>
+        
+        <div id="video-thumbnail-nav">
+        	<?php echo $videoNavThumbs; ?>
+        </div>
+        
+        <?php
+        
     } else {
         $quipp->js['onload'] .= 'alertBox("fail", "This application has no questions");';
     }
 
 ?>
-    </table>
