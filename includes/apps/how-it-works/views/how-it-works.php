@@ -32,7 +32,7 @@
 		
 		<h2>See How it Works<i class="icon arrowCurved"><img src="../../../../themes/Intervue/img/arrowCurved.png" alt="arrowCurved" width="87" height="76" /></i></h2>
 	
-		<div class="videoBox"></div>
+		<div class="videoBox"><img src="../../../../themes/Intervue/img/how-it-works-video-placeholder.png" alt="how-it-works-video-placeholder" width="500" height="325" /></div>
 	
 		<ul>
 		    <li>
