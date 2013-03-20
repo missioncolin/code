@@ -17,7 +17,7 @@
 	        	<i class="icon"><img src="../../../../themes/Intervue/img/mouseIcon.png" alt="mouseIcon" width="110" height="84" /></i>
 	        	<span>3.</span>
 	            <h4>Click joblink to apply</h4><br />
-	            <p>Applicants are guided through the application process and apply for you job opening</p>
+	            <p>Applicants are guided through the application process and apply for the job opening</p>
 	        </li>
 	    </ol>
 	     <div class="clearfix"></div>
@@ -97,7 +97,7 @@
 	    		<img src="../../../../themes/Intervue/img/applyScreenShot.png" alt="applyScreenShot" width="280" height="160" />
 	    	</li>
 	    	<li>
-		    	<h4>Activate through Intervue</h4>
+		    	<h4>Apply through Intervue</h4>
 		    	<p>Applicants enter contact information. upload resume and cover letter enter skills and experience then record answers to your questions using their web cam</p>
 	    	</li>
 	    </ul>
