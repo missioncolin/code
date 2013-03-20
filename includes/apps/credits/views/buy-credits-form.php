@@ -209,7 +209,7 @@
     	<div>
     		Please accept our: <br/>
 	    	<input type="checkbox" id="termsConditions"/><a href="/terms-and-conditions" target="_blank">Terms and Conditions</a><br/>
-	    	<input type="checkbox" id="privacyPolicy"/><a href="/privacy-policy" target="_blank">Privacy Policy</a>    	
+	    	<input type="checkbox" id="privacyPolicy"/><a href="/privacy-policy" target="_blank">Privacy Policy</a></div>    	
     </div>
 
 

@@ -5,7 +5,7 @@
 	        	<i class="icon"><img src="../../../../themes/Intervue/img/linkIcon.png" alt="linkIcon" width="110" height="84" /></i>
 	        	<span>1.</span>
 	            <h4>Set up your joblink</h4><br />
-	            <p>Create a job and intervue will generate a specific for your job</p>
+	            <p>Create a job and intervue will generate a specific link for your job</p>
 	        </li>
 	        <li>
 	        	<i class="icon"><img src="../../../../themes/Intervue/img/laptopIcon.png" alt="laptopIcon" width="110" height="84" /></i>
@@ -98,7 +98,7 @@
 	    	</li>
 	    	<li>
 		    	<h4>Apply through Intervue</h4>
-		    	<p>Applicants enter contact information. upload resume and cover letter enter skills and experience then record answers to your questions using their web cam</p>
+		    	<p>Applicants enter contact information, upload resume and cover letter enter skills and experience then record answers to your questions using their web cam</p>
 	    	</li>
 	    </ul>
 	    <ul class="imgRight">
@@ -116,7 +116,7 @@
 	    	</li>
 	    	<li>
 		    	<h4>Grade Applicants</h4>
-		    	<p>Everything applicant receives a grade based on your job requirements so you can easily find the most qualified candidates</p>
+		    	<p>Every applicant receives a grade based on your job requirements so you can easily find the most qualified candidates</p>
 	    	</li>
 	    </ul>
 	    <ul class="imgRight">
