@@ -2,7 +2,7 @@
 		<h2>Hire Better. Hire Faster. Hire Smarter</h2>
 		<h3>The #1 Online Recruiting Tool</h3>
 		
-		<div class="videoHome"><img src="../../../../themes/Intervue/img/homeImage.jpg" alt="homeImage" width="330" height="210" /></div>
+		<div class="videoHome"><a href="/how-it-works"><img src="../../../../themes/Intervue/img/homeImage.png" alt="homeImage" width="330" height="210" /></a></div>
 		<div class="homeContent">
 			<h4 id="manage">Manage</h4>
 			<p>All applicants information is sorted and organized for you</p>

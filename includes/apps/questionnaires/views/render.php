@@ -318,62 +318,7 @@ else {
     
     if (!empty($_POST) && empty($message)) {
     	
-    	if (($_FILES['resume']['size'] != 0) || ($_FILES['coverLetter']['size'] != 0)) {
-	    		    	
-	    	foreach ($_FILES as $f=>$values) {
-		    	if ($values['error'] == 0) {
-			    	
-			    	/* Holds separate 'question IDs' for each in tblAnswers */
-			    	if ($f == 'coverLetter') {
-			    		$questionID = 0;
-			    	}			    	
-			    	else {
-				    	$questionID = -1;
-			    	}			    	 
-			    	               
-                	/* See whether /applications exists, if not - create it */
-                	if (!is_dir(dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications')) {
-	                	mkdir(dirname(dirname(dirname(dirname(__DIR__)))) . 'uploads/applications');
-                	}
-                	
-			    	if (!is_dir(dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications/' . (int) $_GET['job'] . '/' . (int) $_SESSION['userID'])) {
-                        $successfulMkdir = mkdir(dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications/' . (int) $_GET['job']);
-                        $successfulMkdir = mkdir(dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications/' . (int) $_GET['job'] . '/' . (int) $_SESSION['userID']);
-                    }
-                    else {
-	                    $successfulMkdir = 1;
-                    }
-
-                    if ($successfulMkdir) {
-	                    $file = upload_file($f, dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications/' . (int) $_GET['job'] . '/' . (int) $_SESSION['userID'] . '/', $MIME_TYPES, false, false, false, base_convert(0, 10, 36));
-	                    
-	                    if (substr($file, 0, 8) == '<strong>') {
-	                        $error = $file;
-	                    } else {
-	
-	                        $qry = sprintf("INSERT INTO tblAnswers (applicationID, jobID, userID, questionID, optionID, value, sysDateInserted) VALUES ('%d', '%d', '%d', '%d', '%d', '%s', '%s') ON DUPLICATE KEY UPDATE value='%s', sysDateInserted='%s'",
-	                            $applicationID,
-	                            (int) $_GET['job'],
-	                            (int) $_SESSION['userID'],
-	                            (int) $questionID,
-	                            '',
-	                            $file,
-	                            date('Y-m-d H:i:s'),
-	                            $file,
-	                            date('Y-m-d H:i:s'));
-	                        $db->query($qry);
-	                    }
-	                 }
-                    
-	    	     }
-		    	
-		    	else {
-			    	$message .= "Error: ".$f['Name']." - ".$f['error']."</br>";
-		    	}
-	    	}
-    	}
-
-    	//SAVE QUESTIONS
+    	    	//SAVE QUESTIONS
 		if (is_array($q->questions) && !empty($q->questions)) {
 			
             $qry = sprintf("INSERT INTO tblApplications (jobID, userID, sysDateInserted) VALUES ('%d', '%d', NOW())",
@@ -425,12 +370,11 @@ else {
                 
                 	/* See whether /applications exists, if not - create it */
                 	if (!is_dir(dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications')) {
-	                	mkdir(dirname(dirname(dirname(dirname(__DIR__)))) . 'uploads/applications');
+	                	mkdir(dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications');
                 	}
                 	
                 	/* Create new directory for this application and user if DNE */
                     if (!is_dir(dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications/' . (int) $_GET['job'] . '/' . (int) $_SESSION['userID'])) {
-                        mkdir(dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications/' . (int) $_GET['job']);
                         mkdir(dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications/' . (int) $_GET['job'] . '/' . (int) $_SESSION['userID']);
                     }
 
@@ -473,6 +417,62 @@ else {
             
            $_SESSION['success'] = 1;
         }
+    	
+    	
+    	
+    	if (($_FILES['resume']['size'] != 0) || ($_FILES['coverLetter']['size'] != 0)) {
+	    		    	
+	    	foreach ($_FILES as $f=>$values) {
+		    	if ($values['error'] == 0) {
+			    	
+			    	/* Holds separate 'question IDs' for each in tblAnswers */
+			    	if ($f == 'coverLetter') {
+			    		$questionID = 0;
+			    	}			    	
+			    	else {
+				    	$questionID = -1;
+			    	}			    	 
+			    	               
+                	/* See whether /applications exists, if not - create it */
+                	if (!is_dir(dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications')) {
+	                	mkdir(dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications');
+                	}
+                	
+			    	if (!is_dir(dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications/' . (int) $_GET['job'] . '/' . (int) $_SESSION['userID'])) {
+                        $successfulMkdir = mkdir(dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications/' . (int) $_GET['job'] . '/' . (int) $_SESSION['userID']);
+                    }
+                    else {
+	                    $successfulMkdir = 1;
+                    }
+
+                    if ($successfulMkdir) {
+	                    $file = upload_file($f, dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications/' . (int) $_GET['job'] . '/' . (int) $_SESSION['userID'] . '/', $MIME_TYPES, false, false, false, base_convert(0, 10, 36));
+	                    
+	                    if (substr($file, 0, 8) == '<strong>') {
+	                        $error = $file;
+	                    } else {
+	
+	                        $qry = sprintf("INSERT INTO tblAnswers (applicationID, jobID, userID, questionID, optionID, value, sysDateInserted) VALUES ('%d', '%d', '%d', '%d', '%d', '%s', '%s') ON DUPLICATE KEY UPDATE value='%s', sysDateInserted='%s'",
+	                            $applicationID,
+	                            (int) $_GET['job'],
+	                            (int) $_SESSION['userID'],
+	                            (int) $questionID,
+	                            '',
+	                            $file,
+	                            date('Y-m-d H:i:s'),
+	                            $file,
+	                            date('Y-m-d H:i:s'));
+	                        $db->query($qry);
+	                    }
+	                 }
+                    
+	    	     }
+		    	
+		    	else {
+			    	$message .= "Error: ".$f['Name']." - ".$f['error']."</br>";
+		    	}
+	    	}
+    	}
 
     }
 
@@ -617,7 +617,7 @@ else {
                 case 3: //slider
                     $name = $id = $questionID;
                     $val = $db->return_specific_item(false, "tblAnswers", "value", "0", "jobID = ".$_GET['job']." AND questionID = ".$name." AND userID = " . $_SESSION['userID']);
-                    echo "<div class=\"slider\" rel=\"$name\" alt='".$val."'></div><input type=\"hidden\" name=\"$name\" id=\"$id\" value=\"".$val."\" /><div class='sliderValueHolder' rel='$id'>".$val."/20 years of experience</div>";
+                    echo "<div class=\"slider\" rel=\"$name\" alt='".$val."'></div><input type=\"hidden\" name=\"$name\" id=\"$id\" value=\"".$val."\" /><div class='sliderValueHolder' rel='$id'>".$val."/30 years of experience</div>";
 
                 break;
 
