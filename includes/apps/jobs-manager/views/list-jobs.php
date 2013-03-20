@@ -40,7 +40,7 @@ if (isset($_GET['req']) && preg_match('%^reactivate[\s\+](\d+)$%', $_GET['req'],
         <tr>
             <th>Job Title</th>
             <th>Link</th>
-            <th>Expiry</th>
+            <th>Expiry date</th>
             <th></th>
             <th></th>
         </tr>
@@ -89,10 +89,12 @@ if (isset($_GET['req']) && preg_match('%^reactivate[\s\+](\d+)$%', $_GET['req'],
 ?>
             		<td>
 <?php 
-		
-	            	  	if($job['hasBeenViewed'] == 0){ $printClass = " class=\"newJobAlert\""; }else{ $printClass = ""; }
-	            	  	if(ucfirst($job['sysStatus']) == 'Active'){  
-	            	  		echo "<span ".$printClass.">".$_SERVER['SERVER_NAME']."/apply/".$jobID."</span>"; 
+						$printClass = '';
+	            	  	if ($job['hasBeenViewed'] == 0){
+	            	  		$printClass = " newJobAlert";
+	            	  	}
+	            	  	if (ucfirst($job['sysStatus']) == 'Active'){  
+	            	  		echo "<span class=\"boldLink".$printClass."\">".$_SERVER['SERVER_NAME']."/apply/".$jobID."</span>"; 
 	            	  	} 
 	            	  	else { echo "<span class=\"disabledLink\">(You must publish this job to use a link)</span>"; } ?>
 	            	</td>
