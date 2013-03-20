@@ -172,6 +172,18 @@ if ((isset($_REQUEST['topCandidate']) || isset($_REQUEST['hasPotential'])) || (i
 	
 	//reassign array
 	$applicants = $newApplicants;	
+	
+	// Sort applicants by rating
+	function cmpRating ($a, $b) {
+		
+		if ($j->getApplicantRating($a['itemID']) == $j->getApplicantRating($b['itemID'])) {
+			return 0;
+		}
+		
+		return ($j->getApplicantRating($a['itemID']) < $j->getApplicantRating($b['itemID'])) ? -1 : 1;
+	}
+	
+	usort($applicants, 'cmpRating');
 }
 ?>
 
