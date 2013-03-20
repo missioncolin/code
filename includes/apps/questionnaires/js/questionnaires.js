@@ -298,6 +298,7 @@ var confirmAction = function(title, message){
 
 //apply page
 var $activeVideo = 0;
+var $isReviewing = false;
 $('.nextbutton').click(function () {
 	var $comingFrom = $(this).data('section');
 			
@@ -327,8 +328,14 @@ $('.nextbutton').click(function () {
 			
 			if ($("#video"+$activeVideo).is('*')) {
 				$("#video"+$activeVideo).fadeIn();
+				if($isReviewing) {
+				    $(".nextbutton").show();
+				} else {
+				    $(".nextbutton").hide();
+				}
 			} else {
 				$("#finalStep").fadeIn();
+				$isReviewing = true;
 				$('.current').removeClass().next().addClass('current');
 				
 				$activeVideo--;

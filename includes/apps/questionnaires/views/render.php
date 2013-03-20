@@ -651,7 +651,7 @@ else {
                     $videos .= '</div>';
                     $videos .= '<input type="hidden" name="' . $questionID . '" value="' . $videoID . '" />';
                     $videos .= '<input type="button" class="btn red prevbutton" value="Previous" data-section="video" />';
-                    $videos .= '<input type="button" class="btn green nextbutton" value="Next" data-section="video" />';
+                    $videos .= '<input type="button" class="btn green nextbutton" style="display:none;" value="Next" data-section="video" />';
                     $videos .= "</div>";
                     $videoCount++;
 
