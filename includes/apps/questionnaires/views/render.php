@@ -121,16 +121,16 @@ if (!isset($_SESSION['userID']) || !$_SESSION['userID'] > 0){
 	//load details 
 		 //$firstName = $db->return_specific_item(false, "sysUGFValues", "value", "--", "fieldID = 1 AND userID = " . $_SESSION['userID']); 
 		$post = array();
-		$post['First_Name']['value'] 			= $db->return_specific_item(false, "sysUGFValues", "value", "--", "fieldID = 1  AND userID = " . $_SESSION['userID']);
-		$post['Last_Name']['value']  			= $db->return_specific_item(false, "sysUGFValues", "value", "--", "fieldID = 2  AND userID = " . $_SESSION['userID']);
-		$post['Company_Address']['value']   	= $db->return_specific_item(false, "sysUGFValues", "value", "--", "fieldID = 6  AND userID = " . $_SESSION['userID']);
-		$post['Company_City']['value']	   		= $db->return_specific_item(false, "sysUGFValues", "value", "--", "fieldID = 11 AND userID = " . $_SESSION['userID']);
-		$post['Company_Postal_Code']['value'] 	= $db->return_specific_item(false, "sysUGFValues", "value", "--", "fieldID = 12 AND userID = " . $_SESSION['userID']);
-		$post['Phone_Number']['value']			= $db->return_specific_item(false, "sysUGFValues", "value", "--", "fieldID = 4  AND userID = " . $_SESSION['userID']); 
-		$post['Email']['value'] 				= $db->return_specific_item(false, "sysUGFValues", "value", "--", "fieldID = 3  AND userID = " . $_SESSION['userID']); 
-		$post['Facebook_Username']['value'] 	= $db->return_specific_item(false, "sysUGFValues", "value", "--", "fieldID = 27 AND userID = " . $_SESSION['userID']); 
-		$post['Twitter_Username']['value']		= $db->return_specific_item(false, "sysUGFValues", "value", "--", "fieldID = 30 AND userID = " . $_SESSION['userID']); 
-		$post['LinkedIn_Username']['value']		= $db->return_specific_item(false, "sysUGFValues", "value", "--", "fieldID = 26 AND userID = " . $_SESSION['userID']); 
+		$post['First_Name']['value'] 			= $db->return_specific_item(false, "sysUGFValues", "value", "", "fieldID = 1  AND userID = " . $_SESSION['userID']);
+		$post['Last_Name']['value']  			= $db->return_specific_item(false, "sysUGFValues", "value", "", "fieldID = 2  AND userID = " . $_SESSION['userID']);
+		$post['Company_Address']['value']   	= $db->return_specific_item(false, "sysUGFValues", "value", "", "fieldID = 6  AND userID = " . $_SESSION['userID']);
+		$post['Company_City']['value']	   		= $db->return_specific_item(false, "sysUGFValues", "value", "", "fieldID = 11 AND userID = " . $_SESSION['userID']);
+		$post['Company_Postal_Code']['value'] 	= $db->return_specific_item(false, "sysUGFValues", "value", "", "fieldID = 12 AND userID = " . $_SESSION['userID']);
+		$post['Phone_Number']['value']			= $db->return_specific_item(false, "sysUGFValues", "value", "", "fieldID = 4  AND userID = " . $_SESSION['userID']); 
+		$post['Email']['value'] 				= $db->return_specific_item(false, "sysUGFValues", "value", "", "fieldID = 3  AND userID = " . $_SESSION['userID']); 
+		$post['Facebook_Username']['value'] 	= $db->return_specific_item(false, "sysUGFValues", "value", "", "fieldID = 27 AND userID = " . $_SESSION['userID']); 
+		$post['Twitter_Username']['value']		= $db->return_specific_item(false, "sysUGFValues", "value", "", "fieldID = 30 AND userID = " . $_SESSION['userID']); 
+		$post['LinkedIn_Username']['value']		= $db->return_specific_item(false, "sysUGFValues", "value", "", "fieldID = 26 AND userID = " . $_SESSION['userID']); 
 		
 		if (!strpos($post['Email']['value'], "newuser")){ 
 			$post['Confirm_Email']['value'] = $post['Email']['value'];
@@ -486,9 +486,7 @@ else {
 		echo $message;
 		echo "</li></div>";
     }
-
-
-
+    
 ?>
 
 <form id="job-form" name="jobForm" method="post" action="<?php echo $_SERVER['REQUEST_URI']; ?>" enctype="multipart/form-data">
