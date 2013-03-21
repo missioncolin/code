@@ -374,7 +374,12 @@ class JobManager {
             $points += (int)$tmp['value'];
         }
         
-        return round($points);   
+        if (round($points) <= 100) {
+        	return round($points);
+        }
+        else {
+        	return 100;
+        }   
     }
     /**
     * Method to re-publish a job. This is done via ajax request
