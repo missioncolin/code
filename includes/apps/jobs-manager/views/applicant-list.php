@@ -23,6 +23,7 @@ $jobTitle = "";
 
 $recommendColour = "green";
 $averageColour = "yellow";
+$numTotalApplicants = $j->getApplicants((int)$jobID, 0, 1000);
 
 // Stores all user year questions to define sliders
 $qIDs = array();
@@ -173,6 +174,33 @@ if ((isset($_REQUEST['topCandidate']) || isset($_REQUEST['hasPotential'])) || (i
 	//reassign array
 	$applicants = $newApplicants;	
 }
+
+	$ratings = array();
+	
+	/* Pass array by reference to modify the arrays to include a rating */
+	foreach ($applicants as $index=>$applicant) {
+		
+		$applicant['rating'] = $j->getApplicantRating($applicant['itemID']);
+		$ratings[$index] = $applicant;
+		
+	}	
+	
+	// Sort applicants by rating
+	function cmpRating ($a, $b) {
+		
+		if ($a['rating'] == $b['rating']) {
+			return 0;
+		}
+		
+		return ($a['rating'] > $b['rating']) ? -1 : 1;
+	}
+	
+	usort($ratings, 'cmpRating');
+	
+	//reassign sorted array
+	$applicants = $ratings;
+
+	
 ?>
 
 <script>
@@ -426,6 +454,9 @@ $(function() {
 	<!--Name search box-->
 	<!--searches first name or last name-->
 	<?php
+		echo "<div style=\"float: left; margin-top: 20px;\">";
+		echo "Viewing " . count($applicants) . " out of " . count($numTotalApplicants);
+		echo "</div>";
 		echo "<div style=\"float: right; margin-bottom: 10px;\">";
 		echo "Search By Name:";
 		echo "<input id=\"name-search\" name=\"name-search\" type=\"text\" style=\"margin-right: 5px; margin-left: 10px;\"> <input type=\"submit\" value=\"Search\" class=\"btn\" style=\"margin-top: 5px;\">";

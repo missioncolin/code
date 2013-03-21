@@ -208,10 +208,8 @@
     	<div>Note: Job credits do not expire</div>
     	<div>
     		Please accept our: <br/>
-	    	<input type="checkbox" id="termsConditions"/>Terms and Conditions <br/>
-	    	<input type="checkbox" id="privacyPolicy"/>Privacy Policy 
-    	</div>
-    	
+	    	<input type="checkbox" id="termsConditions"/><a href="/terms-and-conditions" target="_blank">Terms and Conditions</a><br/>
+	    	<input type="checkbox" id="privacyPolicy"/><a href="/privacy-policy" target="_blank">Privacy Policy</a></div>    	
     </div>
 
 
