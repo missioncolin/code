@@ -172,19 +172,34 @@ if ((isset($_REQUEST['topCandidate']) || isset($_REQUEST['hasPotential'])) || (i
 	
 	//reassign array
 	$applicants = $newApplicants;	
+}
+
+	$ratings = array();
+	
+	/* Pass array by reference to modify the arrays to include a rating */
+	foreach ($applicants as $index=>$applicant) {
+		
+		$applicant['rating'] = $j->getApplicantRating($applicant['itemID']);
+		$ratings[$index] = $applicant;
+		
+	}	
 	
 	// Sort applicants by rating
 	function cmpRating ($a, $b) {
 		
-		if ($j->getApplicantRating($a['itemID']) == $j->getApplicantRating($b['itemID'])) {
+		if ($a['rating'] == $b['rating']) {
 			return 0;
 		}
 		
-		return ($j->getApplicantRating($a['itemID']) < $j->getApplicantRating($b['itemID'])) ? -1 : 1;
+		return ($a['rating'] > $b['rating']) ? -1 : 1;
 	}
 	
-	usort($applicants, 'cmpRating');
-}
+	usort($ratings, 'cmpRating');
+	
+	//reassign sorted array
+	$applicants = $ratings;
+
+	
 ?>
 
 <script>
