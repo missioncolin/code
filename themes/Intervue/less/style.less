@@ -2206,15 +2206,15 @@ th.coverLetter { width: 100px; }
     width: 52.08%;
     margin: 25px 0 0 25%;
     background-color:#FFFFFF;
-    border: 1px solid #CCC;
+    border: 1px solid @darkBorders; //#CCC
     float: left;
 }
 
 
 #signupBox h2{
-    background: #333333;
-    border-bottom: 1px solid black;
-    color: #FFFFFF;
+	background: @borders; //#333333
+	border-bottom: 1px solid @darkBorders; //black
+	color: @base2; //color: #FFFFFF;
     font-weight: bold;
     margin: 0 0 20px;
     font-size: 20px;
@@ -3377,9 +3377,9 @@ body#login.dark #loginBox h2 { background: #EFEFEF; border-bottom: 1px solid #CC
 
 /*Light Theme----------------------------------------------------------------- */ 
 
-body#login.light { background: #EFEFEF; }
-body#login.light #loginBox { background: #FFF; border: 1px solid #CCC; }
-body#login.light #loginBox h2 { background: #333; border-bottom: 1px solid #000; color: #FFF; }
+body#login.light { background: #FFFFFF; }
+body#login.light #loginBox { background: #FFF; border: 1px solid @darkBorders; }
+body#login.light #loginBox h2 { background: @borders; border-bottom: 1px solid @darkBorders; color: @base2; }
 
 
 /* ==|== media queries ======================================================
