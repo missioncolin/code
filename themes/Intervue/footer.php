@@ -5,7 +5,7 @@
         <div>
             <h3>Intervue <span>Bringing People Into Focus</span></h3>
             <div id="footerNav">
-                <a href="#">About Us</a> &bull; <a href="#">Privacy Policy</a>
+                <a href="/about-us">About Us</a> &bull; <a href="/privacy-policy">Privacy Policy</a>
             </div>
         <div class="clearfix"></div>
         </div>

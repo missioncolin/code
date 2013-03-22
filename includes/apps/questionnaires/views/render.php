@@ -755,7 +755,7 @@ else {
 			    </ul>
 		    </li>
 		    <li>
-		    	<label for="privacyPolicy">Accept <a href="#">Privacy Policy </a></label><input type="checkbox" id="privacyPolicy" name="privacyPolicy">
+		    	<label for="privacyPolicy">Accept <a href="/privacy-policy">Privacy Policy </a></label><input type="checkbox" id="privacyPolicy" name="privacyPolicy">
 		    </li>
 	    </ul>
 	    
