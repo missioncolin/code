@@ -480,5 +480,5 @@ $('.thankYou').click(function () {
 
 $('.saveButton').click(function(){
 
-	$("#takeAway").fadeIn();
+	window.location.href = "/application-saved";
 });
