@@ -31,25 +31,25 @@ if (!empty($_POST) && isset($_POST["sub-contact-us"]) && validate_form($_POST)) 
         <div class="heading">
             <h2>
                 Contact Us<br />
-                <span>Lorem Ipsum</span>
+                <span>We can help</span>
             </h2>
         </div>
         <ul>
             <li>
-                <h4>Subtitle 1</h4>
-                <p>Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Nullam quis risus eget urna mollis ornare vel eu leo. Donec id elit non mi porta gravida at</p>
+                <h4>Want a product demo?</h4>
+                <p>We will show you the amazing features and benefits of Intervue, set up your first job for you and get you started in minutes.</p>
             </li>
             <li>
-                <h4>Subtitle 2</h4>
-                <p>Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Nullam quis risus eget urna mollis ornare vel eu leo. Donec id elit non mi porta gravida at</p>
+                <h4>Have a question?</h4>
+                <p>We are happy to help, one of our customer service agents will contact you within 24 hours and help you with anything you need.</p>
             </li>
             <li>
-                <h4>Subtitle 3</h4>
-                <p>Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Nullam quis risus eget urna mollis ornare vel eu leo. Donec id elit non mi porta gravida at</p>
+                <h4>Have a suggestion?</h4>
+                <p>We want to hear what you have to say about intervue and if you have ideas on how to improve it, or if there are features that you need to make the service work better for you just let us know.</p>
             </li>
             <li>
-                <h4>Subtitle 4</h4>
-                <p>Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Nullam quis risus eget urna mollis ornare vel eu leo. Donec id elit non mi porta gravida at</p>
+                <h4>Just want to talk?</h4>
+                <p>We at intervue are happy to listen</p>
             </li>
         </ul>
     </div>
