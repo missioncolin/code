@@ -312,6 +312,29 @@ class JobManager {
         }   
     }
         
+        
+    public function getApplicantAvatarSrc($userID) {
+        
+     
+       $qry = sprintf("SELECT filename FROM tblVideos WHERE userID = '%d' ORDER BY itemID DESC LIMIT 1;",
+                (int)$userID);
+        $res = $this->db->query($qry);
+
+        if ($this->db->valid($res)) {
+            $exp = $this->db->fetch_assoc($res);
+            
+            if(!empty($exp['filename'])) {
+                return "http://media.intervue.ca:8080/frame.php?f=".$exp['filename'];
+            } else {
+                return "/themes/Intervue/img/profilePicExample1.jpg";
+            }
+        } else {
+            
+            return "/themes/Intervue/img/profilePicExample1.jpg";   
+        }
+        
+    }    
+        
     public function getApplicantRating($applicationID){
         //total from values column in tblanswers
         $points = 0;
