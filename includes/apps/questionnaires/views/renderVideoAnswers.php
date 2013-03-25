@@ -56,7 +56,7 @@ $j = new JobManager($db, $application['userID']);
                     echo '<div class="no-video-box">Question Not Answered</div>';
                 }
                 
-                $videoNavThumbs .= '<div data-vidnumber="'.$z.'" class="video-thumbnail"></div>';
+                $videoNavThumbs .= '<div data-vidnumber="'.$z.'" class="video-thumbnail"><img src="http://media.intervue.ca:8080/frame.php?f='.$video.'" style="width:200px; max-height:150px;"/></div>';
                 
                 echo '</div>';
                 $z++;
