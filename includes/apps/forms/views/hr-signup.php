@@ -111,7 +111,7 @@ if ($this INSTANCEOF Quipp){
 	        <input type="password" id="password" name="password" class="full" required="required"/>
 	        </div>
 	        <div class="inputs">
-	        <label for="confirm_password">Confirm </br>Password</label>
+	        <label for="confirm_password">Confirm Password</label>
 	        <input type="password" id="confirm_password" name="confirm_password" class="full" required="required"/>
 	        </div>
 	        <div>

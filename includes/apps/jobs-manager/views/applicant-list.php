@@ -535,9 +535,14 @@ $(function() {
 
 					//<a href="<?php echo $resumeLink; //" class="grade btn lightGrey lessPad"><img src="/themes/Intervue/img/resumeIconDark.png" alt="" /></a>				
 				}
+				
 				if (isset($links[0])){
 					$coverLink = "<a href=\"/uploads/applications/" . $jobID. "/" . $a['userID']. "/" . $links[0]."\" class=\"grade btn lightGrey lessPad\"><img src=\"/themes/Intervue/img/coverLetterIconDark.png\" alt=\"\" /></a>";
 				}
+			}
+			else {
+				$resumeLink = "Not Provided";
+				$coverLink = "Not Provided";
 			}
 			
 			
