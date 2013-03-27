@@ -121,6 +121,9 @@ $quipp->js['footer'][] = "/includes/apps/jobs-manager/js/jobs-manager.js";
             <dd><?php echo $applicant->info['First Name']." " . $applicant->info['Last Name'];?></dd>
             <dt>Email</dt>
             <dd><?php echo $applicant->info['Email'];?></dd>
+            <?php echo isset($applicant->info['Company Address']) ? '<dt>Address</dt><dd>' . $applicant->info['Company Address'] . '</dd>' : '';?>
+            <?php echo isset($applicant->info['Company City']) ? '<dt>City</dt><dd>' . $applicant->info['Company City'] . '</dd>' : '';?>
+            <?php echo isset($applicant->info['Phone Number']) ? '<dt>Phone</dt><dd>' . $applicant->info['Phone Number'] . '</dd>' : '';?>
             <dt>Links</dt>
             <dd id="links">
             <?php
