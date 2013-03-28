@@ -10,6 +10,7 @@ $(function() {
 
 	/* Store variables for whether the form has submitted successfully */
 	var successfulApp = <?php echo isset($_REQUEST['submitted']) ? '1' : '0'; ?>;
+		
 	var jobTitle = "<?php echo $title; ?>";
 	var isSession = "<?php echo isset($_SESSION['userID']); ?>";
 	
@@ -161,11 +162,7 @@ if (isset($_GET['user']) || isset($_SESSION['userID'])) {
 	}	
 }
 
-if (isset($_POST['Email']) && isset($_POST['Confirm_Email']) && $_POST['Email'] != $_POST['Confirm_Email']) {
-	
-	$message = "Your email addresses do not match.";
-	
-} else if(isset($_POST) && !empty($_POST) && empty($message)){  
+if(isset($_POST) && !empty($_POST) && empty($message)){  
     //UPDATE ACCOUNT  
 
 
@@ -191,11 +188,10 @@ if (isset($_POST['Email']) && isset($_POST['Confirm_Email']) && $_POST['Email'] 
     
 /*     if (isset($_POST["job-form"])){ */
         
-    $submitted = true;
     $valid = false;
     
     $validate = array();
-    
+        
     foreach($post as $field => $nfo) {
     
         $validate[$nfo["code"].$field] = "";
@@ -210,13 +206,20 @@ if (isset($_POST['Email']) && isset($_POST['Confirm_Email']) && $_POST['Email'] 
         //}
     }
     
-    
-    if (validate_form($validate)){
+/*     print_r($post); */
+	
+    if (isset($post['Email']['value']) && isset($post['Confirm_Email']['value']) && ($post['Email']['value'] == $post['Confirm_Email']['value']) && validate_form($validate)){
         $valid = true;
         unset($post[2]); //don't want to pass this to createUserAccount
     }
     else {
+    
+		    if (isset($post['Email']) && isset($post['Confirm_Email']) && $post['Email'] != $post['Confirm_Email']) {
+			    $emails = 'Emails do not match.';
+		    }
+		    
 	    	echo '<div id="steps" style="margin-top: 20px;"><li class="alert fail"><span></span>';
+	    	echo $emails;
 			echo $message;
 			echo "</li></div>";
     }
