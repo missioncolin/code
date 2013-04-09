@@ -1,6 +1,11 @@
     <div class="clearfix"></div>
     </section>
     
+    <?php if (strpos($user->username, 'newuser') === false) { 
+
+        if (strpos($meta['body_id'], 'apply') !== false) { }
+
+        else { ?>
     <footer>
         <div>
             <h3>Intervue <span>Bringing People Into Focus</span></h3>
@@ -10,6 +15,7 @@
         <div class="clearfix"></div>
         </div>
     </footer>
+        <?php } } ?>
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="/themes/PanicBob/js/vendor/jquery-1.7.2.min.js"><\/script>')</script>

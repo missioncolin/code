@@ -33,7 +33,10 @@
 </head>
 <body data-controller="<?php echo str_replace('-', '_', $meta['body_id']); ?>" class="<?php print Page::body_class($meta['body_classes']); ?>" id="<?php echo $meta['body_id']; ?>">
     <!--[if lt IE 7]><p class="chromeframe">Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
+    <?php if (strpos($user->username, 'newuser') === false) { 
 
+        if (strpos($meta['body_id'], 'apply') !== false) { }
+        else {?>
     <header>
         <div>
             <a class="logo" href="/"><img src="/themes/Intervue/img/logo.png" alt="Intervue" /></a>
@@ -41,7 +44,7 @@
             
                 <?php if (isset($user->groups['hr-managers'])) { ?>
                     <div id="loggedInButtons">
-                        <a href="/buy-job-credits"><?php echo $user->info['Job Credits'];  echo ( $user->info['Job Credits'] == 1 ? ' Credit': ' Credits'); ?></a> 
+                        <?php if (strstr($user->username, 'newuser') == 0) { ?> <a href="/buy-job-credits"><?php echo $user->info['Job Credits'];  echo ( $user->info['Job Credits'] == 1 ? ' Credit': ' Credits'); } ?></a> 
                       <!--  <a href="/profile">Profile</a>-->
                     </div>
                     <ul id="social">
@@ -77,7 +80,8 @@
         <div class="clearfix"></div>
         </div>
     </header>
-    
+    <?php }
+    } ?>
     <section id="container" <?php if ($meta['body_id'] == 'home') { print 'class="home"'; } ?>>
     
 
