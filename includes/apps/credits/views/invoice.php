@@ -55,7 +55,6 @@
 <table class="simpleTable">
 <thead>
     <tr>
-    	Job credits do not expire.
         <th colspan="2">Invoice Item</th>
         <th style="width:200px">Price</th>
     </tr>
