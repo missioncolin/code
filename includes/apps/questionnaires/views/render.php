@@ -92,6 +92,10 @@ require_once dirname(dirname(__DIR__)) . '/jobs-manager/JobManager.php';
 require_once dirname(dirname(__DIR__)) . '/job-info/JobInfo.php';
 require_once dirname(__DIR__) . '/Questionnaire.php';
 
+function base64url_decode($data) { 
+  return base64_decode(str_pad(strtr($data, '-_', '+/'), strlen($data) % 4, '=', STR_PAD_RIGHT)); 
+} 
+
 if (!isset($f) || !$f INSTANCEOF Forms){
     $f = new Forms($db);
 }
@@ -145,7 +149,10 @@ if (isset($_GET['user']) || isset($_SESSION['userID'])) {
 	/* Revisiting page - check whether already applied */
 	
 	if (isset($_GET['user'])) {
-		$usrQry = sprintf("SELECT * FROM tblApplications WHERE userID = '%d' AND jobID = '%d' AND sysActive = '1'", (int)$_GET['user'], (int)$_GET['job']);
+		$encryptionKey = "elephants321";
+		$userID = trim(mcrypt_decrypt(MCRYPT_RIJNDAEL_256, $encryptionKey , base64url_decode(rtrim($_GET['user'])) , MCRYPT_MODE_ECB, mcrypt_create_iv(mcrypt_get_iv_size(MCRYPT_RIJNDAEL_256, MCRYPT_MODE_ECB), MCRYPT_RAND)));
+	
+		$usrQry = sprintf("SELECT * FROM tblApplications WHERE userID = '%d' AND jobID = '%d' AND sysActive = '1'", (int)$userID, (int)$_GET['job']);
 		$usrRes = $db->query($usrQry);
 		
 		$returnedThis = $db->fetch_assoc($usrRes);		
