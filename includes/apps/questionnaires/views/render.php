@@ -768,7 +768,7 @@ else {
 		    	echo '<embed src="/includes/apps/ams-media/flx/captureModule.swf" quality="high" bgcolor="#000000" width="550" height="400" name="captureModule" FlashVars="itemID=0&securityKey=' . md5("iLikeSalt0") . '" align="middle" allowScriptAccess="sameDomain" allowFullScreen="true" type="application/x-shockwave-flash" pluginspage="http://www.adobe.com/go/getflash" />';
 		    ?>
 	    
-	    <input type="button" class="btn saveButton" value="Save now and do interview later"/>
+	    <input type="button" class="btn saveButton" data-job="<?php echo $_GET['job']; ?>" data-jobtitle="<?php echo $title; ?>" data-companyname="<?php echo $db->return_specific_item(false, "sysUGFValues", "value", "--", "fieldID = 10  AND userID = " . $companyID);?>" data-email="<?php echo $post['Email']['value']; ?>" data-firstname="<?php echo $post['First_Name']['value']; ?>" data-lastname="<?php echo $post['Last_Name']['value']; ?>" value="Save now and do interview later"/>
 	    <input type="button" class="btn green nextbutton instButton" data-section="instructions" value="Continue and begin interview"/>
     </div>
     

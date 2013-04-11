@@ -443,7 +443,7 @@ $('#steps li').click(function () {
 		
 		
 		
-		break;
+		break; 
 		
 	case 4:
 		$(".userinfo").fadeOut();
@@ -480,5 +480,15 @@ $('.thankYou').click(function () {
 
 $('.saveButton').click(function(){
 
-	window.location.href = "/application-saved";
+	$.post('/includes/apps/questionnaires/ajax/send-link.php', {
+        job: 			$(this).data('job'), 
+        jobTitle:  		$(this).data('jobtitle'),
+        email :    		$(this).data('email'), 
+        companyName: 	$(this).data('companyname'),
+        firstName: 		$(this).data('firstname'), 
+        lastName:		$(this).data('lastname')
+    }, function(data) {
+		$("#takeAway").fadeIn();
+    });
+	
 });
