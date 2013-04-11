@@ -91,7 +91,8 @@ $(function () {
        /* No credits left */
        else {
 	       $('.popUp h2').html("No Credits Remaining");
-	       $('.popUp p').html('To activate the link you must purchase credits, click <a href="buy-job-credits">here</a> to buy credits.');
+           linkString = 'To activate the link you must purchase credits, click <a href="buy-job-credits?redirect=' + $(this).data('job') + '">here</a> to buy credits.';
+	       $('.popUp p').html(linkString);
 	       $('.popUp #popUpNo').hide();
 	       $('#confirm').fadeIn();
 	       

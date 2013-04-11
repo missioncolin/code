@@ -32,6 +32,7 @@
             }else{
 	            $redirect = "";
             }
+
             header('Location: /invoice?id=' . $charge.(!empty($_POST['referrer']) ? '&req='.str_replace(' ','+',$_POST['referrer']) : '').$redirect);
         }
     }
@@ -214,6 +215,8 @@
 
 
     <input type="hidden" name="referrer" value="<?php echo (isset($_GET['req']) ? $_GET['req'] : '');?>" />
+    <input type="hidden" name="redirect" value="<?php echo (isset($_GET['redirect']) ? $_GET['redirect'] : ''); ?>" />
+
 </form>
 
 <div class="anySite">

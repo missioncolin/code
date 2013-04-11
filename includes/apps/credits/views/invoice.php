@@ -22,13 +22,38 @@
             $invoice['chargedAmount'] = ((int) $invoice['chargedAmount'] > 0) ? $invoice['chargedAmount'] : $invoice['amount'];
         
         /* Get user's province name */
-        $prov = $db->query("SELECT `provName` FROM `sysProvince` WHERE itemID = '" . $user->info['Company Province'] . "'");
-        
-        if ($db->valid($prov)){
+        if (isset($user->info['Company Province'])) {
+            $prov = $db->query("SELECT `provName` FROM `sysProvince` WHERE itemID = '" . $user->info['Company Province'] . "'");
+
+            if ($db->valid($prov)){
             $row = $db->fetch_assoc($prov);
+            }
+            else {
+                $row['provName'] = 'None specified.';
+            }
+
         }
         else {
-	        $row['provName'] = 'None specified.';
+            $row['provName'] = "None Specified";
+        }
+        
+        
+
+        /* Get credits */
+        switch ($invoice['creditID']) {
+
+            case 1:
+                $creditNum = 1;
+                break;
+            case 2:
+                $creditNum = 3;
+                break;
+            case 3:
+                $creditNum = 10;
+                break;
+            default:
+                $creditNum = 'Unlimited Package';
+                break;
         }
 
 ?>
@@ -49,7 +74,6 @@
 	<dd><?php echo (isset($user->info['Company City']) && isset($row['provName'])) ? $user->info['Company City'] . ', ' . $row['provName'] : 'No City Provided'; ?></dd>
 	<dd><?php echo (isset($user->info['Company Postal Code'])) ? $user->info['Company Postal Code'] : 'No Postal Code Provided'; ?></dd>
 	<dd><?php echo (isset($user->info['Email'])) ? $user->info['Email'] : 'No Email Provided'; ?></dd>
-	<dd>Payment type: </dd>
 <!-- 	<dd><?php echo $user->info['Phone Number']; ?></dd> -->
 </div>
 <table class="simpleTable">
@@ -61,7 +85,7 @@
 </thead>
 <tbody>
     <tr>
-        <td colspan="2"><div><?php echo $invoice['description']; ?> (on <?php echo date("Y-m-d g:i a", strtotime($invoice['sysDateCreated']));?>)</div></td>
+        <td colspan="2"><div><?php echo $invoice['description']; ?> (on <?php echo date("Y-m-d g:i a", strtotime($invoice['sysDateCreated']));?>), <strong>Credits:</strong> <?php echo $creditNum; ?></div></td>
         <td><div><?php echo money_format('%n', $invoice['amount'] / 100); ?></div></td>
     </tr>
 </tbody>
@@ -108,8 +132,11 @@ if(isset($_GET['redirect']) && is_numeric($_GET['redirect'])){
             case "createnew":
                 echo '<a class="btn" href="/create-job?step=1">Create New Job</a>&nbsp;';
                 break;
+            case "":
+                echo '<a class="btn" href="/create-job?step=1">Create New Job</a>&nbsp;';
+                break;
             
-        }
+        } 
         
     }
         }
