@@ -54,7 +54,7 @@
 		    <h4>Hiring More?</h4>
 		    <p>Ask about our unlimited job offer</p>
 		    <span>Call for details <br />647-348-6784</span>
-		    <small>Job credits do no expire</small>
+		    <small>Job credits do not expire</small>
 		    <a href="#">Choose this Plan</a>
 	    </li>
 	    
@@ -74,7 +74,7 @@
 			    <h4>$<?php echo $credit['price']; ?></h4>
 			    <h5><?php echo $credit['credits']; ?> Jobs</h5>
 			    <p><?php echo $credit['packageDescription']; ?></p>
-			    <small>Job credits do no expire</small>
+			    <small>Job credits do not expire</small>
 			    <label for="credit_<?php echo $credit['itemID']; ?>"<?php echo $class; ?>>Choose this Plan</label>
 			    <input type="radio" name="credits" id="credit_<?php echo $credit['itemID']; ?>" value="<?php echo $credit['itemID']; ?>"<?php echo $checked; ?>>
 		    </li>
