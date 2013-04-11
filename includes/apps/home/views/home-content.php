@@ -32,17 +32,17 @@
 	<div id="newFooter">
 		<ul>
 			<h3>Features</h3>
-			<li><a href="#sectionOne">Manages</a></li>
-			<li><a href="#sectionOne">Grades</a></li>
-			<li><a href="#sectionOne">Screens</a></li>
-			<li><a href="#sectionOne">Interviews</a></li>
+			<li><a href="/how-it-works#managesEverything">Manages</a></li>
+			<li><a href="/how-it-works#gradeApplicants">Grades</a></li>
+			<li><a href="/how-it-works#screens">Screens</a></li>
+			<li><a href="/how-it-works#interviews">Interviews</a></li>
 		</ul>
 		<ul>
 			<h3>Community</h3>
-			<li><a href="http://twitter.com/Intervuetweets">Twitter</a></li>
-			<li><a href="http://www.facebook.com/Intervue?fref=ts">Facebook</a></li>
-			<li><a href="http://www.linkedin.com/company/2723868?trk=tyah">LinkIn</a></li>
-			<li><a href="">YouTube</a></li>
+			<li><a href="http://twitter.com/Intervuetweets" target="_blank">Twitter</a></li>
+			<li><a href="http://www.facebook.com/Intervue?fref=ts" target="_blank">Facebook</a></li>
+			<li><a href="http://www.linkedin.com/company/2723868?trk=tyah" target="_blank">LinkedIn</a></li>
+			<li><a href="" target="_blank">YouTube</a></li>
 		</ul>
 		<ul>
 			<h3 class="companyName">Intervue</h3>

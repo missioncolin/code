@@ -5,7 +5,7 @@
 	        	<i class="icon"><img src="../../../../themes/Intervue/img/linkIcon.png" alt="linkIcon" width="110" height="84" /></i>
 	        	<span>1.</span>
 	            <h4>Set up your joblink</h4><br />
-	            <p>Create a job and intervue will generate a specific for your job</p>
+	            <p>Create a job and intervue will generate a specific link for your job</p>
 	        </li>
 	        <li>
 	        	<i class="icon"><img src="../../../../themes/Intervue/img/laptopIcon.png" alt="laptopIcon" width="110" height="84" /></i>
@@ -17,7 +17,7 @@
 	        	<i class="icon"><img src="../../../../themes/Intervue/img/mouseIcon.png" alt="mouseIcon" width="110" height="84" /></i>
 	        	<span>3.</span>
 	            <h4>Click joblink to apply</h4><br />
-	            <p>Applicants are guided through the application process and apply for you job opening</p>
+	            <p>Applicants are guided through the application process and apply for the job opening</p>
 	        </li>
 	    </ol>
 	     <div class="clearfix"></div>
@@ -97,11 +97,11 @@
 	    		<img src="../../../../themes/Intervue/img/applyScreenShot.png" alt="applyScreenShot" width="280" height="160" />
 	    	</li>
 	    	<li>
-		    	<h4>Activate through Intervue</h4>
-		    	<p>Applicants enter contact information. upload resume and cover letter enter skills and experience then record answers to your questions using their web cam</p>
+		    	<h4>Apply through Intervue</h4>
+		    	<p>Applicants enter contact information, upload resume and cover letter enter skills and experience then record answers to your questions using their web cam</p>
 	    	</li>
 	    </ul>
-	    <ul class="imgRight">
+	    <ul id="managesEverything" class="imgRight">
 	    	<li>
 		    	<h4>Manages everything</h4>
 		    	<p>All applications are stored and organized in one place. Access all their information with a single click</p>
@@ -110,16 +110,16 @@
 	    		<img src="../../../../themes/Intervue/img/applicantsScreenShot.png" alt="applicantsScreenShot" width="280" height="95" style="margin-top: 12px;" />
 	    	</li>
 	    </ul>
-	    <ul class="imgLeft">
+	    <ul id="gradeApplicants" class="imgLeft">
 	    	<li>
 	    		<p style="font-size: 60px;padding: 40px 0 0 0;">100%</p>
 	    	</li>
 	    	<li>
 		    	<h4>Grade Applicants</h4>
-		    	<p>Everything applicant receives a grade based on your job requirements so you can easily find the most qualified candidates</p>
+		    	<p>Every applicant receives a grade based on your job requirements so you can easily find the most qualified candidates</p>
 	    	</li>
 	    </ul>
-	    <ul class="imgRight">
+	    <ul id="screens" class="imgRight">
 	    	<li style="margin-top: 45px;">
 		    	<h4>Screens them Too...</h4>
 		    	<p>Use the skills sliders so you can find the candidates with right skills to fit your job</p>
@@ -128,7 +128,7 @@
 	    		<img src="../../../../themes/Intervue/img/experienceSliderScreenShot.png" alt="experienceSliderScreenShot" width="280" height="214" />
 	    	</li>
 	    </ul>
-	    <ul class="imgLeft">
+	    <ul id="interviews" class="imgLeft">
 	    	<li>
 	    		<img src="../../../../themes/Intervue/img/videoScreenShot.png" alt="videoScreenShot" width="220" height="160" />
 	    	</li>
@@ -164,16 +164,16 @@
 	<div id="newFooter">
 		<ul>
 			<h3>Features</h3>
-			<li><a href="#sectionOne">Manages</a></li>
-			<li><a href="#sectionOne">Grades</a></li>
-			<li><a href="#sectionOne">Screens</a></li>
-			<li><a href="#sectionOne">Interviews</a></li>
+			<li><a href="/how-it-works#managesEverything">Manages</a></li>
+			<li><a href="/how-it-works#gradeApplicants">Grades</a></li>
+			<li><a href="/how-it-works#screens">Screens</a></li>
+			<li><a href="/how-it-works#interviews">Interviews</a></li>
 		</ul>
 		<ul>
 			<h3>Community</h3>
 			<li><a href="http://twitter.com/Intervuetweets">Twitter</a></li>
 			<li><a href="http://www.facebook.com/Intervue?fref=ts">Facebook</a></li>
-			<li><a href="http://www.linkedin.com/company/2723868?trk=tyah">LinkIn</a></li>
+			<li><a href="http://www.linkedin.com/company/2723868?trk=tyah">LinkedIn</a></li>
 			<li><a href="">YouTube</a></li>
 		</ul>
 		<ul>

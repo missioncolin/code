@@ -138,7 +138,7 @@ class JobManager {
         
         $jobs = array();
         
-        $qry = sprintf("SELECT itemID, title, link, dateExpires, datePosted, questionnaireID, hasBeenViewed, sysStatus FROM tblJobs WHERE userID='%d' AND sysOpen='1' ORDER BY datePosted DESC LIMIT %d, %d",
+        $qry = sprintf("SELECT itemID, title, link, dateExpires, datePosted, questionnaireID, hasBeenViewed, sysStatus FROM tblJobs WHERE userID='%d' AND sysOpen='1' ORDER BY datePosted DESC, itemID DESC LIMIT %d, %d",
             (int)$this->userID,
             $offset,
             $display);
@@ -312,6 +312,29 @@ class JobManager {
         }   
     }
         
+        
+    public function getApplicantAvatarSrc($userID) {
+        
+     
+       $qry = sprintf("SELECT filename FROM tblVideos WHERE userID = '%d' ORDER BY itemID DESC LIMIT 1;",
+                (int)$userID);
+        $res = $this->db->query($qry);
+
+        if ($this->db->valid($res)) {
+            $exp = $this->db->fetch_assoc($res);
+            
+            if(!empty($exp['filename'])) {
+                return "http://media.intervue.ca:8080/frame.php?f=".$exp['filename'];
+            } else {
+                return "/themes/Intervue/img/profilePicExample1.jpg";
+            }
+        } else {
+            
+            return "/themes/Intervue/img/profilePicExample1.jpg";   
+        }
+        
+    }    
+        
     public function getApplicantRating($applicationID){
         //total from values column in tblanswers
         $points = 0;
@@ -374,7 +397,12 @@ class JobManager {
             $points += (int)$tmp['value'];
         }
         
-        return round($points);   
+        if (round($points) <= 100) {
+        	return round($points);
+        }
+        else {
+        	return 100;
+        }   
     }
     /**
     * Method to re-publish a job. This is done via ajax request

@@ -678,12 +678,12 @@ header {
     background: #FFF;
     width: 100%;
     border-top: 3px solid @accent;
-    /* border-bottom: 1px solid #CCC; */
+    // border-bottom: 1px solid #CCC; 
     padding-bottom: 40px;
 }
 
 #home header {
-    padding-bottom: 0;
+    padding-bottom: 40px;
 }
 
 header > div {
@@ -855,11 +855,12 @@ nav a:hover {
 /*Home Page Specifics ------------------------------------------------------- */
 
 #sectionOneHome {
-	padding: 20px;
+	padding: 20px 70px 20px 20px;
 }
 
 #home #container h2 { 
-	font-size: 30px;
+	font-size: 34px;
+	margin-bottom: 15px;
 	text-align: center;
 }
 #home #container #sectionOneHome h3 {
@@ -867,9 +868,10 @@ nav a:hover {
 	text-transform: capitalize;
 	color: @base;
 	margin-bottom: 60px;
+	font-size: 22px;
 }
 #home #container .homeContent {
-	margin-left: 540px;
+	margin-left: 498px;
 }
 #home .videoHome {
 	float: left; 
@@ -891,6 +893,9 @@ nav a:hover {
 }
 #home #container h4 {
 	margin: 3px 0;
+}
+#home #container .homeContent h4:first-child {
+	margin: 0 0 3px;
 }
 #home #container, #how-it-works #container {
 	font-size: 16px;
@@ -944,7 +949,7 @@ nav a:hover {
 #newFooter {
 	clear: both;
 	background-color: lighten(@borders, 10%);
-	padding: 20px 160px;
+	padding: 20px 227px;
 }
 #newFooter ul {
 	float: left;
@@ -953,6 +958,9 @@ nav a:hover {
 	padding: 0;
 	list-style: none;
 }
+#newFooter ul.lastColumn {
+	width: 100px;
+}
 #newFooter h3 {
 	text-transform: none;
 }
@@ -960,10 +968,16 @@ nav a:hover {
 	font-weight: 400;
 	color: #3a812e;
 }
-#newFooter ul:first-child a {
+
+/*#newFooter ul:first-child a {
 	font-weight: 700;
 	color: #acb69d;
+}*/
+
+#faq ol li {
+	margin-top: 30px;
 }
+
 #newFooter ul a:hover {
 	color: @accent2;
 }
@@ -981,7 +995,6 @@ nav a:hover {
 	width: 100%;
 	height: 7px;
 	background: @accent2;
-	margin: 0;
 }
 #sectionOne h2 {
 	position: relative;
@@ -2000,22 +2013,56 @@ form table input + input {
 
 /*Invoice*/
 /*table.simpleTable tr td { border-right: 1px solid @darkBorders; }*/
-table.simpleTable tr.subTotal { background-color: #f5f5f5; }
-table.simpleTable tr.tax { background-color: #fafafa;  }
-table.simpleTable tr.finalTotal, table.simpleTable tr.subTotal:hover, table.simpleTable tr.tax:hover { background-color: lighten(@accent, 41%); }
-table.simpleTable td.empty {
-	background:url(img/tile.png);
-	background-color: #FFF;
+
+#invoice #seller-details {
+	float: left;
 }
+
+#invoice #buyer-details {
+	float: right;
+	width: 49%;
+	font-weight: bold;
+	margin-bottom: 30px;
+}
+
 table.simpleTable td.total {
 	text-align: right;
-	width: 100px;
-	border-right: 1px solid #d8d8d8;
+	width: 168px;
 }
 
 #jobManagerEdit table.simpleTable tr td:first-child { border-right: none; }
 
 #hrListJobs table.simpleTable tr td { border-right: none; }
+
+table.simpleTable.invoiceTotals {
+	width: 400px;
+	float: right;
+	border-top: none;
+	.border-radius(0 0 5px 5px);
+}
+
+#invoice table.simpleTable td {
+	padding-right: 0;
+}
+#invoice table.simpleTable td.rightRounds {
+	padding-left: 0;
+	padding-right: 10px;
+}
+#invoice table.simpleTable td div {
+	background-color: lighten(@borders, 10%);
+	border: 1px solid @borders;
+	.border-radius(3px 0 0 3px);
+	padding: 8px 10px;
+	
+}
+#invoice table.simpleTable td.rightRounds div {
+	.border-radius(0 3px 3px 0);
+	border-left: none;
+}
+#invoice table.simpleTable .finalTotal td div {
+	background-color: lighten(@accent,40%);
+	
+}
 
 /*Applicant List -------------------------------------------------------------- */
 
@@ -2168,15 +2215,15 @@ th.coverLetter { width: 100px; }
     width: 52.08%;
     margin: 25px 0 0 25%;
     background-color:#FFFFFF;
-    border: 1px solid #CCC;
+    border: 1px solid @darkBorders; //#CCC
     float: left;
 }
 
 
 #signupBox h2{
-    background: #333333;
-    border-bottom: 1px solid black;
-    color: #FFFFFF;
+	background: @borders; //#333333
+	border-bottom: 1px solid @darkBorders; //black
+	color: @base2; //color: #FFFFFF;
     font-weight: bold;
     margin: 0 0 20px;
     font-size: 20px;
@@ -2203,7 +2250,7 @@ th.coverLetter { width: 100px; }
 #signupBox .inputs input {
     float: right;
     clear: right;
-    width: 75%;
+    width: 70%;
 }
 
 #signupBox div div {
@@ -2469,7 +2516,7 @@ a.removeSkillQ.btn, a.removeDropDown.btn, a.removeQuestion.btn  {
 	margin-top: 8px;
 	.border-radius(50px);
 }
-a.removeDropDown.btn {
+a.removeDropDown.btn, a.removeQuestion.btn {
 	float: none;
 	margin: 8px 0 0 5px;
 }
@@ -3029,6 +3076,7 @@ footer h3 span {
 }
 
 #submissions h2 {
+	padding-top: 10px;
     padding-bottom: 15px;
     border-bottom: 1px solid @borders;
     margin-bottom: 20px;
@@ -3339,9 +3387,9 @@ body#login.dark #loginBox h2 { background: #EFEFEF; border-bottom: 1px solid #CC
 
 /*Light Theme----------------------------------------------------------------- */ 
 
-body#login.light { background: #EFEFEF; }
-body#login.light #loginBox { background: #FFF; border: 1px solid #CCC; }
-body#login.light #loginBox h2 { background: #333; border-bottom: 1px solid #000; color: #FFF; }
+body#login.light { background: #FFFFFF; }
+body#login.light #loginBox { background: #FFF; border: 1px solid @darkBorders; }
+body#login.light #loginBox h2 { background: @borders; border-bottom: 1px solid @darkBorders; color: @base2; }
 
 
 /* ==|== media queries ======================================================
@@ -3458,6 +3506,7 @@ body#login.light #loginBox h2 { background: #333; border-bottom: 1px solid #000;
         text-decoration: underline;
     }
 
+/*
     a[href]:after {
         content: " (" attr(href) ")";
     }
@@ -3465,16 +3514,19 @@ body#login.light #loginBox h2 { background: #333; border-bottom: 1px solid #000;
     abbr[title]:after {
         content: " (" attr(title) ")";
     }
+*/
 
     /*
      * Don't show links for images, or javascript/internal links
      */
 
+/*
     .ir a:after,
     a[href^="javascript:"]:after,
     a[href^="#"]:after {
         content: "";
     }
+*/
 
     pre,
     blockquote {
@@ -3510,4 +3562,17 @@ body#login.light #loginBox h2 { background: #333; border-bottom: 1px solid #000;
     h3 {
         page-break-after: avoid;
     } 
+    
+    #invoice table.simpleTable td.rightRounds div, #invoice table.simpleTable td div { background: #f5f5f5 !important; border: none !important; }
+    table.simpleTable { border-collapse: collapse !important; }
+    
+    nav { float: left!important;  }
+    nav a { font-size: 18px !important; }
+   
+    nav, #footerNav, #tools #loggedInButtons, #tools a.btn { display: none !important; } 
+   
+    
+    #invoice a.btn.blue { display: none !important; }
+    
+    
 }

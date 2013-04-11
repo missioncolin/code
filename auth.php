@@ -69,11 +69,10 @@ if ($_GET['mode'] == 'logout') {
                         <input type="password" class="loginText" id="password" name="password" value="" />
                     </div>
                     
-                    <div>
-       
-                        
+                    <div>    
                         <div>
-                            <input type="submit"  value="Sign-in" class="btn" />
+                            <input type="button" onclick="location.href='/';" class="btn blue" value="Cancel"/>
+                            <input type="submit"  value="Sign-in" class="btn green" />
                             <a href="/forgot-password">Password Recovery</a>
                         </div>
                         

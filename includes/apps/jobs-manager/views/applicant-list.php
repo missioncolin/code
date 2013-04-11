@@ -23,6 +23,7 @@ $jobTitle = "";
 
 $recommendColour = "green";
 $averageColour = "yellow";
+$numTotalApplicants = $j->getApplicants((int)$jobID, 0, 1000);
 
 // Stores all user year questions to define sliders
 $qIDs = array();
@@ -173,6 +174,33 @@ if ((isset($_REQUEST['topCandidate']) || isset($_REQUEST['hasPotential'])) || (i
 	//reassign array
 	$applicants = $newApplicants;	
 }
+
+	$ratings = array();
+	
+	/* Pass array by reference to modify the arrays to include a rating */
+	foreach ($applicants as $index=>$applicant) {
+		
+		$applicant['rating'] = $j->getApplicantRating($applicant['itemID']);
+		$ratings[$index] = $applicant;
+		
+	}	
+	
+	// Sort applicants by rating
+	function cmpRating ($a, $b) {
+		
+		if ($a['rating'] == $b['rating']) {
+			return 0;
+		}
+		
+		return ($a['rating'] > $b['rating']) ? -1 : 1;
+	}
+	
+	usort($ratings, 'cmpRating');
+	
+	//reassign sorted array
+	$applicants = $ratings;
+
+	
 ?>
 
 <script>
@@ -426,6 +454,9 @@ $(function() {
 	<!--Name search box-->
 	<!--searches first name or last name-->
 	<?php
+		echo "<div style=\"float: left; margin-top: 20px;\">";
+		echo "Viewing " . count($applicants) . " out of " . count($numTotalApplicants);
+		echo "</div>";
 		echo "<div style=\"float: right; margin-bottom: 10px;\">";
 		echo "Search By Name:";
 		echo "<input id=\"name-search\" name=\"name-search\" type=\"text\" style=\"margin-right: 5px; margin-left: 10px;\"> <input type=\"submit\" value=\"Search\" class=\"btn\" style=\"margin-top: 5px;\">";
@@ -504,9 +535,14 @@ $(function() {
 
 					//<a href="<?php echo $resumeLink; //" class="grade btn lightGrey lessPad"><img src="/themes/Intervue/img/resumeIconDark.png" alt="" /></a>				
 				}
+				
 				if (isset($links[0])){
 					$coverLink = "<a href=\"/uploads/applications/" . $jobID. "/" . $a['userID']. "/" . $links[0]."\" class=\"grade btn lightGrey lessPad\"><img src=\"/themes/Intervue/img/coverLetterIconDark.png\" alt=\"\" /></a>";
 				}
+			}
+			else {
+				$resumeLink = "Not Provided";
+				$coverLink = "Not Provided";
 			}
 			
 			
@@ -522,7 +558,7 @@ $(function() {
 					<!--<div class="imgWrap">-->
 					<div class="imgWrapList">
 						<a href="/applications-detail?application=<?php echo $a['itemID']; ?>">
-							<img style="width:85px;" src="http://www.gravatar.com/avatar/<?php echo md5(strtolower(trim($applicant->info['Email']))); ?>?d=<?php echo urlencode('http://' . $_SERVER['HTTP_HOST'] . '/themes/Intervue/img/profilePicExample1.jpg'); ?>&s=83" alt="<?php echo $applicant->info['First Name'] . " " . $applicant->info['Last Name']; ?>" />
+							<img style="width:85px;" src="<?php print $j->getApplicantAvatarSrc($a['userID']); ?>" alt="<?php echo $applicant->info['First Name'] . " " . $applicant->info['Last Name']; ?>" />
 						</a>
 					</div>	
 					

@@ -42,7 +42,6 @@
 <h3>Job Credits do not expire</h3>
 <div class="clearfix"></div>
 
-<div class="payment-errors"<?php if (isset($charge) && $charge !== true) { echo ' style="display:block"'; } ?>><?php if (isset($charge) && $charge !== true) { echo $charge; } ?></div>
 <div class="clearfix"></div>
 
 
@@ -112,7 +111,7 @@
     
     <div id="whatAreYouBuying">&nbsp;</div>
     
-   
+    <div class="payment-errors"<?php if (isset($charge) && $charge !== true) { echo ' style="display:block"'; } ?>><?php if (isset($charge) && $charge !== true) { echo $charge; } ?></div>
     <div class="creditCardForm">
         
         <div class="form-row heading">
@@ -208,10 +207,8 @@
     	<div>Note: Job credits do not expire</div>
     	<div>
     		Please accept our: <br/>
-	    	<input type="checkbox" id="termsConditions"/>Terms and Conditions <br/>
-	    	<input type="checkbox" id="privacyPolicy"/>Privacy Policy 
-    	</div>
-    	
+	    	<input type="checkbox" id="termsConditions"/><a href="/terms-and-conditions" target="_blank">Terms and Conditions</a><br/>
+	    	<input type="checkbox" id="privacyPolicy"/><a href="/privacy-policy" target="_blank">Privacy Policy</a></div>    	
     </div>
 
 

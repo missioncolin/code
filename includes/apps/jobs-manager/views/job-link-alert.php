@@ -45,7 +45,7 @@ $quipp->js['footer'][] = "/includes/apps/jobs-manager/js/jobs-manager.js";
 if ($user->info['Job Credits'] == 0){
 	$title = "Buy Credits";
 	$jobCreditsLine = "<a href=\"#\" class=\"btn red\">To activate your link you must buy credits</a>";
-	$buttonLink = "<a href=\"/buy-job-credits\" class=\"btn green\">Buy Credits</a>";
+	$buttonLink = "<a href=\"/buy-job-credits\" class=\"btn green\" target=\"_blank\">Buy Credits</a>";
 }else if ($user->info['Job Credits'] > 0){
 	$title = "Activate Your Link";
 	$creditNote = '<tr><td><div class="btn">Activate your link to make it live</div></td><tr>';

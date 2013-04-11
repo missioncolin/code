@@ -10,6 +10,7 @@ $(function() {
 
 	/* Store variables for whether the form has submitted successfully */
 	var successfulApp = <?php echo isset($_REQUEST['submitted']) ? '1' : '0'; ?>;
+		
 	var jobTitle = "<?php echo $title; ?>";
 	var isSession = "<?php echo isset($_SESSION['userID']); ?>";
 	
@@ -125,16 +126,16 @@ if (!isset($_SESSION['userID']) || !$_SESSION['userID'] > 0){
 	//load details 
 		 //$firstName = $db->return_specific_item(false, "sysUGFValues", "value", "--", "fieldID = 1 AND userID = " . $_SESSION['userID']); 
 		$post = array();
-		$post['First_Name']['value'] 			= $db->return_specific_item(false, "sysUGFValues", "value", "--", "fieldID = 1  AND userID = " . $_SESSION['userID']);
-		$post['Last_Name']['value']  			= $db->return_specific_item(false, "sysUGFValues", "value", "--", "fieldID = 2  AND userID = " . $_SESSION['userID']);
-		$post['Company_Address']['value']   	= $db->return_specific_item(false, "sysUGFValues", "value", "--", "fieldID = 6  AND userID = " . $_SESSION['userID']);
-		$post['Company_City']['value']	   		= $db->return_specific_item(false, "sysUGFValues", "value", "--", "fieldID = 11 AND userID = " . $_SESSION['userID']);
-		$post['Company_Postal_Code']['value'] 	= $db->return_specific_item(false, "sysUGFValues", "value", "--", "fieldID = 12 AND userID = " . $_SESSION['userID']);
-		$post['Phone_Number']['value']			= $db->return_specific_item(false, "sysUGFValues", "value", "--", "fieldID = 4  AND userID = " . $_SESSION['userID']); 
-		$post['Email']['value'] 				= $db->return_specific_item(false, "sysUGFValues", "value", "--", "fieldID = 3  AND userID = " . $_SESSION['userID']); 
-		$post['Facebook_Username']['value'] 	= $db->return_specific_item(false, "sysUGFValues", "value", "--", "fieldID = 27 AND userID = " . $_SESSION['userID']); 
-		$post['Twitter_Username']['value']		= $db->return_specific_item(false, "sysUGFValues", "value", "--", "fieldID = 30 AND userID = " . $_SESSION['userID']); 
-		$post['LinkedIn_Username']['value']		= $db->return_specific_item(false, "sysUGFValues", "value", "--", "fieldID = 26 AND userID = " . $_SESSION['userID']); 
+		$post['First_Name']['value'] 			= $db->return_specific_item(false, "sysUGFValues", "value", "", "fieldID = 1  AND userID = " . $_SESSION['userID']);
+		$post['Last_Name']['value']  			= $db->return_specific_item(false, "sysUGFValues", "value", "", "fieldID = 2  AND userID = " . $_SESSION['userID']);
+		$post['Company_Address']['value']   	= $db->return_specific_item(false, "sysUGFValues", "value", "", "fieldID = 6  AND userID = " . $_SESSION['userID']);
+		$post['Company_City']['value']	   		= $db->return_specific_item(false, "sysUGFValues", "value", "", "fieldID = 11 AND userID = " . $_SESSION['userID']);
+		$post['Company_Postal_Code']['value'] 	= $db->return_specific_item(false, "sysUGFValues", "value", "", "fieldID = 12 AND userID = " . $_SESSION['userID']);
+		$post['Phone_Number']['value']			= $db->return_specific_item(false, "sysUGFValues", "value", "", "fieldID = 4  AND userID = " . $_SESSION['userID']); 
+		$post['Email']['value'] 				= $db->return_specific_item(false, "sysUGFValues", "value", "", "fieldID = 3  AND userID = " . $_SESSION['userID']); 
+		$post['Facebook_Username']['value'] 	= $db->return_specific_item(false, "sysUGFValues", "value", "", "fieldID = 27 AND userID = " . $_SESSION['userID']); 
+		$post['Twitter_Username']['value']		= $db->return_specific_item(false, "sysUGFValues", "value", "", "fieldID = 30 AND userID = " . $_SESSION['userID']); 
+		$post['LinkedIn_Username']['value']		= $db->return_specific_item(false, "sysUGFValues", "value", "", "fieldID = 26 AND userID = " . $_SESSION['userID']); 
 		
 		if (!strpos($post['Email']['value'], "newuser")){ 
 			$post['Confirm_Email']['value'] = $post['Email']['value'];
@@ -168,11 +169,7 @@ if (isset($_GET['user']) || isset($_SESSION['userID'])) {
 	}	
 }
 
-if (isset($_POST['Email']) && isset($_POST['Confirm_Email']) && $_POST['Email'] != $_POST['Confirm_Email']) {
-	
-	$message = "Your email addresses do not match.";
-	
-} else if(isset($_POST) && !empty($_POST) && empty($message)){  
+if(isset($_POST) && !empty($_POST) && empty($message)){  
     //UPDATE ACCOUNT  
 
 
@@ -198,11 +195,10 @@ if (isset($_POST['Email']) && isset($_POST['Confirm_Email']) && $_POST['Email'] 
     
 /*     if (isset($_POST["job-form"])){ */
         
-    $submitted = true;
     $valid = false;
     
     $validate = array();
-    
+        
     foreach($post as $field => $nfo) {
     
         $validate[$nfo["code"].$field] = "";
@@ -217,13 +213,20 @@ if (isset($_POST['Email']) && isset($_POST['Confirm_Email']) && $_POST['Email'] 
         //}
     }
     
-    
-    if (validate_form($validate)){
+/*     print_r($post); */
+	
+    if (isset($post['Email']['value']) && isset($post['Confirm_Email']['value']) && ($post['Email']['value'] == $post['Confirm_Email']['value']) && validate_form($validate)){
         $valid = true;
         unset($post[2]); //don't want to pass this to createUserAccount
     }
     else {
+    
+		    if (isset($post['Email']) && isset($post['Confirm_Email']) && $post['Email'] != $post['Confirm_Email']) {
+			    $emails = 'Emails do not match.';
+		    }
+		    
 	    	echo '<div id="steps" style="margin-top: 20px;"><li class="alert fail"><span></span>';
+	    	echo $emails;
 			echo $message;
 			echo "</li></div>";
     }
@@ -445,10 +448,22 @@ else {
 	                	mkdir(dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications');
                 	}
                 	
-			    	if (!is_dir(dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications/' . (int) $_GET['job'] . '/' . (int) $_SESSION['userID'])) {
-                        $successfulMkdir = mkdir(dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications/' . (int) $_GET['job'] . '/' . (int) $_SESSION['userID']);
+			    	if (!is_dir(dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications/' . (int) $_GET['job'] )) {
+
+                        $successfulMkdir = mkdir(dirname(__DIR__) . '/uploads/applications/' . (int) $_GET['job']);
+                        
+                        if (!is_dir(dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications/' . (int) $_GET['job'] . '/' . (int) $_SESSION['userID'])) {
+	                        
+	                        $successfulMkdir = mkdir(dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications/' . (int) $_GET['job'] . '/' . (int) $_SESSION['userID']);
+                        }
                     }
                     else {
+                    
+                        if (!is_dir(dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications/' . (int) $_GET['job'] . '/' . (int) $_SESSION['userID'])) {
+	                        
+	                        $successfulMkdir = mkdir(dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications/' . (int) $_GET['job'] . '/' . (int) $_SESSION['userID']);
+                        }
+                        
 	                    $successfulMkdir = 1;
                     }
 
@@ -493,9 +508,7 @@ else {
 		echo $message;
 		echo "</li></div>";
     }
-
-
-
+    
 ?>
 
 <form id="job-form" name="jobForm" method="post" action="<?php echo $_SERVER['REQUEST_URI']; ?>" enctype="multipart/form-data">
@@ -658,7 +671,7 @@ else {
                     $videos .= '</div>';
                     $videos .= '<input type="hidden" name="' . $questionID . '" value="' . $videoID . '" />';
                     $videos .= '<input type="button" class="btn red prevbutton" value="Previous" data-section="video" />';
-                    $videos .= '<input type="button" class="btn green nextbutton" value="Next" data-section="video" />';
+                    $videos .= '<input type="button" class="btn green nextbutton" style="display:none;" value="Next" data-section="video" />';
                     $videos .= "</div>";
                     $videoCount++;
 
@@ -752,7 +765,7 @@ else {
 			    </ul>
 		    </li>
 		    <li>
-		    	<label for="privacyPolicy">Accept <a href="#">Privacy Policy </a></label><input type="checkbox" id="privacyPolicy" name="privacyPolicy">
+		    	<label for="privacyPolicy">Accept <a href="/privacy-policy" target="_blank">Privacy Policy </a></label><input type="checkbox" id="privacyPolicy" name="privacyPolicy">
 		    </li>
 	    </ul>
 	    

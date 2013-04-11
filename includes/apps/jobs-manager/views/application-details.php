@@ -99,8 +99,9 @@ $quipp->js['footer'][] = "/includes/apps/jobs-manager/js/jobs-manager.js";
         ?>
     
     <span class="left">
-        <?php if ($prev !== '') { ?><a href="/applications-detail?application=<?php echo $filteredList[$prev]; ?>">&larr; Prev</a><?php } ?></span>
-    <h4><a href="applicant-list?job=<?php echo $application['jobID']; ?>&backToList=1">Back to List</a></h4>
+        <?php if ($prev !== '') { ?><a href="/applications-detail?application=<?php echo $filteredList[$prev]; ?>">&larr; Prev</a><?php } ?>
+    </span>
+        <h4><a href="applicant-list?job=<?php echo $application['jobID']; ?>&backToList=1" style="position:absolute;left:425px;">Back to List</a></h4>
     <span class="right">
         <?php if ($next !== '') { ?><a href="/applications-detail?application=<?php echo $filteredList[$next]; ?>">Next &rarr;</a><?php } ?>
     </span>
@@ -114,13 +115,16 @@ $quipp->js['footer'][] = "/includes/apps/jobs-manager/js/jobs-manager.js";
             <a href="mailto:<?php echo $applicant->info['Email']; ?>" class="btn"><img src="/themes/Intervue/img/contactIcon.png" alt="" /></a>
         </div>
         <div class="cutout">
-            <div class="profilePic"><div class="imgWrapper"><img src="http://www.gravatar.com/avatar/<?php echo md5(strtolower(trim($applicant->info['Email']))); ?>?d=<?php echo urlencode('http://' . $_SERVER['HTTP_HOST'] . '/themes/Intervue/img/profilePicExample1.jpg'); ?>&s=126" alt="" /></div></div>
+            <div class="profilePic"><div class="imgWrapper"><img src="<?php print $j->getApplicantAvatarSrc($application['userID']); ?>" alt="" /></div></div>
         </div>
         <dl>
             <dt>Name</dt>
             <dd><?php echo $applicant->info['First Name']." " . $applicant->info['Last Name'];?></dd>
             <dt>Email</dt>
             <dd><?php echo $applicant->info['Email'];?></dd>
+            <?php echo isset($applicant->info['Company Address']) ? '<dt>Address</dt><dd>' . $applicant->info['Company Address'] . '</dd>' : '';?>
+            <?php echo isset($applicant->info['Company City']) ? '<dt>City</dt><dd>' . $applicant->info['Company City'] . '</dd>' : '';?>
+            <?php echo isset($applicant->info['Phone Number']) ? '<dt>Phone</dt><dd>' . $applicant->info['Phone Number'] . '</dd>' : '';?>
             <dt>Links</dt>
             <dd id="links">
             <?php

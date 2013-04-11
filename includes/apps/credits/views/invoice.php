@@ -20,9 +20,38 @@
         } else {
         
             $invoice['chargedAmount'] = ((int) $invoice['chargedAmount'] > 0) ? $invoice['chargedAmount'] : $invoice['amount'];
+        
+        /* Get user's province name */
+        $prov = $db->query("SELECT `provName` FROM `sysProvince` WHERE itemID = '" . $user->info['Company Province'] . "'");
+        
+        if ($db->valid($prov)){
+            $row = $db->fetch_assoc($prov);
+        }
+        else {
+	        $row['provName'] = 'None specified.';
+        }
+
 ?>
 
+<div id="seller-details">
+	<dd>Intervue Inc.</dd>
+	<dd>216 Parkmount Rd.</dd>
+	<dd>Toronto, Ontario</dd>
+	<dd>M4J 4V6</dd>
+	<dd>6473486784</dd>
+	<dd><a href="mailto:info@intervue.ca">info@intervue.ca</a></dd>
+</div>
 
+<div id="buyer-details">
+	<dd>Purchaser Information</dd>
+	<dd><?php echo (isset($user->info['First Name']) && isset($user->info['Last Name'])) ? $user->info['Last Name'] . ' ' . $user->info['Last Name'] : 'No Name Provided'; ?></dd>
+	<dd><?php echo (isset($user->info['Company Address'])) ? $user->info['Company Address'] : 'No Address Provided'; ?></dd>
+	<dd><?php echo (isset($user->info['Company City']) && isset($row['provName'])) ? $user->info['Company City'] . ', ' . $row['provName'] : 'No City Provided'; ?></dd>
+	<dd><?php echo (isset($user->info['Company Postal Code'])) ? $user->info['Company Postal Code'] : 'No Postal Code Provided'; ?></dd>
+	<dd><?php echo (isset($user->info['Email'])) ? $user->info['Email'] : 'No Email Provided'; ?></dd>
+	<dd>Payment type: </dd>
+<!-- 	<dd><?php echo $user->info['Phone Number']; ?></dd> -->
+</div>
 <table class="simpleTable">
 <thead>
     <tr>
@@ -32,35 +61,37 @@
 </thead>
 <tbody>
     <tr>
-        <td colspan="2"><?php echo $invoice['description']; ?> (on <?php echo date("Y-m-d g:i a", strtotime($invoice['sysDateCreated']));?>)</td>
-        <td><?php echo money_format('%n', $invoice['amount'] / 100); ?></td>
+        <td colspan="2"><div><?php echo $invoice['description']; ?> (on <?php echo date("Y-m-d g:i a", strtotime($invoice['sysDateCreated']));?>)</div></td>
+        <td><div><?php echo money_format('%n', $invoice['amount'] / 100); ?></div></td>
     </tr>
+</tbody>
+</table>
+<table class="simpleTable invoiceTotals">
+<tbody>
     <tr class="subTotal">
-        <td>&nbsp;</td>
-        <td class="total">Subtotal</td>
-        <td><?php echo money_format('%n', $invoice['amount'] / 100); ?></td>
+        <td class="total"><div>Subtotal</div></td>
+        <td><div><?php echo money_format('%n', $invoice['amount'] / 100); ?></div></td>
     </tr>
     <?php
     if (is_array(json_decode($invoice['taxes'], true))) {
         foreach(json_decode($invoice['taxes']) as $label => $tax) {
     ?>
     <tr class="tax">
-        <td>&nbsp;</td>
-        <td class="total"><?php echo $label; ?></td>
-        <td><?php echo money_format('%n', $tax / 100); ?></td>
+        <td class="total"><div><?php echo $label; ?></div></td>
+        <td><div><?php echo money_format('%n', $tax / 100); ?></div></td>
     </tr>
     <?php 
         } 
     }
     ?>
     <tr class="finalTotal">
-        <td>&nbsp;</td>
-        <td class="total"><strong>Total</strong></td>
-        <td><strong><?php echo money_format('%n', $invoice['chargedAmount'] / 100); ?></strong></td>
+        <td class="total"><div><strong>Total</strong></div></td>
+        <td><div><strong><?php echo money_format('%n', $invoice['chargedAmount'] / 100); ?></strong></div></td>
     </tr>
 </tbody>
 </table>
-<a href="javascript:window.print();" class="btn green">Print</a>
+<div class="clearfix"></div>
+<a href="javascript:window.print();" class="btn blue">Print</a>
 <?php
 if(isset($_GET['redirect']) && is_numeric($_GET['redirect'])){
 	print "<a href=\"/new-job-info?jobID=".$_GET['redirect']."\" class=\"btn\" style=\"margin-right:10px;\">Return to Job Activation Page</a>";
