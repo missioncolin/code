@@ -126,15 +126,15 @@ if(isset($_GET['redirect']) && is_numeric($_GET['redirect'])){
         $qryData = explode(" ",$_GET['req']);
         switch($qryData[0]){
             case "reactivate":
-                echo '<a class="btn reactivate" href="/applications?req='.str_replace(' ','+',$_GET['req']).'" data-job="'.$qryData[1].'">Re-Publish Job</a>&nbsp;';
+                echo '<a class="btn reactivate" style="margin-right:10px;" href="/applications?req='.str_replace(' ','+',$_GET['req']).'" data-job="'.$qryData[1].'">Re-Publish Job</a>&nbsp;';
                 break;
 
             case "createnew":
-                echo '<a class="btn" href="/create-job?step=1">Create New Job</a>&nbsp;';
+                echo '<a class="btn" style="margin-right:10px;" href="/create-job?step=1">Create New Job</a>&nbsp;';
                 break;
 
             default:
-                echo '<a class="btn" href="/create-job?step=1">Create New Job</a>&nbsp;';
+                echo '<a class="btn" style="margin-right:10px;" href="/create-job?step=1">Create New Job</a>&nbsp;';
                 break;
         } 
         
