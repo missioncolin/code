@@ -101,7 +101,7 @@ $quipp->js['footer'][] = "/includes/apps/jobs-manager/js/jobs-manager.js";
     <span class="left">
         <?php if ($prev !== '') { ?><a href="/applications-detail?application=<?php echo $filteredList[$prev]; ?>">&larr; Prev</a><?php } ?>
     </span>
-        <h4><a href="applicant-list?job=<?php echo $application['jobID']; ?>&backToList=1" style="position:absolute;left:425px;">Back to List</a></h4>
+        <h4><a href="applicant-list?job=<?php echo $application['jobID']; ?>&backToList=1">Back to List</a></h4>
     <span class="right">
         <?php if ($next !== '') { ?><a href="/applications-detail?application=<?php echo $filteredList[$next]; ?>">Next &rarr;</a><?php } ?>
     </span>
