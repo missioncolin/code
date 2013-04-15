@@ -57,9 +57,11 @@
         }
     
     } else {
-        echo 'No token provided';
+        $quipp->js['onload'] .= 'alertBox("fail", "No token provided");';
     }
 ?>
+<ul id="steps">
+</ul>
 
 <?php
 if ($showForm == true) { 
