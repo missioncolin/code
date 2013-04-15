@@ -7,7 +7,6 @@
     array_push($quipp->js['footer'], '/includes/apps/credits/js/buy-credits.js'); 
     $credits = new Credits($db);
     
-    
     if (!isset($_GET['id'])) {
         echo '<strong>No invoice found</strong>';
         
@@ -129,15 +128,20 @@ if(isset($_GET['redirect']) && is_numeric($_GET['redirect'])){
             case "reactivate":
                 echo '<a class="btn reactivate" href="/applications?req='.str_replace(' ','+',$_GET['req']).'" data-job="'.$qryData[1].'">Re-Publish Job</a>&nbsp;';
                 break;
+
             case "createnew":
                 echo '<a class="btn" href="/create-job?step=1">Create New Job</a>&nbsp;';
                 break;
-            case "":
+
+            default:
                 echo '<a class="btn" href="/create-job?step=1">Create New Job</a>&nbsp;';
                 break;
-            
         } 
         
+    }
+
+    else if (!isset($_GET['req']) && !isset($_GET['redirect'])) {
+         echo '<a class="btn" href="/create-job?step=1">Create New Job</a>&nbsp;';
     }
         }
     }

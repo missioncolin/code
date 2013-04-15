@@ -9,8 +9,8 @@
 $(function() {
 
 	/* Store variables for whether the form has submitted successfully */
-	var successfulApp = <?php echo isset($_REQUEST['submitted']) ? '1' : '0'; ?>;
-		
+	var successfulApp = <?php echo (isset($_REQUEST['Email']) && isset($_REQUEST['Confirm_Email']) && $_REQUEST['Email'] == $_REQUEST['Confirm_Email']) ? '1' : '0'; ?>;
+
 	var jobTitle = "<?php echo $title; ?>";
 	var isSession = "<?php echo isset($_SESSION['userID']); ?>";
 	
@@ -99,7 +99,6 @@ function base64url_decode($data) {
 if (!isset($f) || !$f INSTANCEOF Forms){
     $f = new Forms($db);
 }
-
 
 //create a new blank user if there is no session ID
 
@@ -256,7 +255,6 @@ if(isset($_POST) && !empty($_POST) && empty($message)){
 			echo "</li></div>";       
 		}
     }
-
 /*     } */
     
  }
@@ -729,7 +727,7 @@ else {
 
 ?>
     </table>
-    <input type="hidden" name="submitted" value="1"/>
+    <!-- <input type="hidden" name="submitted" value="1"/> -->
     <input type="submit" class="btn green" value="Next" data-section="questions" />
     </div>
     
