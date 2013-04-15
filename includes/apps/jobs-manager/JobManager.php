@@ -36,7 +36,7 @@ class JobManager {
      */
     public function canEdit($jobID) {
         //return (bool)$this->db->num_rows($this->db->query(sprintf("SELECT itemID FROM tblJobs WHERE itemID='%d' AND userID='%d'", (int)$jobID, (int)$this->userID)));
-        return (bool)$this->db->num_rows($this->db->query(sprintf("SELECT itemID FROM tblJobs WHERE itemID='%d' AND userID='%d'", (int)$jobID, (int)$this->userID)));
+        return (bool)$this->db->num_rows($this->db->query(sprintf("SELECT itemID FROM tblJobs WHERE itemID='%d' AND userID='%d' AND sysOpen='1'", (int)$jobID, (int)$this->userID)));
 
     }
     
@@ -80,7 +80,6 @@ class JobManager {
      * @return bool
      */
     public function editJob($post) {
-    	print_r($post);
         $active = (isset($post['RQvalALPHActive']) && $post['RQvalALPHActive'] == 'active') ? 'active' : 'inactive';
         $qry = sprintf("UPDATE tblJobs SET `title`='%s', `link`='%s', `dateExpires`='%s', `datePosted`='%s', `questionnaireID`='%d', `sysStatus`='%s' WHERE itemID='%d' AND userID='%d'",
             $this->db->escape($post['RQvalALPHTitle']),
