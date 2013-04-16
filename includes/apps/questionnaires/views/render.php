@@ -569,7 +569,7 @@ else {
             <dt>Email</dt>
             <dd><input type="text" id="Email" name="Email" class="full" placeholder="Email Address" value="<?php echo isset($post['Email']) ? $post['Email']['value'] : ""; ?>" required="required"/></dd>
 
-            <dt>Confirm</dt>
+            <dt>Confirm Email</dt>
             <dd><input type="text" id="Confirm_Email" name="Confirm_Email" class="full" placeholder="Confirm Email" value="<?php echo isset($post['Confirm_Email']) ? $post['Confirm_Email']['value'] : ""; ?>" required="required"/></dd>
 
             <dt>Facebook</dt>
