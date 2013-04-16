@@ -68,12 +68,12 @@
 
 <div id="buyer-details">
 	<dd>Purchaser Information</dd>
-	<dd><?php echo (isset($user->info['First Name']) && isset($user->info['Last Name'])) ? $user->info['Last Name'] . ' ' . $user->info['Last Name'] : 'No Name Provided'; ?></dd>
-	<dd><?php echo (isset($user->info['Company Address'])) ? $user->info['Company Address'] : 'No Address Provided'; ?></dd>
-	<dd><?php echo (isset($user->info['Company City']) && isset($row['provName'])) ? $user->info['Company City'] . ', ' . $row['provName'] : 'No City Provided'; ?></dd>
-	<dd><?php echo (isset($user->info['Company Postal Code'])) ? $user->info['Company Postal Code'] : 'No Postal Code Provided'; ?></dd>
-	<dd><?php echo (isset($user->info['Email'])) ? $user->info['Email'] : 'No Email Provided'; ?></dd>
-<!-- 	<dd><?php echo $user->info['Phone Number']; ?></dd> -->
+	<dd><?php echo (isset($invoice['billingFirstName'])) ? $invoice['billingFirstName'] : 'No First Name Provided'; ?>
+        <?php echo (isset($invoice['billingLastName'])) ? ' ' . $invoice['billingLastName'] : ' No Family Name Provided'; ?></dd>
+	<dd><?php echo (isset($invoice['billingAddress'])) ? $invoice['billingAddress'] : 'No Address Provided'; ?></dd>
+	<dd><?php echo (isset($invoice['billingCity'])) ? $invoice['billingCity'] : 'No City Provided'; ?>, <?php echo (isset($invoice['billingProvince'])) ? $invoice['billingProvince'] : 'No Province Provided'; ?></dd>
+	<dd><?php echo (isset($invoice['billingPostal'])) ? $invoice['billingPostal'] : 'No Postal Code Provided'; ?></dd>
+	<dd><?php echo (isset($invoice['billingEmail'])) ? $invoice['billingEmail'] : 'No Email Provided'; ?></dd>
 </div>
 <table class="simpleTable">
 <thead>
