@@ -2,6 +2,8 @@
 
 require dirname(dirname(dirname(__DIR__))) . '/init.php';
 
+session_destroy();
+
 $encryptionKey = "elephants321"; 
 $userID = $_SESSION['userID'];
 //One of the MCRYPT_ciphername constants, or the name of the algorithm as string.
