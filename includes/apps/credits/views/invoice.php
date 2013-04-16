@@ -19,24 +19,6 @@
         } else {
         
             $invoice['chargedAmount'] = ((int) $invoice['chargedAmount'] > 0) ? $invoice['chargedAmount'] : $invoice['amount'];
-        
-        /* Get user's province name */
-        if (isset($user->info['Company Province'])) {
-            $prov = $db->query("SELECT `provName` FROM `sysProvince` WHERE itemID = '" . $user->info['Company Province'] . "'");
-
-            if ($db->valid($prov)){
-            $row = $db->fetch_assoc($prov);
-            }
-            else {
-                $row['provName'] = 'None specified.';
-            }
-
-        }
-        else {
-            $row['provName'] = "None Specified";
-        }
-        
-        
 
         /* Get credits */
         switch ($invoice['creditID']) {
@@ -55,6 +37,11 @@
                 break;
         }
 
+        /* Determine province and country */
+        $billingProv = $db->return_specific_item((int)$invoice['billingProvince'], 'sysProvince', 'provName', 'No Province Provided');
+        $billingCountry = $db->return_specific_item((int)$invoice['billingCountry'], 'sysCountry', 'countryName', 'No Country Provided');
+
+
 ?>
 
 <div id="seller-details">
@@ -71,7 +58,8 @@
 	<dd><?php echo (isset($invoice['billingFirstName'])) ? $invoice['billingFirstName'] : 'No First Name Provided'; ?>
         <?php echo (isset($invoice['billingLastName'])) ? ' ' . $invoice['billingLastName'] : ' No Family Name Provided'; ?></dd>
 	<dd><?php echo (isset($invoice['billingAddress'])) ? $invoice['billingAddress'] : 'No Address Provided'; ?></dd>
-	<dd><?php echo (isset($invoice['billingCity'])) ? $invoice['billingCity'] : 'No City Provided'; ?>, <?php echo (isset($invoice['billingProvince'])) ? $invoice['billingProvince'] : 'No Province Provided'; ?></dd>
+	<dd><?php echo (isset($invoice['billingCity'])) ? $invoice['billingCity'] : 'No City Provided'; ?>, <?php echo $billingProv; ?></dd>
+    <dd><?php echo $billingCountry; ?></dd>
 	<dd><?php echo (isset($invoice['billingPostal'])) ? $invoice['billingPostal'] : 'No Postal Code Provided'; ?></dd>
 	<dd><?php echo (isset($invoice['billingEmail'])) ? $invoice['billingEmail'] : 'No Email Provided'; ?></dd>
 </div>

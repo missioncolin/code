@@ -25,8 +25,13 @@
     }
 
     if (!empty($_POST)) {
-        $charge = $credits->charge((int)$_POST['credits'], $_POST['stripeToken'], $user);
+        
+        $charge = $credits->charge((int)$_POST['credits'], $_POST['stripeToken'], $user, $_POST['First_Name'], $_POST['Last_Name'], $_POST['Billing_Address'], $_POST['Billing_City'], $_POST['Email'], 
+                        $_POST['Billing_Postal_Code'], $_POST['Billing_Province'], $_POST['Billing_Country']);
+        
+
         if (is_int($charge)) {
+
             if(isset($_REQUEST['redirect']) && (is_numeric($_REQUEST['redirect']))){
 	            $redirect = "&redirect=".$_REQUEST['redirect'];
             }else{
@@ -35,6 +40,7 @@
 
             header('Location: /invoice?id=' . $charge.(!empty($_POST['referrer']) ? '&req='.str_replace(' ','+',$_POST['referrer']) : '').$redirect);
         }
+        
     }
     
 

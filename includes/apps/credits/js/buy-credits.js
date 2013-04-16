@@ -52,7 +52,7 @@ $('div.credits input').bind('click',function(){
     
     var myTaxDS = "ds_tax_" + provID;
     myTaxDS = eval(myTaxDS);
-    console.log(myTaxDS[1]);
+    // console.log(myTaxDS[1]);
     var taxes = parseFloat(myDS[0]) * parseFloat(myTaxDS[1]);
     
     var taxLabel = myTaxDS[0];
@@ -70,7 +70,7 @@ $('div.credits input').bind('click',function(){
     
     
     
-    console.log(myTotal);
+    // console.log(myTotal);
     
     $("#whatAreYouBuying").html("You are purchasing <strong>"+myDS[1]+"</strong> job credit(s) for <strong>$"+myDS[0]+"</strong> CAD plus "+taxLabel+" ($"+taxes+") <br />Your total will be <strong>$"+myTotal+" CAD</strong>");
     

@@ -124,8 +124,26 @@ class Credits {
         return $this->credits;
     }
 
-    public function charge($creditID, $token, $user) {
-        
+    // /* Updates billing information for the current transaction */
+    // public function setBillingInfo($transID, $firstName, $lastName, $address, $city, $email, $postal, $province, $country) {
+
+    //     $qry = sprintf("UPDATE tblTransactions SET billingFirstName = '%s', billingLastName = '%s', billingAddress = '%s',
+    //                     billingCity = '%s', billingEmail = '%s', billingPostal = '%s', billingProvince = '%s', 
+    //                     billingCountry = '%s' WHERE itemID = '%d'", $firstname, $lastName, $address, $city, $email, $postal, $province,
+    //                     $country, $transID);
+
+    //     $res = $this->db->query($qry);
+
+    //     if ($this->db->num_rows($res) > 0) {
+    //         return true;
+    //     }
+
+    //     return false;
+
+    // }
+
+    public function charge($creditID, $token, $user, $firstName, $lastName, $address, $city, $email, $postal, $province, $country) {
+
         $price = (int)($this->credits[$creditID]['price'] * 100);
         try {
             $response = Stripe_Charge::create(array(
@@ -137,16 +155,28 @@ class Credits {
             
             if ($response->paid == true) {
                 
-                $qry = sprintf("INSERT INTO tblTransactions (userID, creditID, id, chargedAmount, amount, taxes, currency, description, paid, sysDateCreated) VALUES ('%d', '%d', '%s', '%d', '%d', '%s', '%s', '%s', '%d', NOW())",
+                $qry = sprintf("INSERT INTO tblTransactions (userID, creditID, id, chargedAmount, amount, taxes, currency, description, paid, billingFirstName, 
+                                billingLastName, billingAddress, billingCity, billingEmail, billingPostal, billingProvince,
+                                billingCountry, sysDateCreated) VALUES ('%d', '%d', '%s', '%d', '%d', '%s', '%s', '%s', '%d', '%s', '%s', '%s',
+                                '%s', '%s', '%s', '%s', '%s', NOW())",
                     (int)$user->id,
                     (int)$creditID,
                     $this->db->escape($response->id),
                     (int)$response->amount,
                     (int)$price,
-                    json_encode($this->calculateTax($price, $user)),
+                    json_encode($this->calculateTax($price, (int)$province)),
                     $this->db->escape($response->currency),
                     $this->db->escape($response->description),
-                    (int)$response->paid);
+                    (int)$response->paid,
+                    $firstName,
+                    $lastName,
+                    $address,
+                    $city,
+                    $email,
+                    $postal,
+                    $province,
+                    $country);
+
                 $this->db->query($qry);
                 $invoiceID = $this->db->insert_id();
                 
@@ -167,9 +197,9 @@ class Credits {
     }
     
     
-    public function calculateTax($amount, $user) {
+    public function calculateTax($amount, $billingProv) {
         
-        $fipsCode = $this->db->return_specific_item($user->get_meta('Company Province'), 'sysProvince', 'fipsCode', '00');
+        $fipsCode = $this->db->return_specific_item((int)$billingProv, 'sysProvince', 'fipsCode', '00');
 
         $taxes = array();
         foreach($this->taxes[$fipsCode] as $tax) {
