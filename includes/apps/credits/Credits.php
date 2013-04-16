@@ -54,13 +54,8 @@ class Credits {
         ),
         '09' => array( //PE
             array(
-                'label' => "GST",
-                'rate'  => 0.05
-            ),
-            array(
                 'label' => 'HST',
-                'rate'  => 0.09,
-                'groupGST' => true
+                'rate'  => 0.14,
             )
         ),
         '10' => array( //QC
