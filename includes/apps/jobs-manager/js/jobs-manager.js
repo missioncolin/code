@@ -8,7 +8,7 @@ $(function () {
         var $this = $(this);
         var react = $(this);
         var linkText = document.createTextNode(location.host+"/apply/"+$jobID);
-        confirmAction("Publish Job?", "Publishing this job will cost one (1) credit");
+        confirmAction("Activate Joblink?", "Activating this joblink will cost you (1) credit");
         
         //client request - "make it green"
         $('.popUp').removeClass('fail').addClass('success');
@@ -22,14 +22,14 @@ $(function () {
 		}, function (data) {
 			  if (data){
 
-				$('.alert').removeClass('fail').addClass('success').html('<span></span>Job Re-published Successfully. Your account was debited one (1) credit');
+				$('.alert').removeClass('fail').addClass('success').html('<span></span>Joblink Re-activated Successfully. Your account was debited (1) credit');
 
 				//show table
 				$(".optionsTable").fadeOut();
 				$(".optionsTable").remove();
 				$(".activeTable").fadeIn();
 			}else{
-				$('.alert').removeClass('success').addClass('fail').html('<span></span>Job not Re-published. '+data);
+				$('.alert').removeClass('success').addClass('fail').html('<span></span>Joblink not Re-activated. '+data);
 			}
 
 			clearPopUp();

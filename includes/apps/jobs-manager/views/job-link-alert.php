@@ -118,7 +118,7 @@ echo alert_box('<h2>Tips</h2><p>Job links are active for 60 days</p><p>Cut and p
 	<div class="popUp">
 		<h2></h2>
 		<p></p>
-		<a class="btn" id="popUpOk">Ok</a>&nbsp;<a class="btn red" id="popUpNo">Cancel</a>
+		<a class="btn green" id="popUpOk">Ok</a>&nbsp;<a class="btn red" id="popUpNo">Cancel</a>
 	</div>
 </div>
 
