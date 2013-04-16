@@ -14,8 +14,8 @@ class Credits {
         ),
         '02' => array( //BC
             array(
-                'label' => "HST",
-                'rate'  => 0.12
+                'label' => "GST",
+                'rate'  => 0.05
             )
         ),
         '03' => array( //MB
@@ -58,8 +58,8 @@ class Credits {
                 'rate'  => 0.05
             ),
             array(
-                'label' => 'PST',
-                'rate'  => 0.10,
+                'label' => 'HST',
+                'rate'  => 0.09,
                 'groupGST' => true
             )
         ),
