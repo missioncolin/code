@@ -19,6 +19,7 @@
     $provs  = $db->query("SELECT `itemID`, `provName` FROM `sysProvince` WHERE countryID IN (38, 213) ORDER BY `countryID`, `provName`");
      
     $meta   = $frms->getMetaFieldsByGroup('hr-managers');
+
     $post   = array();
     foreach($meta as $fields){
         $post[str_replace(" ","_",$fields["fieldLabel"])] = array("code" => $fields["validationCode"], "value" => $frms->get_meta($fields["fieldLabel"]), "label" => $fields["fieldLabel"]);
@@ -42,7 +43,6 @@
         }
         
     }
-    
 
 ?>
 <h2>Sign Up Instantly for Intervue</h2>
@@ -126,20 +126,20 @@
         </div>
          <div class="form-row">
         <label for="First_Name">First Name</label>
-        <input type="text" id="First_Name" name="First_Name" class="full" placeholder="First Name" value="<?php echo $post["First_Name"]["value"];?>" required="required"/>
+        <input type="text" id="First_Name" name="First_Name" class="full" placeholder="First Name" value="<?php echo isset($post["First_Name"]["value"]) ? $post["First_Name"]["value"] : '';?>" required="required"/>
         <label for="Last_Name">Last Name</label>
-        <input type="text" id="Last_Name" name="Last_Name" class="full" placeholder="Last Name" value="<?php echo $post["Last_Name"]["value"];?>" required="required"/>
+        <input type="text" id="Last_Name" name="Last_Name" class="full" placeholder="Last Name" value="<?php echo isset($post["Last_Name"]["value"]) ? $post["Last_Name"]["value"] : '';?>" required="required"/>
         <label for="Email">Email Address</label>
-        <input type="text" id="Email" name="Email" class="full" placeholder="Email Address" value="<?php echo $post["Email"]["value"];?>" required="required"/>
+        <input type="text" id="Email" name="Email" class="full" placeholder="Email Address" value="<?php echo isset($post["Email"]["value"]) ? $post["Email"]["value"] : '';?>" required="required"/>
          </div>
          
           <div class="form-row">
         <label for="Billing_Address">Address</label>
         <input type="text" id="Billing_Address" name="Billing_Address" class="half left" placeholder="Address" value="<?php //echo $post["Billing_Address"]["value"];?>" required="required"/>
         <label for="Billing_City">City</label>
-        <input type="text" id="Billing_City" name="Billing_City" class="half" placeholder="City" value="<?php echo $post["Company_City"]["value"];?>" required="required"/>
+        <input type="text" id="Billing_City" name="Billing_City" class="half" placeholder="City" value="<?php echo isset($post["Company_City"]["value"]) ? $post["Company_City"]["value"] : '';?>" required="required"/>
         <label for="Billing_Postal_Code">Postal Code/Zip Code</label>
-        <input type="text" id="Billing_Postal_Code" name="Billing_Postal_Code" class="half" placeholder="Postal Code" value="<?php echo $post["Company_Postal_Code"]["value"];?>" required="required"/>
+        <input type="text" id="Billing_Postal_Code" name="Billing_Postal_Code" class="half" placeholder="Postal Code" value="<?php echo isset($post["Company_Postal_Code"]["value"]) ? $post["Company_Postal_Code"]["value"] : '';?>" required="required"/>
         
           </div>
            <div class="form-row">
