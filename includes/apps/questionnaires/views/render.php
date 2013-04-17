@@ -324,8 +324,11 @@ else {
 
     );
     
-    if (!empty($_POST) && empty($message)) {
+    if (!empty($_POST) && empty($message) && !isset($_SESSION['visits'])) {
     	
+        /* Ensure no re-entry of data when refreshing page */
+        $_SESSION['visits'] = 1;
+
     	    	//SAVE QUESTIONS
 		if (is_array($q->questions) && !empty($q->questions)) {
 			
@@ -493,6 +496,8 @@ else {
 		    	}
 	    	}
     	}
+
+
 
     }
 
