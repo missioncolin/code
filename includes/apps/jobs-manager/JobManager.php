@@ -220,7 +220,7 @@ class JobManager {
         
         $qry = sprintf("SELECT *
             FROM tblApplications
-        	WHERE  jobID = '%d' 
+            WHERE  tblApplications.jobID = '%d' AND tblApplications.sysActive = '1'
             LIMIT %d, %d", 
         	   (int)$jobID,
         	   $offset,
@@ -229,12 +229,12 @@ class JobManager {
         
         if ($this->db->valid($res)) {
             while ($a = $this->db->fetch_assoc($res)) {
-                $applicants[$a['userID']] = $a;            
+                $applicants[$a['userID']] = $a;         
             }
         }
+        
         return $applicants;
     }
-
     
     /**
      * Return the details of an application
@@ -266,7 +266,7 @@ class JobManager {
         
         $qry = sprintf("SELECT itemID
             FROM tblApplications
-        	WHERE  jobID = '%d'", 
+        	WHERE  jobID = '%d' AND sysActive = '1'", 
         	   (int)$jobID);
         $res = $this->db->query($qry);
        
@@ -706,12 +706,11 @@ class JobManager {
 
         $qry = sprintf("SELECT *
             FROM tblApplications
-        	WHERE  userID IN (%s) 
-        	AND jobID = '%d' LIMIT %d, %d", 
+        	WHERE  userID IN (%s) AND sysActive = '1'
+        	AND jobID = '%d' LIMIT %d, 10", 
                $allApplicants, 
         	   (int)$jobID, 
-        	   $offset,
-        	   $display);
+        	   $offset);
         	   
         $res = $this->db->query($qry);
         
