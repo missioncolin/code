@@ -49,7 +49,7 @@ $(function () {
 	        var $this = $(this);
 	        var react = $(this);
 	        var linkText = document.createTextNode(location.host+"/apply/"+$jobID);
-	        confirmAction("Publish Job?", "Publishing this job will cost one (1) credit");
+	        confirmAction("Activate Joblink?", "Activating this joblink will cost (1) credit");
 	        
 	        //client request - "make it green"
 	        $('.popUp').removeClass('fail').addClass('success');
@@ -68,7 +68,7 @@ $(function () {
 					//if (data == 'success')
 					var creditHTML = (parseInt(credits[1], 10) - 1)+' Credits';
 					$('#loggedInButtons a:eq(0)').html(creditHTML);
-					$('.alert').removeClass('fail').addClass('success').html('<span></span>Job Re-published Successfully. Your account was debited one (1) credit');				
+					$('.alert').removeClass('fail').addClass('success').html('<span></span>Joblink Re-activated Successfully. Your account was debited one (1) credit');				
 						
 					location.reload();
 					//}else{
@@ -77,7 +77,7 @@ $(function () {
 	
 				}else{
 					//$('.alert').removeClass('success').addClass('fail').html('<span></span>Job not Re-published. '+data);
-					alertBox("fail", "Job not re-published. " + data + ". <a href='buy-job-credits'>Buy Credits?</a>");	
+					alertBox("fail", "Joblink not re-activated. " + data + ". <a href='buy-job-credits'>Buy Credits?</a>");	
 					
 				}
 	
@@ -181,7 +181,7 @@ $(function () {
         var $jobID = $(this).data('job');
         var $expiry = $(this).data('expiry');
         var react = $(this);
-        confirmAction("Re-Publish Job?", "Re-publishing this job will cost one (1) credit");
+        confirmAction("Re-activate Joblink?", "Re-activating this joblink will cost (1) credit");
         $('.popUp #popUpNo').on('click', clearPopUp);
         $('.popUp #popUpOk').on('click', function(){
             var parTD = react.parent();
@@ -284,7 +284,7 @@ $(function () {
         e.preventDefault();
         var $jobID = $(this).data('job');
         var react = $(this);
-        confirmAction("Publish Job?", "Publishing this job will cost one (1) credit");
+        confirmAction("Activate Joblink?", "Activating this joblink will cost (1) credit");
         $('.popUp #popUpNo').on('click', clearPopUp);
         $('.popUp #popUpOk').on('click', function(){
             var parTD = react.parent();
@@ -299,11 +299,11 @@ $(function () {
 
 	                 $('.reactivateLanding').remove();  
 	                 $('.successAlert').html('Your job has been published!<br/>');    
-                        $('.alert').removeClass('fail').addClass('success').html('<span></span>Job Re-published Successfully. Your account was debited one (1) credit');
+                        $('.alert').removeClass('fail').addClass('success').html('<span></span>Job Re-activated Successfully. Your account was debited (1) credit');
                         
                    
                     }else{
-                    		$('.alert').removeClass('success').addClass('fail').html('<span></span>Job not Re-published. '+data);
+                    		$('.alert').removeClass('success').addClass('fail').html('<span></span>Job not Re-activated. '+data);
                     }
                     clearPopUp();
                     
@@ -319,7 +319,7 @@ $(function () {
         e.preventDefault();
         var $jobID = $(this).data('job');
         var react = $(this);
-        confirmAction("Re-Publish Job?", "You do not have enough credits. Re-publishing this job will cost one (1) credit.<br />Do you want to buy credits?");
+        confirmAction("Re-activate Joblink?", "You do not have enough credits. Re-activating this joblink will cost (1) credit.<br />Do you want to buy credits?");
         $('.popUp #popUpNo').on('click', function(){
             clearPopUp();
         });
