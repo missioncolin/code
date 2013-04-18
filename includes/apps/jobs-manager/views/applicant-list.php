@@ -459,7 +459,7 @@ $(function() {
 	<!--Name search box-->
 	<!--searches first name or last name-->
 	<?php
-    echo "<div style=\"float: left; margin-top: 20px;\">";
+    echo "<div style=\"float: left; margin-top: 10px;\">";
     echo "Viewing " . count($applicants) . " out of " . count($numTotalApplicants);
     echo "</div>";
     echo "<div style=\"float: right; margin-bottom: 10px;\">";
@@ -467,7 +467,7 @@ $(function() {
     echo "<input id=\"name-search\" name=\"name-search\" type=\"text\" style=\"margin-right: 5px; margin-left: 10px;\"> <input type=\"submit\" value=\"Search\" class=\"btn\" style=\"margin-top: 5px;\">";
     echo "</div>";
     if ($searchString != null){
-        echo "<div style=\"float: left; margin-top: 10px;\">Searched For: ".$searchString."</div>";
+        echo "<div class=\"searchedFor\">Searched For: ".$searchString."</div>";
     }
     echo "<div>&nbsp;</div>";
 ?>
