@@ -36,7 +36,7 @@ function stripeResponseHandler(status, response) {
 
 
 $('div.credits input').bind('click',function(){
-    //console.log("You clicked me " + $(this).attr("id"));
+    // console.log("You clicked me " + $(this).attr("id"));
     
     
     var idSplit = $(this).attr("id");
@@ -72,7 +72,49 @@ $('div.credits input').bind('click',function(){
     
     // console.log(myTotal);
     
-    $("#whatAreYouBuying").html("You are purchasing <strong>"+myDS[1]+"</strong> job credit(s) for <strong>$"+myDS[0]+"</strong> CAD plus "+taxLabel+" ($"+taxes+") <br />Your total will be <strong>$"+myTotal+" CAD</strong>");
+    $("#whatAreYouBuying").html("You are purchasing <strong>"+myDS[1]+"</strong> job credit(s) for <strong>$"+myDS[0]+"</strong> CAD plus "+taxLabel+" ($"+taxes+") Your total will be <strong>$"+myTotal+" CAD</strong>");
+    
+    
+    
+    
+    
+});
+
+$('#Billing_Province').bind('change',function(){    
+    
+    var idSplit = $("div.credits input[type='radio']:checked").val();
+    var provID = $(this).val();
+    var myDS = "ds_credit_" + idSplit;
+    myDS = eval(myDS);
+    
+    if(provID < 10) {
+        
+        provID = "0" + provID;
+    }
+    
+    var myTaxDS = "ds_tax_" + provID;
+    myTaxDS = eval(myTaxDS);
+    // console.log(myTaxDS[1]);
+    var taxes = parseFloat(myDS[0]) * parseFloat(myTaxDS[1]);
+    
+    var taxLabel = myTaxDS[0];
+    
+    if(myTaxDS[3]) {
+        taxes = taxes + (parseFloat(myDS[0]) * parseFloat(myTaxDS[3]));
+        taxLabel = taxLabel + " + " + myTaxDS[2];
+    }
+    
+    
+    
+    var myTotal = parseFloat(myDS[0]) + taxes;
+    myTotal = Math.round(myTotal*Math.pow(10,2))/Math.pow(10,2);
+    taxes = Math.round(taxes*Math.pow(10,2))/Math.pow(10,2);
+    
+    
+    
+    // console.log(myTotal);
+    
+    $("#whatAreYouBuying").html("You are purchasing <strong>"+myDS[1]+"</strong> job credit(s) for <strong>$"+myDS[0]+"</strong> CAD plus "+taxLabel+" ($"+taxes+") Your total will be <strong>$"+myTotal+" CAD</strong>");
     
     
     
