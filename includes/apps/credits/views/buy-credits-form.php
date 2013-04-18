@@ -81,8 +81,10 @@
 			    <h5><?php echo $credit['credits']; ?> Jobs</h5>
 			    <p><?php echo $credit['packageDescription']; ?></p>
 			    <small>Job credits do not expire</small>
-			    <label for="credit_<?php echo $credit['itemID']; ?>"<?php echo $class; ?>>Choose this Plan</label>
-			    <input type="radio" name="credits" id="credit_<?php echo $credit['itemID']; ?>" value="<?php echo $credit['itemID']; ?>"<?php echo $checked; ?>>
+			    <div class="btnWrap">
+				    <label for="credit_<?php echo $credit['itemID']; ?>"<?php echo $class; ?>>Choose this Plan</label>
+				    <input type="radio" name="credits" id="credit_<?php echo $credit['itemID']; ?>" value="<?php echo $credit['itemID']; ?>"<?php echo $checked; ?>>
+			    </div>
 		    </li>
             <?php
             

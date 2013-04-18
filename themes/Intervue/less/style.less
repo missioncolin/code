@@ -2673,18 +2673,26 @@ ul.pricingTable li:first-child a {
 
 .credits label.selected {
 }
-
+.credits ul.pricingTable li .btnWrap {
+	position: relative;
+}
 .credits input[type="radio"] {
     position: absolute;
     right: 40px;
     bottom: 35px;
     z-index: 99;
 }
-.credits ul.pricingTable li:nth-child(2) input[type="radio"] {
+.credits ul.pricingTable li input[type="radio"] {
     position: absolute;
-    right: 60px;
-    bottom: 29px;
+    right: 40px;
+    bottom: 11px;
+    width: 14px;
+    height: 14px;
     z-index: 99;
+}
+
+.credits ul.pricingTable li.bigger input[type="radio"] {
+	right: 58px;
 }
 
 #whatAreYouBuying {
