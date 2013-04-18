@@ -449,11 +449,11 @@ else {
 	                	mkdir(dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications');
                 	}
                 	
-                	print "DEBUG: " . dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications/' . (int) $_GET['job'] . '/' . (int) $_SESSION['userID'];
+                	print "DEBUG2: " . dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications/' . (int) $_GET['job'] . '/' . (int) $_SESSION['userID'];
                 	
 			    	if (!is_dir(dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications/' . (int) $_GET['job'] )) {
 
-                        $successfulMkdir = mkdir(dirname(__DIR__) . '/uploads/applications/' . (int) $_GET['job']);
+                        $successfulMkdir = mkdir(dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications/' . (int) $_GET['job']);
                         
                         if (!is_dir(dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications/' . (int) $_GET['job'] . '/' . (int) $_SESSION['userID'])) {
 	                        
