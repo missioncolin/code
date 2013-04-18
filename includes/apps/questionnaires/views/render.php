@@ -449,6 +449,8 @@ else {
 	                	mkdir(dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications');
                 	}
                 	
+                	print "DEBUG: " . dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications/' . (int) $_GET['job'] . '/' . (int) $_SESSION['userID'];
+                	
 			    	if (!is_dir(dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications/' . (int) $_GET['job'] )) {
 
                         $successfulMkdir = mkdir(dirname(__DIR__) . '/uploads/applications/' . (int) $_GET['job']);
