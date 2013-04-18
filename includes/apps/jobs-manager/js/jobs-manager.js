@@ -191,6 +191,7 @@ $(function () {
             }, function(data) {
                 if (data == 'success'){
                     //create active elements
+
                     var credits = $('#loggedInButtons a:eq(0)').html().match(/^(\d+)\sCredits$/);
                     if (typeof credits != 'undefined' && credits[1] > 0){
                         var creditHTML = (parseInt(credits[1], 10) - 1)+' Credits';
@@ -250,20 +251,13 @@ $(function () {
                        // actTD[2].replaceWith(tdEdit);
                        // actTD[3].replaceWith(tdDel);
                        
-                       console.log(actTD[0]);
-                       console.log(actTD[1]);
-                       console.log(actTD[2]);
-                       console.log(actTD[3]);
-                        console.log(actTD[4]);
-                         console.log(actTD[5]);
-                       
-                       
-                       
-                      
-                        
-                       
-                    
-                       
+                       // console.log(actTD[0]);
+                       // console.log(actTD[1]);
+                       // console.log(actTD[2]);
+                       // console.log(actTD[3]);
+                       //  console.log(actTD[4]);
+                       //   console.log(actTD[5]);
+
                        
                         $('.alert').removeClass('fail').addClass('success').html('<span></span>Job Re-published Successfully. Your account was debited one (1) credit');
                         
@@ -272,9 +266,12 @@ $(function () {
                     		$('.alert').removeClass('success').addClass('fail').html('<span></span>Job not Re-published. '+data);
                     }
                     clearPopUp();
+
+                    location.reload();
+
                 }
             });
-            clearPopUp();
+            // clearPopUp();
         });
         
     });
