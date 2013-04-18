@@ -67,7 +67,7 @@
 <thead>
     <tr>
         <th colspan="2">Invoice Item</th>
-        <th style="width:200px">Price</th>
+        <th class="priceSizer">Price</th>
     </tr>
 </thead>
 <tbody>
