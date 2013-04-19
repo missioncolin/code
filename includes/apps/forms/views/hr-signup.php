@@ -93,7 +93,7 @@ if ($this INSTANCEOF Quipp){
     <div id="signupBox">
 <?php
         if (!empty($message)) {
-            echo alert_box("The following must be completed in order to create your account: <ul>".$message."</ul>", 2);
+            echo alert_box("<strong>Sorry,</strong> there was an issue creating your account: <ul>".$message."</ul>", 2);
         }
 ?>
 	    <form method="post" enctype="multipart/form-data" action="<?php echo $_SERVER["REQUEST_URI"];?>" id="loginBoxForm">

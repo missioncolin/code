@@ -108,7 +108,12 @@ class Forms extends User{
         }
         else{
             global $message;
-            $message = '<li>'.$this->db->error().'</li>';
+            
+            if(strstr($this->db->error(), "Duplicate entry")) { 
+                $message = '<li>The e-mail address you provided is already in use.</li>';
+            } else {
+                 $message = '<li>'.$this->db->error().'</li>';
+            }
         }
         return $insID;
     }
