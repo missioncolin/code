@@ -50,13 +50,21 @@ function ajaxFunction(questionnaireID, inputAction, questionID, typeID, label, i
     require dirname(dirname(__DIR__)) . '/jobs-manager/JobManager.php';
     $j = new JobManager($db, $_SESSION['userID']);
     
+
+    /// PREVENT EMPTY JOBS
+    // if (empty($_POST) && isset($_GET['step']) && (int)$_GET['step'] > 2) {
+
+    //      $error_message = "Error: Please complete at least one question.";
+    //      $resetStep = $_GET['step'] - 1;
+    //      // header("Location: /configure-question?qnrID=" . $_REQUEST['qnrID']. "&step=" . $resetStep);
+    // }
     
     ?>
    
-	<!-- New breadcrumb setup: If creating a new user, and moving to create a job, display this: --->
-	<!--         <ul id="stepsNew"<?php if (!isset($_GET['step'])) { ?> class="hide"<?php } ?>> -->
+	<!-- New breadcrumb setup: If creating a new user, and moving to create a job, display this: -->
+	<!--        <ul id="stepsNew"<?php if (!isset($_GET['step'])) { ?> class="hide"<?php } ?>> -->
 	
-	 <!---- Handles breadcrumb for newly registered users ---->
+	 <!-- Handles breadcrumb for newly registered users -->
 	<ul id="stepsNew"<?php if ($j->totalJobs() > 1) { ?> class="hide"<?php } ?>>
 	    <?php if (isset($_GET['step']) || in_array($_GET['p'], $signUpPages)) { ?>
 	    <li<?php if ($_GET['p'] == 'hr-signup') { ?> class="current"<?php } ?>><span>1</span>Create Account</li>
@@ -67,7 +75,7 @@ function ajaxFunction(questionnaireID, inputAction, questionID, typeID, label, i
 	    <?php } ?>
 	</ul>
 	
-	<!--   If just creating a new job, use this: --->
+	<!--   If just creating a new job, use this: -->
 	<ul id="steps"<?php if (($j->totalJobs() == 1)) { ?> class="hide"<?php } ?>>
 	    <?php if (isset($_GET['step'])) { ?>
 	    <li<?php if ($_GET['step'] == '1') { ?> class="current"<?php } ?>><span>1</span>Name Your Job</li>
@@ -85,12 +93,21 @@ if ($this instanceof Quipp) {
     if (!isset($_GET['action'])) {
         $_GET['action'] = "new";
     }
-    
+
     /// MANAGEMENT OF NEWLY CREATED QUESTIONNAIRES
     if (!empty($_POST) && isset($_POST["configure-question"]) && !isset($_POST["submitEditQs"]) ) {
 
-	    
-        if (validate_form($_POST)) {
+        $hasQuestions = 0;
+
+        foreach ($_POST['RQvalALPHQuestions'] as $index => $string) {
+
+            if (strlen($string) > 0) {
+                $hasQuestions = 1;
+                break;
+            }
+        }
+
+        if (validate_form($_POST) && $hasQuestions == 1) {
 
             switch ($_GET['action']) {
 
@@ -113,6 +130,8 @@ if ($this instanceof Quipp) {
 	                        $i += 1;
                        
                      }
+
+                     $success = 1;
                     
                 } else {
                 
@@ -124,8 +143,10 @@ if ($this instanceof Quipp) {
 	                        (int) $_POST['idealValues']);
 	                    $db->query($qry);
                     }    
+
+                    $success = 1;
                 }
-                $success = 1;
+
 
                 break;
                 
@@ -179,7 +200,18 @@ if ($this instanceof Quipp) {
             }
             
         } else {
-            $error_message = "Error: Please review the following fields:<ul>$message</ul>";
+            if ($hasQuestions == 0) {
+                if (isset($_GET['step']) && $_GET['step'] == 2) {
+                    $error_message = "Error: Please create at least one skill.";
+                }
+                else {
+                    $error_message = "Error: Please create at least one question.";
+                }
+            }
+
+            else {
+                $error_message = "Error: Please review the following fields:<ul>$message</ul>";
+            }
         }
     }
     
@@ -189,69 +221,126 @@ if ($this instanceof Quipp) {
 	    /* Update edited questions from pre-existing job and questionnaire */
 /* 	    header('Location: /applications?success=Job+edited=successfully'); */
 
+
 		if ($_GET['editStep'] == 2) {
 			
 			$editedQuestions = array();
 			
 			$y = 0;
+            $deleteQuestions = 0; 
+            $questionCount = 0;
+
 			foreach ($_POST as $id=>$value) {
-				
+
+
 				if (strpos($id, "QvalALPHQuestion") != false) {
-					$editedQuestions[$id] = $value;
-					$editedQuestions[$y] = $_POST['idealValues'][$y];
-					$y += 1;
+
+                    if (strlen($value) > 0) {
+
+                        $questionCount++;
+    					$editedQuestions[$id] = $value;
+    					$editedQuestions[$y] = $_POST['idealValues'][$y];
+    					$y += 1;
+
+                        if (strpos($id, "_delete") != false) {
+                            $deleteQuestions++;
+                        }
+                    }
 				}
 				
 			}
+
+            if ($questionCount == 0 || $deleteQuestions == $questionCount) {
+                $error_message = "Error: Please create at least one skill.";
+                $_GET['editStep'] = $_GET['editStep'] - 1;
+
+            }
+
 			
 		}
 
 		if ($_GET['editStep'] == 3) {
 		
-        	echo alert_box("<strong>Success!</strong> Your job has been edited!", 1);
 			// Unseralize array passed with all questions
 			$serializedEdits = $_REQUEST["editedQuestions"]; 
 			$editedQuestions = unserialize(stripslashes($serializedEdits));  	
-						
-			foreach ($_POST as $id=>$value) {
-				if (strpos($id, "QvalALPHQuestion") != false) {
-					$editedQuestions[$id] = $value;
+		    $deleteQuestions = 0;	
 
-				}
-			}
-			
-			$y = 0; 
-			
-			//**** Process all of that stuff here ****//
-			foreach ($editedQuestions as $id=>$label) {
-			
-				
-				
-				$explodedId = explode("_", $id);   // then actual $id = $explodedId[1], action = $explodedId[2])
-				
-				
-				if (strpos($id, "_3") != false) {
-					/* Sending slider ideal values  to ajax */
-					$idealVal = $editedQuestions[$y];
-					$y += 1;
-				}
-				else {
-					$idealVal = 0;
-				}
-				
-				?>
-				
-				<script> ajaxFunction(<?php echo $_GET['qnrID']; ?>, <?php echo "\"".$explodedId[2]."\""; ?>, <?php echo $explodedId[1]; ?>, <?php echo "\"".$explodedId[3]."\""; ?>, <?php echo "\"".$label."\""; ?>, <?php echo "\"".$idealVal."\""; ?>); </script>
-				<?php
-			}
-			
-			            
-            	
-			?>
-			<a name="edit-question" class="btn" href="/applications?success=Job+edited=successfully" >Back to Job List</a>
+            if (count($editedQuestions) == 0) {
+                $error_message = "Error: Please create at least one question.";
+                $_GET['editStep'] = $_GET['editStep'] - 1;
+            }
 
-			<?php
-			
+			else {
+
+                $type3 = 0;
+                $type4 = 0;
+
+                foreach ($_POST as $id=>$value) {
+
+    				if (strpos($id, "QvalALPHQuestion") != false) {
+
+                        if (strlen($value) > 0) {
+        					$editedQuestions[$id] = $value;
+
+                        }
+    				}
+    			}
+
+                foreach ($editedQuestions as $id => $label) {
+                    if (strpos($id, "_3") != false && strpos($id, "_delete") == false) {
+                        $type3 = 1;
+                    }
+                            
+                    if (strpos($id, "_4") != false && strpos($id, "_delete") == false) {
+                        $type4 = 1;
+                    }
+
+                }
+
+                if (count($editedQuestions) != 0 && $type4 != 0 && $type3 != 0) {
+
+                    $y = 0; 
+
+                     echo alert_box("<strong>Success!</strong> Your job has been edited!", 1);
+
+        			//**** Process all of that stuff here ****//
+        			foreach ($editedQuestions as $id=>$label) {
+        			
+        				
+        				
+        				$explodedId = explode("_", $id);   // then actual $id = $explodedId[1], action = $explodedId[2])
+        				
+        				
+        				if (strpos($id, "_3") != false) {
+        					/* Sending slider ideal values  to ajax */
+        					$idealVal = $editedQuestions[$y];
+        					$y += 1;
+        				}
+        				else {
+        					$idealVal = 0;
+        				}
+
+        				?>
+        				
+
+        				<script> ajaxFunction(<?php echo $_GET['qnrID']; ?>, <?php echo "\"".$explodedId[2]."\""; ?>, <?php echo $explodedId[1]; ?>, <?php echo "\"".$explodedId[3]."\""; ?>, <?php echo "\"".$label."\""; ?>, <?php echo "\"".$idealVal."\""; ?>); </script>
+        				<?php
+        			}
+        			
+        			            
+                   
+
+        			?>
+        			<a name="edit-question" class="btn" href="/applications?success=Job+edited=successfully" >Back to Job List</a>
+
+        			<?php
+                }
+                else {
+                    $error_message = "Error: Please create at least one question.";
+                    $_GET['editStep'] = $_GET['editStep'] - 1;
+                }
+			}
 		}	    
     }
 
@@ -335,10 +424,10 @@ if ($this instanceof Quipp) {
     ?>
     
     
-	<!--- Prevent submission of form on enter press --->
+	<!--- Prevent submission of form on enter press -->
     <body OnKeyPress="return disableKeyPress(event)">
     
-    <!--- IF 'STEP' is set to a particular step, display the create a new question wizard; else, edit ! --->
+    <!--- IF 'STEP' is set to a particular step, display the create a new question wizard; else, edit ! -->
     <?php if (isset($_GET['step'])) { ?>
     <div class="colASplit">
 	    <h4>New Job: <?php echo $qnr['label']; ?></h4>
@@ -629,15 +718,15 @@ if ($this instanceof Quipp) {
 					    $allQuestions[$selectQ['itemID']] = $selectQ['label'];
 				    }
 			    }
-			    else {
-				    // No questions
-				    echo "<tr><td>No Questions To Edit.</td></tr>";
-			    }
+			    // else {
+				   //  // No questions
+				   //  echo "<tr><td>No Questions To Edit.</td></tr>";
+			    // }
 		    }
-		    else {
-			    // No questions
-			    echo "<tr><td>No Questions To Edit.</td></tr>";
-		    }
+		    // else {
+			   //  // No questions
+			   //  echo "<tr><td>No Questions To Edit.</td></tr>";
+		    // }
 			
 			$finalID = 0;
 
