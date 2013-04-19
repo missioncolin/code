@@ -706,7 +706,10 @@ else {
 		        <li class="alert success">
 		        	<?php echo $fileMessage; ?>
 		        </li>
+                        
 	        </div>
+        </td>
+        </tr>
 
         <?php 
         }
@@ -714,8 +717,15 @@ else {
         
         ?>
         
-                         
-        <!-- Allow users to upload their docs --> 
+                    <!-- Allow users to upload their docs --> 
+        <?php if ((isset($_FILES['resume']['name']) || isset($_FILES['coverLetter']['name']))) {
+                echo "<tr><td>If you want you can upload new files below:</br></td></tr>";
+            }
+        ?>
+         </td>
+        </tr>
+        <tr>
+         <td>
         <label for='coverLetter'>Upload Cover Letter: </label><input type='file' name='coverLetter' id='coverLetter'></br>
         <label for='resume'>Upload Resume: </label><input type='file' name='resume' id='resume'></br>
         </td>
