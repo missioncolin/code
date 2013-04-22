@@ -2,7 +2,7 @@
 		<h2>Hire Better. Hire Faster. Hire Smarter</h2>
 		<h3>The #1 Online Recruiting Tool</h3>
 		
-		<div class="videoHome"><a href="/how-it-works"><img src="../../../../themes/Intervue/img/homeImage.png" alt="homeImage" width="330" height="210" /></a></div>
+		<div class="videoHome"><a href="/how-it-works"><img src="/themes/Intervue/img/homeImage.png" alt="homeImage" width="330" height="210" /></a></div>
 		<div class="homeContent">
 			<h4 id="manage">Manage</h4>
 			<p>All applicants information is sorted and organized for you</p>
@@ -25,7 +25,7 @@
 			Intervue make the hiring process faster and far more efficient than our old system
 			<span>Will Hamilton</span>
 		</div>
-		<div class="jobSites"><img src="../../../../themes/Intervue/img/jobSites.png" alt="jobSites" width="311" height="109" /></div>
+		<div class="jobSites"><img src="/themes/Intervue/img/jobSites.png" alt="jobSites" width="311" height="109" /></div>
 		<div class="clearfix"></div>
 	</div>	
 	

@@ -229,7 +229,7 @@
 
 <div class="anySite">
 	    <h4>Intervue works with any site, Including</h4>
-	    <img src="../../../../themes/Intervue/img/jobSitesPricing.png" alt="jobSitesPricing" width="252" height="90" />
+	    <img src="/themes/Intervue/img/jobSitesPricing.png" alt="jobSitesPricing" width="252" height="90" />
 	</div>
 	
 	<ul class="faqz">
