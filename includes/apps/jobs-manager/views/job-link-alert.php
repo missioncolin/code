@@ -102,7 +102,7 @@ echo alert_box('<h2>Tips</h2><p>Job links are active for 60 days</p><p>Cut and p
 					<td width="33%">Copy and paste this link into your external job posting</td>
 				</tr>
 				<tr>
-					<td colspan="3"><span class="yourLink"><?php echo $_SERVER['SERVER_NAME']."/apply/".$_GET['jobID']; ?></span></td>
+					<td colspan="3"><span class="yourLink">http://<?php echo $_SERVER['SERVER_NAME']."/apply/".$_GET['jobID']; ?></span></td>
 				</tr>
 				<tr>
 					<td colspan="3"><a href="applications" class="btn ">Go to my jobs</a></td>

@@ -94,7 +94,7 @@ if (isset($_GET['req']) && preg_match('%^reactivate[\s\+](\d+)$%', $_GET['req'],
 	            	  		$printClass = " newJobAlert";
 	            	  	}
 	            	  	if (ucfirst($job['sysStatus']) == 'Active'){  
-	            	  		echo "<span class=\"boldLink".$printClass."\">".$_SERVER['SERVER_NAME']."/apply/".$jobID."</span>"; 
+	            	  		echo "<span class=\"boldLink".$printClass."\">http://".$_SERVER['SERVER_NAME']."/apply/".$jobID."</span>"; 
 	            	  	} 
 	            	  	else { echo "<span class=\"disabledLink\">(You must publish this job to use a link)</span>"; } ?>
 	            	</td>
