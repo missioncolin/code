@@ -168,14 +168,14 @@ class Credits {
                     $this->db->escape($response->currency),
                     $this->db->escape($response->description),
                     (int)$response->paid,
-                    $firstName,
-                    $lastName,
-                    $address,
-                    $city,
-                    $email,
-                    $postal,
-                    $province,
-                    $country);
+                    $this->db->escape($firstName),
+                    $this->db->escape($lastName),
+                    $this->db->escape($address),
+                    $this->db->escape($city),
+                    $this->db->escape($email),
+                    $this->db->escape($postal),
+                    (int)$province,
+                    $this->db->escape($country));
 
                 $this->db->query($qry);
                 $invoiceID = $this->db->insert_id();
