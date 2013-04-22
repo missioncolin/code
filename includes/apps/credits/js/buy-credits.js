@@ -1,27 +1,26 @@
 $("#payment-form").submit(function (event) {
-	//are boxes checked? 
-	if ( $('#termsConditions').is(':checked') && $('#privacyPolicy').is(':checked') )
-	{
-	    // disable the submit button to prevent repeated clicks
-	    $('.submit-button').attr("disabled", "disabled").attr("class", "btn grey submit-button");
-	
-	
-	    //create stripe tokens
-	    Stripe.createToken({
-	        number: $('.card-number').val(),
-	        name: $('.card-name').val(),
-	        cvc: $('.card-cvc').val(),
-	        exp_month: $('.card-expiry-month').val(),
-	        exp_year: $('.card-expiry-year').val()
-	    }, stripeResponseHandler);
-    }else{
-    	alert ( "Please accept both Terms and Conditions and Privacy Policy to continue." );
+    //are boxes checked? 
+    if ($('#termsConditions').is(':checked') && $('#privacyPolicy').is(':checked')) {
+        // disable the submit button to prevent repeated clicks
+        $('.submit-button').attr("disabled", "disabled").attr("class", "btn grey submit-button");
+
+
+        //create stripe tokens
+        Stripe.createToken({
+            number: $('.card-number').val(),
+            name: $('.card-name').val(),
+            cvc: $('.card-cvc').val(),
+            exp_month: $('.card-expiry-month').val(),
+            exp_year: $('.card-expiry-year').val()
+        }, stripeResponseHandler);
+    } else {
+        alert("Please accept both Terms and Conditions and Privacy Policy to continue.");
     }
     return false;
 });
 
 function stripeResponseHandler(status, response) {
-    if (response.error) { 
+    if (response.error) {
         // show the errors on the form
         $(".payment-errors").fadeIn().html("<div class='fail'><span></span></div>" + response.error.message);
         $(".submit-button").removeAttr("disabled").attr("class", "btn green submit-button");
@@ -78,18 +77,20 @@ function calculateTax(creditSelection, provinceID) {
     }
 
 
-$('.reactivate').bind('click',function(){
+
+}
+
+$('.reactivate').bind('click', function () {
     var $jobID = $(this).data('job');
     var $this = $(this);
     $.post('/reactivate-job', {
         job: $jobID
-    }, function(data) {
-        if (data == 'success'){
+    }, function (data) {
+        if (data == 'success') {
             //create active elements
             window.location.href = $this.attr('href');
-            
-        }
-        else{
+
+        } else {
             //error message in a dialog box of some kind
         }
     });
@@ -98,18 +99,17 @@ $('.reactivate').bind('click',function(){
 
 
 
-$('.activate').bind('click',function(){
+$('.activate').bind('click', function () {
     var $jobID = $(this).data('job');
     var $this = $(this);
     $.post('/activate-job', {
         job: $jobID
-    }, function(data) {
-        if (data == 'success'){
+    }, function (data) {
+        if (data == 'success') {
             //create active elements
             window.location.href = $this.attr('href');
-            
-        }
-        else{
+
+        } else {
             //error message in a dialog box of some kind
         }
     });
