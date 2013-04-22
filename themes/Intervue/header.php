@@ -83,16 +83,11 @@
     <?php }
     } ?>
     <section id="container" <?php if ($meta['body_id'] == 'home') { print 'class="home"'; } ?>>
-    
 
-       
-        
-       <!--
- <?php if(in_array($_GET['p'], $signUpPages)) { ?>
+ <?php /* if(isset($signUpPages) && is_array($signUpPages) && in_array($_GET['p'], $signUpPages)) { ?>
              <ul id="steps">
                 <li<?php if ($_GET['p'] == 'hr-signup') { ?> class="current"<?php } ?>><span>1</span>Create a HR Account</li>
                 <li<?php if ($_GET['p'] == 'profile') { ?> class="current"<?php } ?>><span>2</span>Your Profile</li>
                 <li<?php if ($_GET['p'] == 'nope') { ?> class="current"<?php } ?>><span>3</span>Create Your First Job</li>
             </ul>
-        <?php } ?>
--->
+        <?php } */ ?>
