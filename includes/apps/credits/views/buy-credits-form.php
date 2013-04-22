@@ -151,7 +151,7 @@
 <?php
         if ($db->valid($provs)){
             while ($row = $db->fetch_assoc($provs)){
-                echo '<option value="'.$row["itemID"].'"'.($post["Billing_Province"]["value"] == $row["itemID"] ? ' selected="selected"':'').'>'.$row["provName"].'</option>';
+                echo '    <option value="'.$row["itemID"].'"'.(isset($post["Billing_Province"]) && $post["Billing_Province"]["value"] == $row["itemID"] ? ' selected="selected"':'').'>'.$row["provName"]."</option>\n";
             }
         }
 ?>               

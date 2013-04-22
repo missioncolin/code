@@ -6,19 +6,19 @@ class Credits {
     var $db;
     var $credits = array();
     var $taxes = array(
-        '01' => array( //Alberta
+        '1' => array( //Alberta
             array(
                 'label' => "GST",
                 'rate'  => 0.05
             )
         ),
-        '02' => array( //BC
+        '2' => array( //BC
             array(
                 'label' => "GST",
                 'rate'  => 0.05
             )
         ),
-        '03' => array( //MB
+        '3' => array( //MB
             array(
                 'label' => "GST",
                 'rate'  => 0.05
@@ -28,37 +28,37 @@ class Credits {
                 'rate'  => 0.07
             )
         ),
-        '04' => array( //NB
+        '4' => array( //NB
             array(
                 'label' => "HST",
                 'rate'  => 0.13
             )
         ),
-        '05' => array( //NL
+        '5' => array( //NL
             array(
                 'label' => "HST",
                 'rate'  => 0.13
             )
         ),
-        '07' => array( //NS
+        '7' => array( //NS
             array(
                 'label' => "HST",
                 'rate'  => 0.15
             )
         ),
-        '08' => array( //ON
+        '9' => array( //ON
             array(
                 'label' => "HST",
                 'rate'  => 0.13
             )
         ),
-        '09' => array( //PE
+        '10' => array( //PE
             array(
                 'label' => 'HST',
                 'rate'  => 0.14,
             )
         ),
-        '10' => array( //QC
+        '11' => array( //QC
             array(
                 'label' => "GST",
                 'rate'  => 0.05
@@ -69,7 +69,7 @@ class Credits {
                 'groupGST' => true
             )
         ),
-        '11' => array( //SK
+        '12' => array( //SK
             array(
                 'label' => "GST",
                 'rate'  => 0.05
@@ -79,20 +79,20 @@ class Credits {
                 'rate'  => 0.05
             )
         ),
-        '12' => array( //YK
+        '13' => array( //YK
             array(
                 'label' => "GST",
                 'rate'  => 0.05
             )
         ),
         
-        '13' => array( //NW
+        '6' => array( //NW
             array(
                 'label' => "GST",
                 'rate'  => 0.05
             )
         ),
-        '14' => array( //NU
+        '8' => array( //NU
             array(
                 'label' => "GST",
                 'rate'  => 0.05
@@ -199,10 +199,8 @@ class Credits {
     
     public function calculateTax($amount, $billingProv) {
         
-        $fipsCode = $this->db->return_specific_item((int)$billingProv, 'sysProvince', 'fipsCode', '00');
-
         $taxes = array();
-        foreach($this->taxes[$fipsCode] as $tax) {
+        foreach($this->taxes[(int)$billingProv] as $tax) {
             
             if (!isset($tax['groupGST']) || isset($tax['groupGST']) && $tax['groupGST'] !== true) {
                 $taxes[$tax['label']] = $amount * $tax['rate'];
