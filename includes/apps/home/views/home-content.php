@@ -42,7 +42,7 @@
 			<li><a href="http://twitter.com/Intervuetweets" target="_blank">Twitter</a></li>
 			<li><a href="http://www.facebook.com/Intervue?fref=ts" target="_blank">Facebook</a></li>
 			<li><a href="http://www.linkedin.com/company/2723868?trk=tyah" target="_blank">LinkedIn</a></li>
-			<li><a href="" target="_blank">YouTube</a></li>
+			<li><a href="https://www.youtube.com/user/Intervuetube" target="_blank">YouTube</a></li>
 		</ul>
 		<ul>
 			<h3 class="companyName">Intervue</h3>

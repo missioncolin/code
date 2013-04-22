@@ -174,7 +174,7 @@
 			<li><a href="http://twitter.com/Intervuetweets">Twitter</a></li>
 			<li><a href="http://www.facebook.com/Intervue?fref=ts">Facebook</a></li>
 			<li><a href="http://www.linkedin.com/company/2723868?trk=tyah">LinkedIn</a></li>
-			<li><a href="">YouTube</a></li>
+			<li><a href="https://www.youtube.com/user/Intervuetube">YouTube</a></li>
 		</ul>
 		<ul>
 			<h3 class="companyName">Intervue</h3>
