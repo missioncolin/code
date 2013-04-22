@@ -147,7 +147,7 @@ class Credits {
         $price = (int)($this->credits[$creditID]['price'] * 100);
         try {
             $response = Stripe_Charge::create(array(
-                "amount"      => round($price + array_sum($this->calculateTax($price, $user))),
+                "amount"      => round($price + array_sum($this->calculateTax($price, (int)$province))),
                 "currency"    => "cad",
                 "card"        => $token,
                 "description" => $this->credits[$creditID]['packageName'] . " for {$user->username}"
@@ -200,12 +200,14 @@ class Credits {
     public function calculateTax($amount, $billingProv) {
         
         $taxes = array();
-        foreach($this->taxes[(int)$billingProv] as $tax) {
-            
-            if (!isset($tax['groupGST']) || isset($tax['groupGST']) && $tax['groupGST'] !== true) {
-                $taxes[$tax['label']] = $amount * $tax['rate'];
-            } else {
-                $taxes[$tax['label']] = ($amount + array_sum($taxes)) * $tax['rate'];
+        if (isset($this->taxes[(int)$billingProv])) {
+            foreach($this->taxes[(int)$billingProv] as $tax) {
+                
+                if (!isset($tax['groupGST']) || isset($tax['groupGST']) && $tax['groupGST'] !== true) {
+                    $taxes[$tax['label']] = $amount * $tax['rate'];
+                } else {
+                    $taxes[$tax['label']] = ($amount + array_sum($taxes)) * $tax['rate'];
+                }
             }
         }
         
