@@ -830,6 +830,16 @@ function tinyMCE($id, $theme)
 			theme_advanced_buttons4 : "",';
 
 	}
+	
+	
+	if ($theme == "common") {
+        $buttons = 'theme_advanced_buttons1 : "visualblocks,undo,redo,code,|,link,unlink,anchor,image,media,figbutton,|,bold,italic,underline,|,justifyleft,justifycenter,justifyright,justifyfull,|,bullist,numlist,|,styleselect",';
+        $buttons .= 'theme_advanced_buttons2 : "pasteword,|,outdent,indent,blockquote,|,tablecontrols,|,charmap,removeformat,|,sub,sup,|,spellchecker",';
+        $buttons .= 'theme_advanced_buttons3 : "",';
+        $buttons .= 'theme_advanced_buttons4 : "",';
+
+    }
+	
 	if($theme == "advanced") {
 		$buttons = 'theme_advanced_buttons1 : "save,newdocument,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,styleselect,formatselect,fontselect,fontsizeselect",
             theme_advanced_buttons2 : "cut,copy,paste,pastetext,pasteword,|,search,replace,|,bullist,numlist,|,outdent,indent,blockquote,|,undo,redo,|,link,unlink,anchor,image,cleanup,help,code,|,insertdate,inserttime,preview,|,forecolor,backcolor",
@@ -861,7 +871,7 @@ function tinyMCE($id, $theme)
 	            // Drop lists for link/image/media/template dialogs
 	            template_external_list_url : "lists/template_list.js",
 	            external_link_list_url : "lists/link_list.js",
-	            external_image_list_url : "lists/image_list.js",
+	            //external_image_list_url : "lists/image_list.js",
 	            media_external_list_url : "lists/media_list.js"';
 
 

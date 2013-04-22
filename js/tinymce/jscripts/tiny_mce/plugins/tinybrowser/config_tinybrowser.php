@@ -17,7 +17,9 @@ set_time_limit(240);
 // Session control and security check
 if(isset($_GET['sessidpass'])) session_id($_GET['sessidpass']); // workaround for Flash session bug
 
-session_start(); // do not change this line
+if(!isset($_COOKIE["PHPSESSID"])) {
+ session_start(); // do not change this line
+}
 
 $_SESSION['tinybrowser']['sessionsecured'] = true; // enables session-based security (default is true)
 $_SESSION['tinybrowser']['sessioncheck'] = 'userID'; // name of session variable to check
@@ -37,7 +39,7 @@ $_SESSION['tinybrowser']['integration'] = 'tinymce'; // Possible values: 'tinymc
 
 // Default is rtrim($_SERVER['DOCUMENT_ROOT'],'/') (suitable when using absolute paths, but can be set to '' if using relative paths
 //$_SESSION['tinybrowser']['docroot'] = rtrim($_SERVER['DOCUMENT_ROOT'],'/');
-$_SESSION['tinybrowser']['docroot'] = $_SESSION['settings']['docroot'];
+$_SESSION['tinybrowser']['docroot'] =  dirname(dirname(dirname(dirname(dirname(dirname(__DIR__))))));  //dirname(dirname(dirname(dirname(__DIR__))))
 //$_SESSION['tinybrowser']['docroot'] = "/resolutionHomes/geoff/Sites/SVN/107-001";
 //$_SESSION['tinybrowser']['docroot'] = "/resolutionClientProjectRootsSpring2011/107-001";
 

@@ -50,7 +50,12 @@ if ($auth->has_permission("viewTransactions")){
     <?php
     while ($row = $db->fetch_assoc($resQry)) {
         $user = new User($db, $row['userID']);
-        $name = $user->info['First Name'] . ' ' . $user->info['Last Name'];
+        if(!isset($user->info['First Name']) || !isset($user->info['Last Name'])) { 
+            $name = "Unknown"; 
+        } else {
+             $name = $user->info['First Name'] . ' ' . $user->info['Last Name'];     
+        }
+        
         ?>
             <tr>
                 <td><?php echo $name; ?></td>

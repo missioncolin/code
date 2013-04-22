@@ -12,6 +12,7 @@ $boxTitle = "";
 $boxContent = "";
 $pb = 'NewContent';
 $box 		= new Content;
+$hideTitle = '';
 
 if ($contentID != 0) {
 	
@@ -35,7 +36,7 @@ if (isset($_POST['pb']) && $_POST['pb'] == sha1("UpdateContent")) {
  	
  	array_push($quipp->js['footer'], '/js/tinymce/jscripts/tiny_mce/jquery.tinymce.js', '/js/tinymce/jscripts/tiny_mce/plugins/tinybrowser/tb_tinymce.js.php');
 	$quipp->js['onload'] .= '$("#boxBodyContent").css("height", "480px");';
-	$quipp->js['onload'] .=  tinyMCE('boxBodyContent', 'advanced');
+	$quipp->js['onload'] .=  tinyMCE('boxBodyContent', 'common');
 	
 	require 'templates/headerLight.php';
 ?>

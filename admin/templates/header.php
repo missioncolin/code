@@ -104,7 +104,7 @@ $modifyPages = $auth->has_permission('modifypages');
     <img src="/images/admin/quippBanner.png" alt="Quipp Engine" />
 		<span id="structureControlTitle">
 		
-		<img src="/themes/Intervue/img/logo.png" alt="Intervue" width="188px" height="142px"/></span>
+		<a href="/admin/"><img src="/themes/Intervue/img/logo.png" alt="Intervue" width="188px" height="142px"/></a></span>
 		
 		<div id="navTab">
 			<table>
