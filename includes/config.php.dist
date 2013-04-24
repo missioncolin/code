@@ -7,7 +7,7 @@
         'db' => array(
             'host'  => 'localhost'
           , 'user'  => 'webuser'
-          , 'pass'  => '32webuser32'
+          , 'pass'  => '89DScUNK4NHt6B4n'
           , 'name'  => 'intervue_ca'
           , 'class' => 'DB_MySQL'
         )
