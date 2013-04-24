@@ -8,7 +8,7 @@
             'host'  => 'localhost'
           , 'user'  => 'webuser'
           , 'pass'  => '32webuser32'
-          , 'name'  => '140-001_intervue'
+          , 'name'  => 'intervue_ca'
           , 'class' => 'DB_MySQL'
         )
     );
