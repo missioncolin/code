@@ -7,8 +7,8 @@
         'db' => array(
             'host'  => 'localhost'
           , 'user'  => 'webuser'
-          , 'pass'  => '32webuser32'
-          , 'name'  => '140-001_intervue'
+          , 'pass'  => '89DScUNK4NHt6B4n'
+          , 'name'  => 'intervue_ca'
           , 'class' => 'DB_MySQL'
         )
     );
