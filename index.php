@@ -4,7 +4,10 @@ require 'includes/init.php';
 
 $page  = new Page($_GET['p']);
 if ($page->template != '') {
-	
+
+    if (isset($_SESSION['isMasquerading'])) {
+        $quipp->js['onload'] .= "$('body').prepend('<div style=\"text-align:center;background:#FFF800;margin:0;padding:8px;\"><h1>You are currently masquerading as another user. You must <a href=\"/logout\">logout</a> to reclaim your account</h1></div>');";
+    }
 
 	$meta['title'] 		  = $page->info['label'];
 	$meta['title_append'] = ' &bull; ' . $quipp->siteLanguageRS[$_SESSION['instanceID']]['siteTitle'];
