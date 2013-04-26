@@ -50,8 +50,8 @@ $quipp->css = array();
 
 $quipp->google = array(
 	"ga_email" => "resimanalytics@gmail.com",
-	"ga_password" => "32webuser32",
-	"ga_profile_id" => "17069938" //mikealmond.com
+	"ga_password" => "2349swordFISH28",
+	"ga_profile_id" => "71788152" //intervue.ca
 );  //top content
 
 
