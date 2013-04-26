@@ -520,15 +520,23 @@ case "edit": //show an editor for a row (existing or new)
             
             //print an editor with basic controls            
            ?>
-            <form method="get">
-                <div style="text-align:right; padding:0 0 10px 10px;">
+            <div>
+            <form method="get" style="float:left;width:65%;height:45px;">
+                <div>
 
                     <input type="text" name="q" id="q" placeholder="Username" />
                     <?php echo get_list('g', 'sysUGroups', 'nameFull', "WHERE sysOpen = '1'", false, '', '', 'itemID', false, false, '- User Group -'); ?>
                     <input type="submit" value="Search" />  <input type="button" onclick="javascript:window.location='/admin/users.php/';" value="Cancel" />
                 </div>
             </form>
-            
+           
+            <form method="get" action="/admin/export-users.php" style="float:right;width:35%;height:45px;margin-top:5px;">
+                <div style="text-align:right;">
+                    <?php echo get_list('group', 'sysUGroups', 'nameFull', "WHERE sysOpen = '1'", false, '', '', 'itemID', false, false); ?>
+                    <input type="submit" value="Export" />
+                </div>
+            </form>
+            </div>
             <table id="adminTableList" class="adminTableList tablesorter" width="100%" cellpadding="5" cellspacing="0" border="1">
                 
 				    <tr>
