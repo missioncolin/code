@@ -34,7 +34,7 @@
     <script src="/js/tablesort.js"></script> 
     <script>  
         <?php if (isset($quipp->js['onload'])) { echo '$(function() { ' . $quipp->js['onload'] . '});'; } ?>
-        var _gaq=[['_setAccount','UA-26526553-27'],['_trackPageview']];
+        var _gaq=[['_setAccount','UA-40373127-1'],['_trackPageview']];
         (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
         g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
         s.parentNode.insertBefore(g,s)}(document,'script'));
