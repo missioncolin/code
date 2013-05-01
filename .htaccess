@@ -277,6 +277,7 @@ FileETag None
   RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
   RewriteRule ^(.*)$ http://%1/$1 [R=301,L]
   
+
   #AJAX
   RewriteRule ^toggle-job$ /includes/apps/jobs-manager/ajax/toggle.php [NC,L]
   RewriteRule ^delete-job$ /includes/apps/jobs-manager/ajax/delete.php [NC,L] 

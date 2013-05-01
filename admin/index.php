@@ -17,7 +17,7 @@ require 'templates/header.php';
 <a href="#" class="btnStyle green">Green Button</a> 
 -->
 <?php
-/*
+
 require '../includes/lib/gapi-1.3/gapi.class.php';
 
 $ga = new gapi($quipp->google["ga_email"],$quipp->google["ga_password"]);
@@ -26,7 +26,7 @@ $ga->requestReportData($quipp->google["ga_profile_id"],array('pagePath','pageTit
 
 
 ?>
-<!--
+
 <style type="text/css">
 	#dashboardReporting {
 		
@@ -91,7 +91,6 @@ $ga->requestReportData($quipp->google["ga_profile_id"],array('pagePath','pageTit
   <td><span class="chartMain">Total Visits</span><span class="chartSub">30 days</span></td> <td><span class="chartValue"><?php echo number_format($ga->getVisits()); ?></span></td>
   <td><span class="chartMain">Total Pageviews</span><span class="chartSub">30 days</span></td> <td><span class="chartValue"><?php echo number_format($ga->getPageviews()); ?></span></td>
   <td><span class="chartMain">Bounce Rate</span><span class="chartSub">30 days</span></td> <td><span class="chartValue"><?php echo number_format($ga->getVisitBounceRate(), 2); ?>%</span></td>
-  <td><span class="chartMain">Health</span><span class="chartSub">Live</span></td> <td><span class="chartValue chartHealth">80%</span></td>
 
 
 </tr>
@@ -146,6 +145,6 @@ $ga->requestReportData($quipp->google["ga_profile_id"],array('pagePath','pageTit
 
 </div>
 <?php
-*/
+
 require 'templates/footer.php';
 ?>

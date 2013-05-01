@@ -265,10 +265,27 @@ if (isset($_POST['action']) && ($_POST['action'] == 'insert' || $_POST['action']
 	header('Location:' . $_SERVER['PHP_SELF'] . '?' . strtolower($_POST['action']) . '=true');
 }
 
+if (isset($_GET['view'], $_GET['id']) && $_GET['view'] == 'masquerade' && is_numeric($_GET['id']) && $auth->has_permission('canMasquerade')) {
+        
+        $masqueradeAccount = new User($db, $_GET['id']);
+
+        $quipp->system_log('User ' . $user->username . ' has masqueraded to user ' . $masqueradeAccount->username, "authentication");
+
+        $_SESSION['isMasquerading'] = $_SESSION['userID'];
+        $_SESSION['userID'] = $_GET['id'];
+        
+        header('Location: /?masquerade=' . (int)$_GET['id']);
+        die();
+} elseif (isset($_GET['view'], $_GET['id']) && $_GET['view'] == 'masquerade') {
+    
+    $message = 'Masquerading failed';
+}
+
 
 if (!isset($_GET['id'])) {
 	$_GET['id'] = null;
 }
+
 
 
 $addFieldsBuffer ="<dl id=\"groupFormFields\">";
@@ -331,7 +348,7 @@ require 'templates/header.php';
 <h1>Site Users</h1>
 	<p>These are all of the members of your web site. You can use this tool to manually create and manage users as well as change their information and group memberships.</p>
 	<p>&nbsp;</p>
-	<p><a href="groups.php">>> Manage Group Permissions</a></p>
+	<p><a href="/admin/groups.php">Manage Group Permissions</a></p>
 <div class="boxStyle">
 	<div class="boxStyleContent">
 		<div class="boxStyleHeading">
@@ -459,36 +476,163 @@ case "edit": //show an editor for a row (existing or new)
 	//print the form
 	print $formBuffer;
 	break;
-default: //(list)
+	
+	default: //(list)
+            $offset  = 0;
+            $page    = 1;
+            $display = 50;
+            
+            if (isset($_GET['page'])) {
+                $page   = (int) $_GET['page'];
+                $offset = ($page - 1) * $display;
+            }
 
-	//list table query:
-	$listqry = "SELECT itemID, userIDField, lastLoginDate, sysStatus, sysUser AS sysGroup FROM $primaryTableName WHERE sysOpen = '1' ORDER BY sysUser DESC, userIDField";
-	//list table field titles
-	$titles[0] = "Username";
-	$titles[1] = "Last Login Date";
-	$titles[2] = "Status";
+            $search = '';
+            // set up the search
+            if (isset($_GET['q']) && $_GET['q'] != '') {
+            
+                $search .= sprintf(" AND u.userIDField LIKE '%%%s%%'", $db->escape($_GET['q']));
+            }
+            
+            if (isset($_GET['g']) && $_GET['g'] != '' && $_GET['g'] != '0') {
+                $search .= sprintf(" AND l.groupID = '%d'", $db->escape($_GET['g']));
+            
+            }
+            
+            
+            //list table query:
+            $qry = sprintf("SELECT SQL_CALC_FOUND_ROWS u.itemID, u.userIDField, u.lastLoginDate, u.sysStatus, u.sysUser AS sysGroup, (SELECT GROUP_CONCAT(g.nameFull) FROM sysUGLinks AS l LEFT JOIN sysUGroups AS g ON l.groupID=g.itemID WHERE l.userID=u.itemID) as groups
+                FROM sysUsers AS u
+                LEFT OUTER JOIN sysUGLinks AS l ON u.itemID=l.userID
+                WHERE u.sysOpen = '1' 
+                %s
+                GROUP BY u.itemID
+                ORDER BY u.sysUser DESC, u.userIDField 
+                LIMIT %d,%d",
+                    $search,
+                    (int) $offset,
+                    $display);
+            $res = $db->query($qry);
+            
+            // get the total rows
+            $rows        = $db->query("SELECT FOUND_ROWS();");
+            list($total) = $db->fetch_array($rows);
+            
+            //print an editor with basic controls            
+           ?>
+            <div>
+            <form method="get" style="float:left;width:65%;height:45px;">
+                <div>
 
-
-	//print an editor with basic controls
-	print $te->package_editor_list_data($listqry, $titles);
-	//to pass more advanced controls, you'll need to create your own $fields array and pass it directly to $te->display_editor_list($fields);
-	break;
-}
-
-
-
-
-
-
-//end of display logic
-//button to manage groups
-?>
-</div>
-		<div class="clearfix">&nbsp;</div>
-
-	</div>
-
-</div>
+                    <input type="text" name="q" id="q" placeholder="Username" />
+                    <?php echo get_list('g', 'sysUGroups', 'nameFull', "WHERE sysOpen = '1'", false, '', '', 'itemID', false, false, '- User Group -'); ?>
+                    <input type="submit" value="Search" />  <input type="button" onclick="javascript:window.location='/admin/users.php/';" value="Cancel" />
+                </div>
+            </form>
+           
+            <form method="get" action="/admin/export-users.php" style="float:right;width:35%;height:45px;margin-top:5px;">
+                <div style="text-align:right;">
+                    <?php echo get_list('group', 'sysUGroups', 'nameFull', "WHERE sysOpen = '1'", false, '', '', 'itemID', false, false); ?>
+                    <input type="submit" value="Export" />
+                </div>
+            </form>
+            </div>
+            <table id="adminTableList" class="adminTableList tablesorter" width="100%" cellpadding="5" cellspacing="0" border="1">
+                
+				    <tr>
+				        <th>Username</th>
+				        <th>Last Login Date</th>
+				        <th>Status</th>
+				        <th>Groups</th>
+				        <th>&nbsp;</th>
+				        <th>&nbsp;</th>
+				        <?php if ($auth->has_permission('canMasquerade')) { ?><th>&nbsp;</th><?php } ?>
+                    </tr>
+                </thead>
+                <?php
+                
+                if ($total > $display) {
+                ?>
+                <tfoot>
+                    <tr>
+                        <td colspan="6">
+                
+                            <?php
+                            $searchParams = '';
+                            if (isset($_GET['q'])) {
+                                $searchParams .= 'q=' . $_GET['q'] . '&amp;';
+                            }
+                            if (isset($_GET['g'])) {
+                                $searchParams .= 'g=' . (int) $_GET['g'] . '&amp;';
+                            }
+                            
+                            echo pagination($total, $page, $url = '/admin/users.php/?' . $searchParams . 'page=', $display, false);
+                            ?>
+                            
+                        </td>
+                    </tr>
+                </tfoot>
+                <?php 
+                }
+                ?>
+                <tbody>
+                    <?php
+                    
+                    
+                    if (is_resource($res) && $db->num_rows($res) > 0) { 
+                        while ($u = $db->fetch_assoc($res)) {
+                            
+                    ?>
+                    
+                    <tr>
+                        <td><?php echo $u['userIDField']; ?></td>
+                        <td><?php echo $u['lastLoginDate']; ?></td>
+                        <td><?php echo ucwords($u['sysStatus']); ?></td>
+                        <td><?php echo $u['groups']; ?></td>
+                        <?php if (isset($u['sysGroup']) && $u['sysGroup'] == '1' || isset($u['sysOpen']) && $u['sysOpen'] == '0') { ?>
+                            <td style="width:50px;" align="center">-</td>
+                        <?php } else { ?>
+                            <td style="width:50px;" align="center"><input class="btnStyle red noPad" id="btnDelete_<?php echo $u['itemID']; ?>" type="button" onclick="javascript:confirmDelete('?action=delete&id=<?php echo $u['itemID']; ?>');" value="Delete" /></td>
+                        <?php } ?>
+                        <td style="width:50px;" align="center"><input class="btnStyle blue noPad" id="btnEdit_<?php echo $u['itemID']; ?>" type="button" onclick="javascript:window.location='?view=edit&id=<?php echo $u['itemID']; ?>';" value="Edit" /></td>
+                        <?php if ($auth->has_permission('canMasquerade')) { ?>
+                        <td style="width:50px;" align="center">
+                            <?php if ($u['itemID'] != $_SESSION['userID']) { ?>
+                            <input class="btnStyle green noPad" id="btnEdit_<?php echo $u['itemID']; ?>" type="button" onclick="javascript:window.location='?view=masquerade&id=<?php echo $u['itemID']; ?>';" value="Masquerade" />
+                            <?php } else { echo '--'; } ?>
+                        </td>
+                        <?php } ?>
+                    </tr>
+                                        
+                    <?php
+                        }
+                    }
+                    ?>
+                
+                </tbody>
+            </table>
+            <?php
+                
+            
+            //to pass more advanced controls, you'll need to create your own $fields array and pass it directly to $te->display_editor_list($fields);
+            break;
+    }
+    
+    
+    
+    
+    
+    
+    //end of display logic
+    //button to manage groups
+    ?>
+    </div>
+    		<div class="clearfix">&nbsp;</div>
+    
+    	</div>
+    
+    </div>
+    
 
 
 

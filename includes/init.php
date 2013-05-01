@@ -5,6 +5,15 @@ session_start();
 ini_set('display_errors', 'on');
 error_reporting(E_ALL);
 
+//force https on the buy-job-credits page at the php level to ensure server configuration changes don't accidentally 
+//reveal a non-secured page
+
+if(strstr($_SERVER['REQUEST_URI'], "/buy-job-credits") && (!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] != "on")) {
+	header("Location:https://" . $_SERVER['SERVER_NAME'] . "/buy-job-credits");
+} elseif(!strstr($_SERVER['REQUEST_URI'], "/buy-job-credits") && $_SERVER['SERVER_PORT'] != "80") {
+	header("Location:http://" . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI']);
+}
+
 setlocale(LC_MONETARY, 'en_CA');
 header('X-Developer: Resolution Interactive Media Inc.');
 
@@ -41,8 +50,8 @@ $quipp->css = array();
 
 $quipp->google = array(
 	"ga_email" => "resimanalytics@gmail.com",
-	"ga_password" => "32webuser32",
-	"ga_profile_id" => "17069938" //mikealmond.com
+	"ga_password" => "2349swordFISH28",
+	"ga_profile_id" => "71788152" //intervue.ca
 );  //top content
 
 
