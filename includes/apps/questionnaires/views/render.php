@@ -1,89 +1,6 @@
 <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
 <script src="http://code.jquery.com/ui/1.9.0/jquery-ui.js"></script>
 
-
-<!-- Javascript - whether can transition to video -->
-
-<script>
-	
-$(function() {
-
-	/* Store variables for whether the form has submitted successfully */
-	var successfulApp = <?php echo (isset($_REQUEST['Email']) && isset($_REQUEST['Confirm_Email']) && $_REQUEST['Email'] == $_REQUEST['Confirm_Email']) ? '1' : '0'; ?>;
-
-	var jobTitle = "<?php echo $title; ?>";
-	var isSession = "<?php echo isset($_SESSION['userID']); ?>";
-	
-	/* If successfulApp == 1, transition to video - otherwise
-	   first time on the page, display welcome message for applying */
-	if (successfulApp == 1) {
-		$(".userinfo").fadeOut();
-			$("#submissions").fadeOut(400, function() {
-				
-				/*if ($("#video1").is('*')) {
-					$("#video1").fadeIn();
-					$activeVideo = 1;
-				}*/
-				$("#instructions").fadeIn();
-			});
-		
-		$('.current').removeClass().next().addClass('current');
-				
-				
-		/*$(".userinfo").fadeOut();
-			$("#submissions").fadeOut(400, function() {
-				
-				if ($("#video1").is('*')) {
-					$("#video1").fadeIn();
-					$activeVideo = 1;
-					$("#videoInstructions").fadeIn();
-				}
-			});
-		
-		$('.current').removeClass().next().addClass('current');
-		*/
-	}
-	
-	/* Handle displaying the welcome popup */
-	else if (successfulApp != 1 && isSession == 0) {
-		$('.popUp').addClass('success');
-		confirmAction("Thank you for applying to " + jobTitle + "!", "Begin by filling out your profile below, use the sliders to select the years of experience you have in each skill and upload your resume and cover letter.");
-
-	}
-	
-	/* Clears the pop-up when user confirms */
-	$('#confirmWelcome').on('click', function() {
-			
-        $('#confirm').fadeOut('fast', function() {
-	    	$('.popUp h2').empty();
-	        $('.popUp p').empty();
-	        $('.popUp #popUpOk').off('click');
-	        $('.popUp #popUpNo').off('click'); 
-	        $('.popUp').removeClass('success');
-	        $('.popUp').removeClass('fail');
-	        $('.popUp #popUpNo').show();
-        });
-	});
-	
-		/* Clears the pop-up when user confirms */
-	$('#takeAwayOk').on('click', function() {
-			
-        $('#takeAway').fadeOut('fast', function() {
-	    	/*$('.popUp h2').empty();
-	        $('.popUp p').empty();
-	        $('.popUp #popUpOk').off('click');
-	        $('.popUp #popUpNo').off('click'); 
-	        $('.popUp').removeClass('success');
-	        $('.popUp').removeClass('fail');
-	        $('.popUp #popUpNo').show();*/
-        });
-	});
-
-});
-
-</script>
-
-
 <?php
 
 global $quipp, $message;
@@ -104,68 +21,68 @@ if (!isset($f) || !$f INSTANCEOF Forms){
 
 if (!isset($_SESSION['userID']) || !$_SESSION['userID'] > 0){
 
-	$blankUser = array();
+    $blankUser = array();
 
     //build array
-    $blankUser["First_Name"] 			= array("code" => "RQvalALPH", "value" => "", "label" => "First Name"			);
-    $blankUser["Last_Name"] 			= array("code" => "RQvalALPH", "value" => "", "label" => "Last Name"			);
-    $blankUser["Company_Address"] 		= array("code" => "RQvalALPH", "value" => "", "label" => "Company Address"		);
-    $blankUser["Company_City"] 			= array("code" => "RQvalALPH", "value" => "", "label" => "Company City"			);
-    $blankUser["Company_Postal_Code"] 	= array("code" => "RQvalALPH", "value" => "", "label" => "Company Postal Code"	);
-    $blankUser["Phone_Number"] 			= array("code" => "RQvalPHON", "value" => "", "label" => "Phone Number"			);
-    $blankUser["Email"] 				= array("code" => "RQvalMAIL", "value" => "newuser".rand(99999999, 999999999)."@res.im", "label" => "Email"				);
-    $blankUser["Confirm_Email"] 		= array("code" => "RQvalMAIL", "value" => "newuser".rand(99999999, 999999999)."@res.im", "label" => "Confirm Email"		);
-    $blankUser["Facebook_Username"] 	= array("code" => "OPvalALPH", "value" => "", "label" => "Facebook Username"	);
-    $blankUser["Twitter_Username"] 		= array("code" => "OPvalALPH", "value" => "", "label" => "Twitter Username"		);
-    $blankUser["LinkedIn_Username"] 	= array("code" => "OPvalALPH", "value" => "", "label" => "LinkedIn Username"	);	
-	
-	$_SESSION['userID'] = $f->createUserAccount($blankUser, "buPa55w0rDjdafjdm", "applicants");
+    $blankUser["First_Name"]            = array("code" => "RQvalALPH", "value" => "", "label" => "First Name"           );
+    $blankUser["Last_Name"]             = array("code" => "RQvalALPH", "value" => "", "label" => "Last Name"            );
+    $blankUser["Company_Address"]       = array("code" => "RQvalALPH", "value" => "", "label" => "Company Address"      );
+    $blankUser["Company_City"]          = array("code" => "RQvalALPH", "value" => "", "label" => "Company City"         );
+    $blankUser["Company_Postal_Code"]   = array("code" => "RQvalALPH", "value" => "", "label" => "Company Postal Code"  );
+    $blankUser["Phone_Number"]          = array("code" => "RQvalPHON", "value" => "", "label" => "Phone Number"         );
+    $blankUser["Email"]                 = array("code" => "RQvalMAIL", "value" => "newuser".rand(99999999, 999999999)."@res.im", "label" => "Email"             );
+    $blankUser["Confirm_Email"]         = array("code" => "RQvalMAIL", "value" => "newuser".rand(99999999, 999999999)."@res.im", "label" => "Confirm Email"     );
+    $blankUser["Facebook_Username"]     = array("code" => "OPvalALPH", "value" => "", "label" => "Facebook Username"    );
+    $blankUser["Twitter_Username"]      = array("code" => "OPvalALPH", "value" => "", "label" => "Twitter Username"     );
+    $blankUser["LinkedIn_Username"]     = array("code" => "OPvalALPH", "value" => "", "label" => "LinkedIn Username"    );  
+    
+    $_SESSION['userID'] = $f->createUserAccount($blankUser, "buPa55w0rDjdafjdm", "applicants");
 
 }else{
-	//load details 
-		 //$firstName = $db->return_specific_item(false, "sysUGFValues", "value", "--", "fieldID = 1 AND userID = " . $_SESSION['userID']); 
-		$post = array();
-		$post['First_Name']['value'] 			= $db->return_specific_item(false, "sysUGFValues", "value", "", "fieldID = 1  AND userID = " . $_SESSION['userID']);
-		$post['Last_Name']['value']  			= $db->return_specific_item(false, "sysUGFValues", "value", "", "fieldID = 2  AND userID = " . $_SESSION['userID']);
-		$post['Company_Address']['value']   	= $db->return_specific_item(false, "sysUGFValues", "value", "", "fieldID = 6  AND userID = " . $_SESSION['userID']);
-		$post['Company_City']['value']	   		= $db->return_specific_item(false, "sysUGFValues", "value", "", "fieldID = 11 AND userID = " . $_SESSION['userID']);
-		$post['Company_Postal_Code']['value'] 	= $db->return_specific_item(false, "sysUGFValues", "value", "", "fieldID = 12 AND userID = " . $_SESSION['userID']);
-		$post['Phone_Number']['value']			= $db->return_specific_item(false, "sysUGFValues", "value", "", "fieldID = 4  AND userID = " . $_SESSION['userID']); 
-		$post['Email']['value'] 				= $db->return_specific_item(false, "sysUGFValues", "value", "", "fieldID = 3  AND userID = " . $_SESSION['userID']); 
-		$post['Facebook_Username']['value'] 	= $db->return_specific_item(false, "sysUGFValues", "value", "", "fieldID = 27 AND userID = " . $_SESSION['userID']); 
-		$post['Twitter_Username']['value']		= $db->return_specific_item(false, "sysUGFValues", "value", "", "fieldID = 30 AND userID = " . $_SESSION['userID']); 
-		$post['LinkedIn_Username']['value']		= $db->return_specific_item(false, "sysUGFValues", "value", "", "fieldID = 26 AND userID = " . $_SESSION['userID']); 
-		
-		if (!strpos($post['Email']['value'], "newuser")){ 
-			$post['Confirm_Email']['value'] = $post['Email']['value'];
-		}else{
-			$post['Confirm_Email']['value'] = "";
-			$post['Email']['value'] = "";
-		}
+    //load details 
+         //$firstName = $db->return_specific_item(false, "sysUGFValues", "value", "--", "fieldID = 1 AND userID = " . $_SESSION['userID']); 
+        $post = array();
+        $post['First_Name']['value']            = $db->return_specific_item(false, "sysUGFValues", "value", "", "fieldID = 1  AND userID = " . $_SESSION['userID']);
+        $post['Last_Name']['value']             = $db->return_specific_item(false, "sysUGFValues", "value", "", "fieldID = 2  AND userID = " . $_SESSION['userID']);
+        $post['Company_Address']['value']       = $db->return_specific_item(false, "sysUGFValues", "value", "", "fieldID = 6  AND userID = " . $_SESSION['userID']);
+        $post['Company_City']['value']          = $db->return_specific_item(false, "sysUGFValues", "value", "", "fieldID = 11 AND userID = " . $_SESSION['userID']);
+        $post['Company_Postal_Code']['value']   = $db->return_specific_item(false, "sysUGFValues", "value", "", "fieldID = 12 AND userID = " . $_SESSION['userID']);
+        $post['Phone_Number']['value']          = $db->return_specific_item(false, "sysUGFValues", "value", "", "fieldID = 4  AND userID = " . $_SESSION['userID']); 
+        $post['Email']['value']                 = $db->return_specific_item(false, "sysUGFValues", "value", "", "fieldID = 3  AND userID = " . $_SESSION['userID']); 
+        $post['Facebook_Username']['value']     = $db->return_specific_item(false, "sysUGFValues", "value", "", "fieldID = 27 AND userID = " . $_SESSION['userID']); 
+        $post['Twitter_Username']['value']      = $db->return_specific_item(false, "sysUGFValues", "value", "", "fieldID = 30 AND userID = " . $_SESSION['userID']); 
+        $post['LinkedIn_Username']['value']     = $db->return_specific_item(false, "sysUGFValues", "value", "", "fieldID = 26 AND userID = " . $_SESSION['userID']); 
+        
+        if (!strpos($post['Email']['value'], "newuser")){ 
+            $post['Confirm_Email']['value'] = $post['Email']['value'];
+        }else{
+            $post['Confirm_Email']['value'] = "";
+            $post['Email']['value'] = "";
+        }
 }
 
 if (isset($_GET['user']) || isset($_SESSION['userID'])) {
-	/* Revisiting page - check whether already applied */
-	
-	if (isset($_GET['user'])) {
-		$encryptionKey = "elephants321";
-		$userID = trim(mcrypt_decrypt(MCRYPT_RIJNDAEL_256, $encryptionKey , base64url_decode(rtrim($_GET['user'])) , MCRYPT_MODE_ECB, mcrypt_create_iv(mcrypt_get_iv_size(MCRYPT_RIJNDAEL_256, MCRYPT_MODE_ECB), MCRYPT_RAND)));
-	
-		$usrQry = sprintf("SELECT * FROM tblApplications WHERE userID = '%d' AND jobID = '%d' AND sysActive = '1'", (int)$userID, (int)$_GET['job']);
-		$usrRes = $db->query($usrQry);
-		
-		$returnedThis = $db->fetch_assoc($usrRes);		
-	}
-	
-	if (isset($_SESSION['userID'])) {
-		$usrQry = sprintf("SELECT * FROM tblApplications WHERE userID = '%d' AND jobID = '%d' AND sysActive = '1'", (int)$_SESSION['userID'], (int)$_GET['job']);
-		$usrRes = $db->query($usrQry);		
-		$secondThis = $db->fetch_assoc($usrRes);	
-	}
-	
-	if (!empty($returnedThis) || !empty($secondThis)) {
-		$message = "You have already applied to this job.";
-	}	
+    /* Revisiting page - check whether already applied */
+    
+    if (isset($_GET['user'])) {
+        $encryptionKey = "elephants321";
+        $userID = trim(mcrypt_decrypt(MCRYPT_RIJNDAEL_256, $encryptionKey , base64url_decode(rtrim($_GET['user'])) , MCRYPT_MODE_ECB, mcrypt_create_iv(mcrypt_get_iv_size(MCRYPT_RIJNDAEL_256, MCRYPT_MODE_ECB), MCRYPT_RAND)));
+    
+        $usrQry = sprintf("SELECT * FROM tblApplications WHERE userID = '%d' AND jobID = '%d' AND sysActive = '1'", (int)$userID, (int)$_GET['job']);
+        $usrRes = $db->query($usrQry);
+        
+        $returnedThis = $db->fetch_assoc($usrRes);      
+    }
+    
+    if (isset($_SESSION['userID'])) {
+        $usrQry = sprintf("SELECT * FROM tblApplications WHERE userID = '%d' AND jobID = '%d' AND sysActive = '1'", (int)$_SESSION['userID'], (int)$_GET['job']);
+        $usrRes = $db->query($usrQry);      
+        $secondThis = $db->fetch_assoc($usrRes);    
+    }
+    
+    if (!empty($returnedThis) || !empty($secondThis)) {
+        $message = "You have already applied to this job.";
+    }   
 }
 
 if(isset($_POST) && !empty($_POST) && empty($message)){  
@@ -173,23 +90,23 @@ if(isset($_POST) && !empty($_POST) && empty($message)){
 
 
     $meta = array(
-    	array("fieldLabel" => "First Name", 			"validationCode" => "RQvalALPH"),
-    	array("fieldLabel" => "Last Name", 				"validationCode" => "RQvalALPH"),
-    	array("fieldLabel" => "Company Address", 		"validationCode" => "RQvalALPH"),
-    	array("fieldLabel" => "Company City", 			"validationCode" => "RQvalALPH"),
-    	array("fieldLabel" => "Company Postal Code",	"validationCode" => "RQvalALPH"),
-    	array("fieldLabel" => "Phone Number",		 	"validationCode" => "RQvalPHON"),
-    	array("fieldLabel" => "Email", 					"validationCode" => "RQvalMAIL"),
-    	array("fieldLabel" => "Confirm Email", 			"validationCode" => "RQvalMAIL"),
-    	array("fieldLabel" => "Facebook Username", 		"validationCode" => "OPvalALPH"),
-    	array("fieldLabel" => "Twitter Username", 		"validationCode" => "OPvalALPH"),
-    	array("fieldLabel" => "LinkedIn Username", 		"validationCode" => "OPvalALPH")
+        array("fieldLabel" => "First Name",             "validationCode" => "RQvalALPH"),
+        array("fieldLabel" => "Last Name",              "validationCode" => "RQvalALPH"),
+        array("fieldLabel" => "Company Address",        "validationCode" => "RQvalALPH"),
+        array("fieldLabel" => "Company City",           "validationCode" => "RQvalALPH"),
+        array("fieldLabel" => "Company Postal Code",    "validationCode" => "RQvalALPH"),
+        array("fieldLabel" => "Phone Number",           "validationCode" => "RQvalPHON"),
+        array("fieldLabel" => "Email",                  "validationCode" => "RQvalMAIL"),
+        array("fieldLabel" => "Confirm Email",          "validationCode" => "RQvalMAIL"),
+        array("fieldLabel" => "Facebook Username",      "validationCode" => "OPvalALPH"),
+        array("fieldLabel" => "Twitter Username",       "validationCode" => "OPvalALPH"),
+        array("fieldLabel" => "LinkedIn Username",      "validationCode" => "OPvalALPH")
 
     );
     
     $post   = array();
     foreach($meta as $fields){
-    	$post[str_replace(" ","_",$fields["fieldLabel"])] = array("code" => $fields["validationCode"], "value" => "", "label" => $fields["fieldLabel"]);
+        $post[str_replace(" ","_",$fields["fieldLabel"])] = array("code" => $fields["validationCode"], "value" => "", "label" => $fields["fieldLabel"]);
     }
     
 /*     if (isset($_POST["job-form"])){ */
@@ -203,7 +120,7 @@ if(isset($_POST) && !empty($_POST) && empty($message)){
         $validate[$nfo["code"].$field] = "";
         
         if (isset($_POST[$field])){
-        	
+            
             $validate[$nfo["code"].$field] = $_POST[$field];
             $post[$field]["value"] = $_POST[$field];
         }
@@ -213,21 +130,21 @@ if(isset($_POST) && !empty($_POST) && empty($message)){
     }
     
 /*     print_r($post); */
-	
+    
     if (isset($post['Email']['value']) && isset($post['Confirm_Email']['value']) && ($post['Email']['value'] == $post['Confirm_Email']['value']) && validate_form($validate)){
         $valid = true;
         unset($post[2]); //don't want to pass this to createUserAccount
     }
-    else {
-    
-		    if (isset($post['Email']) && isset($post['Confirm_Email']) && $post['Email'] != $post['Confirm_Email']) {
-			    $emails = 'Emails do not match.';
-		    }
-		    
-	    	echo '<div id="steps" style="margin-top: 20px;"><li class="alert fail"><span></span>';
-	    	echo $emails;
-			echo $message;
-			echo "</li></div>";
+    else { 
+
+            echo '<div id="steps" style="margin-top: 20px;"><li class="alert fail"><span></span>';
+
+            if (isset($post['Email']['value']) && isset($post['Confirm_Email']['value']) && ($post['Email']['value'] != $post['Confirm_Email']['value'])) {
+                echo 'Emails do not match.';
+            }
+
+            echo $message;
+            echo "</li></div>";
     }
 
     if ($valid == true){
@@ -237,27 +154,111 @@ if(isset($_POST) && !empty($_POST) && empty($message)){
         if (0 === ($userID = $f->updateUserAccountApplicant($post, "buPa55w0rDjdafjdm"))){
 
    /*
-   	//merge conflict code
+    //merge conflict code
         if (isset($_SESSION['success'])) {
-        	$userID = $f->updateUserAccount($post, "");
-        	
-        	if ($message != "") {
-	        	$valid = false;
-	        	$quipp->js['onload'] .= 'alertBox("fail", "'.$message.'")';
-        	}
+            $userID = $f->updateUserAccount($post, "");
+            
+            if ($message != "") {
+                $valid = false;
+                $quipp->js['onload'] .= 'alertBox("fail", "'.$message.'")';
+            }
         }
         
         elseif (0 === ($userID = $f->createUserAccount($post, NULL, "applicants"))){
         */
             $valid = false;
-			echo '<div id="steps" style="margin-top: 20px;"><li class="alert fail"><span></span>';
-			echo $message;
-			echo "</li></div>";       
-		}
+            echo '<div id="steps" style="margin-top: 20px;"><li class="alert fail"><span></span>';
+            echo $message;
+            echo "</li></div>";       
+        }
     }
 /*     } */
     
  }
+
+ ?>
+ 
+<!-- Javascript - whether can transition to video -->
+ <script>
+    
+$(function() {
+
+    /* Store variables for whether the form has submitted successfully */
+    // var successfulApp = <?php echo (isset($_REQUEST['Email']) && isset($_REQUEST['Confirm_Email']) && $_REQUEST['Email'] == $_REQUEST['Confirm_Email']) ? '1' : '0'; ?>;
+    var successfulApp = <?php echo (isset($valid) && $valid == true) ? '1' : '0'; ?>;    
+    var jobTitle = "<?php echo $title; ?>";
+    var isSession = "<?php echo isset($_SESSION['userID']); ?>";
+    
+    /* If successfulApp == 1, transition to video - otherwise
+       first time on the page, display welcome message for applying */
+    if (successfulApp == 1) {
+        $(".userinfo").fadeOut();
+            $("#submissions").fadeOut(400, function() {
+                
+                /*if ($("#video1").is('*')) {
+                    $("#video1").fadeIn();
+                    $activeVideo = 1;
+                }*/
+                $("#instructions").fadeIn();
+            });
+        
+        $('.current').removeClass().next().addClass('current');
+                
+                
+        /*$(".userinfo").fadeOut();
+            $("#submissions").fadeOut(400, function() {
+                
+                if ($("#video1").is('*')) {
+                    $("#video1").fadeIn();
+                    $activeVideo = 1;
+                    $("#videoInstructions").fadeIn();
+                }
+            });
+        
+        $('.current').removeClass().next().addClass('current');
+        */
+    }
+    
+    /* Handle displaying the welcome popup */
+    else if (successfulApp != 1 && isSession == 0) {
+        $('.popUp').addClass('success');
+        confirmAction("Thank you for applying to " + jobTitle + "!", "Begin by filling out your profile below, use the sliders to select the years of experience you have in each skill and upload your resume and cover letter.");
+
+    }
+    
+    /* Clears the pop-up when user confirms */
+    $('#confirmWelcome').on('click', function() {
+            
+        $('#confirm').fadeOut('fast', function() {
+            $('.popUp h2').empty();
+            $('.popUp p').empty();
+            $('.popUp #popUpOk').off('click');
+            $('.popUp #popUpNo').off('click'); 
+            $('.popUp').removeClass('success');
+            $('.popUp').removeClass('fail');
+            $('.popUp #popUpNo').show();
+        });
+    });
+    
+        /* Clears the pop-up when user confirms */
+    $('#takeAwayOk').on('click', function() {
+            
+        $('#takeAway').fadeOut('fast', function() {
+            /*$('.popUp h2').empty();
+            $('.popUp p').empty();
+            $('.popUp #popUpOk').off('click');
+            $('.popUp #popUpNo').off('click'); 
+            $('.popUp').removeClass('success');
+            $('.popUp').removeClass('fail');
+            $('.popUp #popUpNo').show();*/
+        });
+    });
+
+});
+
+</script>
+
+<?php
 /*
 *********************************
 */
@@ -274,10 +275,10 @@ if (time() < strtotime($datePosted) || $status == 'inactive') {
 
 } elseif (!empty($message) && $message == "You have already applied to this job.") { 
 
-	echo '<div id="steps" style="margin-top: 20px;"><li class="alert fail"><span></span>';
-	echo $message;
-	echo "</li></div>";
-	
+    echo '<div id="steps" style="margin-top: 20px;"><li class="alert fail"><span></span>';
+    echo $message;
+    echo "</li></div>";
+    
 } elseif (time() > strtotime($dateExpires)) {
     $quipp->js['onload'] .= 'alertBox("fail", "We\'re sorry, this job posting has expired");';
 
@@ -296,7 +297,7 @@ if (time() < strtotime($datePosted) || $status == 'inactive') {
 /*
 elseif (isset($message) && !empty($message)) {
 
-	$quipp->js['onload'] .= 'alertBox("fail", "'.$message.'");';
+    $quipp->js['onload'] .= 'alertBox("fail", "'.$message.'");';
 
 }
 */
@@ -325,13 +326,13 @@ else {
     );
     
     if (!empty($_POST) && empty($message) && !isset($_SESSION['visits'])) {
-    	
+        
         /* Ensure no re-entry of data when refreshing page */
         $_SESSION['visits'] = 1;
 
-    	    	//SAVE QUESTIONS
-		if (is_array($q->questions) && !empty($q->questions)) {
-			
+                //SAVE QUESTIONS
+        if (is_array($q->questions) && !empty($q->questions)) {
+            
             $qry = sprintf("INSERT INTO tblApplications (jobID, userID, sysDateInserted) VALUES ('%d', '%d', NOW())",
                 (int) $_GET['job'],
                 (int) $_SESSION['userID']);
@@ -342,7 +343,7 @@ else {
 
                 // radios
                 if ($question['type'] == '1') {
-	                
+                    
                     $qry = sprintf("INSERT INTO tblAnswers (applicationID, jobID, userID, questionID, optionID, value, sysDateInserted) VALUES ('%d', '%d', '%d', '%d', '%d', '%s', '%s') ON DUPLICATE KEY UPDATE optionID='%s', sysDateInserted='%s'",
                         $applicationID,
                         (int) $_GET['job'],
@@ -379,12 +380,12 @@ else {
                 // file upload
                 } elseif ($question['type'] == '5') {
                 
-                	/* See whether /applications exists, if not - create it */
-                	if (!is_dir(dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications')) {
-	                	mkdir(dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications');
-                	}
-                	
-                	/* Create new directory for this application and user if DNE */
+                    /* See whether /applications exists, if not - create it */
+                    if (!is_dir(dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications')) {
+                        mkdir(dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications');
+                    }
+                    
+                    /* Create new directory for this application and user if DNE */
                     if (!is_dir(dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications/' . (int) $_GET['job'] . '/' . (int) $_SESSION['userID'])) {
                         mkdir(dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications/' . (int) $_GET['job'] . '/' . (int) $_SESSION['userID']);
                     }
@@ -428,89 +429,89 @@ else {
             
            $_SESSION['success'] = 1;
         }
-    	
-    	
-    	
-    	if (($_FILES['resume']['size'] != 0) || ($_FILES['coverLetter']['size'] != 0)) {
-	    		    	
-	    	foreach ($_FILES as $f=>$values) {
-		    	if ($values['error'] == 0) {
-			    	
-			    	/* Holds separate 'question IDs' for each in tblAnswers */
-			    	if ($f == 'coverLetter') {
-			    		$questionID = 0;
-			    	}			    	
-			    	else {
-				    	$questionID = -1;
-			    	}			    	 
-			    	               
-                	/* See whether /applications exists, if not - create it */
-                	if (!is_dir(dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications')) {
-	                	mkdir(dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications');
-                	}
-                	
-                	
-			    	if (!is_dir(dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications/' . (int) $_GET['job'] )) {
+        
+        
+        
+        if (($_FILES['resume']['size'] != 0) || ($_FILES['coverLetter']['size'] != 0)) {
+                        
+            foreach ($_FILES as $f=>$values) {
+                if ($values['error'] == 0) {
+                    
+                    /* Holds separate 'question IDs' for each in tblAnswers */
+                    if ($f == 'coverLetter') {
+                        $questionID = 0;
+                    }                   
+                    else {
+                        $questionID = -1;
+                    }                    
+                                   
+                    /* See whether /applications exists, if not - create it */
+                    if (!is_dir(dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications')) {
+                        mkdir(dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications');
+                    }
+                    
+                    
+                    if (!is_dir(dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications/' . (int) $_GET['job'] )) {
 
                         $successfulMkdir = mkdir(dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications/' . (int) $_GET['job']);
                         
                         if (!is_dir(dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications/' . (int) $_GET['job'] . '/' . (int) $_SESSION['userID'])) {
-	                        
-	                        $successfulMkdir = mkdir(dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications/' . (int) $_GET['job'] . '/' . (int) $_SESSION['userID']);
+                            
+                            $successfulMkdir = mkdir(dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications/' . (int) $_GET['job'] . '/' . (int) $_SESSION['userID']);
                         }
                     }
                     else {
                     
                         if (!is_dir(dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications/' . (int) $_GET['job'] . '/' . (int) $_SESSION['userID'])) {
-	                        
-	                        $successfulMkdir = mkdir(dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications/' . (int) $_GET['job'] . '/' . (int) $_SESSION['userID']);
+                            
+                            $successfulMkdir = mkdir(dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications/' . (int) $_GET['job'] . '/' . (int) $_SESSION['userID']);
                         }
                         
-	                    $successfulMkdir = 1;
+                        $successfulMkdir = 1;
                     }
 
                     if ($successfulMkdir) {
-	                    $file = upload_file($f, dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications/' . (int) $_GET['job'] . '/' . (int) $_SESSION['userID'] . '/', $MIME_TYPES, false, false, false, base_convert(0, 10, 36));
-	                    
-	                    if (substr($file, 0, 8) == '<strong>') {
-	                        $error = $file;
-	                    } else {
-	
-	                        $qry = sprintf("INSERT INTO tblAnswers (applicationID, jobID, userID, questionID, optionID, value, sysDateInserted) VALUES ('%d', '%d', '%d', '%d', '%d', '%s', '%s') ON DUPLICATE KEY UPDATE value='%s', sysDateInserted='%s'",
-	                            $applicationID,
-	                            (int) $_GET['job'],
-	                            (int) $_SESSION['userID'],
-	                            (int) $questionID,
-	                            '',
-	                            $file,
-	                            date('Y-m-d H:i:s'),
-	                            $file,
-	                            date('Y-m-d H:i:s'));
-	                        $db->query($qry);
-	                    }
-	                 }
+                        $file = upload_file($f, dirname(dirname(dirname(dirname(__DIR__)))) . '/uploads/applications/' . (int) $_GET['job'] . '/' . (int) $_SESSION['userID'] . '/', $MIME_TYPES, false, false, false, base_convert(0, 10, 36));
+                        
+                        if (substr($file, 0, 8) == '<strong>') {
+                            $error = $file;
+                        } else {
+    
+                            $qry = sprintf("INSERT INTO tblAnswers (applicationID, jobID, userID, questionID, optionID, value, sysDateInserted) VALUES ('%d', '%d', '%d', '%d', '%d', '%s', '%s') ON DUPLICATE KEY UPDATE value='%s', sysDateInserted='%s'",
+                                $applicationID,
+                                (int) $_GET['job'],
+                                (int) $_SESSION['userID'],
+                                (int) $questionID,
+                                '',
+                                $file,
+                                date('Y-m-d H:i:s'),
+                                $file,
+                                date('Y-m-d H:i:s'));
+                            $db->query($qry);
+                        }
+                     }
                     
-	    	     }
-		    	
-		    	else {
-			    	$message .= "Error: ".$f['Name']." - ".$f['error']."</br>";
-		    	}
-	    	}
-    	}
+                 }
+                
+                else {
+                    $message .= "Error: ".$f['Name']." - ".$f['error']."</br>";
+                }
+            }
+        }
 
 
 
     }
 
     if (isset($post['Email']) && strpos($post['Email']['value'], "@res.im") > 0){ 
-		$post['Confirm_Email']['value'] = "";
-		$post['Email']['value'] = "";
-	}
+        $post['Confirm_Email']['value'] = "";
+        $post['Email']['value'] = "";
+    }
 
     if (isset($error) && $error != '') {
-       	echo '<div id="steps" style="margin-top: 20px;"><li class="alert fail"><span></span>';
-		echo $message;
-		echo "</li></div>";
+        echo '<div id="steps" style="margin-top: 20px;"><li class="alert fail"><span></span>';
+        echo $message;
+        echo "</li></div>";
     }
     
 ?>
@@ -597,15 +598,15 @@ else {
 
     if (is_array($q->questions) && !empty($q->questions)) {
         foreach ($q->questions as $questionID => $question) {
-        	
-        	if ($question['type'] != 4) { //If question isn't a video question
-	        	
-		        echo "<tr>";
-	            echo "<td>";
-	            echo $question['label'];
-	            echo "</td>";
-	            echo "</tr>";	
-        	}
+            
+            if ($question['type'] != 4) { //If question isn't a video question
+                
+                echo "<tr>";
+                echo "<td>";
+                echo $question['label'];
+                echo "</td>";
+                echo "</tr>";   
+            }
             
             echo "<tr>";
             echo "<td>";
@@ -646,11 +647,11 @@ else {
                 break;
 
                 case 4: //video
-                	
-                	$videos .= "<div class='video-q-holder' id='video".$videoCount."' data-vidnumber='".$videoCount."'>";
-                	$videos .= "<label class='video-label'>".$question['label']."</label>";
-                	$videos .= "<div class='video-flash-holder'>";
-                	
+                    
+                    $videos .= "<div class='video-q-holder' id='video".$videoCount."' data-vidnumber='".$videoCount."'>";
+                    $videos .= "<label class='video-label'>".$question['label']."</label>";
+                    $videos .= "<div class='video-flash-holder'>";
+                    
                     $video   = $db->return_specific_item('', 'tblVideos', 'filename', 0, "jobID='" . (int) $_GET['job'] . "' AND questionID='" . $questionID . "' AND userID='" . (int) $_SESSION['userID'] . "' AND sysOpen='1' AND sysActive='1'") ;
                     $videoID = $db->return_specific_item('', 'tblVideos', 'itemID', 0, "jobID='" . (int) $_GET['job'] . "' AND questionID='" . $questionID . "' AND userID='" . (int) $_SESSION['userID'] . "' AND sysOpen='1'") ;
 
@@ -690,24 +691,24 @@ else {
                 
         if ((isset($_FILES['resume']['name']) || isset($_FILES['coverLetter']['name']))) {
         
-        	$currentFiles = "";
-        	
-        	foreach ($_FILES as $f=>$info) {
-	        	
-	        	if (isset($info['name']) && $info['name'] != '') {
-		        	$currentFiles .= "<li>".$info['name']."</li></br> "; 
-	        	}
-        	}
-        	
-	        $fileMessage = "You have uploaded the following files: </br></br>".$currentFiles." </br>";
+            $currentFiles = "";
+            
+            foreach ($_FILES as $f=>$info) {
+                
+                if (isset($info['name']) && $info['name'] != '') {
+                    $currentFiles .= "<li>".$info['name']."</li></br> "; 
+                }
+            }
+            
+            $fileMessage = "You have uploaded the following files: </br></br>".$currentFiles." </br>";
         
-	        ?>
-	        <div id="steps">
-		        <li class="alert success">
-		        	<?php echo $fileMessage; ?>
-		        </li>
+            ?>
+            <div id="steps">
+                <li class="alert success">
+                    <?php echo $fileMessage; ?>
+                </li>
                         
-	        </div>
+            </div>
         </td>
         </tr>
 
@@ -734,9 +735,9 @@ else {
     <?php
             
     } else {
-        	echo '<div id="steps" style="margin-top: 20px;"><li class="alert fail"><span></span>';
-			echo "This application has no questions.";
-			echo "</li></div>";
+            echo '<div id="steps" style="margin-top: 20px;"><li class="alert fail"><span></span>';
+            echo "This application has no questions.";
+            echo "</li></div>";
     }
     
     
@@ -748,49 +749,49 @@ else {
     </div>
     
     <div id="instructions">
-	    <ul id="videoInstructions">
-	    	<li> 
-	    		Answer the hiring manager's questions using your web cam
-	    	</li>
-		    <li>
-			    <h2>Important Information</h2>
-			    <ul>
-			    	<li>You need a web cam and microphone</li>
-			    	<li>Test it out to see if it works</li>
-			    	<li>Refresh page if you are having issues</li>
-			    	<li>Your videos cannot be shared or downloaded</li>
-			    </ul>
-		    </li>
-		    <li>
-			    <h2>The Interview Process</h2>
-			    <ul>
-			    	<li>Each video question has a 2 minute time limit</li>
-			    	<li>Click done when you are finished answering</li>
-			    	<li>You can review your answers and do retakes</li>
-			    </ul>
-		    </li>
-		    <li>
-			    <h2>Make The Best Impression</h2>
-			    <ul>
-			    	<li>Dress professionally</li>
-			    	<li>Make sure the room is well lit</li>
-			    	<li>Clear the area around you</li>
-			    	<li>Be yourself</li>
-			    </ul>
-		    </li>
-		    <li>
-		    	<label for="privacyPolicy">Accept <a href="/privacy-policy" target="_blank">Privacy Policy </a></label><input type="checkbox" id="privacyPolicy" name="privacyPolicy">
-		    </li>
-	    </ul>
-	    
-	    <label class="video-label">Test your camera and microphone</label>
-	    
-	    <?php 
-		    	echo '<embed src="/includes/apps/ams-media/flx/captureModule.swf" quality="high" bgcolor="#000000" width="550" height="400" name="captureModule" FlashVars="itemID=0&securityKey=' . md5("iLikeSalt0") . '" align="middle" allowScriptAccess="sameDomain" allowFullScreen="true" type="application/x-shockwave-flash" pluginspage="http://www.adobe.com/go/getflash" />';
-		    ?>
-	    
-	    <input type="button" class="btn saveButton" data-job="<?php echo $_GET['job']; ?>" data-jobtitle="<?php echo $title; ?>" data-companyname="<?php echo $db->return_specific_item(false, "sysUGFValues", "value", "--", "fieldID = 10  AND userID = " . $companyID);?>" data-email="<?php echo $post['Email']['value']; ?>" data-firstname="<?php echo $post['First_Name']['value']; ?>" data-lastname="<?php echo $post['Last_Name']['value']; ?>" value="Save now and do interview later"/>
-	    <input type="button" class="btn green nextbutton instButton" data-section="instructions" value="Continue and begin interview"/>
+        <ul id="videoInstructions">
+            <li> 
+                Answer the hiring manager's questions using your web cam
+            </li>
+            <li>
+                <h2>Important Information</h2>
+                <ul>
+                    <li>You need a web cam and microphone</li>
+                    <li>Test it out to see if it works</li>
+                    <li>Refresh page if you are having issues</li>
+                    <li>Your videos cannot be shared or downloaded</li>
+                </ul>
+            </li>
+            <li>
+                <h2>The Interview Process</h2>
+                <ul>
+                    <li>Each video question has a 2 minute time limit</li>
+                    <li>Click done when you are finished answering</li>
+                    <li>You can review your answers and do retakes</li>
+                </ul>
+            </li>
+            <li>
+                <h2>Make The Best Impression</h2>
+                <ul>
+                    <li>Dress professionally</li>
+                    <li>Make sure the room is well lit</li>
+                    <li>Clear the area around you</li>
+                    <li>Be yourself</li>
+                </ul>
+            </li>
+            <li>
+                <label for="privacyPolicy">Accept <a href="/privacy-policy" target="_blank">Privacy Policy </a></label><input type="checkbox" id="privacyPolicy" name="privacyPolicy">
+            </li>
+        </ul>
+        
+        <label class="video-label">Test your camera and microphone</label>
+        
+        <?php 
+                echo '<embed src="/includes/apps/ams-media/flx/captureModule.swf" quality="high" bgcolor="#000000" width="550" height="400" name="captureModule" FlashVars="itemID=0&securityKey=' . md5("iLikeSalt0") . '" align="middle" allowScriptAccess="sameDomain" allowFullScreen="true" type="application/x-shockwave-flash" pluginspage="http://www.adobe.com/go/getflash" />';
+            ?>
+        
+        <input type="button" class="btn saveButton" data-job="<?php echo $_GET['job']; ?>" data-jobtitle="<?php echo $title; ?>" data-companyname="<?php echo $db->return_specific_item(false, "sysUGFValues", "value", "--", "fieldID = 10  AND userID = " . $companyID);?>" data-email="<?php echo $post['Email']['value']; ?>" data-firstname="<?php echo $post['First_Name']['value']; ?>" data-lastname="<?php echo $post['Last_Name']['value']; ?>" value="Save now and do interview later"/>
+        <input type="button" class="btn green nextbutton instButton" data-section="instructions" value="Continue and begin interview"/>
     </div>
     
     
@@ -799,16 +800,16 @@ else {
     ?>
     
    <div id="finalStep">
-   		<div id="thankYouMsg">
-	   		 <div id="steps">
-			        <li class="alert success">
-			        	<span></span>
-			        	Thank you for applying to the position of <?php echo $title; ?> with <?php echo $db->return_specific_item(false, "sysUGFValues", "value", "--", "fieldID = 10  AND userID = " . $companyID);?>.</br> 							<center>Your application has been successfully submitted. Only those qualified will be contacted for an interview.</center>
-			        </li>
-		        </div>
-   		</div>
-   		<input type="button" id="finalPrev" class="btn red prevbutton" value="Previous" data-section="final" />
-    	<input type="button" class="btn green thankYou" data-user="<?php echo $_SESSION['userID']; ?>" data-job="<?php echo $_GET['job']; ?>" value="Send Your Application" />
+        <div id="thankYouMsg">
+             <div id="steps">
+                    <li class="alert success">
+                        <span></span>
+                        Thank you for applying to the position of <?php echo $title; ?> with <?php echo $db->return_specific_item(false, "sysUGFValues", "value", "--", "fieldID = 10  AND userID = " . $companyID);?>.</br>                            <center>Your application has been successfully submitted. Only those qualified will be contacted for an interview.</center>
+                    </li>
+                </div>
+        </div>
+        <input type="button" id="finalPrev" class="btn red prevbutton" value="Previous" data-section="final" />
+        <input type="button" class="btn green thankYou" data-user="<?php echo $_SESSION['userID']; ?>" data-job="<?php echo $_GET['job']; ?>" value="Send Your Application" />
     </div>
     
 
@@ -818,11 +819,11 @@ else {
 
 <!-- Takeaway Link Popup -->
 <div id="takeAway" style="display:none; z-index: 1000;">
-	<div class="popUp success">	
-		<h2>Your application is now saved.</h2>
-		<p>An email has been sent to you. When you are ready please click the link in the email to continue your application. If you have not received an email, please check your junk mail.</p>
-		<a class="btn" id="takeAwayOk">Ok</a>
-	</div>
+    <div class="popUp success"> 
+        <h2>Your application is now saved.</h2>
+        <p>An email has been sent to you. When you are ready please click the link in the email to continue your application. If you have not received an email, please check your junk mail.</p>
+        <a class="btn" id="takeAwayOk">Ok</a>
+    </div>
 </div>
 
 
