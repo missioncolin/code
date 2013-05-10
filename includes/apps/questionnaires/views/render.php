@@ -1,6 +1,26 @@
 <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
 <script src="http://code.jquery.com/ui/1.9.0/jquery-ui.js"></script>
 
+<script>
+
+$(function() {
+
+    /* Store variables for whether the form has submitted successfully */
+    // var successfulApp = <?php echo (isset($_REQUEST['Email']) && isset($_REQUEST['Confirm_Email']) && $_REQUEST['Email'] == $_REQUEST['Confirm_Email']) ? '1' : '0'; ?>;
+    var successfulApp = <?php echo (isset($valid) && $valid == true) ? '1' : '0'; ?>;    
+    var jobTitle = "<?php echo $title; ?>";
+    var isSession = "<?php echo isset($_SESSION['userID']); ?>";
+
+    /* Handle displaying the welcome popup */
+    if (successfulApp != 1 && isSession == 0) {
+        $('.popUp').addClass('success');
+        confirmAction("Thank you for applying to " + jobTitle + "!", "Begin by filling out your profile below, use the sliders to select the years of experience you have in each skill and upload your resume and cover letter.");
+
+    }
+});
+
+</script>
+
 <?php
 
 global $quipp, $message;
@@ -179,15 +199,15 @@ if(isset($_POST) && !empty($_POST) && empty($message)){
  ?>
  
 <!-- Javascript - whether can transition to video -->
- <script>
+<script>
     
 $(function() {
+    
 
     /* Store variables for whether the form has submitted successfully */
     // var successfulApp = <?php echo (isset($_REQUEST['Email']) && isset($_REQUEST['Confirm_Email']) && $_REQUEST['Email'] == $_REQUEST['Confirm_Email']) ? '1' : '0'; ?>;
     var successfulApp = <?php echo (isset($valid) && $valid == true) ? '1' : '0'; ?>;    
     var jobTitle = "<?php echo $title; ?>";
-    var isSession = "<?php echo isset($_SESSION['userID']); ?>";
     
     /* If successfulApp == 1, transition to video - otherwise
        first time on the page, display welcome message for applying */
@@ -218,14 +238,7 @@ $(function() {
         $('.current').removeClass().next().addClass('current');
         */
     }
-    
-    /* Handle displaying the welcome popup */
-    else if (successfulApp != 1 && isSession == 0) {
-        $('.popUp').addClass('success');
-        confirmAction("Thank you for applying to " + jobTitle + "!", "Begin by filling out your profile below, use the sliders to select the years of experience you have in each skill and upload your resume and cover letter.");
 
-    }
-    
     /* Clears the pop-up when user confirms */
     $('#confirmWelcome').on('click', function() {
             
