@@ -39,7 +39,7 @@
         else {?>
     <header>
         <div>
-            <a class="logo" href="/"><img src="/themes/Intervue/img/logo.png" alt="Intervue" /></a>
+            <a class="logo" href="/"><img src="/themes/Intervue/img/logo.png" alt="Intervue" /></a><div class='beta-tag'>beta</div>
             <div id="tools">
             
                 <?php if (isset($user->groups['hr-managers'])) { ?>
@@ -82,8 +82,10 @@
     </header>
     <?php }
     } ?>
+    
+	<?php if ($meta['body_id'] == 'home') { print "<div class='contact-number'><strong>1-647-348-6784</strong></div>"; }?>
+	
     <section id="container" <?php if ($meta['body_id'] == 'home') { print 'class="home"'; } ?>>
-
  <?php /* if(isset($signUpPages) && is_array($signUpPages) && in_array($_GET['p'], $signUpPages)) { ?>
              <ul id="steps">
                 <li<?php if ($_GET['p'] == 'hr-signup') { ?> class="current"<?php } ?>><span>1</span>Create a HR Account</li>
