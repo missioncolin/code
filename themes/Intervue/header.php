@@ -83,9 +83,10 @@
     <?php }
     } ?>
     
-	<?php if ($meta['body_id'] == 'home') { print "<div class='contact-number'><strong>1-647-348-6784</strong></div>"; }?>
+	
 	
     <section id="container" <?php if ($meta['body_id'] == 'home') { print 'class="home"'; } ?>>
+    <?php if ($meta['body_id'] == 'home') { print "<div class='contact-number'><strong>1-647-348-6784</strong></div>"; }?>
  <?php /* if(isset($signUpPages) && is_array($signUpPages) && in_array($_GET['p'], $signUpPages)) { ?>
              <ul id="steps">
                 <li<?php if ($_GET['p'] == 'hr-signup') { ?> class="current"<?php } ?>><span>1</span>Create a HR Account</li>
