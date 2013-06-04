@@ -2,7 +2,16 @@
 		<h2>Hire Better. Hire Faster. Hire Smarter</h2>
 		<h3>The #1 Online Recruiting Tool</h3>
 		
-		<div class="videoHome"><a href="/how-it-works"><img src="/themes/Intervue/img/homeImage.png" alt="homeImage" width="330" height="210" /></a></div>
+		<div class="videoHome">
+			
+			<video width="320" height="225" controls>
+			  <source src="/themes/Intervue/video/job_creator_0605_H.m4v" type="video/mp4">
+			  <source src="/themes/Intervue/video/job_creator_0605_H.ogv" type="video/ogg">
+			  <source src="/themes/Intervue/video/job_creator_0605_H.webm" type="video/webm">
+			</video>
+
+		
+		</div>
 		<div class="homeContent">
 			<h4 id="manage">Manage</h4>
 			<p>All applicants information is sorted and organized for you</p>

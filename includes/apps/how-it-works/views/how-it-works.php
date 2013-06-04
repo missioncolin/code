@@ -30,9 +30,20 @@
 	
 	<div id="sectionOne">
 		
-		<h2>See How it Works<i class="icon arrowCurved"><img src="/themes/Intervue/img/arrowCurved.png" alt="arrowCurved" width="87" height="76" /></i></h2>
+		<h2>See How it Works<i class="icon arrowCurved"><img src="../../themes/Intervue/img/arrowCurved.png" alt="arrowCurved" width="87" height="76" /></i></h2>
 	
-		<div class="videoBox"><img src="/themes/Intervue/img/how-it-works-video-placeholder.png" alt="how-it-works-video-placeholder" width="500" height="325" /></div>
+		<div class="videoBox">
+
+			<video width="500" height="325" controls>
+			  <source src="/themes/Intervue/video/job_creator_0605_H.m4v" type="video/mp4">
+			  <source src="/themes/Intervue/video/job_creator_0605_H.ogv" type="video/ogg">
+			  <source src="/themes/Intervue/video/job_creator_0605_H.webm" type="video/webm">
+			</video>
+    
+		</div>	
+
+
+<!--<img src="/themes/Intervue/img/how-it-works-video-placeholder.png" alt="how-it-works-video-placeholder" width="500" height="325" />-->
 	
 		<ul>
 		    <li>
